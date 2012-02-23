@@ -1,4 +1,18 @@
 Sistema::Application.routes.draw do
+  resources :materiales_pop
+
+  resources :organizadores
+
+  resources :participantes_mates
+
+  resources :preguntas
+
+  resources :participantes
+
+  resources :zonas
+  
+  match '/entregaDeMaterial', :to => 'participantes_mates#new'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
