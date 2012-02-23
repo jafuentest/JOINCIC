@@ -1,0 +1,96 @@
+﻿body {
+  background-image:url('/images/fondo.jpg');
+}
+
+header {
+  padding-top: 20px;
+}
+
+header img {
+  padding: 2px;
+  background: #000;
+}
+
+section {
+  margin-top: 10px;
+  font-size: 125%;
+  padding: 20px;
+  background: #DDF;
+}
+
+tbody tr:nth-child(even) td, tbody tr.even td {
+background: #EEF;
+}
+
+section h1 {
+  font-size: 200%;
+}
+
+
+/* Barra de navegación superior */
+
+nav {
+  background: #BBF;
+  float: right;
+  padding: 0 0.7em;
+  white-space: nowrap;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  list-style-type: none;
+  display: inline-block;
+  padding: 0.2em 0;
+}
+
+nav ul li a {
+  padding: 0 5px;
+  font-weight: bold;
+  font-size: 125%;
+  color: #000;
+  text-decoration: none;
+}
+
+nav ul li a:hover {
+  color: #F5DEB3;
+  text-decoration: none;
+}
+
+
+/* Barra inferior */
+
+footer {
+  text-align: center;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+footer nav {
+  float: none;
+}
+
+/* Boton "Crear Cuenta" */
+a.signup_button {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  text-align: center;
+  width: 150px;
+  color: #000;
+  background: #930;
+  font-size: 150%;
+  font-weight: bold;
+  padding: 10px;
+}
+
+/* Esquinas redondas */
+.round {
+  -moz-border-radius:    10px;
+  -webkit-border-radius: 10px;
+  border-radius:         10px;
+}
