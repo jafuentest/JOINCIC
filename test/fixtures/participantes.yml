@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  ci_par: 1
+  nombre: MyString
+  seg_nombre: MyString
+  apellido: MyString
+  seg_apellido: MyString
+  fecha_nac: 2012-02-14
+  telefono: 1
+  correo: MyString
+  direccion: MyString
+  institucion: MyString
+  nivel: 1
+  comida: false
+  id_zona: 1
+
+two:
+  ci_par: 1
+  nombre: MyString
+  seg_nombre: MyString
+  apellido: MyString
+  seg_apellido: MyString
+  fecha_nac: 2012-02-14
+  telefono: 1
+  correo: MyString
+  direccion: MyString
+  institucion: MyString
+  nivel: 1
+  comida: false
+  id_zona: 1
