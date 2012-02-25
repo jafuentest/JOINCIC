@@ -1,4 +1,10 @@
 Sistema::Application.routes.draw do
+  get "home/inicio"
+
+  get "home/academico"
+
+  get "home/patrocinio"
+
   resources :materiales_pop
 
   resources :organizadores
@@ -12,6 +18,10 @@ Sistema::Application.routes.draw do
   resources :zonas
   
   match '/entregaDeMaterial', :to => 'participantes_mates#new'
+	
+	match '/inicio', :to => 'home#inicio'
+	
+	root :to => 'home#inicio'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

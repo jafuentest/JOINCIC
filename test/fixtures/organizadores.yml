@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  usuario: MyString
+  clave: MyString
+  ci_org: 1
+  nombre: MyString
+  seg_nombre: MyString
+  apellido: MyString
+  seg_apellido: MyString
+  fecha_nac: 2012-02-14
+  telefono: 1
+  correo: MyString
+  direccion: MyString
+  institucion: MyString
+  nivel: 1
+  coordinacion: MyString
+  coordinador: false
+
+two:
+  usuario: MyString
+  clave: MyString
+  ci_org: 1
+  nombre: MyString
+  seg_nombre: MyString
+  apellido: MyString
+  seg_apellido: MyString
+  fecha_nac: 2012-02-14
+  telefono: 1
+  correo: MyString
+  direccion: MyString
+  institucion: MyString
+  nivel: 1
+  coordinacion: MyString
+  coordinador: false

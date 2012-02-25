@@ -1,0 +1,24 @@
+﻿<h1>Página principal</h1>
+<p>Aquí van los accesos directos a las funcionalidades principales del sistema</p>
+<table class="menu">
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+  <tr>
+    <td><%= link_to "Registrar participante", new_participante_path %></td>
+    <td><%= link_to "Entrega de material POP", '/' %></td>
+    <td><%= link_to "Inscribir participante en mesa de trabajo", '/' %></td>
+  </tr>
+  <tr>
+    <td><%= link_to "Registrar organizador", new_organizador_path %></td>
+    <td><%= link_to "Comidas", '/' %></td>
+    <td><%= link_to "Rifar mesas de trabajo", '/' %></td>
+  </tr>
+  <tr>
+    <td><%= link_to "Generar reportes", '/' %></td>
+    <td><%= link_to "Rifar premios", '/' %></td>
+    <td><%= link_to "Lista de participantes seleccionados para mesas de trabajo", '/' %></td>
+  </tr>
+</table>

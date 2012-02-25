@@ -1,0 +1,32 @@
+﻿<h1>Lista de organizadores (<%= @organizadores.size %>)</h1>
+
+<table class="list">
+  <tr>
+    <th>Nombre</th>
+    <th>Teléfono</th>
+    <th>Correo</th>
+    <th>Dirección</th>
+    <th>Institución</th>
+    <th>Coordinación</th>
+    <th colspan="3">Opciones</th>
+  </tr>
+
+<% @organizadores.each do |organizador| %>
+  <% fullName = organizador.nombre + " " + organizador.apellido %>
+  <tr>
+    <td><%= fullName %></td>
+    <td><%= organizador.telefono %></td>
+    <td><%= organizador.correo %></td>
+    <td><%= organizador.direccion %></td>
+    <td><%= organizador.institucion %></td>
+    <td><%= organizador.coordinacion %></td>
+    <td><%= link_to image_tag("/show.png", :alt => "Mostrar"), organizador %></td>
+    <td><%= link_to image_tag("/edit.png", :alt => "Modificar"), edit_organizador_path(organizador) %></td>
+    <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), organizador, confirm: "¿Seguro que desea eliminar a " + fullName + "?", method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Agregar Organizador', new_organizador_path %>
