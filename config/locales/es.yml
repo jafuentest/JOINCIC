@@ -66,3 +66,19 @@ es:
       odd: "debe ser impar"
       even: "debe ser par"
       taken: "ya está tomado"
+
+  attributes:
+    ci_par: "Cédula"
+    ci_org: "Cédula"
+    seg_nombre: "Segundo Nombre"
+    seg_apellido: "Segundo Apellido"
+    telefono: "Teléfono"
+    direccion: "Dirección"
+    institucion: "Institución"
+  
+  helpers:
+    submit:
+      create: "Crear %{model}"
+      update: "Actualizar %{model}"
+      post:
+        create: "Agregar %{model}"

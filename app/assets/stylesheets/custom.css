@@ -1,34 +1,51 @@
-﻿body {
-  background-image:url('/images/fondo.jpg');
-}
-
-header {
-  padding-top: 20px;
-}
-
-header img {
-  padding: 2px;
-  background: #000;
-}
-
-section {
+﻿section {
   margin-top: 10px;
-  font-size: 125%;
   padding: 20px;
   background: #DDF;
 }
 
-tbody tr:nth-child(even) td, tbody tr.even td {
-background: #EEF;
+table.formulario  {
+  width:600px;
+}
+table.formulario tr td {
+  text-align:right;
+}
+table.formularioS {
+  width:200px;
+}
+table.formularioS tr td {
+  text-align:right;
 }
 
-section h1 {
-  font-size: 200%;
+table.lista {
+  margin-left: auto;
+  margin-right: auto;
+  width:600px;
+}
+table.listaS {
+  margin-left: auto;
+  margin-right: auto;
+  width:400px;
+}
+table.listaS {
+  text-align: center;
 }
 
+table.menu {
+  text-align:center;
+  margin-left: auto;
+  margin-right: auto;
+  width:500px;
+}
+table.menu tr td{
+  width:33%;
+}
+
+table.list tbody tr:nth-child(even) td, table.list tbody tr.even td {
+  background: #EEF;
+}
 
 /* Barra de navegación superior */
-
 nav {
   background: #BBF;
   float: right;
@@ -56,20 +73,17 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-  color: #F5DEB3;
+  color: #EEF;
   text-decoration: none;
 }
 
-
 /* Barra inferior */
-
 footer {
   text-align: center;
   margin-top: 10px;
   margin-left: auto;
   margin-right: auto;
 }
-
 footer nav {
   float: none;
 }
