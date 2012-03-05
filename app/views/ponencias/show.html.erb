@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Titulo:</b>
+  <%= @ponencia.titulo %>
+</p>
+
+<p>
+  <b>Tema:</b>
+  <%= @ponencia.tema %>
+</p>
+
+<p>
+  <b>Descripcion:</b>
+  <%= @ponencia.descripcion %>
+</p>
+
+<p>
+  <b>Dia:</b>
+  <%= @ponencia.dia %>
+</p>
+
+<p>
+  <b>Hora ini:</b>
+  <%= @ponencia.hora_ini %>
+</p>
+
+<p>
+  <b>Hora fin:</b>
+  <%= @ponencia.hora_fin %>
+</p>
+
+<p>
+  <b>Id ponente:</b>
+  <%= @ponencia.id_ponente %>
+</p>
+
+<p>
+  <b>Id pat:</b>
+  <%= @ponencia.id_pat %>
+</p>
+
+
+<%= link_to 'Edit', edit_ponencia_path(@ponencia) %> |
+<%= link_to 'Back', ponencias_path %>

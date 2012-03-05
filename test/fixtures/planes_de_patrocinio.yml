@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  nombre: MyString
+  precio: 1
+  beneficios: MyText
+
+two:
+  nombre: MyString
+  precio: 1
+  beneficios: MyText

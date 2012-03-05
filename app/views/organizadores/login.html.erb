@@ -1,0 +1,45 @@
+﻿<h1>Inicio de sesión</h1>
+<p id="notice"><%= notice %></p>
+
+<div align="center">
+  <%= form_for(:login, :url => "validar") do |f| %>
+    <% if :login.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(:login.errors.count, "error prohibió", "errores prohibieron") %> guardar el organizador:</h2>
+        <ul>
+        <% :login.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+  
+    <table class="formularioS">
+      <tr>
+        <th></th>
+      </tr>
+      <tr>
+        <td>
+          <div class="field">
+            <%= f.label      :usuario %>
+            <%= f.text_field :usuario, :size => 20, :maxlength => 15 %>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div class="field">
+            <%= f.label          :clave %>
+            <%= f.password_field :clave, :size => 20, :maxlength => 8 %>
+          </div>
+        </td>
+      </tr>
+    </table>
+    
+    <br />
+    
+    <div class="actions">
+      <%= f.submit "Iniciar sesión" %>
+    </div>
+  <% end %>
+</div>

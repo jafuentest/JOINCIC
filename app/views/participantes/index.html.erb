@@ -1,33 +1,31 @@
 ﻿<h1>Lista de participantes (<%= @participantes.size %>)</h1>
 
-<div align="center">
-  <table class="list">
-    <tr>
-      <th>Nombre(s)</th>
-      <th>Apellido(s)</th>
-      <th>Institución</th>
-      <th>Nivel</th>
-      <th>Zona</th>
+<table class="lista">
+  <tr>
+    <th>Nombre(s)</th>
+    <th>Apellido(s)</th>
+    <th>Institución</th>
+    <th>Nivel</th>
+    <th>Zona</th>
     <th>Fecha de Compra</th>
-      <th colspan="3">Opciones</th>
-    </tr>
+    <th colspan="3">Opciones</th>
+  </tr>
 
-  <% @participantes.each do |participante| %>
-    <% fullName = participante.nombre + " " + participante.apellido %>
-    <tr>
-      <td><%= participante.nombre + " " + participante.seg_nombre %></td>
-      <td><%= participante.apellido + " " + participante.seg_apellido %></td>
-      <td><%= participante.institucion %></td>
-      <td><%= participante.nivel %></td>
-      <td><%= Zona.find(participante.id_zona).nombre %></td>
-    <td><%= participante.created_at.to_formatted_s(:short) %></td>
-      <td><%= link_to image_tag("/show.png", :alt => "Mostrar"), participante %></td>
+<% @participantes.each do |participante| %>
+  <% fullName = participante.nombre + " " + participante.apellido %>
+  <tr>
+    <td><%= participante.nombre + " " + participante.seg_nombre %></td>
+    <td><%= participante.apellido + " " + participante.seg_apellido %></td>
+    <td align=center><%= participante.institucion %></td>
+    <td align=center><%= participante.nivel %></td>
+    <td align=center><%= Zona.find(participante.id_zona).nombre %></td>
+    <td align=center><%= I18n.l participante.created_at.in_time_zone('Caracas').to_date, :format => :medio %></td>
+    <td><%= link_to image_tag("/show.png", :alt => "Mostrar"), participante %></td>
     <td><%= link_to image_tag("/edit.png", :alt => "Modificar"), edit_participante_path(participante) %></td>
-      <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), participante, confirm: "¿Seguro que desea eliminar a " + fullName + "?", method: :delete %></td>
-    </tr>
-  <% end %>
-  </table>
-</div>
+    <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), participante, confirm: "¿Seguro que desea eliminar a " + fullName + "?", method: :delete %></td>
+  </tr>
+<% end %>
+</table>
 
 <br />
 

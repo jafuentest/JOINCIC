@@ -1,169 +1,193 @@
 CREATE TABLE ORGANIZADORES
 (
-	id_org			INTEGER(2)	NOT NULL AUTO_INCREMENT,
+	id_org			INTEGER		NOT NULL AUTO_INCREMENT,
 	usuario			VARCHAR(15) NOT NULL UNIQUE,
 	clave			VARCHAR(15)	NOT NULL,
-	ci_org			INTEGER(8)	NOT NULL UNIQUE,
+	cedula			INTEGER		NOT NULL UNIQUE,
 	nombre			VARCHAR(15)	NOT NULL,
 	seg_nombre		VARCHAR(15),
 	apellido		VARCHAR(15)	NOT NULL,
 	seg_apellido	VARCHAR(15),
 	fecha_nac		DATE		NOT NULL,
-	telefono		INTEGER(11)	NOT NULL,
+	telefono		VARCHAR(11)	NOT NULL,
 	correo			VARCHAR(25)	NOT NULL,
 	direccion		VARCHAR(50)	NOT NULL,
 	institucion		VARCHAR(5)	NOT NULL,
-	nivel			INTEGER(2) 	NOT NULL,
+	nivel			INTEGER 	NOT NULL,
 	coordinacion	VARCHAR(15)	NOT NULL,
-	coordinador		INTEGER(1)	NULL DEFAULT '0',
+	coordinador		INTEGER		DEFAULT '0',
 	
 	PRIMARY KEY (id_org)
-) CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE PARTICIPANTES
 (
-	id_par			INTEGER(3)	NOT NULL AUTO_INCREMENT,
-	ci_par			INTEGER(8)	NOT NULL UNIQUE,
+	id_par			INTEGER		NOT NULL AUTO_INCREMENT,
+	cedula			INTEGER		NOT NULL UNIQUE,
 	nombre			VARCHAR(15)	NOT NULL,
 	seg_nombre		VARCHAR(15),
 	apellido		VARCHAR(15)	NOT NULL,
 	seg_apellido	VARCHAR(15),
 	fecha_nac		DATE		NOT NULL,
-	telefono		INTEGER(11)	NOT NULL,
+	telefono		VARCHAR(11)	NOT NULL,
 	correo			VARCHAR(25)	NOT NULL,
 	direccion		VARCHAR(50)	NOT NULL,
-	institucion		VARCHAR(5)	NOT NULL,
-	nivel			INTEGER(2)	NOT NULL,
-	comida			INTEGER(1)	NOT NULL DEFAULT '0',
-	id_zona			INTEGER(1)	NOT NULL,
+	institucion		VARCHAR(20)	NOT NULL,
+	nivel			INTEGER		NOT NULL,
+	id_zona			INTEGER		NOT NULL,
+	comida			INTEGER		DEFAULT '0',
+	eliminado		INTEGER		DEFAULT '0',
+	created_at		DATETIME,
 	
 	PRIMARY KEY (id_par)
-) CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE PONENTES
 (
-	id_ponente		INTEGER(2)	NOT NULL AUTO_INCREMENT,
-	ci_ponente		INTEGER(8)	NOT NULL,
+	id_ponente		INTEGER		NOT NULL AUTO_INCREMENT,
+	cedula			INTEGER		NOT NULL,
 	nombre			VARCHAR(15)	NOT NULL,
 	seg_nombre		VARCHAR(15),
 	apellido		VARCHAR(15)	NOT NULL,
 	seg_apellido	VARCHAR(15),
-	telefono		INTEGER(11)	NOT NULL,
-	telefono2		INTEGER(11),
+	telefono		VARCHAR(11)	NOT NULL,
+	telefono2		VARCHAR(11),
 	correo			VARCHAR(25)	NOT NULL,
-	institucion		VARCHAR(5)	NOT NULL,
+	institucion		VARCHAR(20)	NOT NULL,
 	
 	PRIMARY KEY (id_ponente)
-) CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+CREATE TABLE PLANES_DE_PATROCINIO
+(
+	id_plan		INTEGER			NOT NULL AUTO_INCREMENT,
+	nombre		VARCHAR(10)		NOT NULL,
+	precio		INTEGER			NOT NULL,
+	beneficios	TEXT			NOT NULL,
+	
+	PRIMARY KEY (id_plan)
+) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE PATROCINANTES
 (
-	id_pat		INTEGER(2)	NOT NULL AUTO_INCREMENT,
-	rif			INTEGER(8)	NOT NULL,
-	nombre		VARCHAR(15)	NOT NULL,
-	aporte		INTEGER(5)	NOT NULL,
-	comentario	VARCHAR(50),
+	id_pat		INTEGER			NOT NULL AUTO_INCREMENT,
+	rif			VARCHAR(12)		NOT NULL,
+	nombre		VARCHAR(30)		NOT NULL,
+	aporte		INTEGER			NOT NULL,
+	comentario	TEXT,
+	logo		BLOB,
+	id_plan		INTEGER			NOT NULL,
 	
 	PRIMARY KEY (id_pat)
-) CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE PONENCIAS
 (
-	id_pon			INTEGER(2)		NOT NULL AUTO_INCREMENT,
+	id_pon			INTEGER			NOT NULL AUTO_INCREMENT,
 	titulo			VARCHAR(25)		NOT NULL,
 	tema			VARCHAR(25)		NOT NULL,
 	descripcion		VARCHAR(255)	NOT NULL,
 	dia				DATE			NOT NULL,
-	hora_ini		DATE			NOT NULL,
-	hora_fin		DATE			NOT NULL,
-	id_ponente		INTEGER(2)		NOT NULL,
-	id_pat			INTEGER(2),
+	hora_ini		TIME			NOT NULL,
+	hora_fin		TIME			NOT NULL,
+	id_ponente		INTEGER			NOT NULL,
+	id_pat			INTEGER,
 	
 	PRIMARY KEY (id_pon)
-) CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE MESAS_DE_TRABAJO
 (
-	id_mesa			INTEGER(2)		NOT NULL AUTO_INCREMENT,
+	id_mesa			INTEGER			NOT NULL AUTO_INCREMENT,
 	titulo			VARCHAR(25)		NOT NULL,
 	tema			VARCHAR(25)		NOT NULL,
 	descripcion		VARCHAR(255)	NOT NULL,
 	dia				DATE			NOT NULL,
-	hora_ini		DATE			NOT NULL,
-	hora_fin		DATE			NOT NULL,
+	hora_ini		TIME			NOT NULL,
+	hora_fin		TIME			NOT NULL,
 	lugar			VARCHAR(25)		NOT NULL,
-	capacidad		INTEGER(3)		NOT NULL,
+	capacidad		INTEGER			NOT NULL,
 	requerimientos	VARCHAR(255)	NOT NULL,
-	id_ponente		INTEGER(2)		NOT NULL,
-	id_pat			INTEGER(2),
+	id_ponente		INTEGER			NOT NULL,
+	id_pat			INTEGER,
 	
 	PRIMARY KEY (id_mesa)
-) CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE MATERIALES_POP
 (
-	id_mat		INTEGER(1)		NOT NULL AUTO_INCREMENT,
+	id_mat		INTEGER			NOT NULL AUTO_INCREMENT,
 	nombre		VARCHAR(20)		NOT NULL,
-	cantidad	INTEGER(4)		NOT NULL,
+	cantidad	INTEGER			NOT NULL,
 	
 	PRIMARY KEY (id_mat)
-) CHARACTER SET utf8 COLLATE utf8_spanish_ci;
-
-CREATE TABLE RIFAS
-(
-	id_rifa		INTEGER(2)		NOT NULL AUTO_INCREMENT,
-	id_pat		INTEGER(2)		NOT NULL,
-	nombre		VARCHAR(50)		NOT NULL,
-	cantidad	INTEGER(2)		NOT NULL,
-	
-	PRIMARY KEY (id_rifa)
-) CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE PREGUNTAS
 (
-	id_pre		INTEGER(4)		NOT NULL AUTO_INCREMENT,
+	id_pre		INTEGER			NOT NULL AUTO_INCREMENT,
 	pregunta	VARCHAR(255)	NOT NULL,
-	id_par		INTEGER(3)		NOT NULL,
-	id_pon		INTEGER(2)		NOT NULL,
+	id_par		INTEGER			NOT NULL,
+	id_pon		INTEGER			NOT NULL,
 	
 	PRIMARY KEY (id_pre)
-) CHARACTER SET utf8 COLLATE utf8_spanish_ci;
+) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 CREATE TABLE ZONAS
 (
-	id_zona		INTEGER(1)	NOT NULL AUTO_INCREMENT,
-	nombre		VARCHAR(1)	NOT NULL,
-	capacidad	INTEGER(3)	NOT NULL,
+	id_zona		INTEGER		NOT NULL AUTO_INCREMENT,
+	nombre		VARCHAR(10)	NOT NULL,
+	capacidad	INTEGER		NOT NULL,
 	
 	PRIMARY KEY (id_zona)
 );
 
+CREATE TABLE PREMIOS
+(
+	id_premio	INTEGER			NOT NULL AUTO_INCREMENT,
+	nombre		VARCHAR(50)		NOT NULL,
+	cantidad	INTEGER			NOT NULL,
+	id_pat		INTEGER			NOT NULL,
+	id_rifa		INTEGER			NOT NULL,
+	
+	PRIMARY KEY (id_premio)
+) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+CREATE TABLE RIFAS
+(
+	id_rifa	INTEGER		NOT NULL AUTO_INCREMENT,
+	nombre	VARCHAR(20)	NOT NULL,
+	
+	PRIMARY KEY (id_rifa)
+) CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+CREATE TABLE SORTEOS
+(
+	id_sorteo	INTEGER		NOT NULL AUTO_INCREMENT,
+	id_par		INTEGER		NOT NULL,
+	id_premio	INTEGER		NOT NULL,
+	entregado	INTEGER		DEFAULT '0',
+	
+	PRIMARY KEY (id_sorteo)
+);
+
 CREATE TABLE PARTICIPANTES_MATES
 (
-	id_par_mat	INTEGER(4)	NOT NULL AUTO_INCREMENT,
-	id_par		INTEGER(3)	NOT NULL,
-	id_mat		INTEGER(1)	NOT NULL,
-	entregado	INTEGER(1)	DEFAULT '0',
+	id_par_mat	INTEGER		NOT NULL AUTO_INCREMENT,
+	id_par		INTEGER		NOT NULL,
+	id_mat		INTEGER		NOT NULL,
+	entregado	INTEGER		NOT NULL,
 	
 	PRIMARY KEY (id_par_mat)
 );
 
-CREATE TABLE PARTICIPANTES_RIFAS
-(
-	id_par_rifa	INTEGER(2)	NOT NULL AUTO_INCREMENT,
-	id_par		INTEGER(3)	NOT NULL,
-	id_rifa		INTEGER(2)	NOT NULL,
-	entregado	INTEGER(1)	DEFAULT '0',
-	
-	PRIMARY KEY (id_par_rifa)
-);
-
 CREATE TABLE PARTICIPANTES_MESAS
 (
-	id_par_mesa		INTEGER(4)	NOT NULL AUTO_INCREMENT,
-	id_par			INTEGER(3)	NOT NULL,
-	id_mesa			INTEGER(2)	NOT NULL,
-	seleccionado	INTEGER(1)	DEFAULT '0',
+	id_par_mesa		INTEGER		NOT NULL AUTO_INCREMENT,
+	id_par			INTEGER		NOT NULL,
+	id_mesa			INTEGER		NOT NULL,
+	prioridad		INTEGER		NOT NULL,
+	seleccionado	INTEGER		DEFAULT '0',
 	
 	PRIMARY KEY (id_par_mesa)
 );
@@ -177,6 +201,9 @@ FOREIGN KEY (id_ponente) REFERENCES PONENTES (id_ponente);
 ALTER TABLE PONENCIAS ADD CONSTRAINT FK_ponencia_patrocinante
 FOREIGN KEY (id_pat) REFERENCES PATROCINANTES (id_pat);
 
+ALTER TABLE PATROCINANTES ADD CONSTRAINT FK_patrocinante_plan
+FOREIGN KEY (id_plan) REFERENCES PLANES_DE_PATROCINIO (id_plan);
+
 ALTER TABLE MESAS_DE_TRABAJO ADD CONSTRAINT FK_mesa_ponente
 FOREIGN KEY (id_ponente) REFERENCES PONENTES (id_ponente);
 
@@ -189,14 +216,17 @@ FOREIGN KEY (id_par) REFERENCES PARTICIPANTES (id_par);
 ALTER TABLE PREGUNTAS ADD CONSTRAINT FK_pregunta_ponencia
 FOREIGN KEY (id_pon) REFERENCES PONENCIAS (id_pon);
 
-ALTER TABLE RIFAS ADD CONSTRAINT FK_rifa_patrocinante
+ALTER TABLE PREMIOS ADD CONSTRAINT FK_premio_patrocinante
 FOREIGN KEY (id_pat) REFERENCES PATROCINANTES (id_pat);
 
-ALTER TABLE PARTICIPANTES_RIFAS ADD CONSTRAINT FK_par_rifa_participante
+ALTER TABLE PREMIOS ADD CONSTRAINT FK_premio_rifa
+FOREIGN KEY (id_rifa) REFERENCES RIFAS (id_rifa);
+
+ALTER TABLE SORTEOS ADD CONSTRAINT FK_sorteo_participante
 FOREIGN KEY (id_par) REFERENCES PARTICIPANTES (id_par);
 
-ALTER TABLE PARTICIPANTES_RIFAS ADD CONSTRAINT FK_par_rifa_rifa
-FOREIGN KEY (id_rifa) REFERENCES RIFAS (id_rifa);
+ALTER TABLE SORTEOS ADD CONSTRAINT FK_sorteo_premio
+FOREIGN KEY (id_premio) REFERENCES PREMIOS (id_premio);
 
 ALTER TABLE PARTICIPANTES_MESAS ADD CONSTRAINT FK_par_mesa_participante
 FOREIGN KEY (id_par) REFERENCES PARTICIPANTES (id_par);

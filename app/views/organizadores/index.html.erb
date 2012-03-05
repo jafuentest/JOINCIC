@@ -1,6 +1,6 @@
 ﻿<h1>Lista de organizadores (<%= @organizadores.size %>)</h1>
 
-<table class="list">
+<table class="lista">
   <tr>
     <th>Nombre</th>
     <th>Teléfono</th>
@@ -18,8 +18,8 @@
     <td><%= organizador.telefono %></td>
     <td><%= organizador.correo %></td>
     <td><%= organizador.direccion %></td>
-    <td><%= organizador.institucion %></td>
-    <td><%= organizador.coordinacion %></td>
+    <td align=center><%= organizador.institucion %></td>
+    <td align=center><%= organizador.coordinacion %></td>
     <td><%= link_to image_tag("/show.png", :alt => "Mostrar"), organizador %></td>
     <td><%= link_to image_tag("/edit.png", :alt => "Modificar"), edit_organizador_path(organizador) %></td>
     <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), organizador, confirm: "¿Seguro que desea eliminar a " + fullName + "?", method: :delete %></td>

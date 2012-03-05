@@ -1,0 +1,37 @@
+pre {
+  background-color: #cc0;
+  padding: 10px;
+  font-size: 11px;
+}
+
+#notice {
+  color: green;
+}
+
+.field_with_errors {
+  padding: 1px;
+  background-color: red;
+  color: #fff;
+}
+
+.field_with_errors label, .field_with_errors input{
+  margin:0.5em;
+}
+
+#error_explanation {
+  width: 450px;
+  border: 2px solid red;
+  padding: 10px;
+  margin-bottom: 20px;
+  background-color: #eee;
+}
+
+#error_explanation h2 {
+    font-weight: bold;
+    padding: 10px;
+    font-size: 1.5em;
+    margin: -10px;
+    margin-bottom: 10px;
+    background-color: #c00;
+    color: #fff;
+}

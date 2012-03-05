@@ -1,0 +1,39 @@
+<h1>Listing ponentes</h1>
+
+<table>
+  <tr>
+    <th>Cedula</th>
+    <th>Nombre</th>
+    <th>Seg nombre</th>
+    <th>Apellido</th>
+    <th>Seg apellido</th>
+    <th>Telefono</th>
+    <th>Telefono2</th>
+    <th>Correo</th>
+    <th>Institucion</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @ponentes.each do |ponente| %>
+  <tr>
+    <td><%= ponente.cedula %></td>
+    <td><%= ponente.nombre %></td>
+    <td><%= ponente.seg_nombre %></td>
+    <td><%= ponente.apellido %></td>
+    <td><%= ponente.seg_apellido %></td>
+    <td><%= ponente.telefono %></td>
+    <td><%= ponente.telefono2 %></td>
+    <td><%= ponente.correo %></td>
+    <td><%= ponente.institucion %></td>
+    <td><%= link_to 'Show', ponente %></td>
+    <td><%= link_to 'Edit', edit_ponente_path(ponente) %></td>
+    <td><%= link_to 'Destroy', ponente, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Ponente', new_ponente_path %>
