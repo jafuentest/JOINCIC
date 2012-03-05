@@ -1,0 +1,49 @@
+<%= form_for(@participante_mesa) do |f| %>
+  <% if @participante_mesa.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@participante_mesa.errors.count, "error") %> prohibited this participante_mesa from being saved:</h2>
+
+      <ul>
+      <% @participante_mesa.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <table class="formularioS">
+    <tr>
+      <th></th>
+    </tr>
+    <tr>
+      <td>
+        <div class="field">
+          <%= f.label :participante %><br/>
+          <%= f.text_field :id_par, :size => 15, :maxlength => 8  %>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="field">
+          <%= f.label :mesa %><br/>
+          <%= f.select :id_mesa, @mesas.collect {|m| [ m.titulo, m.id ] } %>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="field">
+          <%= f.label :prioridad %><br/>
+          <%= f.number_field :prioridad, :in => 1..10 %>
+        </div>
+      </td>
+    </tr>
+  </table>
+  
+  <br />
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,37 @@
+<h1>Listing ponencias</h1>
+
+<table>
+  <tr>
+    <th>Titulo</th>
+    <th>Tema</th>
+    <th>Descripcion</th>
+    <th>Dia</th>
+    <th>Hora ini</th>
+    <th>Hora fin</th>
+    <th>Id ponente</th>
+    <th>Id pat</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @ponencias.each do |ponencia| %>
+  <tr>
+    <td><%= ponencia.titulo %></td>
+    <td><%= ponencia.tema %></td>
+    <td><%= ponencia.descripcion %></td>
+    <td><%= ponencia.dia %></td>
+    <td><%= ponencia.hora_ini %></td>
+    <td><%= ponencia.hora_fin %></td>
+    <td><%= ponencia.id_ponente %></td>
+    <td><%= ponencia.id_pat %></td>
+    <td><%= link_to 'Show', ponencia %></td>
+    <td><%= link_to 'Edit', edit_ponencia_path(ponencia) %></td>
+    <td><%= link_to 'Destroy', ponencia, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Ponencia', new_ponencia_path %>

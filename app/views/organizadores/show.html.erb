@@ -5,55 +5,45 @@
   <b>Nombre(s):</b>
   <%= @organizador.nombre + " " + @organizador.seg_nombre %>
 </p>
-
 <p>
   <b>Apellido(s):</b>
   <%= @organizador.apellido + " " + @organizador.seg_apellido %>
 </p>
-
 <p>
   <b>Cédula:</b>
-  <%= @organizador.ci_org %>
+  <%= @organizador.cedula %>
 </p>
-
 <p>
   <b>Fecha de Nacimiento:</b>
   <%= @organizador.fecha_nac %>
 </p>
-
 <p>
   <b>Teléfono:</b>
   <%= @organizador.telefono %>
 </p>
-
 <p>
   <b>Correo:</b>
   <%= @organizador.correo %>
 </p>
-
 <p>
   <b>Dirección:</b>
   <%= @organizador.direccion %>
 </p>
-
 <p>
   <b>Institución:</b>
   <%= @organizador.institucion %>
 </p>
-
 <p>
   <b>Nivel:</b>
   <%= @organizador.nivel %>
 </p>
-
 <p>
   <b>Coordinación:</b>
   <%= @organizador.coordinacion %>
   <% if @organizador.coordinador == 1 %>
   <%=   "(coordinador)" %>
   <% end %>
-</p>
-
+</p>S
 
 <%= link_to 'Modificar', edit_organizador_path(@organizador) %> |
 <%= link_to 'Volver a la lista', organizadores_path %>

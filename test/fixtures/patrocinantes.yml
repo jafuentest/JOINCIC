@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  rif: MyString
+  nombre: MyString
+  plan: 1
+  aporte: 1
+  comentario: 1
+
+two:
+  rif: MyString
+  nombre: MyString
+  plan: 1
+  aporte: 1
+  comentario: 1

@@ -1,0 +1,27 @@
+<h1>Listing preguntas</h1>
+
+<table>
+  <tr>
+    <th>Mensaje</th>
+    <th>Id par</th>
+    <th>Id pon</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @preguntas.each do |pregunta| %>
+  <tr>
+    <td><%= pregunta.mensaje %></td>
+    <td><%= pregunta.id_par %></td>
+    <td><%= pregunta.id_pon %></td>
+    <td><%= link_to 'Show', pregunta %></td>
+    <td><%= link_to 'Edit', edit_pregunta_path(pregunta) %></td>
+    <td><%= link_to 'Destroy', pregunta, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Pregunta', new_pregunta_path %>

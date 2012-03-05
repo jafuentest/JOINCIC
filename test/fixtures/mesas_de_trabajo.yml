@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  titulo: MyString
+  tema: MyString
+  descripcion: MyString
+  dia: 2012-02-25
+  hora_ini: 2012-02-25 19:34:16
+  hora_fin: 2012-02-25 19:34:16
+  lugar: MyString
+  capacidad: 1
+  requerimientos: MyString
+  id_ponente: 1
+  id_pat: 1
+
+two:
+  titulo: MyString
+  tema: MyString
+  descripcion: MyString
+  dia: 2012-02-25
+  hora_ini: 2012-02-25 19:34:16
+  hora_fin: 2012-02-25 19:34:16
+  lugar: MyString
+  capacidad: 1
+  requerimientos: MyString
+  id_ponente: 1
+  id_pat: 1
