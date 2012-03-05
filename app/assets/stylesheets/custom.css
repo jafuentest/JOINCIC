@@ -1,77 +1,117 @@
 ﻿section {
-  margin-top: 10px;
-  padding: 20px;
+  margin-top: 0.8em;
+  padding: 1.6em;
   background: #DDF;
+  border: 1px solid #BBF;
+  border-radius: 0.8em;
 }
 
-table.formulario  {
-  width:600px;
+table.formulario {
+  width:50em;
 }
 table.formulario tr td {
+  vertical-align:top;
   text-align:right;
+  line-height:3em;
 }
+
 table.formularioS {
-  width:200px;
+  width:15em;
 }
 table.formularioS tr td {
-  text-align:right;
+  text-align:center;
 }
 
 table.lista {
+  width:60em;
   margin-left: auto;
   margin-right: auto;
-  width:600px;
+  border: 1px solid #99E;
+  border-radius: 0.4em;
 }
+table.lista tr th{
+  background: #CCF;
+  border-bottom: 1px solid #99E;
+}
+table.lista tr th:first-child {
+  border-top-left-radius: 0.4em;
+}
+table.lista tr th:last-child {
+  border-top-right-radius: 0.4em;
+}
+table.lista tr:last-child td:first-child {
+  border-bottom-left-radius: 0.4em;
+}
+table.lista tr:last-child td:last-child {
+  border-bottom-right-radius: 0.4em;
+}
+
 table.listaS {
+  width:30em;
   margin-left: auto;
   margin-right: auto;
-  width:400px;
-}
-table.listaS {
   text-align: center;
+  border: 1px solid #99E;
+  border-radius: 0.4em;
+}
+table.listaS tr th{
+  background: #CCF;
+  border-bottom: 1px solid #99E;
+}
+table.listaS tr th:first-child {
+  border-top-left-radius: 0.4em;
+}
+table.listaS tr th:last-child {
+  border-top-right-radius: 0.4em;
+}
+table.listaS tr:last-child td:first-child {
+  border-bottom-left-radius: 0.4em;
+}
+table.listaS tr:last-child td:last-child {
+  border-bottom-right-radius: 0.4em;
 }
 
 table.menu {
+  width:39em;
   text-align:center;
   margin-left: auto;
   margin-right: auto;
-  width:500px;
 }
 table.menu tr td{
   width:33%;
 }
 
-table.list tbody tr:nth-child(even) td, table.list tbody tr.even td {
+table.lista tbody tr:nth-child(even) td, table.lista tbody tr.even td {
+  background: #EEF;
+}
+table.listaS tbody tr:nth-child(even) td, table.listaS tbody tr.even td {
   background: #EEF;
 }
 
-/* Barra de navegación superior */
+/* Barra superior */
 nav {
   background: #BBF;
   float: right;
   padding: 0 0.7em;
   white-space: nowrap;
+  border-radius: 0.8em;
 }
-
 nav ul {
   margin: 0;
   padding: 0;
 }
-
 nav ul li {
   list-style-type: none;
   display: inline-block;
   padding: 0.2em 0;
 }
-
 nav ul li a {
-  padding: 0 5px;
+  padding: 0 0.4em;
   font-weight: bold;
   font-size: 125%;
   color: #000;
   text-decoration: none;
 }
-
 nav ul li a:hover {
   color: #EEF;
   text-decoration: none;
@@ -80,7 +120,7 @@ nav ul li a:hover {
 /* Barra inferior */
 footer {
   text-align: center;
-  margin-top: 10px;
+  margin-top: 0.8em;
   margin-left: auto;
   margin-right: auto;
 }
@@ -88,23 +128,17 @@ footer nav {
   float: none;
 }
 
-/* Boton "Crear Cuenta" */
-a.signup_button {
+/* Boton grande */
+a.boton {
   margin-left: auto;
   margin-right: auto;
-  display: block;
   text-align: center;
-  width: 150px;
-  color: #000;
-  background: #930;
-  font-size: 150%;
+  padding: 0.8em;
+  text-decoration: none;
   font-weight: bold;
-  padding: 10px;
-}
-
-/* Esquinas redondas */
-.round {
-  -moz-border-radius:    10px;
-  -webkit-border-radius: 10px;
-  border-radius:         10px;
+  font-size: 150%;
+  color: #116;
+  background: #99E;
+  border: 2px solid #448;
+  border-radius: 1em;
 }

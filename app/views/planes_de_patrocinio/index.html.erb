@@ -1,0 +1,27 @@
+<h1>Listing planes_de_patrocinio</h1>
+
+<table>
+  <tr>
+    <th>Nombre</th>
+    <th>Precio</th>
+    <th>Beneficios</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @planes_de_patrocinio.each do |plan_de_patrocinio| %>
+  <tr>
+    <td><%= plan_de_patrocinio.nombre %></td>
+    <td><%= plan_de_patrocinio.precio %></td>
+    <td><%= plan_de_patrocinio.beneficios %></td>
+    <td><%= link_to 'Show', plan_de_patrocinio %></td>
+    <td><%= link_to 'Edit', edit_plan_de_patrocinio_path(plan_de_patrocinio) %></td>
+    <td><%= link_to 'Destroy', plan_de_patrocinio, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Plan de patrocinio', new_plan_de_patrocinio_path %>

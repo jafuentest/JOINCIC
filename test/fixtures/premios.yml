@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  nombre: MyString
+  cantidad: 1
+  id_pat: 1
+  id_rifa: 1
+
+two:
+  nombre: MyString
+  cantidad: 1
+  id_pat: 1
+  id_rifa: 1

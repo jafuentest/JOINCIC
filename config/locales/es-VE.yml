@@ -1,0 +1,180 @@
+﻿es-VE:
+  attributes:
+    cedula: "Cédula"
+    direccion: "Dirección"
+    fecha_nac: "Fecha de Nacimiento"
+    id_zona: "Zona"
+    institucion: "Institución"
+    seg_nombre: "Segundo Nombre"
+    seg_apellido: "Segundo Apellido"
+    telefono: "Teléfono"
+  
+  date:
+    abbr_day_names: [Dom, Lun, Mar, Mie, Jue, Vie, Sab]
+    abbr_month_names: [~, Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic]
+    day_names: [Domingo, Lunes, Martes, Miércoles, Jueves, Viernes, Sábado]
+    month_names: [~, Enero, Febero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre]
+    formats:
+      default: "%d-%m-%Y"
+      short: "%b %d"
+      medio: "%d de %B"
+      long: "%B %d, %Y"
+    order:
+      - :day
+      - :month
+      - :year
+  
+  datetime:
+    prompts:
+      day: Día
+      hour: Hora
+      minute: Minuto
+      month: Mes
+      second: Segundos
+      year: Año
+    distance_in_words:
+      half_a_minute: medio minuto
+      about_x_hours:
+        one: cerca de 1 hora
+        other: cerca de %{count} horas
+      about_x_months:
+        one: cerca de 1 mes
+        other: cerca de %{count} meses
+      about_x_years:
+        one: cerca de 1 año
+        other: cerca de %{count} años
+      almost_x_years:
+        one: casi 1 año
+        other: casi %{count} años
+      less_than_x_minutes:
+        one: menos de 1 minuto
+        other: menos de %{count} minutos
+      less_than_x_seconds:
+        one: menos de 1 segundo
+        other: menos de %{count} segundos
+      over_x_years:
+        one: más de 1 año
+        other: más de %{count} años
+      x_days:
+        one: 1 día
+        other: ! '%{count} días'
+      x_minutes:
+        one: 1 minuto
+        other: ! '%{count} minutos'
+      x_months:
+        one: 1 mes
+        other: ! '%{count} meses'
+      x_seconds:
+        one: 1 segundo
+        other: ! '%{count} segundos'
+  
+  time:
+    am: am
+    pm: pm
+    formats:
+      default: ! '%a, %d de %b de %Y a las %H:%M:%S %Z'
+      long: ! '%A, %d de %B de %Y a las %I:%M %p'
+      short: ! '%d de %b a las %H:%M hrs'
+  
+  support:
+    array:
+      last_word_connector: ! ' y '
+      two_words_connector: ! ' y '
+      words_connector: ! ', '
+  
+  errors:
+    format: "El campo %{attribute} %{message}"
+
+    # The values :model, :attribute and :value are always available for interpolation
+    # The value :count is available when applicable. Can be used for pluralization.
+    messages:
+      accepted: debe ser aceptado
+      blank: no puede estar en blanco
+      confirmation: no coincide con la confirmación
+      empty: no puede estar vacío
+      equal_to: debe ser igual a %{count}
+      even: debe ser un número par
+      exclusion: está reservado
+      greater_than: debe ser mayor que %{count}
+      greater_than_or_equal_to: debe ser mayor o igual que %{count}
+      inclusion: no está incluído en la lista
+      invalid: es inválido
+      less_than: debe ser menor que %{count}
+      less_than_or_equal_to: debe ser menor o igual a %{count}
+      not_a_number: debe ser un número
+      not_an_integer: debe ser un entero
+      odd: debe ser un número impar
+      record_invalid: ! 'Falló la validación: %{errors}'
+      taken: "ya está tomado"
+      too_long:
+        one: debe contener máximo 1 caracter
+        other: debe contener máximo %{count} caracteres
+      too_short:
+        one: debe contener mínimo 1 caracter
+        other: debe contener mínimo %{count} caracteres
+      wrong_length:
+        one:  debe contener 1 caracter
+        other: debe contener %{count} caracteres
+    template:
+      body: ! 'Revise que los siguientes campos sean válidos:'
+      header:
+        one: ! '%{model} no pudo guardarse debido a 1 error'
+        other: ! '%{model} no pudo guardarse debido a %{count} errores'
+        
+  helpers:
+    select:
+      prompt: Por favor seleccione
+    submit:
+      create: "Crear %{model}"
+      submit: "Guardar %{model}"
+      update: "Actualizar %{model}"
+      post:
+        create: "Agregar %{model}"
+  
+  number:
+    format:
+      delimiter: ! ','
+      precision: 2
+      separator: ','
+      significant: false
+      strip_insignificant_zeros: true
+    percentage:
+      format:
+        delimiter: ! ','
+    precision:
+      format:
+        delimiter: ! ','
+    currency:
+      format:
+        delimiter: ! ','
+        format: ! '%n %u'
+        precision: 2
+        separator: ','
+        significant: false
+        strip_insignificant_zeros: true
+        unit: $
+    human:
+      format:
+        delimiter: ! ','
+        precision: 3
+        significant: true
+        strip_insignificant_zeros: true
+      decimal_units:
+        format: ! '%n %u'
+        units:
+          unit: ''
+          thousand: mil
+          million: millón
+          billion: mil millones
+          trillion: billón
+          quadrillion: mil billones
+      storage_units:
+        format: ! '%n %u'
+        units:
+          byte:
+            one: Byte
+            other: Bytes
+          gb: Gb
+          kb: Kb
+          mb: Mb
+          tb: Tb

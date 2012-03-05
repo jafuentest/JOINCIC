@@ -14,20 +14,19 @@
   <table class="formularioS">
     <tr>
       <th></th>
-      <th></th>
     </tr>
     <tr>
       <td>
         <div class="field">
-          <%= f.label :nombre %>
-          <%= f.text_field :nombre, :size => 6, :maxlength => 1 %>
+          <%= f.label :nombre %><br />
+          <%= f.text_field :nombre, :size => 15, :maxlength => 1 %>
         </div>
       </td>
     </tr>
     <tr>
       <td>
         <div class="field">
-          <%= f.label :capacidad %>
+          <%= f.label :capacidad %><br />
           <%= f.number_field :capacidad, :in => 1..999 %>
         </div>
       </td>

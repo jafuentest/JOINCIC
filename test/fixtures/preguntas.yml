@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  mensaje: MyString
+  id_par: 1
+  id_pon: 1
+
+two:
+  mensaje: MyString
+  id_par: 1
+  id_pon: 1
