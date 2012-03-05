@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Id par:</b>
+  <%= @participante_mesa.id_par %>
+</p>
+
+<p>
+  <b>Id mesa:</b>
+  <%= @participante_mesa.id_mesa %>
+</p>
+
+<p>
+  <b>Prioridad:</b>
+  <%= @participante_mesa.prioridad %>
+</p>
+
+<p>
+  <b>Seleccionado:</b>
+  <%= @participante_mesa.seleccionado %>
+</p>
+
+
+<%= link_to 'Edit', edit_participante_mesa_path(@participante_mesa) %> |
+<%= link_to 'Back', participantes_mesas_path %>

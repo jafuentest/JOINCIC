@@ -1,0 +1,53 @@
+<%= form_for(@ponente) do |f| %>
+  <% if @ponente.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@ponente.errors.count, "error") %> prohibited this ponente from being saved:</h2>
+
+      <ul>
+      <% @ponente.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :cedula %><br />
+    <%= f.number_field :cedula %>
+  </div>
+  <div class="field">
+    <%= f.label :nombre %><br />
+    <%= f.text_field :nombre %>
+  </div>
+  <div class="field">
+    <%= f.label :seg_nombre %><br />
+    <%= f.text_field :seg_nombre %>
+  </div>
+  <div class="field">
+    <%= f.label :apellido %><br />
+    <%= f.text_field :apellido %>
+  </div>
+  <div class="field">
+    <%= f.label :seg_apellido %><br />
+    <%= f.text_field :seg_apellido %>
+  </div>
+  <div class="field">
+    <%= f.label :telefono %><br />
+    <%= f.text_field :telefono %>
+  </div>
+  <div class="field">
+    <%= f.label :telefono2 %><br />
+    <%= f.text_field :telefono2 %>
+  </div>
+  <div class="field">
+    <%= f.label :correo %><br />
+    <%= f.text_field :correo %>
+  </div>
+  <div class="field">
+    <%= f.label :institucion %><br />
+    <%= f.text_field :institucion %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

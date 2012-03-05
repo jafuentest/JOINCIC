@@ -1,0 +1,37 @@
+<%= form_for(@patrocinante) do |f| %>
+  <% if @patrocinante.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@patrocinante.errors.count, "error") %> prohibited this patrocinante from being saved:</h2>
+
+      <ul>
+      <% @patrocinante.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :rif %><br />
+    <%= f.text_field :rif %>
+  </div>
+  <div class="field">
+    <%= f.label :nombre %><br />
+    <%= f.text_field :nombre %>
+  </div>
+  <div class="field">
+    <%= f.label :plan %><br />
+    <%= f.number_field :plan %>
+  </div>
+  <div class="field">
+    <%= f.label :aporte %><br />
+    <%= f.number_field :aporte %>
+  </div>
+  <div class="field">
+    <%= f.label :comentario %><br />
+    <%= f.number_field :comentario %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -8,7 +8,7 @@
                       :uniqueness => { :case_sensitive => false }
   validates :clave, :presence => true,
                     :length => { :maximum => 15 }
-  validates :ci_org, :numericality => true
+  validates :cedula, :numericality => true
   validates :nombre, :format => { :with => palabra_regex }
   validates :seg_nombre, :allow_blank => true,
                          :format => { :with => palabra_regex }

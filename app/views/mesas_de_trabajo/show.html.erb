@@ -1,0 +1,60 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Titulo:</b>
+  <%= @mesa_de_trabajo.titulo %>
+</p>
+
+<p>
+  <b>Tema:</b>
+  <%= @mesa_de_trabajo.tema %>
+</p>
+
+<p>
+  <b>Descripcion:</b>
+  <%= @mesa_de_trabajo.descripcion %>
+</p>
+
+<p>
+  <b>Dia:</b>
+  <%= @mesa_de_trabajo.dia %>
+</p>
+
+<p>
+  <b>Hora ini:</b>
+  <%= @mesa_de_trabajo.hora_ini %>
+</p>
+
+<p>
+  <b>Hora fin:</b>
+  <%= @mesa_de_trabajo.hora_fin %>
+</p>
+
+<p>
+  <b>Lugar:</b>
+  <%= @mesa_de_trabajo.lugar %>
+</p>
+
+<p>
+  <b>Capacidad:</b>
+  <%= @mesa_de_trabajo.capacidad %>
+</p>
+
+<p>
+  <b>Requerimientos:</b>
+  <%= @mesa_de_trabajo.requerimientos %>
+</p>
+
+<p>
+  <b>Id ponente:</b>
+  <%= @mesa_de_trabajo.id_ponente %>
+</p>
+
+<p>
+  <b>Id pat:</b>
+  <%= @mesa_de_trabajo.id_pat %>
+</p>
+
+
+<%= link_to 'Edit', edit_mesa_de_trabajo_path(@mesa_de_trabajo) %> |
+<%= link_to 'Back', mesas_de_trabajo_path %>

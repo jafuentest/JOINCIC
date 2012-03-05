@@ -80,4 +80,11 @@ class OrganizadoresController < ApplicationController
       format.json { head :ok }
     end
   end
+  
+  def login
+    
+  end
+  
+  def validar
+  end
 end

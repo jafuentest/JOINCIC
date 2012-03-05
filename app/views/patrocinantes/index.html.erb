@@ -1,0 +1,31 @@
+<h1>Listing patrocinantes</h1>
+
+<table>
+  <tr>
+    <th>Rif</th>
+    <th>Nombre</th>
+    <th>Plan</th>
+    <th>Aporte</th>
+    <th>Comentario</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @patrocinantes.each do |patrocinante| %>
+  <tr>
+    <td><%= patrocinante.rif %></td>
+    <td><%= patrocinante.nombre %></td>
+    <td><%= patrocinante.plan %></td>
+    <td><%= patrocinante.aporte %></td>
+    <td><%= patrocinante.comentario %></td>
+    <td><%= link_to 'Show', patrocinante %></td>
+    <td><%= link_to 'Edit', edit_patrocinante_path(patrocinante) %></td>
+    <td><%= link_to 'Destroy', patrocinante, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Patrocinante', new_patrocinante_path %>

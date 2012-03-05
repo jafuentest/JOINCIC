@@ -12,7 +12,7 @@
   <tr>
     <td><%= zona.nombre %></td>
     <td><%= zona.capacidad %></td>
-	<td><%= zona.capacidad - Participante.count(:conditions => { :id_zona => zona.id }) %></td>
+	<td><%= zona.capacidad - zona.participantes.count %></td>
     <td><%= link_to image_tag("/show.png", :alt => "Mostrar"), zona %></td>
 	<td><%= link_to image_tag("/edit.png", :alt => "Modificar"), edit_zona_path(zona) %></td>
 	<td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), zona, confirm: "¿Seguro que desea eliminar la zona " + zona.nombre + "?", method: :delete %></td>

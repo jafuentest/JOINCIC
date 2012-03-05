@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Nombre:</b>
+  <%= @plan_de_patrocinio.nombre %>
+</p>
+
+<p>
+  <b>Precio:</b>
+  <%= @plan_de_patrocinio.precio %>
+</p>
+
+<p>
+  <b>Beneficios:</b>
+  <%= @plan_de_patrocinio.beneficios %>
+</p>
+
+
+<%= link_to 'Edit', edit_plan_de_patrocinio_path(@plan_de_patrocinio) %> |
+<%= link_to 'Back', planes_de_patrocinio_path %>
