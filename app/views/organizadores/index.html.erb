@@ -12,9 +12,8 @@
   </tr>
 
 <% @organizadores.each do |organizador| %>
-  <% fullName = organizador.nombre + " " + organizador.apellido %>
   <tr>
-    <td><%= fullName %></td>
+    <td><%= organizador.nombreCompleto %></td>
     <td><%= organizador.telefono %></td>
     <td><%= organizador.correo %></td>
     <td><%= organizador.direccion %></td>
@@ -22,7 +21,7 @@
     <td align=center><%= organizador.coordinacion %></td>
     <td><%= link_to image_tag("/show.png", :alt => "Mostrar"), organizador %></td>
     <td><%= link_to image_tag("/edit.png", :alt => "Modificar"), edit_organizador_path(organizador) %></td>
-    <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), organizador, confirm: "¿Seguro que desea eliminar a " + fullName + "?", method: :delete %></td>
+    <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), organizador, confirm: "¿Seguro que desea eliminar a " + organizador.nombreCompleto + "?", method: :delete %></td>
   </tr>
 <% end %>
 </table>
