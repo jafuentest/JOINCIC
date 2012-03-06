@@ -1,4 +1,4 @@
-﻿<h1><%= @participante.nombre + " " + @participante.apellido %></h1>
+﻿<h1><%= @participante.nombreCompleto %></h1>
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -53,7 +53,7 @@
 
 <p>
   <b>Zona:</b>
-  <%= Zona.find(@participante.id_zona).nombre %>
+  <%= @participante.zona.nombre %>
 </p>
 
 <%= link_to 'Modificar', edit_participante_path(@participante) %> |

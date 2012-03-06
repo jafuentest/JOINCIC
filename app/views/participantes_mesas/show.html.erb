@@ -1,13 +1,14 @@
+<h1><%= @participante_mesa.participante.nombreCompleto %> - <%= @participante_mesa.mesa_de_trabajo.titulo %></h1>
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Id par:</b>
-  <%= @participante_mesa.id_par %>
+  <b>Participante:</b>
+  <%= @participante_mesa.participante.nombreCompleto %>
 </p>
 
 <p>
-  <b>Id mesa:</b>
-  <%= @participante_mesa.id_mesa %>
+  <b>Mesa de Trabajo:</b>
+  <%= @participante_mesa.mesa_de_trabajo.titulo %>
 </p>
 
 <p>
@@ -20,6 +21,5 @@
   <%= @participante_mesa.seleccionado %>
 </p>
 
-
-<%= link_to 'Edit', edit_participante_mesa_path(@participante_mesa) %> |
-<%= link_to 'Back', participantes_mesas_path %>
+<%= link_to "Edit", edit_participante_mesa_path(@participante_mesa) %> |
+<%= link_to "Back", participantes_mesas_path %>

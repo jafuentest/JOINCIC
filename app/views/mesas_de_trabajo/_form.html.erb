@@ -49,11 +49,11 @@
   </div>
   <div class="field">
     <%= f.label :id_ponente %><br />
-    <%= f.number_field :id_ponente %>
+    <%= f.select :id_ponente, @ponentes.collect {|p| [ p.nombre+" "+p.apellido, p.id ] } %>
   </div>
   <div class="field">
     <%= f.label :id_pat %><br />
-    <%= f.number_field :id_pat %>
+    <%= f.select :id_pat, @patrocinantes.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true } %>
   </div>
   <div class="actions">
     <%= f.submit %>
