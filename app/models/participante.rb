@@ -1,5 +1,5 @@
 class Participante < ActiveRecord::Base
-  belongs_to :zona
+  belongs_to :zona, :foreign_key => "id_zona"
   has_many :participantes_mates, :foreign_key => "id_par"
   has_many :materiales_pop, :through => :participante_mate, :foreign_key => "id_mate"
   has_many :participantes_mesas, :foreign_key => "id_par"
@@ -24,5 +24,9 @@ class Participante < ActiveRecord::Base
   validates :direccion,     :format => { :with => texto_regex }
   validates :institucion,   :format => { :with => texto_regex }
 	validates :nivel,         :presence => true
+  
+  def nombreCompleto
+    nombre + " " + apellido
+  end
 end
 

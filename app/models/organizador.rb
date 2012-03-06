@@ -21,4 +21,8 @@
                      :uniqueness => { :case_sensitive => false }
   validates :direccion, :format => { :with => texto_regex }
   validates :nivel, :presence => true
+  
+  def nombreCompleto
+    nombre + " " + apellido
+  end
 end

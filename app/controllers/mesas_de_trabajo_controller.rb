@@ -25,6 +25,8 @@ class MesasDeTrabajoController < ApplicationController
   # GET /mesas_de_trabajo/new.json
   def new
     @mesa_de_trabajo = MesaDeTrabajo.new
+    @patrocinantes = Patrocinante.all(:order => :nombre)
+    @ponentes = Ponente.all(:order => :apellido)
 
     respond_to do |format|
       format.html # new.html.erb

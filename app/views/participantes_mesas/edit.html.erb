@@ -1,6 +1,8 @@
-<h1>Editing participante_mesa</h1>
+<h1>Modificar: <%= @participante_mesa.participante.nombre %></h1>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @participante_mesa %> |
-<%= link_to 'Back', participantes_mesas_path %>
+<div align="center">
+  <%= render "form" %>
+  <br />
+  <%= link_to "Mostrar", @participante_mesa %> |
+  <%= link_to "Volver a la lista", participantes_mesas_path %>
+</div>
