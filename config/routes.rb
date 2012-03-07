@@ -1,5 +1,7 @@
 Sistema::Application.routes.draw do
 
+  resources :participantes_rifas
+
   get "home/academico"
 
   get "home/inicio"
