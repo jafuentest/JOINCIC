@@ -1,2 +1,0 @@
-module SorteosHelper
-end
