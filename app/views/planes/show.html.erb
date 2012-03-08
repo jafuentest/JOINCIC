@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Nombre:</b>
+  <%= @plan.nombre %>
+</p>
+
+<p>
+  <b>Precio:</b>
+  <%= @plan.precio %>
+</p>
+
+<p>
+  <b>Beneficios:</b>
+  <%= @plan.beneficios %>
+</p>
+
+
+<%= link_to 'Edit', edit_plan_path(@plan) %> |
+<%= link_to 'Back', planes_path %>
