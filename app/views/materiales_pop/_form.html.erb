@@ -1,7 +1,7 @@
-<%= form_for(@material_pop) do |f| %>
+﻿<%= form_for(@material_pop) do |f| %>
   <% if @material_pop.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@material_pop.errors.count, "error") %> prohibited this material_pop from being saved:</h2>
+      <h2><%= pluralize(@material_pop.errors.count, "error prohibió", "errores prohibieron") %> guardar el material:</h2>
 
       <ul>
       <% @material_pop.errors.full_messages.each do |msg| %>
@@ -18,7 +18,7 @@
     <tr>
       <td>
         <div class="field">
-          <%= f.label :nombre %><br />
+          <%= f.label :nombre %>
           <%= f.text_field :nombre, :size => 15, :maxlength => 20 %>
         </div>
       </td>
@@ -26,7 +26,7 @@
     <tr>
       <td>
         <div class="field">
-          <%= f.label :cantidad %><br />
+          <%= f.label :cantidad %>
           <%= f.number_field :cantidad, :in => 1..1000 %>
         </div>
       </td>
