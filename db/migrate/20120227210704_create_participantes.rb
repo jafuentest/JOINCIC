@@ -12,10 +12,10 @@ class CreateParticipantes < ActiveRecord::Migration
       t.string    :direccion,     :null => false, :limit => 50
       t.string    :institucion,   :null => false, :limit => 20
       t.integer   :nivel,         :null => false
-      t.integer   :id_zona,       :null => false
-      t.boolean   :comida,        :default => 0
-      t.boolean   :eliminado,     :default => 0
-      t.datetime  :created_at     
+      t.integer   :zona_id,       :null => false
+      t.boolean   :comida,        :default => false
+      t.boolean   :eliminado,     :default => false
+      t.datetime  :created_at
     end
   end
 end

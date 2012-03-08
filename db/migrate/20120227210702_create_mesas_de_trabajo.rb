@@ -10,8 +10,8 @@ class CreateMesasDeTrabajo < ActiveRecord::Migration
       t.string  :lugar,           :null => false, :limit => 25
       t.integer :capacidad
       t.string  :requerimientos,  :null => false
-      t.integer :id_ponente
-      t.integer :id_pat
+      t.integer :ponente_id
+      t.integer :patrocinante_id
     end
   end
 end
