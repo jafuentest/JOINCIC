@@ -14,7 +14,6 @@ class MaterialesPopController < ApplicationController
   # GET /materiales_pop/1.json
   def show
     @material_pop = MaterialPop.find(params[:id])
-		@disponibilidad = @material_pop.cantidad - ParticipanteMate.count(:conditions => { :id_mat => @material_pop.id })
 
     respond_to do |format|
       format.html # show.html.erb

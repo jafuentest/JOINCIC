@@ -12,9 +12,19 @@
 </p>
 
 <p>
-  <b>Disponibilidad:</b>
-  <%= @disponibilidad %>
+  <b>En existencia:</b>
+  <%= @material_pop.existencia %>
 </p>
 
-<%= link_to 'Modificar', edit_material_pop_path(@material_pop) %> |
-<%= link_to 'Volver a la lista', materiales_pop_path %>
+<p>
+  <b>Por Entregar:</b>
+  <%= @material_pop.deuda %>
+</p>
+
+<p>
+  <b>Disponibilidad:</b>
+  <%= @material_pop.disponibilidad %>
+</p>
+
+<%= link_to "Modificar", edit_material_pop_path(@material_pop) %> |
+<%= link_to "Volver a la lista", materiales_pop_path %>
