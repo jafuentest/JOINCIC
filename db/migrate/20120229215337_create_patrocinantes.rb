@@ -6,7 +6,7 @@ class CreatePatrocinantes < ActiveRecord::Migration
       t.integer :aporte,      :null => false
       t.text    :comentario
       t.binary  :logo
-      t.integer :id_plan,     :null => false
+      t.integer :plan_id,     :null => false
     end
   end
 end

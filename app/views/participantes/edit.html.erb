@@ -1,8 +1,8 @@
-<h1>Modificar: <%= @participante.nombre + " " + @participante.apellido %></h1>
+<h1>Modificar: <%= @participante.nombreCompleto %></h1>
 
 <div align="center">
-  <%= render 'form' %>
+  <%= render "form" %>
   <br />
-  <%= link_to 'Mostrar', @participante %> |
-  <%= link_to 'Volver a la lista', participantes_path %>
+  <%= link_to "Mostrar", @participante %> |
+  <%= link_to "Volver a la lista", participantes_path %>
 </div>

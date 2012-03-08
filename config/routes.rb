@@ -1,6 +1,6 @@
 Sistema::Application.routes.draw do
 
-  resources :participantes_rifas
+  resources :planes
 
   get "home/academico"
 
@@ -8,16 +8,8 @@ Sistema::Application.routes.draw do
 
   get "home/patrocinio"
   
-  resources :planes_de_patrocinio
-
   resources :patrocinantes
   
-  resources :sorteos
-
-  resources :premios
-
-  resources :rifas
-
   resources :preguntas
 
   resources :ponencias
