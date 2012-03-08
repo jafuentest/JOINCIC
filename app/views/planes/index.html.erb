@@ -1,0 +1,27 @@
+<h1>Listing planes</h1>
+
+<table>
+  <tr>
+    <th>Nombre</th>
+    <th>Precio</th>
+    <th>Beneficios</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @planes.each do |plan| %>
+  <tr>
+    <td><%= plan.nombre %></td>
+    <td><%= plan.precio %></td>
+    <td><%= plan.beneficios %></td>
+    <td><%= link_to 'Show', plan %></td>
+    <td><%= link_to 'Edit', edit_plan_path(plan) %></td>
+    <td><%= link_to 'Destroy', plan, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Plan', new_plan_path %>
