@@ -1,4 +1,4 @@
-class OrganizadoresController < ApplicationController
+﻿class OrganizadoresController < ApplicationController
   # GET /organizadores
   # GET /organizadores.json
   def index
@@ -41,10 +41,10 @@ class OrganizadoresController < ApplicationController
   # POST /organizadores.json
   def create
     @organizador = Organizador.new(params[:organizador])
-
+    
     respond_to do |format|
       if @organizador.save
-        format.html { redirect_to @organizador, notice: 'Organizador was successfully created.' }
+        format.html { redirect_to @organizador, notice: "El organizador fue creado con éxito" }
         format.json { render json: @organizador, status: :created, location: @organizador }
       else
         format.html { render action: "new" }
@@ -60,10 +60,10 @@ class OrganizadoresController < ApplicationController
 
     respond_to do |format|
       if @organizador.update_attributes(params[:organizador])
-        format.html { redirect_to @organizador, notice: 'Organizador was successfully updated.' }
+        format.html { redirect_to @organizador, notice: "El organizador fue modificado con éxito" }
         format.json { head :ok }
       else
-        format.html { render action: "edit" }
+        format.html { render action: "editar" }
         format.json { render json: @organizador.errors, status: :unprocessable_entity }
       end
     end
@@ -79,12 +79,5 @@ class OrganizadoresController < ApplicationController
       format.html { redirect_to organizadores_url }
       format.json { head :ok }
     end
-  end
-  
-  def login
-    
-  end
-  
-  def validar
   end
 end

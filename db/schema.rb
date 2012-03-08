@@ -85,10 +85,9 @@ ActiveRecord::Schema.define(:version => 20120305202527) do
   create_table "patrocinantes", :force => true do |t|
     t.string  "rif",        :limit => 12, :null => false
     t.string  "nombre",     :limit => 30, :null => false
-    t.integer "plan"
-    t.integer "aporte"
+    t.integer "aporte",                   :null => false
     t.text    "comentario"
-    t.binary  "logo",                     :null => false
+    t.binary  "logo"
     t.integer "id_plan",                  :null => false
   end
 
@@ -99,14 +98,13 @@ ActiveRecord::Schema.define(:version => 20120305202527) do
   end
 
   create_table "ponencias", :force => true do |t|
-    t.string  "titulo",         :limit => 25, :null => false
-    t.string  "tema",           :limit => 25, :null => false
-    t.string  "descripcion",                  :null => false
-    t.date    "dia",                          :null => false
-    t.time    "hora_ini",                     :null => false
-    t.time    "hora_fin",                     :null => false
-    t.string  "requerimientos",               :null => false
-    t.integer "id_ponente",                   :null => false
+    t.string  "titulo",      :limit => 25, :null => false
+    t.string  "tema",        :limit => 25, :null => false
+    t.string  "descripcion",               :null => false
+    t.date    "dia",                       :null => false
+    t.time    "hora_ini",                  :null => false
+    t.time    "hora_fin",                  :null => false
+    t.integer "id_ponente",                :null => false
     t.integer "id_pat"
   end
 

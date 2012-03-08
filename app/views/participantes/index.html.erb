@@ -11,22 +11,22 @@
     <th colspan="3">Opciones</th>
   </tr>
 
-<% @participantes.each do |participante| %>
-  <% fullName = participante.nombre + " " + participante.apellido %>
-  <tr>
-    <td><%= participante.nombre + " " + participante.seg_nombre %></td>
-    <td><%= participante.apellido + " " + participante.seg_apellido %></td>
-    <td align=center><%= participante.institucion %></td>
-    <td align=center><%= participante.nivel %></td>
-    <td align=center><%= Zona.find(participante.id_zona).nombre %></td>
-    <td align=center><%= I18n.l participante.created_at.in_time_zone('Caracas').to_date, :format => :medio %></td>
-    <td><%= link_to image_tag("/show.png", :alt => "Mostrar"), participante %></td>
-    <td><%= link_to image_tag("/edit.png", :alt => "Modificar"), edit_participante_path(participante) %></td>
-    <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), participante, confirm: "¿Seguro que desea eliminar a " + fullName + "?", method: :delete %></td>
-  </tr>
-<% end %>
+  <% @participantes.each do |participante| %>
+    <% fullName = participante.nombre + " " + participante.apellido %>
+    <tr>
+      <td><%= participante.nombres %></td>
+      <td><%= participante.apellidos %></td>
+      <td align=center><%= participante.institucion %></td>
+      <td align=center><%= participante.nivel %></td>
+      <td align=center><%= participante.zona.nombre %></td>
+      <td align=center><%= I18n.l participante.created_at.in_time_zone("Caracas").to_date, :format => :medio %></td>
+      <td><%= link_to image_tag("/show.png", :alt => "Mostrar"), participante %></td>
+      <td><%= link_to image_tag("/edit.png", :alt => "Modificar"), edit_participante_path(participante) %></td>
+      <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), participante, confirm: "¿Seguro que desea eliminar a " + fullName + "?", method: :delete %></td>
+    </tr>
+  <% end %>
 </table>
 
 <br />
 
-<%= link_to 'Agregar Participante', new_participante_path %>
+<%= link_to "Agregar Participante", new_participante_path %>

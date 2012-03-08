@@ -3,11 +3,11 @@
 
 <p>
   <b>Nombre(s):</b>
-  <%= @organizador.nombre + " " + @organizador.seg_nombre %>
+  <%= @organizador.nombres %>
 </p>
 <p>
   <b>Apellido(s):</b>
-  <%= @organizador.apellido + " " + @organizador.seg_apellido %>
+  <%= @organizador.apellidos %>
 </p>
 <p>
   <b>Cédula:</b>
@@ -39,11 +39,9 @@
 </p>
 <p>
   <b>Coordinación:</b>
-  <%= @organizador.coordinacion %>
-  <% if @organizador.coordinador == 1 %>
-  <%=   "(coordinador)" %>
-  <% end %>
-</p>S
+  <%= @organizador.coordinacion %> <%= "(coordinador)" if @organizador.coordinador%>
+  
+</p>
 
-<%= link_to 'Modificar', edit_organizador_path(@organizador) %> |
-<%= link_to 'Volver a la lista', organizadores_path %>
+<%= link_to "Modificar", edit_organizador_path(@organizador) %> |
+<%= link_to "Volver a la lista", organizadores_path %>
