@@ -3,7 +3,7 @@
     cedula: "Cédula"
     direccion: "Dirección"
     fecha_nac: "Fecha de Nacimiento"
-    id_zona: "Zona"
+    zona_id: "Zona"
     institucion: "Institución"
     seg_nombre: "Segundo Nombre"
     seg_apellido: "Segundo Apellido"

@@ -15,7 +15,7 @@ class CreateOrganizadores < ActiveRecord::Migration
       t.string  :institucion,   :null => false, :limit => 5
       t.integer :nivel,         :null => false
       t.string  :coordinacion,  :null => false, :limit => 15
-      t.boolean :coordinador,   :default => 0
+      t.boolean :coordinador,   :default => false
     end
   end
 end

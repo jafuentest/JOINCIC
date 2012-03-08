@@ -1,6 +1,6 @@
 ﻿<%= form_for(@participante) do |f| %>
   <% if @participante.errors.any? %>
-    <div id="error_explanation" class="error_explanation">
+    <div id="error_explanation">
       <h2><%= pluralize(@participante.errors.count, "error prohibió", "errores prohibieron") %> guardar el organizador:</h2>
 
       <ul>
@@ -34,7 +34,7 @@
         </div>
         <div class="field">
           <%= f.label       :fecha_nac %>
-          <%= f.date_select :fecha_nac, :start_year =>  Time.now.year - 90, :end_year =>  Time.now.year - 10, :order => [:day, :month, :year], :use_short_month => true %>
+          <%= f.date_select :fecha_nac, :start_year =>  Time.now.year - 70, :end_year =>  Time.now.year - 10, :order => [:day, :month, :year], :use_short_month => true %>
         </div>
         <div class="field">
           <%= f.label      :direccion %>
@@ -56,11 +56,11 @@
         </div>
         <div class="field">
           <%= f.label        :nivel %>
-          <%= f.number_field :nivel, :in => 1..10 %>
+          <%= f.number_field :nivel, :in => 1..10, :value => 1 %>
         </div>
         <div class="field">
-          <%= f.label  :id_zona %>
-          <%= f.select :id_zona, @zonas.collect {|z| [ z.nombre, z.id ] } %>
+          <%= f.label  :zona_id %>
+          <%= f.select :zona_id, @zonas.collect {|z| [ z.nombre, z.id ] } %>
         </div>
       </td>
     </tr>
@@ -71,5 +71,4 @@
   <div class="actions">
     <%= f.submit %>
   </div>
-  
 <% end %>
