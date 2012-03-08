@@ -4,22 +4,26 @@
   <tr>
     <th>Nombre</th>
     <th>Cantidad</th>
+    <th>En Existencia</th>
+    <th>Por Entregar</th>
     <th>Disponibilidad</th>
     <th colspan="3">Opciones</th>
   </tr>
 
-<% @materiales_pop.each do |material_pop| %>
+<% @materiales_pop.each do |material| %>
   <tr>
-    <td><%= material_pop.nombre %></td>
-    <td><%= material_pop.cantidad %></td>
-    <td><%= material_pop.cantidad - ParticipanteMate.count(:conditions => { :id_mat => material_pop.id }) %></td>
-    <td><%= link_to image_tag("/show.png", :alt => "Mostrar"), material_pop %></td>
-    <td><%= link_to image_tag("/edit.png", :alt => "Modificar"), edit_material_pop_path(material_pop) %></td>
-    <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), material_pop, confirm: "¿Seguro que desea eliminar el material \"" + material_pop.nombre + "\"?", method: :delete %></td>
+    <td><%= material.nombre %></td>
+    <td><%= material.cantidad %></td>
+    <td><%= material.existencia %></td>
+    <td><%= material.deuda %></td>
+    <td><%= material.disponibilidad %></td>
+    <td><%= link_to image_tag("/show.png", :alt => "Mostrar"), material %></td>
+    <td><%= link_to image_tag("/edit.png", :alt => "Modificar"), edit_material_pop_path(material) %></td>
+    <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), material, confirm: "¿Seguro que desea eliminar el material: '" + material.nombre + "'?", method: :delete %></td>
   </tr>
 <% end %>
 </table>
 
 <br />
 
-<%= link_to "Agregar Material POP", new_material_pop_path %>
+<%= link_to "Agregar nuevo material", new_material_pop_path %>
