@@ -1,0 +1,34 @@
+﻿<%= form_for(@rifa) do |f| %>
+  <% if @rifa.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@rifa.errors.count, "error") %> prohibited this rifa from being saved:</h2>
+
+      <ul>
+      <% @rifa.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <table class="formularioS">
+    <tr>
+      <th></th>
+    </tr>
+    <tr>
+      <td>
+        <div class="field">
+          <%= f.label :nombre %><br />
+          <%= f.text_field :nombre, :size => 15, :maxlength => 20 %>
+        </div>
+      </td>
+    </tr>
+  </table>
+  
+  <br />
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+  
+<% end %>

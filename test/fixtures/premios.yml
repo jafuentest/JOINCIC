@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  nombre: MyString
+  rifa_id: 1
+  patrocinante_id: 1
+  participante_id: 1
+
+two:
+  nombre: MyString
+  rifa_id: 1
+  patrocinante_id: 1
+  participante_id: 1
