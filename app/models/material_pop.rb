@@ -1,4 +1,4 @@
-class MaterialPop < ActiveRecord::Base
+﻿class MaterialPop < ActiveRecord::Base
   has_many :participantes_mates
   has_many :participantes, :through => :participante_mate
   

@@ -1,4 +1,4 @@
-class PlanesController < ApplicationController
+﻿class PlanesController < ApplicationController
   # GET /planes
   # GET /planes.json
   def index

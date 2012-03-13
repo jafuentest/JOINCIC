@@ -1,4 +1,4 @@
-class PonentesController < ApplicationController
+﻿class PonentesController < ApplicationController
   # GET /ponentes
   # GET /ponentes.json
   def index

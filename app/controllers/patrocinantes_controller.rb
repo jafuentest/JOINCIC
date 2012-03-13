@@ -1,4 +1,4 @@
-class PatrocinantesController < ApplicationController
+﻿class PatrocinantesController < ApplicationController
   # GET /patrocinantes
   # GET /patrocinantes.json
   def index

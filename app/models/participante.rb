@@ -1,4 +1,4 @@
-class Participante < ActiveRecord::Base
+﻿class Participante < ActiveRecord::Base
   belongs_to :zona
   
   has_many :preguntas
