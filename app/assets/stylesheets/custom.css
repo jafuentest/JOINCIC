@@ -6,6 +6,10 @@
   border-radius: 0.8em;
 }
 
+textarea {
+  font-family:inherit;
+}
+
 table.formulario {
   width:50em;
 }
