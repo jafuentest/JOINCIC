@@ -1,48 +1,49 @@
 Sistema::Application.routes.draw do
   
 	root :to => 'home#inicio'
-
-	match '/inicio', :to => 'home#inicio'
-	
-  match '/participantes/buscar', :to => 'participantes#buscar'
   
-  match '/participantes/comidas', :to => 'participantes#comidas'
+	match '/inicio', :to => 'home#inicio'  
   
-  match '/participantes/reiniciarComidas', :to => 'participantes#reiniciarComidas'
-  
-  match '/participantes_mates/create', :to => 'participantes_mates#create'
-
   get "home/inicio"
-
+  
   get "home/academico"
-
+  
   get "home/patrocinio"
   
+  resources :organizadores
+  
+  resources :participantes do
+    collection do
+      get  "reiniciarComidas"
+      get  "buscar"
+      get  "comidas"
+      post "comidas"
+    end
+  end
+  
+  resources :participantes_mates do
+    post "crear", :on => :collection
+  end
+  
+  resources :participantes_mesas
+  
+  resources :materiales_pop
+  
+  resources :mesas_de_trabajo
+  
   resources :premios
-
-  resources :rifas
-
+  
   resources :planes
   
   resources :patrocinantes
   
   resources :preguntas
-
+  
   resources :ponencias
-
+  
   resources :ponentes
-
-  resources :materiales_pop
-
-  resources :mesas_de_trabajo
-
-  resources :organizadores
-
-  resources :participantes
-
-  resources :participantes_mates
-
-  resources :participantes_mesas
-
+  
+  resources :rifas
+  
   resources :zonas
 end
