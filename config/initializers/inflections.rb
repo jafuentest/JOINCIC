@@ -18,7 +18,7 @@
 	inflect.irregular 'account', 'accounts'
 	inflect.irregular 'password', 'passwords'
 	inflect.irregular 'session', 'sessions'
-	inflect.irregular 'pop', 'pop'
+	inflect.irregular 'material_pop', 'materiales_pop'
 	inflect.irregular 'mesa_de_trabajo', 'mesas_de_trabajo'
   inflect.irregular 'de', 'de'
 end

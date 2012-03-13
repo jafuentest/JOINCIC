@@ -9,11 +9,23 @@
       format.json { render json: @participantes }
     end
   end
+  
+  # POST /participantes/buscar
+  # POST /participantes/buscar.json
+  def buscar
+    @participante = Participante.find_by_cedula(params[:cedula])
+    if @participante.nil?
+      redirect_to :participantes, notice: "No se encontró ningún participante cuya cédula sea: " + params[:cedula]
+    else
+      redirect_to @participante
+    end
+  end
 
   # GET /participantes/1
   # GET /participantes/1.json
   def show
     @participante = Participante.find(params[:id])
+    
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @participante }
@@ -97,15 +109,34 @@
     end
   end
   
-  def comio
+  # POST /participantes/comidas
+  # POST /participantes/comidas.json
+  def comidas
+    if params.has_key?(:cedula)
+      @participante = Participante.find_by_cedula(params[:cedula])
+      if @participante.nil?
+        mensaje = "No se encontró ningún participante cuya cédula sea: " + params[:cedula]
+      else
+        if @participante.comida
+          mensaje = "Ya comió"
+        else
+          @participante.update_attribute(:comida, true)
+          mensaje = "Marcado"
+        end
+      end
+      respond_to do |format|
+        format.html { redirect_to "/participantes/comidas", notice: mensaje }
+        format.json { head :ok }
+      end
+    end    
   end
   
   def reiniciarComidas
-    Participante.each do |p|
+    Participante.all.each do |p|
       p.update_attribute(:comida, false)
     end
     respond_to do |format|
-      format.html { redirect_to comidas_url, notice: "El control de comidas ha sido reiniciado con éxito." }
+      format.html { redirect_to "/participantes/comidas", notice: "El control de comidas ha sido reiniciado con éxito." }
       format.json { head :ok }
     end
   end
