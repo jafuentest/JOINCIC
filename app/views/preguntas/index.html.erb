@@ -13,8 +13,8 @@
 <% @preguntas.each do |pregunta| %>
   <tr>
     <td><%= pregunta.mensaje %></td>
-    <td><%= pregunta.id_par %></td>
-    <td><%= pregunta.id_pon %></td>
+    <td><%= pregunta.participante_id %></td>
+    <td><%= pregunta.ponencia_id %></td>
     <td><%= link_to 'Show', pregunta %></td>
     <td><%= link_to 'Edit', edit_pregunta_path(pregunta) %></td>
     <td><%= link_to 'Destroy', pregunta, confirm: 'Are you sure?', method: :delete %></td>

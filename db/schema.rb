@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120305202527) do
+ActiveRecord::Schema.define(:version => 20120309023237) do
 
   create_table "materiales_pop", :force => true do |t|
     t.string  "nombre",   :limit => 20, :null => false
@@ -19,17 +19,17 @@ ActiveRecord::Schema.define(:version => 20120305202527) do
   end
 
   create_table "mesas_de_trabajo", :force => true do |t|
-    t.string  "titulo",         :limit => 25, :null => false
-    t.string  "tema",           :limit => 25, :null => false
-    t.string  "descripcion",                  :null => false
+    t.string  "titulo",          :limit => 25, :null => false
+    t.string  "tema",            :limit => 25, :null => false
+    t.string  "descripcion",                   :null => false
     t.date    "dia"
     t.time    "hora_ini"
     t.time    "hora_fin"
-    t.string  "lugar",          :limit => 25, :null => false
+    t.string  "lugar",           :limit => 25, :null => false
     t.integer "capacidad"
-    t.string  "requerimientos",               :null => false
-    t.integer "id_ponente"
-    t.integer "id_pat"
+    t.string  "requerimientos",                :null => false
+    t.integer "ponente_id"
+    t.integer "patrocinante_id"
   end
 
   create_table "organizadores", :force => true do |t|
@@ -62,23 +62,23 @@ ActiveRecord::Schema.define(:version => 20120305202527) do
     t.string   "direccion",    :limit => 50,                    :null => false
     t.string   "institucion",  :limit => 20,                    :null => false
     t.integer  "nivel",                                         :null => false
-    t.integer  "id_zona",                                       :null => false
+    t.integer  "zona_id",                                       :null => false
     t.boolean  "comida",                     :default => false
     t.boolean  "eliminado",                  :default => false
     t.datetime "created_at"
   end
 
   create_table "participantes_mates", :force => true do |t|
-    t.integer "id_par",    :null => false
-    t.integer "id_mate",   :null => false
-    t.boolean "entregado", :null => false
+    t.integer "participante_id", :null => false
+    t.integer "material_pop_id", :null => false
+    t.boolean "entregado",       :null => false
   end
 
   create_table "participantes_mesas", :force => true do |t|
-    t.integer  "id_par",                          :null => false
-    t.integer  "id_mesa",                         :null => false
-    t.integer  "prioridad",                       :null => false
-    t.boolean  "seleccionado", :default => false
+    t.integer  "participante_id",                       :null => false
+    t.integer  "mesa_de_trabajo_id",                    :null => false
+    t.integer  "prioridad",                             :null => false
+    t.boolean  "seleccionado",       :default => false
     t.datetime "created_at"
   end
 
@@ -88,24 +88,24 @@ ActiveRecord::Schema.define(:version => 20120305202527) do
     t.integer "aporte",                   :null => false
     t.text    "comentario"
     t.binary  "logo"
-    t.integer "id_plan",                  :null => false
+    t.integer "plan_id",                  :null => false
   end
 
-  create_table "planes_de_patrocinio", :force => true do |t|
+  create_table "planes", :force => true do |t|
     t.string  "nombre",     :limit => 10, :null => false
     t.integer "precio",                   :null => false
     t.text    "beneficios",               :null => false
   end
 
   create_table "ponencias", :force => true do |t|
-    t.string  "titulo",      :limit => 25, :null => false
-    t.string  "tema",        :limit => 25, :null => false
-    t.string  "descripcion",               :null => false
-    t.date    "dia",                       :null => false
-    t.time    "hora_ini",                  :null => false
-    t.time    "hora_fin",                  :null => false
-    t.integer "id_ponente",                :null => false
-    t.integer "id_pat"
+    t.string  "titulo",          :limit => 25, :null => false
+    t.string  "tema",            :limit => 25, :null => false
+    t.string  "descripcion",                   :null => false
+    t.date    "dia",                           :null => false
+    t.time    "hora_ini",                      :null => false
+    t.time    "hora_fin",                      :null => false
+    t.integer "ponente_id",                    :null => false
+    t.integer "patrocinante_id"
   end
 
   create_table "ponentes", :force => true do |t|
@@ -121,26 +121,20 @@ ActiveRecord::Schema.define(:version => 20120305202527) do
   end
 
   create_table "preguntas", :force => true do |t|
-    t.string  "mensaje", :null => false
-    t.integer "id_par",  :null => false
-    t.integer "id_pon",  :null => false
+    t.string  "mensaje",         :null => false
+    t.integer "participante_id", :null => false
+    t.integer "ponencia_id",     :null => false
   end
 
   create_table "premios", :force => true do |t|
-    t.string  "nombre",   :limit => 50, :null => false
-    t.integer "cantidad",               :null => false
-    t.integer "id_pat",                 :null => false
-    t.integer "id_rifa",                :null => false
+    t.string  "nombre",          :limit => 25, :null => false
+    t.integer "rifa_id",                       :null => false
+    t.integer "patrocinante_id",               :null => false
+    t.integer "participante_id"
   end
 
   create_table "rifas", :force => true do |t|
-    t.string "nombre", :null => false
-  end
-
-  create_table "sorteos", :force => true do |t|
-    t.integer "id_par",                       :null => false
-    t.integer "id_premio",                    :null => false
-    t.boolean "entregado", :default => false
+    t.string "nombre", :limit => 20, :null => false
   end
 
   create_table "zonas", :force => true do |t|
