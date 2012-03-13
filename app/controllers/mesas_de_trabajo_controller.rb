@@ -14,6 +14,7 @@ class MesasDeTrabajoController < ApplicationController
   # GET /mesas_de_trabajo/1.json
   def show
     @mesa_de_trabajo = MesaDeTrabajo.find(params[:id])
+    @participantes = @mesa_de_trabajo.participantes_mesas
 
     respond_to do |format|
       format.html # show.html.erb
