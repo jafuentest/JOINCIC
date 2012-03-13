@@ -1,0 +1,29 @@
+<h1>Listing premios</h1>
+
+<table>
+  <tr>
+    <th>Nombre</th>
+    <th>Rifa</th>
+    <th>Patrocinante</th>
+    <th>Participante</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @premios.each do |premio| %>
+  <tr>
+    <td><%= premio.nombre %></td>
+    <td><%= premio.rifa_id %></td>
+    <td><%= premio.patrocinante_id %></td>
+    <td><%= premio.participante_id %></td>
+    <td><%= link_to 'Show', premio %></td>
+    <td><%= link_to 'Edit', edit_premio_path(premio) %></td>
+    <td><%= link_to 'Destroy', premio, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Premio', new_premio_path %>
