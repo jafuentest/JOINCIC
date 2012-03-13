@@ -48,12 +48,12 @@
     <%= f.text_field :requerimientos %>
   </div>
   <div class="field">
-    <%= f.label :id_ponente %><br />
-    <%= f.select :id_ponente, @ponentes.collect {|p| [ p.nombre+" "+p.apellido, p.id ] } %>
+    <%= f.label :ponente_id %><br />
+    <%= f.select :ponente_id, @ponentes.collect {|p| [ p.nombre+" "+p.apellido, p.id ] } %>
   </div>
   <div class="field">
-    <%= f.label :id_pat %><br />
-    <%= f.select :id_pat, @patrocinantes.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true } %>
+    <%= f.label :patrocinante_id %><br />
+    <%= f.select :patrocinante_id, @patrocinantes.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true } %>
   </div>
   <div class="actions">
     <%= f.submit %>
