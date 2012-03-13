@@ -1,2 +1,2 @@
-module ParticipantesHelper
+﻿module ParticipantesHelper
 end

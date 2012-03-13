@@ -1,4 +1,4 @@
-class PremiosController < ApplicationController
+﻿class PremiosController < ApplicationController
   # GET /premios
   # GET /premios.json
   def index

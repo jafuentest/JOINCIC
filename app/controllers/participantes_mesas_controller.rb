@@ -1,4 +1,4 @@
-class ParticipantesMesasController < ApplicationController
+﻿class ParticipantesMesasController < ApplicationController
   # GET /participantes_mesas
   # GET /participantes_mesas.json
   def index

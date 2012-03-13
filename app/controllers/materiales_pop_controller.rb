@@ -1,4 +1,4 @@
-class MaterialesPopController < ApplicationController
+﻿class MaterialesPopController < ApplicationController
   # GET /materiales_pop
   # GET /materiales_pop.json
   def index

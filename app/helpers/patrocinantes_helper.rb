@@ -1,2 +1,2 @@
-module PatrocinantesHelper
+﻿module PatrocinantesHelper
 end
