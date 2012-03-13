@@ -1,29 +1,33 @@
-<%= form_for(@participante_mate) do |f| %>
-  <% if @participante_mate.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@participante_mate.errors.count, "error") %> prohibited this participante_mate from being saved:</h2>
-
-      <ul>
-      <% @participante_mate.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :id_par %><br />
-    <%= f.text_field :id_par %>
-  </div>
+﻿<%= form_tag "create" do %>
   
-  <% @materiales_pop.each do |material_pop| %>
-    <div class="field">
-      <%= f.check_box :entregado %>
-	    <%= f.label material_pop.nombre %>
-    </div>
-  <% end %>
+  <table class="formularioS">
+    <tr>
+      <th></th>
+    </tr>
+    <tr>
+      <td>
+        <div class="field">
+          <%= label_tag      :cedula %><br />
+          <%= text_field_tag :cedula %>
+        </div>
+      </td>
+    </tr>
+  
+    <% @materiales_pop.each do |material_pop| %>
+    <tr>
+      <td>
+        <div class="field" align=left>
+          <%= check_box_tag material_pop.nombre %>
+          <%= label_tag     material_pop.nombre %>
+        </div>
+      </td>
+    </tr>
+    <% end %>
+  </table>
+  
+  <br />
   
   <div class="actions">
-    <%= f.submit %>
+    <%= submit_tag "Enviar" %>
   </div>
 <% end %>

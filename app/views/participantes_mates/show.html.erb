@@ -1,20 +1,17 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Id par:</b>
-  <%= @participante_mate.id_par %>
+  <b>Participante:</b>
+  <%= @participante_mate.participante.nombre %>
 </p>
-
 <p>
-  <b>Id mat:</b>
-  <%= @participante_mate.id_mat %>
+  <b>Material:</b>
+  <%= @participante_mate.material_pop.nombre %>
 </p>
-
 <p>
   <b>Entregado:</b>
   <%= @participante_mate.entregado %>
 </p>
 
-
-<%= link_to 'Edit', edit_participante_mate_path(@participante_mate) %> |
-<%= link_to 'Back', participantes_mates_path %>
+<%= link_to "Edit", edit_participante_mate_path(@participante_mate) %> |
+<%= link_to "Back", participantes_mates_path %>
