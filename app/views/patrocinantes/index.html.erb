@@ -1,31 +1,27 @@
-<h1>Listing patrocinantes</h1>
+<h1>Lista de Patrocinantes</h1>
 
-<table>
+<table class="lista">
   <tr>
-    <th>Rif</th>
     <th>Nombre</th>
     <th>Plan</th>
     <th>Aporte</th>
-    <th>Comentario</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th width=60%>Comentario</th>
+    <th colspan=3>Opciones</th>
   </tr>
 
-<% @patrocinantes.each do |patrocinante| %>
-  <tr>
-    <td><%= patrocinante.rif %></td>
-    <td><%= patrocinante.nombre %></td>
-    <td><%= patrocinante.plan %></td>
-    <td><%= patrocinante.aporte %></td>
-    <td><%= patrocinante.comentario %></td>
-    <td><%= link_to 'Show', patrocinante %></td>
-    <td><%= link_to 'Edit', edit_patrocinante_path(patrocinante) %></td>
-    <td><%= link_to 'Destroy', patrocinante, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
+  <% @patrocinantes.each do |patrocinante| %>
+    <tr>
+      <td><%= patrocinante.nombre %></td>
+      <td align=center><%= link_to patrocinante.plan_de_patrocinio.nombre, patrocinante.plan_de_patrocinio %></td>
+      <td align=center><%= patrocinante.aporte %></td>
+      <td align=justify><%= patrocinante.comentario %></td>
+      <td><%= link_to image_tag("/show.png", :alt => "Mostrar"), patrocinante %></td>
+      <td><%= link_to image_tag("/edit.png", :alt => "Modificar"), edit_patrocinante_path(patrocinante) %></td>
+      <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), patrocinante, confirm: 'Are you sure?', method: :delete %></td>
+    </tr>
+  <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Patrocinante', new_patrocinante_path %>
+<%= link_to "Agregar Patrocinante", new_patrocinante_path %>

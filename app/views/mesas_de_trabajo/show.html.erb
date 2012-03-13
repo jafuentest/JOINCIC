@@ -1,60 +1,61 @@
+﻿<h1><%= @mesa_de_trabajo.titulo %></h1>
 <p id="notice"><%= notice %></p>
-
-<p>
-  <b>Titulo:</b>
-  <%= @mesa_de_trabajo.titulo %>
-</p>
 
 <p>
   <b>Tema:</b>
   <%= @mesa_de_trabajo.tema %>
 </p>
-
 <p>
   <b>Descripcion:</b>
   <%= @mesa_de_trabajo.descripcion %>
 </p>
-
 <p>
-  <b>Dia:</b>
-  <%= @mesa_de_trabajo.dia %>
+  <b>Dia y Hora:</b>
+  <%= I18n.l @mesa_de_trabajo.dia, :format => :dia %>
+  <%= I18n.l @mesa_de_trabajo.hora_ini, :format => :hora %> - <%= I18n.l @mesa_de_trabajo.hora_fin, :format => :hora %>
 </p>
-
-<p>
-  <b>Hora ini:</b>
-  <%= @mesa_de_trabajo.hora_ini %>
-</p>
-
-<p>
-  <b>Hora fin:</b>
-  <%= @mesa_de_trabajo.hora_fin %>
-</p>
-
 <p>
   <b>Lugar:</b>
   <%= @mesa_de_trabajo.lugar %>
 </p>
-
 <p>
   <b>Capacidad:</b>
   <%= @mesa_de_trabajo.capacidad %>
 </p>
-
 <p>
   <b>Requerimientos:</b>
   <%= @mesa_de_trabajo.requerimientos %>
 </p>
-
 <p>
-  <b>Id ponente:</b>
-  <%= @mesa_de_trabajo.id_ponente %>
+  <b>Ponente:</b>
+  <%= @mesa_de_trabajo.ponente.nombreCompleto %>
+</p>
+<% if !@mesa_de_trabajo.patrocinante.nil? %>
+  <p>
+    <b>Patrocinante:</b>
+    <%= @mesa_de_trabajo.patrocinante.nombre %>
+  </p>
+<% end %>
+<p>
+  <b>Participantes Inscritos:</b>
+  <%= @participantes.count %>
+  <br />
+  <table class="listaS">
+    <tr>
+      <th>Cédula</th>
+      <th>Nombre</th>
+      <th>Seleccionado</th>
+    </tr>
+    
+    <% @participantes.each do |p| %>
+      <tr>
+        <td><%= p.participante.cedula %></td>
+        <td><%= p.participante.nombreCompleto %></td>
+        <td><%= p.seleccionado %></td>
+      </tr>
+    <% end %>
+  </table>
 </p>
 
-<p>
-  <b>Id pat:</b>
-  <%= @mesa_de_trabajo.id_pat %>
-</p>
-
-
-<%= link_to 'Edit', edit_mesa_de_trabajo_path(@mesa_de_trabajo) %> |
-<%= link_to 'Back', mesas_de_trabajo_path %>
+<%= link_to "Modificar", edit_mesa_de_trabajo_path(@mesa_de_trabajo) %> |
+<%= link_to "Volver a la lista", mesas_de_trabajo_path %>
