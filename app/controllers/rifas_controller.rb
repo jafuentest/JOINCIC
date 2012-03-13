@@ -1,4 +1,4 @@
-class RifasController < ApplicationController
+﻿class RifasController < ApplicationController
   # GET /rifas
   # GET /rifas.json
   def index

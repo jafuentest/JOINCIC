@@ -1,4 +1,4 @@
-class Ponente < ActiveRecord::Base
+﻿class Ponente < ActiveRecord::Base
   has_many :mesas_de_trabajo
   has_many :ponencias
 

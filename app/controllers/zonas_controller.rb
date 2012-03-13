@@ -1,4 +1,4 @@
-class ZonasController < ApplicationController
+﻿class ZonasController < ApplicationController
   # GET /zonas
   # GET /zonas.json
   def index

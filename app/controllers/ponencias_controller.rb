@@ -1,4 +1,4 @@
-class PonenciasController < ApplicationController
+﻿class PonenciasController < ApplicationController
   # GET /ponencias
   # GET /ponencias.json
   def index
