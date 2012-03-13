@@ -1,4 +1,4 @@
-class PreguntasController < ApplicationController
+﻿class PreguntasController < ApplicationController
   # GET /preguntas
   # GET /preguntas.json
   def index

@@ -1,4 +1,4 @@
-class MesasDeTrabajoController < ApplicationController
+﻿class MesasDeTrabajoController < ApplicationController
   # GET /mesas_de_trabajo
   # GET /mesas_de_trabajo.json
   def index

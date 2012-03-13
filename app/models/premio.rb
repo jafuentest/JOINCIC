@@ -1,2 +1,2 @@
-class Premio < ActiveRecord::Base
+﻿class Premio < ActiveRecord::Base
 end
