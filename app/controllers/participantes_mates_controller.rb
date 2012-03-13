@@ -1,4 +1,4 @@
-class ParticipantesMatesController < ApplicationController
+﻿class ParticipantesMatesController < ApplicationController
   # GET /participantes_mates
   # GET /participantes_mates.json
   def index
@@ -24,12 +24,10 @@ class ParticipantesMatesController < ApplicationController
   # GET /participantes_mates/new
   # GET /participantes_mates/new.json
   def new
-    @participante_mate = ParticipanteMate.new
     @materiales_pop = MaterialPop.all
-
+    
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @participante_mate }
     end
   end
 
@@ -41,15 +39,21 @@ class ParticipantesMatesController < ApplicationController
   # POST /participantes_mates
   # POST /participantes_mates.json
   def create
-    @participante_mate = ParticipanteMate.new(params[:participante_mate])
-
-    respond_to do |format|
-      if @participante_mate.save
-        format.html { redirect_to @participante_mate, notice: 'Participante mate was successfully created.' }
-        format.json { render json: @participante_mate, status: :created, location: @participante_mate }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @participante_mate.errors, status: :unprocessable_entity }
+    @materiales_pop = MaterialPop.all
+    @participante = Participante.find_by_cedula(params[:cedula])
+    if @participante.nil?
+      redirect_to new_participante_mate_path, notice: "No se encontró ningún participante cuya cédula sea: " + params[:cedula]
+    else
+      @materiales_pop.each do |mp|
+        @participante_mate = ParticipanteMate.new
+        @participante_mate.participante_id = @participante.id
+        @participante_mate.material_pop_id = mp.id
+        if params.has_key?(mp.nombre)
+          @participante_mate.entregado = true
+        else
+          @participante_mate.entregado = false
+        end
+        @participante_mate.save
       end
     end
   end
@@ -61,7 +65,7 @@ class ParticipantesMatesController < ApplicationController
 
     respond_to do |format|
       if @participante_mate.update_attributes(params[:participante_mate])
-        format.html { redirect_to @participante_mate, notice: 'Participante mate was successfully updated.' }
+        format.html { redirect_to @participante_mate, notice: "Participante mate was successfully updated." }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
