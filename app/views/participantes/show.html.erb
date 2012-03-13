@@ -1,50 +1,67 @@
 ﻿<h1><%= @participante.nombreCompleto %></h1>
 <p id="notice"><%= notice %></p>
-
-<p>
-  <b>Cédula:</b>
-  <%= @participante.cedula %>
-</p>
-<p>
-  <b>Nombre(s):</b>
-  <%= @participante.nombres %>
-</p>
-<p>
-  <b>Apellido(s):</b>
-  <%= @participante.apellidos %>
-</p>
-<p>
-  <b>Fecha de nacimiento:</b>
-  <%= @participante.fecha_nac %>
-</p>
-<p>
-  <b>Teléfono:</b>
-  <%= @participante.telefono %>
-</p>
-<p>
-  <b>Correo:</b>
-  <%= @participante.correo %>
-</p>
-<p>
-  <b>Dirección:</b>
-  <%= @participante.direccion %>
-</p>
-<p>
-  <b>Institución:</b>
-  <%= @participante.institucion %>
-</p>
-<p>
-  <b>Nivel:</b>
-  <%= @participante.nivel %>
-</p>
-<p>
-  <b>Zona:</b>
-  <%= @participante.zona.nombre %>
-</p>
-<p>
-  <b>Comió:</b>
-  <%= @participante.comida %>
-</p>
+<table width=80%>
+  <tr>
+    <td width=50%>
+      <p>
+        <b>Cédula:</b>
+        <%= @participante.cedula %>
+      </p>
+      <p>
+        <b>Nombre(s):</b>
+        <%= @participante.nombres %>
+      </p>
+      <p>
+        <b>Apellido(s):</b>
+        <%= @participante.apellidos %>
+      </p>
+      <p>
+        <b>Fecha de nacimiento:</b>
+        <%= @participante.fecha_nac %>
+      </p>
+      <p>
+        <b>Teléfono:</b>
+        <%= @participante.telefono %>
+      </p>
+      <p>
+        <b>Correo:</b>
+        <%= @participante.correo %>
+      </p>
+      <p>
+        <b>Dirección:</b>
+        <%= @participante.direccion %>
+      </p>
+      <p>
+        <b>Institución:</b>
+        <%= @participante.institucion %>
+      </p>
+      <p>
+        <b>Nivel:</b>
+        <%= @participante.nivel %>
+      </p>
+      <p>
+        <b>Zona:</b>
+        <%= @participante.zona.nombre %>
+      </p>
+      <p>
+      <b>Comió:</b>
+      <%= @participante.comida %>
+      </p>
+    </td>
+    <td>
+      <% @participante.participantes_mates.each do |mat| %>
+        <p>
+        <b><%= mat.material_pop.nombre %></b>:
+        <% if mat.entregado %>
+          Entregado
+        <% else %>
+          Por Entregar
+        <% end %>
+        </p>
+      <% end %>
+    </td>
+  </tr>
+</table>
 
 <%= link_to "Modificar", edit_participante_path(@participante) %> |
 <%= link_to "Volver a la lista", participantes_path %>
