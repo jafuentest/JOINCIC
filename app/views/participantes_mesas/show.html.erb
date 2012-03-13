@@ -5,21 +5,18 @@
   <b>Participante:</b>
   <%= @participante_mesa.participante.nombreCompleto %>
 </p>
-
 <p>
   <b>Mesa de Trabajo:</b>
   <%= @participante_mesa.mesa_de_trabajo.titulo %>
 </p>
-
 <p>
   <b>Prioridad:</b>
   <%= @participante_mesa.prioridad %>
 </p>
-
 <p>
   <b>Seleccionado:</b>
   <%= @participante_mesa.seleccionado %>
 </p>
 
-<%= link_to "Edit", edit_participante_mesa_path(@participante_mesa) %> |
-<%= link_to "Back", participantes_mesas_path %>
+<%= link_to "Modificar", edit_participante_mesa_path(@participante_mesa) %> |
+<%= link_to "Volver a la lista", participantes_mesas_path %>
