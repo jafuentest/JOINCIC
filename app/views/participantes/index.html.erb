@@ -1,4 +1,4 @@
-﻿<h1>Lista de participantes (<%= @participantes.size %>)</h1>
+﻿<h1><%= @encabezado %></h1>
 <p id="notice"><%= notice %></p>
 
 <table class="lista">
@@ -30,8 +30,8 @@
 <br />
 
 <div align=center>
-  <%= form_tag "participantes/buscar" do %>
-    <%= text_field_tag :cedula, nil, { :placeholder => "Cédula" } %>
+  <%= form_tag buscar_participantes_path, :method => "get" do %>
+    <%= text_field_tag :query, params[:query], { :placeholder => "Nombre / Apellido / Cédula", :size => 22} %>
     <br />
     <%= submit_tag "Buscar Participante"%>
   <% end %>
