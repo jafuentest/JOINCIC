@@ -1,4 +1,4 @@
 ﻿class ParticipanteMesa < ActiveRecord::Base
-  belongs_to :participante,    :foreign_key => "id_par"
-  belongs_to :mesa_de_trabajo, :foreign_key => "id_mesa"
+  belongs_to :participante
+  belongs_to :mesa_de_trabajo
 end
