@@ -1,23 +1,109 @@
 ﻿class ParticipantesController < ApplicationController
+  def getParticipantes
+    @participantes = Participante.find( :all, :conditions => { :eliminado => false }, :order => "created_at DESC" )
+  end
+
+  def zonasDisponibles
+    zonas = Zona.all
+    zonas.each do |z|
+      if z.capacidad <= z.participantes.count
+        zonas.delete(z)
+      end
+    end
+  end
+  
+  def zonasDisponibles_Edit(zona)
+    zonas = Zona.all
+    zonas.each do |z|
+      if z.capacidad <= z.participantes.count && z != zona
+		    zonas.delete(z)
+      end
+    end
+  end
+  
+  def reiniciarComidas
+    Participante.all.each do |p|
+      p.update_attribute(:comida, false)
+    end
+    respond_to do |format|
+      format.html { redirect_to comidas_participantes_path, notice: "El control de comidas ha sido reiniciado con éxito." }
+      format.json { head :ok }
+    end
+  end
+  
+  # POST /participantes/comidas
+  # POST /participantes/comidas.json
+  def comidas
+    if params.has_key?(:cedula)
+      @participante = Participante.find_by_cedula(params[:cedula])
+      if @participante.nil?
+        mensaje = "No se encontró ningún participante cuya cédula sea: \n" + params[:cedula]
+      else
+        if @participante.comida
+          mensaje = "Ya comió"
+        else
+          @participante.update_attribute(:comida, true)
+          mensaje = "Marcado"
+        end
+      end
+      respond_to do |format|
+        format.html { redirect_to comidas_participantes_path, notice: mensaje }
+        format.json { head :ok }
+      end
+    end    
+  end
+  
+  # GET /participantes/buscar/1
+  # GET /participantes/buscar/1.json
+  def buscar
+    if params.has_key?(:query) && params[:query] != ""
+      if params[:query] =~ /^[0-9]+$/
+        @participante = Participante.find_by_cedula(params[:query])
+        
+        if @participante.nil?
+          flash[:notice] = "No se encontró ningún participante cuya cédula sea: " + params[:query]
+          @encabezado = "Lista de participantes (" + @participantes.size.to_s + ")"
+          @participantes = getParticipantes
+        else
+          redirect_to @participante
+        end
+      
+      else
+        nombre = "%"+ params[:query] +"%"
+        @encabezado = "Búsqueda: " + params[:query]
+        @participantes =  Participante.find( :all, :conditions => ["nombre like ? OR seg_nombre like ? OR apellido like ? OR seg_apellido like ?", nombre, nombre, nombre, nombre] )
+        
+        if @participantes.size == 0
+          flash[:notice] = "No se encontró ningún particpante cuyo nombre o apellido contenga " + params[:query]
+          @participantes = getParticipantes
+        else
+          flash[:notice] = ""
+        end
+      end
+      
+    else
+      flash[:notice] = "Tienes que escribir algo si quieres hacer una busqueda..."
+      @encabezado = "Lista de participantes (" + @participantes.size.to_s + ")"
+      @participantes = getParticipantes
+    end
+    
+    if @participante.nil?
+      respond_to do |format|
+        format.html { render action: "index" }
+      end
+    end
+  end
   
   # GET /participantes
   # GET /participantes.json
   def index
-    @participantes = Participante.find( :all, :conditions => { :eliminado => false }, :order => "created_at DESC")
+    @participantes = getParticipantes
+    @encabezado = "Lista de participantes (" + @participantes.size.to_s + ")"
+    flash[:notice] = ""
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @participantes }
-    end
-  end
-  
-  # POST /participantes/buscar
-  # POST /participantes/buscar.json
-  def buscar
-    @participante = Participante.find_by_cedula(params[:cedula])
-    if @participante.nil?
-      redirect_to :participantes, notice: "No se encontró ningún participante cuya cédula sea: " + params[:cedula]
-    else
-      redirect_to @participante
     end
   end
 
@@ -32,15 +118,6 @@
     end
   end
   
-  def zonasDisponibles
-    zonas = Zona.all
-    zonas.each do |z|
-      if z.capacidad <= z.participantes.count
-        zonas.delete(z)
-      end
-    end
-  end
-  
   # GET /participantes/new
   # GET /participantes/new.json
   def new
@@ -52,21 +129,12 @@
     end
   end
 
-  def zonasDisponibles_Edit (zona)
-    zonas = Zona.all
-    zonas.each do |z|
-      if z.capacidad <= z.participantes.count && z != zona
-		    zonas.delete(z)
-      end
-    end
-  end
-
   # GET /participantes/1/edit
   def edit
     @participante = Participante.find(params[:id])
     @zonas = zonasDisponibles_Edit(@participante.zona)
   end
-
+  
   # POST /participantes
   # POST /participantes.json
   def create
@@ -98,45 +166,13 @@
       end
     end
   end
-
+  
   # DELETE /participantes/1
   # DELETE /participantes/1.json
   def destroy
     Participante.find(params[:id]).update_attribute(:eliminado, true)
     respond_to do |format|
       format.html { redirect_to participantes_url }
-      format.json { head :ok }
-    end
-  end
-  
-  # POST /participantes/comidas
-  # POST /participantes/comidas.json
-  def comidas
-    if params.has_key?(:cedula)
-      @participante = Participante.find_by_cedula(params[:cedula])
-      if @participante.nil?
-        mensaje = "No se encontró ningún participante cuya cédula sea: " + params[:cedula]
-      else
-        if @participante.comida
-          mensaje = "Ya comió"
-        else
-          @participante.update_attribute(:comida, true)
-          mensaje = "Marcado"
-        end
-      end
-      respond_to do |format|
-        format.html { redirect_to "/participantes/comidas", notice: mensaje }
-        format.json { head :ok }
-      end
-    end    
-  end
-  
-  def reiniciarComidas
-    Participante.all.each do |p|
-      p.update_attribute(:comida, false)
-    end
-    respond_to do |format|
-      format.html { redirect_to "/participantes/comidas", notice: "El control de comidas ha sido reiniciado con éxito." }
       format.json { head :ok }
     end
   end
