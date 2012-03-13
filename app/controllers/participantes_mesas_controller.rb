@@ -43,11 +43,11 @@ class ParticipantesMesasController < ApplicationController
   # POST /participantes_mesas.json
   def create
     @participante_mesa = ParticipanteMesa.new(params[:participante_mesa])
-		@mesas = MesaDeTrabajo.all
-		participante = Participante.find_by_ci_par(@participante_mesa.id_par)
+		participante = Participante.find_by_cedula(@participante_mesa.id_par)
 		
 		unless participante.nil?
-		  @participante_mesa.id_par = participante.id
+		  @participante_mesa.participante = participante
+      @participante_mesa.prioridad = 1 + participante.participantes_mesas.count(:conditions => { :seleccionado => false })
 		end
 		
 		respond_to do |format|
