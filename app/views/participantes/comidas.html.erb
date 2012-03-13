@@ -1,0 +1,10 @@
+﻿<h1>Comidas</h1>
+<h2 id="notice" align=center><%= notice %></h2>
+
+<div align=center>
+  <%= form_tag "/participantes/comidas" do %>
+    <%= text_field_tag :cedula, nil, { :placeholder => "Cédula" } %>
+    <br />
+    <%= submit_tag "Validar"%>
+  <% end %>
+</div>
