@@ -7,9 +7,9 @@ class CreateMesasDeTrabajo < ActiveRecord::Migration
       t.date    :dia
       t.time    :hora_ini
       t.time    :hora_fin
-      t.string  :lugar,           :null => false, :limit => 25
+      t.string  :lugar,           :limit => 25
       t.integer :capacidad
-      t.string  :requerimientos,  :null => false
+      t.text    :requerimientos,  :null => false
       t.integer :ponente_id
       t.integer :patrocinante_id
     end
