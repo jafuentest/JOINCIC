@@ -132,17 +132,28 @@ footer nav {
   float: none;
 }
 
-/* Boton grande */
-a.boton {
-  margin-left: auto;
-  margin-right: auto;
-  text-align: center;
-  padding: 0.8em;
-  text-decoration: none;
+.field_with_errors input{
+  border: 2px solid red;
+}
+
+
+#error_explanation {
+  background-color: #EEE;
+  width: 450px;
+  border: 2px solid red;
+  padding: 5px;
+  margin-bottom: 20px;
+}
+#error_explanation h2 {
+  background-color: #C00;
   font-weight: bold;
-  font-size: 150%;
-  color: #116;
-  background: #99E;
-  border: 2px solid #448;
-  border-radius: 1em;
+  font-size: 1.5em;
+  color: #fff;
+  padding: inherit;
+  margin: -5px;
+  margin-bottom: 10px;
+}
+
+#notice {
+  color: green;
 }
