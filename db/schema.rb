@@ -25,9 +25,9 @@ ActiveRecord::Schema.define(:version => 20120309023237) do
     t.date    "dia"
     t.time    "hora_ini"
     t.time    "hora_fin"
-    t.string  "lugar",           :limit => 25, :null => false
+    t.string  "lugar",           :limit => 25
     t.integer "capacidad"
-    t.string  "requerimientos",                :null => false
+    t.text    "requerimientos",                :null => false
     t.integer "ponente_id"
     t.integer "patrocinante_id"
   end
@@ -101,9 +101,9 @@ ActiveRecord::Schema.define(:version => 20120309023237) do
     t.string  "titulo",          :limit => 25, :null => false
     t.string  "tema",            :limit => 25, :null => false
     t.string  "descripcion",                   :null => false
-    t.date    "dia",                           :null => false
-    t.time    "hora_ini",                      :null => false
-    t.time    "hora_fin",                      :null => false
+    t.date    "dia"
+    t.time    "hora_ini"
+    t.time    "hora_fin"
     t.integer "ponente_id",                    :null => false
     t.integer "patrocinante_id"
   end
