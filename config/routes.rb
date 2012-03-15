@@ -1,8 +1,10 @@
 Sistema::Application.routes.draw do
   
-	root :to => 'home#inicio'
+	root :to => "home#inicio"
   
-	match '/inicio', :to => 'home#inicio'  
+	match "/inicio", :to => "home#inicio"
+  
+  match "/entregaDeMateriales", :to => "participantes_mates", :action => "index"
   
   get "home/inicio"
   
@@ -22,7 +24,12 @@ Sistema::Application.routes.draw do
   end
   
   resources :participantes_mates do
-    post "crear", :on => :collection
+    collection do
+      post "crear"
+      post "mostrar"
+      get  "buscar"
+      post "entregar"
+    end
   end
   
   resources :participantes_mesas

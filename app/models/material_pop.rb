@@ -12,10 +12,10 @@
   end
   
   def deuda
-    participantes_mates.count(:conditions => { :entregado => false })
+    Participante.all.size - participantes_mates.count(:conditions => { :entregado => true })
   end
   
   def disponibilidad
-    cantidad - participantes_mates.count
+    cantidad - Participante.all.size
   end
 end
