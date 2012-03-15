@@ -1,22 +1,17 @@
-﻿<h1>Entrega de Material</h1>
+﻿<h1><%= @participante.nombreCompleto %></h1>
 <p id="notice"><%= notice %></p>
 
 <div align="center">
-  <%= form_tag "create" do %>
+  <%= form_tag crear_participantes_mates_path do %>
+    <div class="field">
+      <%= hidden_field_tag :cedula, @participante.cedula %>
+    </div>
+    
     <table class="formularioS">
+      <% @materiales_pop.each do |material_pop| %>
       <tr>
         <th></th>
       </tr>
-      <tr>
-        <td>
-          <div class="field">
-            <%= label_tag      :cedula %><br />
-            <%= text_field_tag :cedula %>
-          </div>
-        </td>
-      </tr>
-      
-      <% @materiales_pop.each do |material_pop| %>
       <tr>
         <td>
           <div class="field" align=left>
