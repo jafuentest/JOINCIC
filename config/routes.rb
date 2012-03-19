@@ -1,7 +1,8 @@
 Sistema::Application.routes.draw do
 	resources :sessions, :only => [:new, :create, :destroy]  
-	#root :to => 'home#inicio'
-  
+
+	root :to => 'home#inicio'
+	
 	match '/inicio', :to => 'home#inicio'
 
 	match '/inicioSesion', :to => 'sessions#new'
