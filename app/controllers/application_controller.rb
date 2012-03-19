@@ -3,7 +3,7 @@
   
   def estarLogueado
 	if(session[:organizador] == nil)
-		flash[:notice] = "Debes estar logueado para poder hacer cualquier cambio"
+		#flash[:notice] = "Debes estar logueado para poder hacer cualquier cambio"
 		redirect_to inicioSesion_path
     end
   end 
