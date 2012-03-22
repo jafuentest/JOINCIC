@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   skip_before_filter :estarLogueado, :only => [:new, :create]
+  layout "login"
   
   def new
 	@title = "Iniciar Sesion"
@@ -14,7 +15,6 @@ class SessionsController < ApplicationController
 		render 'new'
 	else
 		session[:organizador] = organizador.usuario
-		/Pagina a donde se quiera ir/
 		redirect_to inicio_path
 	end
   end
