@@ -8,8 +8,6 @@
 </head>
 <body>
   <div class="container">
-	<p>Hola, <%= session[:organizador] %></p>
-	<%= link_to "Desconectar", cerrarSesion_path, :method => :delete %>
     <%= render "layouts/header" %>
     <section>
       <%= yield %>

@@ -1,7 +1,7 @@
 ﻿<%= form_for(@mesa_de_trabajo) do |f| %>
   <% if @mesa_de_trabajo.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@mesa_de_trabajo.errors.count, "error") %> prohibited this mesa_de_trabajo from being saved:</h2>
+      <h2><%= pluralize(@mesa_de_trabajo.errors.count, "error prohibió", "errores prohibieron") %> guardar la mesa de trabajo:</h2>
 
       <ul>
       <% @mesa_de_trabajo.errors.full_messages.each do |msg| %>
@@ -11,51 +11,67 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :titulo %><br />
-    <%= f.text_field :titulo %>
-  </div>
-  <div class="field">
-    <%= f.label :tema %><br />
-    <%= f.text_field :tema %>
-  </div>
-  <div class="field">
-    <%= f.label :descripcion %><br />
-    <%= f.text_field :descripcion %>
-  </div>
-  <div class="field">
-    <%= f.label :dia %><br />
-    <%= f.date_select :dia %>
-  </div>
-  <div class="field">
-    <%= f.label :hora_ini %><br />
-    <%= f.time_select :hora_ini %>
-  </div>
-  <div class="field">
-    <%= f.label :hora_fin %><br />
-    <%= f.time_select :hora_fin %>
-  </div>
-  <div class="field">
-    <%= f.label :lugar %><br />
-    <%= f.text_field :lugar %>
-  </div>
-  <div class="field">
-    <%= f.label :capacidad %><br />
-    <%= f.number_field :capacidad %>
-  </div>
-  <div class="field">
-    <%= f.label :requerimientos %><br />
-    <%= f.text_field :requerimientos %>
-  </div>
-  <div class="field">
-    <%= f.label :ponente_id %><br />
-    <%= f.select :ponente_id, @ponentes.collect {|p| [ p.nombre+" "+p.apellido, p.id ] } %>
-  </div>
-  <div class="field">
-    <%= f.label :patrocinante_id %><br />
-    <%= f.select :patrocinante_id, @patrocinantes.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true } %>
-  </div>
+  <table class="formulario">
+    <tr>
+      <th width=55%></th>
+      <th width=45%></th>
+    </tr>
+    <tr>
+      <td>
+        <div class="field">
+          <%= f.label      :titulo %>
+          <%= f.text_field :titulo, :size => 20, :maxlength => 15 %>
+        </div>
+        <div class="field">
+          <%= f.label      :tema %>
+          <%= f.text_field :tema, :size => 20, :maxlength => 15 %>
+        </div>
+        <div class="field">
+          <%= f.label      :descripcion %>
+          <%= f.text_field :descripcion, :size => 20, :maxlength => 255 %>
+        </div>
+        <div class="field">
+          <%= f.label      :lugar %>
+          <%= f.text_field :lugar, :size => 20, :maxlength => 15 %>
+        </div>
+        <div class="field">
+          <%= f.label        :capacidad %>
+          <%= f.number_field :capacidad, :in => 1..50 %>
+        </div>
+        <div class="field">
+          <%= f.label       :dia %>
+          <%= f.date_select :dia, :order => [:day, :month, :year], :use_short_month => true %>
+        </div>
+        <div class="field">
+          <%= f.label       :hora_ini %>
+          <%= f.time_select :hora_ini %>
+        </div>
+        <div class="field">
+          <%= f.label       :hora_fin %>
+          <%= f.time_select :hora_fin %>
+        </div>
+        <div class="field">
+          <%= f.label  :ponente_id %>
+          <%= f.select :ponente_id, @ponentes.collect {|p| [ p.nombre+" "+p.apellido, p.id ] } %>
+        </div>
+        <div class="field">
+          <%= f.label  :patrocinante_id %>
+          <%= f.select :patrocinante_id, @patrocinantes.collect {|p| [ p.nombre, p.id ] }, { :include_blank => true }, :style => "max-width:150px;" %>
+        </div>
+      </td>
+      <td>
+        <div class="field"  >
+          <%= f.label      :requerimientos %>
+          <%= f.text_area  :requerimientos %>
+        </div>
+      </td>
+    </tr>
+  </table>
+  
+  <br />
+  
   <div class="actions">
     <%= f.submit %>
   </div>
+
 <% end %>
