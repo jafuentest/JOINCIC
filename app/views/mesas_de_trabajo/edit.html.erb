@@ -1,6 +1,8 @@
-﻿<h1>Editing mesa_de_trabajo</h1>
+﻿<h1>Modificar <%= @mesa_de_trabajo.titulo %></h1>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @mesa_de_trabajo %> |
-<%= link_to 'Back', mesas_de_trabajo_path %>
+<div align="center">
+  <%= render "form" %>
+  <br />
+  <%= link_to "Mostrar", @mesa_de_trabajo %> |
+  <%= link_to "Volver a la lista", mesas_de_trabajo_path %>
+</div>
