@@ -1,12 +1,8 @@
 ﻿class ParticipantesController < ApplicationController
   def getParticipantes
-    Participante.find( :all, :conditions => { :eliminado => false }, :order => "created_at DESC" )
+    @participantes = Participante.find( :all, :conditions => { :eliminado => false }, :order => "created_at DESC" )
   end
-  
-  def buscarParticipantes(nombre)
-    Participante.find( :all, :conditions => ["nombre like ? OR seg_nombre like ? OR apellido like ? OR seg_apellido like ?", nombre, nombre, nombre, nombre] )
-  end
-  
+
   def zonasDisponibles
     zonas = Zona.all
     zonas.each do |z|
@@ -26,7 +22,7 @@
   end
   
   def reiniciarComidas
-    getParticipantes.each do |p|
+    Participante.all.each do |p|
       p.update_attribute(:comida, false)
     end
     respond_to do |format|
@@ -41,17 +37,13 @@
     if params.has_key?(:cedula)
       @participante = Participante.find_by_cedula(params[:cedula])
       if @participante.nil?
-        mensaje = "No se encontró ningún participante cuya cédula sea:<br/>".html_safe + params[:cedula]
+        mensaje = "No se encontró ningún participante cuya cédula sea: \n" + params[:cedula]
       else
-        if @participante.eliminado
-          mensaje = "Error: El participante fue eliminado del sistema"
+        if @participante.comida
+          mensaje = "Ya comió"
         else
-          if @participante.comida
-            mensaje = "Ya comió"
-          else
-            @participante.update_attribute(:comida, true)
-            mensaje = "Marcado"
-          end
+          @participante.update_attribute(:comida, true)
+          mensaje = "Marcado"
         end
       end
       respond_to do |format|
@@ -70,7 +62,7 @@
         
         if @participante.nil?
           flash[:notice] = "No se encontró ningún participante cuya cédula sea: " + params[:query]
-          @encabezado = "Lista de participantes (" + @participantes.size.to_s + ")" unless @participantes.nil?
+          @encabezado = "Lista de participantes (" + @participantes.size.to_s + ")"
           @participantes = getParticipantes
         else
           redirect_to @participante
@@ -79,20 +71,20 @@
       else
         nombre = "%"+ params[:query] +"%"
         @encabezado = "Búsqueda: " + params[:query]
-        @participantes = buscarParticipantes(nombre)
+        @participantes =  Participante.find( :all, :conditions => ["nombre like ? OR seg_nombre like ? OR apellido like ? OR seg_apellido like ?", nombre, nombre, nombre, nombre] )
         
         if @participantes.size == 0
           flash[:notice] = "No se encontró ningún particpante cuyo nombre o apellido contenga " + params[:query]
           @participantes = getParticipantes
         else
-          flash[:notice] = "Error: Búsqueda vacía"
+          flash[:notice] = ""
         end
       end
       
     else
       flash[:notice] = "Tienes que escribir algo si quieres hacer una busqueda..."
-      @participantes = getParticipantes
       @encabezado = "Lista de participantes (" + @participantes.size.to_s + ")"
+      @participantes = getParticipantes
     end
     
     if @participante.nil?
@@ -179,7 +171,6 @@
   # DELETE /participantes/1.json
   def destroy
     Participante.find(params[:id]).update_attribute(:eliminado, true)
-    Participante.find(params[:id]).update_attribute(:comida, true)
     respond_to do |format|
       format.html { redirect_to participantes_url }
       format.json { head :ok }
