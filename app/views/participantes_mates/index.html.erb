@@ -1,33 +1,31 @@
-﻿<h1><%= @participante.nombreCompleto %></h1>
+﻿<h1>Listing participantes_mates</h1>
 
 <table class="listaS">
   <tr>
+    <th>Participante</th>
     <th>Material</th>
     <th>Entregado</th>
-    <th>Opciones</th>
+    <th colspan=3>Opciones</th>
   </tr>
 
   <% @participantes_mates.each do |pm| %>
   <tr>
+    <td><%= pm.participante.nombreCompleto %></td>
     <td><%= pm.material_pop.nombre %></td>
     <td>
       <% if pm.entregado %>
-        <%= image_tag("/check.png", :alt => "SI") %>
+        <%= "SI" %>
       <% else %>
-        <%= image_tag("/cross.png", :alt => "NO") %>
+        <%= "NO" %>
       <% end %>
     </td>
-    <td>
-      <%= form_tag entregar_participantes_mates_path do %>
-        <%= hidden_field_tag :participante_id, @participante.id %>
-        <%= hidden_field_tag :material_pop_id, pm.material_pop.id %>
-        <%= submit_tag  "Entregar" unless pm.entregado %>
-      <% end %>
-    </td>
+    <td><%= link_to image_tag("/show.png", :alt => "Mostrar"), pm %></td>
+    <td><%= link_to image_tag("/edit.png", :alt => "Modificar"), edit_participante_mate_path(pm) %></td>
+    <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), pm, confirm: "Are you sure?", method: :delete %></td>
   </tr>
   <% end %>
 </table>
 
 <br />
 
-<%= link_to "Volver", participantes_mates_path %>
+<%= link_to "New Participante mate", new_participante_mate_path %>
