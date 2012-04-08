@@ -44,4 +44,16 @@
   def apellidos
     apellido + " " + seg_apellido
   end
+  
+  def comprobarPass(pass)
+	clave == pass
+  end
+	
+  def self.comprobarOrganizador(nombre, pass)
+	organizador = find_by_usuario(nombre)
+	if (organizador != nil)
+		return organizador if organizador.comprobarPass(pass)
+	end
+	nil
+  end
 end

@@ -10,13 +10,6 @@ textarea {
   font-family:inherit;
 }
 
-table.dosColumnas {
-  width:100%;
-}
-table.dosColumnas tr th{
-  width:50%;
-}
-
 table.formulario {
   width:50em;
 }
