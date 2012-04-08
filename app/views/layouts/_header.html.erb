@@ -1,11 +1,12 @@
 ﻿<header>
   <nav class="round">
     <ul>
-      <li><%= link_to "Inicio", '/' %></li>
-      <li><%= link_to "Participantes", '/participantes' %></li>
-      <li><%= link_to "Organizadores", '/organizadores' %></li>
-      <li><%= link_to "Materiales POP", '/materiales_pop' %></li>
-      <li><%= link_to "Zonas", '/zonas' %></li>
+      <li><%= link_to "Inicio", root_path %></li>
+      <li><%= link_to "Participantes", participantes_path %></li>
+      <li><%= link_to "Organizadores", organizadores_path %></li>
+      <li><%= link_to "Materiales POP", materiales_pop_path %></li>
+      <li><%= link_to "Zonas", zonas_path %></li>
+      <li><%= link_to "Cerrar Sesión", cerrarSesion_path, :method => :delete %></li>
     </ul>
   </nav>
 </header>

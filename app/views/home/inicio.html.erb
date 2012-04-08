@@ -1,4 +1,5 @@
 ﻿<h1>Página principal</h1>
+<p>Hola, <%= session[:organizador] %></p>
 <p>Aquí van los accesos directos a las funcionalidades principales del sistema</p>
 <table class="menu">
   <tr>
@@ -8,12 +9,12 @@
   </tr>
   <tr>
     <td><%= link_to "Registrar participante", new_participante_path %></td>
-    <td><%= link_to "Entrega de material POP", new_participante_mate_path %></td>
+    <td><%= link_to "Entrega de material POP", participantes_mates_path %></td>
     <td><%= link_to "Inscribir participante en mesa de trabajo", new_participante_mesa_path %></td>
   </tr>
   <tr>
     <td><%= link_to "Registrar organizador", new_organizador_path %></td>
-    <td><%= link_to "Comidas", "/participantes/comidas" %></td>
+    <td><%= link_to "Comidas", entregarComida_participantes_path %></td>
     <td><%= link_to "Rifar mesas de trabajo", "/" %></td>
   </tr>
   <tr>
