@@ -41,12 +41,25 @@
   # POST /materiales_pop.json
   def create
     @material_pop = MaterialPop.new(params[:material_pop])
-
-    respond_to do |format|
-      if @material_pop.save
-        format.html { redirect_to @material_pop, notice: 'Material pop was successfully created.' }
+    
+    if @material_pop.save
+      Participante.all.each do |p|
+        if p.participantes_mates.size > 0
+          pm = ParticipanteMate.new
+          pm.participante_id = p.id
+          pm.material_pop_id = @material_pop.id
+          pm.entregado = false
+          pm.save
+        end
+      end
+      
+      respond_to do |format|
+        format.html { redirect_to @material_pop, notice: "El material fue agregado con éxito." }
         format.json { render json: @material_pop, status: :created, location: @material_pop }
-      else
+      end
+    
+    else
+      respond_to do |format|
         format.html { render action: "new" }
         format.json { render json: @material_pop.errors, status: :unprocessable_entity }
       end
@@ -60,7 +73,7 @@
 
     respond_to do |format|
       if @material_pop.update_attributes(params[:material_pop])
-        format.html { redirect_to @material_pop, notice: 'Material pop was successfully updated.' }
+        format.html { redirect_to @material_pop, notice: "El material fue actualizado con éxito." }
         format.json { head :ok }
       else
         format.html { render action: "edit" }
@@ -73,6 +86,10 @@
   # DELETE /materiales_pop/1.json
   def destroy
     @material_pop = MaterialPop.find(params[:id])
+    @material_pop.participantes_mates.each do |entrega|
+      entrega.destroy
+    end
+    
     @material_pop.destroy
 
     respond_to do |format|

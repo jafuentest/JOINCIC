@@ -27,7 +27,7 @@
   def new
     @mesa_de_trabajo = MesaDeTrabajo.new
     @patrocinantes = Patrocinante.all(:order => :nombre)
-    @ponentes = Ponente.all(:order => :apellido)
+    @ponentes = Ponente.all(:order => :nombre)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -38,6 +38,8 @@
   # GET /mesas_de_trabajo/1/edit
   def edit
     @mesa_de_trabajo = MesaDeTrabajo.find(params[:id])
+    @patrocinantes = Patrocinante.all(:order => :nombre)
+    @ponentes = Ponente.all(:order => :nombre)
   end
 
   # POST /mesas_de_trabajo
@@ -60,6 +62,8 @@
   # PUT /mesas_de_trabajo/1.json
   def update
     @mesa_de_trabajo = MesaDeTrabajo.find(params[:id])
+    @patrocinantes = Patrocinante.all(:order => :nombre)
+    @ponentes = Ponente.all(:order => :nombre)
 
     respond_to do |format|
       if @mesa_de_trabajo.update_attributes(params[:mesa_de_trabajo])
