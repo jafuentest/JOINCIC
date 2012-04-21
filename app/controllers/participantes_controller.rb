@@ -1,6 +1,6 @@
 ﻿class ParticipantesController < ApplicationController
   def getParticipantes
-    Participante.find( :all, :conditions => { :eliminado => false }, :order => "created_at DESC" )
+    Participante.find( :all, :order => "created_at DESC" )
   end
   
   def buscarParticipantes(nombre)
@@ -30,7 +30,7 @@
       p.update_attribute(:comida, false)
     end
     respond_to do |format|
-      format.html { redirect_to comidas_participantes_path, notice: "El control de comidas ha sido reiniciado con éxito." }
+      format.html { redirect_to entregarComida_participantes_path, notice: "El control de comidas ha sido reiniciado con éxito." }
       format.json { head :ok }
     end
   end
@@ -95,8 +95,6 @@
         if @participantes.size == 0
           flash[:notice] = "No se encontró ningún particpante cuyo nombre o apellido contenga " + params[:query]
           @participantes = getParticipantes
-        else
-          flash[:notice] = "Error: Búsqueda vacía"
         end
       end
       
