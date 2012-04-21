@@ -14,15 +14,15 @@
 
   <% @participantes.each do |participante| %>
   <tr>
-    <td><%= participante.nombres %></td>
-    <td><%= participante.apellidos %></td>
+    <td <%= "style='color:red';".html_safe if participante.eliminado %>><%= participante.nombres %></td>
+    <td <%= "style='color:red';".html_safe if participante.eliminado %>><%= participante.apellidos %></td>
     <td align=center><%= participante.institucion %></td>
     <td align=center><%= participante.nivel %></td>
     <td align=center><%= participante.zona.nombre %></td>
     <td align=center><%= I18n.l participante.created_at.in_time_zone("Caracas").to_date, :format => :medio %></td>
     <td><%= link_to image_tag("/show.png", :alt => "Mostrar"), participante %></td>
     <td><%= link_to image_tag("/edit.png", :alt => "Modificar"), edit_participante_path(participante) %></td>
-    <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), participante, confirm: "¿Seguro que desea eliminar a " + participante.nombreCompleto + "?", method: :delete %></td>
+    <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), participante, confirm: "¿Seguro que desea eliminar a " + participante.nombreCompleto + "?", method: :delete unless participante.eliminado%></td>
   </tr>
   <% end %>
 </table>

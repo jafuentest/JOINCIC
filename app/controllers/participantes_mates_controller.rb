@@ -25,12 +25,17 @@
       else
         @participantes_mates = @participante.participantes_mates
         
-        respond_to do |format|
-          if @participantes_mates.size > 0
-            format.html { render action: "index" }
-          else
-            @materiales_pop = MaterialPop.all
-            format.html { render action: "new" }
+        if @participante.eliminado
+          flash[:notice] = "Error: El participante fue eliminado del sistema"
+          redirect_to buscar_participantes_mates_path
+        else
+          respond_to do |format|
+            if @participantes_mates.size > 0
+              format.html { render action: "index" }
+            else
+              @materiales_pop = MaterialPop.all
+              format.html { render action: "new" }
+            end
           end
         end
       end

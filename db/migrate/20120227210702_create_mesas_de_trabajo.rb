@@ -12,6 +12,7 @@ class CreateMesasDeTrabajo < ActiveRecord::Migration
       t.text    :requerimientos,  :null => false
       t.integer :ponente_id
       t.integer :patrocinante_id
+      t.boolean :sorteada,        :default => false
     end
   end
 end
