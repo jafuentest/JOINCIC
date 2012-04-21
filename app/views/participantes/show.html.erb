@@ -50,14 +50,14 @@
     </td>
     <td>
       <% @participante.participantes_mates.each do |mat| %>
-        <p>
+      <p>
         <b><%= mat.material_pop.nombre %></b>:
         <% if mat.entregado %>
           Entregado
         <% else %>
           Por Entregar
         <% end %>
-        </p>
+      </p>
       <% end %>
     </td>
   </tr>
