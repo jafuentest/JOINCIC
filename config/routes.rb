@@ -33,11 +33,15 @@ Sistema::Application.routes.draw do
     end
   end
   
+  resources :mesas_de_trabajo do
+    collection do
+      post "sortear"
+    end
+  end
   resources :sessions, :only => [:new, :create, :destroy]
   resources :organizadores
   resources :participantes_mesas
   resources :materiales_pop
-  resources :mesas_de_trabajo
   resources :premios
   resources :planes
   resources :patrocinantes
