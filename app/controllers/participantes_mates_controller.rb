@@ -13,14 +13,16 @@
     end
   end
   
-  def mostrar
+  # GET /participantes_mates/1
+  # GET /participantes_mates/1.json
+  def show
     numero_regex = /^[0-9]+$/
     
-    if params[:cedula] =~ numero_regex
-      @participante = Participante.find_by_cedula(params[:cedula])
+    if params[:id] =~ numero_regex
+      @participante = Participante.find_by_cedula(params[:id])
       
       if @participante.nil?
-        flash[:notice] = "No se encontró ningún participante cuya cédula sea: <br/>".html_safe + params[:cedula]
+        flash[:notice] = "No se encontró ningún participante cuya cédula sea: <br/>".html_safe + params[:id]
         redirect_to buscar_participantes_mates_path
       else
         @participantes_mates = @participante.participantes_mates
@@ -46,6 +48,16 @@
     end
   end
   
+  # GET /participantes_mates/new
+  # GET /participantes_mates/new.json
+  def new
+    respond_to do |format|
+      @participante = Participante.find_by_cedula(params[:cedula])
+      @materiales_pop = MaterialPop.all
+      format.html # new.html.erb
+    end
+  end
+  
   # POST /participantes_mates
   # POST /participantes_mates.json
   def entregar
@@ -57,14 +69,6 @@
     
     respond_to do |format|
       format.html { render action: "index" }
-    end
-  end
-  
-  # GET /participantes_mates/new
-  # GET /participantes_mates/new.json
-  def new
-    respond_to do |format|
-      format.html # new.html.erb
     end
   end
   
@@ -91,17 +95,6 @@
     
     respond_to do |format|
       format.html { render action: "index" }
-    end
-  end
-  
-  # GET /participantes_mates/1
-  # GET /participantes_mates/1.json
-  def show
-    @participante_mate = ParticipanteMate.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @participante_mate }
     end
   end
 end

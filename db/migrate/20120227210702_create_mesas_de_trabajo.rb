@@ -4,15 +4,15 @@ class CreateMesasDeTrabajo < ActiveRecord::Migration
       t.string  :titulo,          :null => false, :limit => 25
       t.string  :tema,            :null => false, :limit => 25
       t.string  :descripcion,     :null => false
-      t.date    :dia
-      t.time    :hora_ini
-      t.time    :hora_fin
-      t.string  :lugar,           :limit => 25
-      t.integer :capacidad
+      t.date    :dia,             :null => false
+      t.time    :hora_ini,        :null => false
+      t.time    :hora_fin,        :null => false
+      t.string  :lugar,           :null => false, :limit => 25
+      t.integer :capacidad,       :null => false
       t.text    :requerimientos,  :null => false
+      t.boolean :sorteada,        :null => false, :default => false
       t.integer :ponente_id
       t.integer :patrocinante_id
-      t.boolean :sorteada,        :default => false
     end
   end
 end

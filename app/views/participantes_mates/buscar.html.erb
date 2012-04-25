@@ -2,7 +2,7 @@
 <h2 id="notice" align=center><%= notice %></h2>
 
 <div align=center>
-  <%= form_tag mostrar_participantes_mates_path do %>
+  <%= form_tag new_participante_mate_path, :method => "get" do %>
     <%= text_field_tag :cedula, nil, { :placeholder => "Cédula" } %>
     <br />
     <%= submit_tag "Buscar"%>
