@@ -19,15 +19,16 @@ ActiveRecord::Schema.define(:version => 20120309023237) do
   end
 
   create_table "mesas_de_trabajo", :force => true do |t|
-    t.string  "titulo",          :limit => 25, :null => false
-    t.string  "tema",            :limit => 25, :null => false
-    t.string  "descripcion",                   :null => false
+    t.string  "titulo",          :limit => 25,                    :null => false
+    t.string  "tema",            :limit => 25,                    :null => false
+    t.string  "descripcion",                                      :null => false
     t.date    "dia"
     t.time    "hora_ini"
     t.time    "hora_fin"
     t.string  "lugar",           :limit => 25
     t.integer "capacidad"
-    t.text    "requerimientos",                :null => false
+    t.text    "requerimientos",                                   :null => false
+    t.boolean "sorteada",                      :default => false
     t.integer "ponente_id"
     t.integer "patrocinante_id"
   end
@@ -62,6 +63,7 @@ ActiveRecord::Schema.define(:version => 20120309023237) do
     t.string   "direccion",    :limit => 50,                    :null => false
     t.string   "institucion",  :limit => 20,                    :null => false
     t.integer  "nivel",                                         :null => false
+    t.string   "tipo_nivel",   :limit => 9,                     :null => false
     t.integer  "zona_id",                                       :null => false
     t.boolean  "comida",                     :default => false
     t.boolean  "eliminado",                  :default => false
@@ -101,9 +103,10 @@ ActiveRecord::Schema.define(:version => 20120309023237) do
     t.string  "titulo",          :limit => 25, :null => false
     t.string  "tema",            :limit => 25, :null => false
     t.string  "descripcion",                   :null => false
-    t.date    "dia"
-    t.time    "hora_ini"
-    t.time    "hora_fin"
+    t.date    "dia",                           :null => false
+    t.time    "hora_ini",                      :null => false
+    t.time    "hora_fin",                      :null => false
+    t.text    "requerimientos",                :null => false
     t.integer "ponente_id",                    :null => false
     t.integer "patrocinante_id"
   end

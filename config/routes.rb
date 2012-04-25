@@ -24,23 +24,29 @@ Sistema::Application.routes.draw do
     end
   end
   
-  resources :participantes_mates, :except => :create do
-    collection do
-      get  "buscar"
-      post "mostrar"
-      post "crear"
-      post "entregar"
-    end
-  end
-  
   resources :mesas_de_trabajo do
     collection do
       post "sortear"
     end
   end
+  
+  resources :participantes_mates, :only => [:index, :show, :new] do
+    collection do
+      get  "buscar"
+      post "crear"
+      post "entregar"
+    end
+  end
+  
+  resources :participantes_mesas, :only => [:index, :show, :new] do
+    collection do
+      get  "buscar"
+      post "crear"
+    end
+  end
+  
   resources :sessions, :only => [:new, :create, :destroy]
   resources :organizadores
-  resources :participantes_mesas
   resources :materiales_pop
   resources :premios
   resources :planes
