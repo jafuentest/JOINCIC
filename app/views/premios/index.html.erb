@@ -1,29 +1,27 @@
-﻿<h1>Listing premios</h1>
+﻿<h1>Lista de Premios</h1>
 
-<table>
+<table class="listaS">
   <tr>
     <th>Nombre</th>
     <th>Rifa</th>
     <th>Patrocinante</th>
     <th>Participante</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th colspan="3" width=48px>Opciones</th>
   </tr>
 
-<% @premios.each do |premio| %>
+  <% @premios.each do |premio| %>
   <tr>
     <td><%= premio.nombre %></td>
-    <td><%= premio.rifa_id %></td>
-    <td><%= premio.patrocinante_id %></td>
-    <td><%= premio.participante_id %></td>
-    <td><%= link_to 'Show', premio %></td>
-    <td><%= link_to 'Edit', edit_premio_path(premio) %></td>
-    <td><%= link_to 'Destroy', premio, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= premio.rifa.nombre %></td>
+    <td><%= premio.patrocinante.nombre %></td>
+    <td><%= premio.participante.nombreCompleto unless premio.participante.nil? %></td>
+    <td><%= link_to image_tag("/show.png", :alt => "Mostrar"), premio %></td>
+    <td><%= link_to image_tag("/edit.png", :alt => "Modificar"), edit_premio_path(premio) %></td>
+    <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), premio, confirm: "¿Seguro que desea eliminar el premio " + premio.nombre + " ?", method: :delete %></td>
   </tr>
-<% end %>
+  <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Premio', new_premio_path %>
+<%= link_to "Agregar Premio", new_premio_path %>

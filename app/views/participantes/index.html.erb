@@ -1,4 +1,4 @@
-﻿<h1><%= @encabezado %></h1>
+﻿<h1>Lista de participantes (<%= @participantes.size %>)</h1>
 <p id="notice"><%= notice %></p>
 
 <table class="lista">
@@ -13,9 +13,9 @@
   </tr>
 
   <% @participantes.each do |participante| %>
-  <tr>
-    <td <%= "style='color:red';".html_safe if participante.eliminado %>><%= participante.nombres %></td>
-    <td <%= "style='color:red';".html_safe if participante.eliminado %>><%= participante.apellidos %></td>
+  <tr <%= "style='color:red;'".html_safe if participante.eliminado %>>
+    <td><%= participante.nombres %></td>
+    <td><%= participante.apellidos %></td>
     <td align=center><%= participante.institucion %></td>
     <td align=center><%= participante.nivel %> <%= participante.tipo_nivel %></td>
     <td align=center><%= participante.zona.nombre %></td>
@@ -37,6 +37,6 @@
   <% end %>
 </div>
 
-<p>
-  <%= link_to "Agregar Participante", new_participante_path %>
-</p>
+<br />
+
+<%= link_to "Agregar Participante", new_participante_path %>

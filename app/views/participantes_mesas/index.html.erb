@@ -1,27 +1,27 @@
-﻿<h1>Participantes de las Mesas de Trabajo</h1>
+﻿<h1><%= @participante.nombreCompleto %></h1>
 
 <table class="listaS">
   <tr>
-    <th>Participante</th>
     <th>Mesa de Trabajo</th>
     <th>Prioridad</th>
     <th>Seleccionado</th>
-    <th colspan="3">Opciones</th>
   </tr>
 
   <% @participantes_mesas.each do |pm| %>
-    <tr>
-      <td><%= pm.participante.nombreCompleto %></td>
-      <td><%= pm.mesa_de_trabajo.titulo %></td>
-      <td><%= pm.prioridad %></td>
-      <td><%= pm.seleccionado %></td>
-      <td><%= link_to image_tag("/show.png",   :alt => "Mostrar"),   pm %></td>
-      <td><%= link_to image_tag("/edit.png",   :alt => "Modificar"), edit_participante_mesa_path(pm) %></td>
-      <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"),  pm, confirm: "¿Seguro que desea cancelar la inscripcion de " + pm.participante.nombreCompleto + " en la mesa " + pm.mesa_de_trabajo.titulo + "?", method: :delete %></td>
-    </tr>
+  <tr>
+    <td><%= pm.mesa_de_trabajo.titulo %></td>
+    <td><%= pm.prioridad %></td>
+    <td>
+      <% if pm.seleccionado %>
+        <%= image_tag("/check.png", :alt => "SI") %>
+      <% else %>
+        <%= image_tag("/cross.png", :alt => "NO") %>
+      <% end %>
+    </td>
+  </tr>
   <% end %>
 </table>
 
 <br />
 
-<%= link_to "Inscribir participante", new_participante_mesa_path %>
+<%= link_to "Volver", participantes_mates_path %>

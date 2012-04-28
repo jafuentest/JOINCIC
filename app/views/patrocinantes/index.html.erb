@@ -10,15 +10,15 @@
   </tr>
 
   <% @patrocinantes.each do |patrocinante| %>
-    <tr>
-      <td><%= patrocinante.nombre %></td>
-      <td align=center><%= link_to patrocinante.plan_de_patrocinio.nombre, patrocinante.plan_de_patrocinio %></td>
-      <td align=center><%= patrocinante.aporte %></td>
-      <td align=justify><%= patrocinante.comentario %></td>
-      <td><%= link_to image_tag("/show.png", :alt => "Mostrar"), patrocinante %></td>
-      <td><%= link_to image_tag("/edit.png", :alt => "Modificar"), edit_patrocinante_path(patrocinante) %></td>
-      <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), patrocinante, confirm: 'Are you sure?', method: :delete %></td>
-    </tr>
+  <tr>
+    <td><%= patrocinante.nombre %></td>
+    <td align=center><%= link_to patrocinante.plan.nombre, patrocinante.plan %></td>
+    <td align=center><%= patrocinante.aporte %></td>
+    <td align=justify><%= patrocinante.comentario %></td>
+    <td><%= link_to image_tag("/show.png", :alt => "Mostrar"), patrocinante %></td>
+    <td><%= link_to image_tag("/edit.png", :alt => "Modificar"), edit_patrocinante_path(patrocinante) %></td>
+    <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), patrocinante, confirm: "¿Seguro que desea eliminar el patrocinante " + patrocinante.nombre + " ?", method: :delete %></td>
+  </tr>
   <% end %>
 </table>
 

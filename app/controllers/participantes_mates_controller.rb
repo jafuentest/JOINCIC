@@ -51,9 +51,10 @@
   # GET /participantes_mates/new
   # GET /participantes_mates/new.json
   def new
+    @participante = Participante.find_by_cedula(params[:cedula])
+    @materiales_pop = MaterialPop.all
+    
     respond_to do |format|
-      @participante = Participante.find_by_cedula(params[:cedula])
-      @materiales_pop = MaterialPop.all
       format.html # new.html.erb
     end
   end

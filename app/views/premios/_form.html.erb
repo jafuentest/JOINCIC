@@ -13,20 +13,19 @@
 
   <div class="field">
     <%= f.label :nombre %><br />
-    <%= f.text_field :nombre %>
-  </div>
-  <div class="field">
-    <%= f.label :rifa_id %><br />
-    <%= f.number_field :rifa_id %>
+    <%= f.text_field :nombre, :size => 20, :maxlength => 25 %>
   </div>
   <div class="field">
     <%= f.label :patrocinante_id %><br />
-    <%= f.number_field :patrocinante_id %>
+    <%= f.select :patrocinante_id, @patrocinantes.collect {|p| [ p.nombre, p.id ] } %>
   </div>
   <div class="field">
-    <%= f.label :participante_id %><br />
-    <%= f.number_field :participante_id %>
+    <%= f.label :rifa_id %><br />
+    <%= f.select :rifa_id, @rifas.collect {|r| [ r.nombre, r.id ] } %>
   </div>
+  
+  <br />
+  
   <div class="actions">
     <%= f.submit %>
   </div>
