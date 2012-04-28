@@ -20,8 +20,8 @@
     <%= f.text_field :nombre %>
   </div>
   <div class="field">
-    <%= f.label :plan %><br />
-    <%= f.number_field :plan %>
+    <%= f.label :plan_id %><br />
+    <%= f.select :plan_id, @planes.collect {|p| [ p.nombre, p.id ] } %>
   </div>
   <div class="field">
     <%= f.label :aporte %><br />
@@ -29,8 +29,11 @@
   </div>
   <div class="field">
     <%= f.label :comentario %><br />
-    <%= f.number_field :comentario %>
+    <%= f.text_field :comentario %>
   </div>
+  
+  <br />
+  
   <div class="actions">
     <%= f.submit %>
   </div>

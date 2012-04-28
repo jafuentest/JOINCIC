@@ -25,6 +25,7 @@
   # GET /patrocinantes/new.json
   def new
     @patrocinante = Patrocinante.new
+    @planes = Plan.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,6 +35,7 @@
 
   # GET /patrocinantes/1/edit
   def edit
+    @planes = Plan.all
     @patrocinante = Patrocinante.find(params[:id])
   end
 
@@ -41,6 +43,7 @@
   # POST /patrocinantes.json
   def create
     @patrocinante = Patrocinante.new(params[:patrocinante])
+    @planes = Plan.all
 
     respond_to do |format|
       if @patrocinante.save
@@ -57,6 +60,7 @@
   # PUT /patrocinantes/1.json
   def update
     @patrocinante = Patrocinante.find(params[:id])
+    @planes = Plan.all
 
     respond_to do |format|
       if @patrocinante.update_attributes(params[:patrocinante])

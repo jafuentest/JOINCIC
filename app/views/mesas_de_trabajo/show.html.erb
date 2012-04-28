@@ -4,17 +4,15 @@
 <table class="dosColumnas">
   <tr>
     <th>
-    <th>
+    </th>
   </tr>
   <tr>
     <td>
       <p>
-        <b>Tema:</b>
-        <%= @mesa_de_trabajo.tema %>
+        <b>Tema:</b> <%= @mesa_de_trabajo.tema %>
       </p>
       <p>
-        <b>Descripcion:</b>
-        <%= @mesa_de_trabajo.descripcion %>
+        <b>Descripcion:</b> <%= @mesa_de_trabajo.descripcion %>
       </p>
       <p>
         <b>Dia y Hora:</b>
@@ -22,20 +20,16 @@
         <%= I18n.l @mesa_de_trabajo.hora_ini, :format => :hora %> - <%= I18n.l @mesa_de_trabajo.hora_fin, :format => :hora %>
       </p>
       <p>
-        <b>Lugar:</b>
-        <%= @mesa_de_trabajo.lugar %>
+        <b>Lugar:</b> <%= @mesa_de_trabajo.lugar %>
       </p>
       <p>
-        <b>Capacidad:</b>
-        <%= @mesa_de_trabajo.capacidad %>
+        <b>Capacidad:</b> <%= @mesa_de_trabajo.capacidad %>
       </p>
       <p>
-        <b>Requerimientos:</b>
-        <%= @mesa_de_trabajo.requerimientos %>
+        <b>Requerimientos:</b> <%= @mesa_de_trabajo.requerimientos %>
       </p>
       <p>
-        <b>Ponente:</b>
-        <%= @mesa_de_trabajo.ponente.nombreCompleto %>
+        <b>Ponente:</b> <%= @mesa_de_trabajo.ponente.nombreCompleto %>
       </p>
       <p>
         <b>Patrocinante:</b> <%= @mesa_de_trabajo.patrocinante.nombre unless @mesa_de_trabajo.patrocinante.nil?%>
@@ -49,17 +43,42 @@
         <tr>
           <th>Cédula</th>
           <th>Nombre</th>
-          <th>Seleccionado</th>
+          <th>Prioridad</th>
+          <th>Puesto</th>
+          <th>Asistencia</th>
         </tr>
         
         <% @participantes.each do |p| %>
-          <tr>
-            <td><%= p.participante.cedula %></td>
-            <td><%= p.participante.nombreCompleto %></td>
-            <td><%= p.seleccionado %></td>
-          </tr>
+        <tr>
+          <td><%= p.participante.cedula %></td>
+          <td><%= p.participante.nombreCompleto %></td>
+          <td><%= p.prioridad %></td>
+          <td><%= p.puesto %></td>
+          <td>
+            <% if p.seleccionado %>
+              <%= image_tag("/check.png", :alt => "SI") %>
+            <% else %>
+              <%= image_tag("/cross.png", :alt => "NO") %>
+            <% end %>
+          </td>
+        </tr>
         <% end %>
       </table>
+        <% if @mesa_de_trabajo.sorteada %>
+        <div align=center>
+          <%= form_tag reiniciar_mesa_de_trabajo_path do %>
+            <%= hidden_field_tag :id, @mesa_de_trabajo.id %>
+            <%= submit_tag  "Reiniciar" %>
+          <% end %>
+        </div>
+        <% else %>
+        <div align=center>
+          <%= form_tag sortear_mesa_de_trabajo_path do %>
+            <%= hidden_field_tag :id, @mesa_de_trabajo.id %>
+            <%= submit_tag  "Sortear" %>
+          <% end %>
+        </div>
+        <% end %>
     </td>
   </tr>
 </table>

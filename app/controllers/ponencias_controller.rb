@@ -25,6 +25,7 @@
   # GET /ponencias/new.json
   def new
     @ponencia = Ponencia.new
+    @patrocinantes = Patrocinante.all
 
     respond_to do |format|
       format.html # new.html.erb
@@ -35,12 +36,14 @@
   # GET /ponencias/1/edit
   def edit
     @ponencia = Ponencia.find(params[:id])
+    @patrocinantes = Patrocinante.all
   end
 
   # POST /ponencias
   # POST /ponencias.json
   def create
     @ponencia = Ponencia.new(params[:ponencia])
+    @patrocinantes = Patrocinante.all
 
     respond_to do |format|
       if @ponencia.save

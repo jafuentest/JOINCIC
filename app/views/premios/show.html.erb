@@ -7,17 +7,17 @@
 
 <p>
   <b>Rifa:</b>
-  <%= @premio.rifa_id %>
+  <%= @premio.rifa.nombre %>
 </p>
 
 <p>
   <b>Patrocinante:</b>
-  <%= @premio.patrocinante_id %>
+  <%= @premio.patrocinante.nombre %>
 </p>
 
 <p>
   <b>Participante:</b>
-  <%= @premio.participante_id %>
+  <%= @premio.participante.nombreCompleto unless @premio.participante.nil? %>
 </p>
 
 

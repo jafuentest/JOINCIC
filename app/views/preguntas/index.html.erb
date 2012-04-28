@@ -1,27 +1,19 @@
-﻿<h1>Listing preguntas</h1>
+﻿<h1>Lista de preguntas</h1>
 
-<table>
+<table class="lista">
   <tr>
     <th>Mensaje</th>
-    <th>Id par</th>
-    <th>Id pon</th>
-    <th></th>
-    <th></th>
+    <th>Participante</th>
+    <th>Ponencia</th>
     <th></th>
   </tr>
 
-<% @preguntas.each do |pregunta| %>
+  <% @preguntas.each do |pregunta| %>
   <tr>
     <td><%= pregunta.mensaje %></td>
-    <td><%= pregunta.participante_id %></td>
-    <td><%= pregunta.ponencia_id %></td>
-    <td><%= link_to 'Show', pregunta %></td>
-    <td><%= link_to 'Edit', edit_pregunta_path(pregunta) %></td>
-    <td><%= link_to 'Destroy', pregunta, confirm: 'Are you sure?', method: :delete %></td>
+    <td align="center"><%= pregunta.participante.nombreCompleto %></td>
+    <td align="center"><%= pregunta.ponencia.titulo %></td>
+    <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), pregunta, confirm: "¿Seguro que desea eliminar la pregunta?", method: :delete %></td>
   </tr>
-<% end %>
+  <% end %>
 </table>
-
-<br />
-
-<%= link_to 'New Pregunta', new_pregunta_path %>

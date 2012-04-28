@@ -1,4 +1,6 @@
 ﻿class ParticipantesController < ApplicationController
+  layout "application", :except => :_reporte
+    
   def getParticipantes
     Participante.find( :all, :order => "created_at DESC" )
   end
@@ -35,8 +37,8 @@
     end
   end
   
-  # POST /participantes/entregarComida
-  # POST /participantes/entregarComida.json
+  # POST /participantes/1/entregarComida
+  # POST /participantes/1/entregarComida.json
   def entregarComida
     if params.has_key?(:cedula)
     
@@ -115,7 +117,6 @@
   # GET /participantes.json
   def index
     @participantes = getParticipantes
-    @encabezado = "Lista de participantes (" + @participantes.size.to_s + ")"
     flash[:notice] = ""
     
     respond_to do |format|
@@ -192,5 +193,12 @@
       format.html { redirect_to participantes_url }
       format.json { head :ok }
     end
+  end
+  
+  def _reporte
+    headers['Content-Type'] = "application/vnd.ms-excel"
+    headers['Content-Disposition'] = 'attachment; filename="participantes.xls"'
+    headers['Cache-Control'] = ''
+    @participantes = getParticipantes
   end
 end

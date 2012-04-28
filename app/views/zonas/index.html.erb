@@ -9,14 +9,14 @@
   </tr>
   
   <% @zonas.each do |zona| %>
-    <tr>
-      <td><%= zona.nombre %></td>
-      <td><%= zona.capacidad %></td>
-      <td><%= zona.disponibilidad %></td>
-      <td><%= link_to image_tag("/show.png", :alt => "Mostrar"), zona %></td>
-      <td><%= link_to image_tag("/edit.png", :alt => "Modificar"), edit_zona_path(zona) %></td>
-      <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), zona, confirm: "¿Seguro que desea eliminar la zona " + zona.nombre + "?", method: :delete %></td>
-    </tr>
+  <tr>
+    <td><%= zona.nombre %></td>
+    <td><%= zona.capacidad %></td>
+    <td><%= zona.disponibilidad %></td>
+    <td><%= link_to image_tag("/show.png", :alt => "Mostrar"), zona %></td>
+    <td><%= link_to image_tag("/edit.png", :alt => "Modificar"), edit_zona_path(zona) %></td>
+    <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), zona, confirm: "¿Seguro que desea eliminar la zona " + zona.nombre + "?", method: :delete %></td>
+  </tr>
   <% end %>
 </table>
 
