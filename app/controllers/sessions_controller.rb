@@ -15,7 +15,7 @@
       render "new"
     else
       session[:organizador] = organizador.nombreCompleto
-      redirect_to inicio_path
+      redirect_to root_path
     end
   end
   

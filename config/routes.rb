@@ -2,13 +2,10 @@ Sistema::Application.routes.draw do
 
   root :to => "home#inicio"
 
-  match "/inicio",              :to => "home#inicio"
-  match "/iniciarSesion",       :to => "sessions#new"
-  match "/cerrarSesion",        :to => "sessions#destroy"
-  match "/login",               :to => "sessions#new"
-  match "/logout",              :to => "sessions#destroy"
-  match "/entregaDeMateriales", :to => "participantes_mates", :action => "index"  
-  match "/incripcionEnMesa",    :to => "participantes_mesas", :action => "index"
+  match "/iniciarSesion",         :to => "sessions#new"
+  match "/cerrarSesion",          :to => "sessions#destroy"
+  match "/login",                 :to => "sessions#new"
+  match "/logout",                :to => "sessions#destroy"
   
   get "sessions/new"
   get "home/inicio"
@@ -17,6 +14,7 @@ Sistema::Application.routes.draw do
   
   resources :participantes do
     collection do
+      get  "_reporte"
       get  "reiniciarComidas"
       get  "buscar"
       get  "entregarComida"
@@ -25,8 +23,9 @@ Sistema::Application.routes.draw do
   end
   
   resources :mesas_de_trabajo do
-    collection do
+    member do
       post "sortear"
+      post "reiniciar"
     end
   end
   

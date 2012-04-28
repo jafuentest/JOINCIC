@@ -1,37 +1,33 @@
 <h1>Iniciar Sesion</h1>
-<table>
-	<%= form_for(:session, :url => sessions_path) do |f| %>
-	<tr>
-		<td>
-			<div class="field" align="center">
-				<%= f.label :usuario %>
-		</td>
-	</tr>
-	<tr>
-		<td>
-				<%= f.text_field :usuario %>
-			</div>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<div class="field" align="center">
-				<%= f.label :clave %>
-		</td>
-	</tr>
-	<tr>
-		<td>
-				<%= f.password_field :clave %>
-			</div>
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<div class="actions" align="center">
-				<%= f.submit "Acceder" %>
-			</div>
-		</td>
-	</tr>
 <p id="notice"><%= notice %></p>
-<% end %>
+
+<%= form_for(:session, :url => sessions_path) do |f| %>
+<table class="formularioS">
+    <tr>
+      <th></th>
+    </tr>
+    <tr>
+      <td>
+        <div class="field">
+          <%= f.label      :usuario %><br />
+          <%= f.text_field :usuario, :size => 15 %>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="field">
+          <%= f.label          :clave %><br />
+          <%= f.password_field :clave, :size => 15 %>
+        </div>
+      </td>
+    </tr>
+  </table>
+  
+  <br />
+  
+  <div class="actions" align="center">
+    <%= f.submit "Acceder" %>
+  </div>
 </table>
+<% end %>

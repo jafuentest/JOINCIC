@@ -47,4 +47,13 @@
   def apellidos
     apellido + " " + seg_apellido
   end
+  
+  def edad
+    edad = Date.today.year - fecha_nac.year
+    edad -= 1 if Date.today < fecha_nac + edad.year
+  end
+  
+  def numDeMesasGanadas
+    participantes_mesas.count(:conditions => { :seleccionado => true })
+  end
 end

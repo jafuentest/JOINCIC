@@ -5,40 +5,40 @@
     <th>Nombre</th>
     <th width=20%>Ponencias</th>
     <th width=20%>Mesas de Trabajo</th>
-    <th>Telefono</th>
+    <th>Teléfono</th>
     <th>Correo</th>
-    <th>Institucion</th>
+    <th>Institución</th>
     <th colspan="3">Opciones</th>
   </tr>
 
   <% @ponentes.each do |ponente| %>
-    <tr>
-      <td><%= ponente.nombreCompleto %></td>
-      <td align=center>
-        <% ponente.ponencias.each_with_index do |ponencia, i| %>
-          <% if i < ponente.ponencias.size - 1 %>
-            <%= ponencia.titulo + "," %>
-          <% else %>
-            <%= ponencia.titulo + "." %>
-          <% end %>
+  <tr>
+    <td><%= ponente.nombreCompleto %></td>
+    <td align=center>
+      <% ponente.ponencias.each_with_index do |ponencia, i| %>
+        <% if i < ponente.ponencias.size - 1 %>
+          <%= ponencia.titulo + "," %>
+        <% else %>
+          <%= ponencia.titulo + "." %>
         <% end %>
-      </td>
-      <td align=center>
-        <% ponente.mesas_de_trabajo.each_with_index do |mesa, i| %>
-          <% if i < ponente.mesas_de_trabajo.size - 1 %>
-            <%= mesa.titulo + "," %>
-          <% else %>
-            <%= mesa.titulo + "." %>
-          <% end %>
+      <% end %>
+    </td>
+    <td align=center>
+      <% ponente.mesas_de_trabajo.each_with_index do |mesa, i| %>
+        <% if i < ponente.mesas_de_trabajo.size - 1 %>
+          <%= mesa.titulo + "," %>
+        <% else %>
+          <%= mesa.titulo + "." %>
         <% end %>
-      </td>
-      <td align=center><%= ponente.telefono %></td>
-      <td align=center><%= ponente.correo %></td>
-      <td align=center><%= ponente.institucion %></td>
-      <td><%= link_to image_tag("/show.png", :alt => "Mostrar"), ponente %></td>
-      <td><%= link_to image_tag("/edit.png", :alt => "Modificar"), edit_ponente_path(ponente) %></td>
-      <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), ponente, confirm: "¿Seguro que desea eliminar al ponente " + ponente.nombreCompleto + "?", method: :delete %></td>
-    </tr>
+      <% end %>
+    </td>
+    <td align=center><%= ponente.telefono %></td>
+    <td align=center><%= ponente.correo %></td>
+    <td align=center><%= ponente.institucion %></td>
+    <td><%= link_to image_tag("/show.png", :alt => "Mostrar"), ponente %></td>
+    <td><%= link_to image_tag("/edit.png", :alt => "Modificar"), edit_ponente_path(ponente) %></td>
+    <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), ponente, confirm: "¿Seguro que desea eliminar al ponente " + ponente.nombreCompleto + "?", method: :delete %></td>
+  </tr>
   <% end %>
 </table>
 

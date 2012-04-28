@@ -1,23 +1,21 @@
-﻿<h1>Listing rifas</h1>
+﻿<h1>Lista de Rifas</h1>
 
-<table>
+<table class="listaS">
   <tr>
     <th>Nombre</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th colspan="3">Opciones</th>
   </tr>
 
-<% @rifas.each do |rifa| %>
+  <% @rifas.each do |rifa| %>
   <tr>
     <td><%= rifa.nombre %></td>
-    <td><%= link_to 'Show', rifa %></td>
-    <td><%= link_to 'Edit', edit_rifa_path(rifa) %></td>
-    <td><%= link_to 'Destroy', rifa, confirm: 'Are you sure?', method: :delete %></td>
+    <td><%= link_to image_tag("/show.png", :alt => "Mostrar"), rifa %></td>
+    <td><%= link_to image_tag("/edit.png", :alt => "Modificar"), edit_rifa_path(rifa) %></td>
+    <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), rifa, confirm: "¿Seguro que desea eliminar la rifa " + rifa.nombre + "?", method: :delete %></td>
   </tr>
-<% end %>
+  <% end %>
 </table>
 
 <br />
 
-<%= link_to 'New Rifa', new_rifa_path %>
+<%= link_to "Agregar Rifa", new_rifa_path %>

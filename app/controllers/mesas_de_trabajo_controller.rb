@@ -1,4 +1,53 @@
 ﻿class MesasDeTrabajoController < ApplicationController
+  # POST /mesas_de_trabajo
+  # POST /mesas_de_trabajo.json
+  def sortear
+    @mesa_de_trabajo = MesaDeTrabajo.find(params[:id])
+    
+    participantes = []
+    for i in 1..5
+      inscripciones = ParticipanteMesa.all(:conditions => { :prioridad => i, :mesa_de_trabajo_id => @mesa_de_trabajo.id })
+      temp = []
+      inscripciones.shuffle.each do |ins|
+        temp << ins if ins.participante.numDeMesasGanadas < 1
+      end
+      participantes += temp.shuffle
+    end
+    
+    for i in 1..5
+      inscripciones = ParticipanteMesa.all(:conditions => { :prioridad => i, :mesa_de_trabajo_id => @mesa_de_trabajo.id })
+      temp = []
+      inscripciones.shuffle.each do |ins|
+        temp << ins if ins.participante.numDeMesasGanadas < 1
+      end
+      participantes += temp.shuffle
+    end
+    
+    participantes.each_with_index do |p, i|
+      p.update_attribute(:puesto, i+1)
+      if p.puesto <= @mesa_de_trabajo.capacidad
+        p.update_attribute(:seleccionado, true)
+      end
+    end
+    
+    @mesa_de_trabajo.update_attribute(:sorteada, true)
+    @participantes = @mesa_de_trabajo.participantes_mesas
+    redirect_to @mesa_de_trabajo
+  end
+  
+  def reiniciar
+    @mesa_de_trabajo = MesaDeTrabajo.find(params[:id])
+    
+    inscripciones = ParticipanteMesa.all(:conditions => { :mesa_de_trabajo_id => @mesa_de_trabajo.id })
+    inscripciones.each do |ins|
+      ins.update_attribute(:puesto, nil)
+    end
+    
+    @mesa_de_trabajo.update_attribute(:sorteada, false)
+    @participantes = @mesa_de_trabajo.participantes_mesas
+    redirect_to @mesa_de_trabajo
+  end
+  
   # GET /mesas_de_trabajo
   # GET /mesas_de_trabajo.json
   def index
@@ -14,7 +63,7 @@
   # GET /mesas_de_trabajo/1.json
   def show
     @mesa_de_trabajo = MesaDeTrabajo.find(params[:id])
-    @participantes = @mesa_de_trabajo.participantes_mesas
+    @participantes = ParticipanteMesa.find(:all, :order => "puesto", :conditions => { :mesa_de_trabajo_id => params[:id] })
 
     respond_to do |format|
       format.html # show.html.erb
@@ -46,6 +95,8 @@
   # POST /mesas_de_trabajo.json
   def create
     @mesa_de_trabajo = MesaDeTrabajo.new(params[:mesa_de_trabajo])
+    @patrocinantes = Patrocinante.all(:order => :nombre)
+    @ponentes = Ponente.all(:order => :nombre)
 
     respond_to do |format|
       if @mesa_de_trabajo.save
