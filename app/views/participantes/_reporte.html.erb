@@ -1,0 +1,25 @@
+﻿<table border="1">
+  <tr>
+    <th>Nombre(s)</th>
+    <th>Apellido(s)</th>
+    <th>Edad</th>
+    <th>Institución</th>
+    <th>Nivel</th>
+    <th>Teléfono</th>
+    <th>Correo</th>
+    <th>Dirección</th>
+  </tr>
+  
+  <% @participantes.each do |participante| %>
+  <tr>
+    <td align=center><%= participante.nombres %></td>
+    <td align=center><%= participante.apellidos %></td>
+    <td align=center><%= participante.edad %></td>
+    <td align=center><%= participante.institucion %></td>
+    <td align=center><%= participante.nivel %></td>
+    <td align=center><%= participante.telefono %></td>
+    <td align=center><%= participante.correo %></td>
+    <td align=center><%= participante.direccion %></td>
+  </tr>
+  <% end %>
+</table>

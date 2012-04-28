@@ -19,7 +19,7 @@
       <td>
         <div class="field">
           <%= f.label :participante %><br/>
-          <%= f.text_field :id_par, :size => 15, :maxlength => 8  %>
+          <%= f.text_field :participante_id, :size => 15, :maxlength => 8  %>
         </div>
       </td>
     </tr>
@@ -27,7 +27,7 @@
       <td>
         <div class="field">
           <%= f.label :mesa %><br/>
-          <%= f.select :id_mesa, @mesas.collect {|m| [ m.titulo, m.id ] } %>
+          <%= f.select :mesa_de_trabajo_id, @mesas.collect {|m| [ m.titulo, m.id ] } %>
         </div>
       </td>
     </tr>

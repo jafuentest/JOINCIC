@@ -52,7 +52,7 @@
         </div>
         <div class="field">
           <%= f.label  :ponente_id %>
-          <%= f.select :ponente_id, @ponentes.collect {|p| [ p.nombre+" "+p.apellido, p.id ] } %>
+          <%= f.select :ponente_id, @ponentes.collect {|p| [ p.nombre + " " + p.apellido, p.id ] } %>
         </div>
         <div class="field">
           <%= f.label  :patrocinante_id %>
@@ -60,7 +60,7 @@
         </div>
       </td>
       <td>
-        <div class="field"  >
+        <div class="field">
           <%= f.label      :requerimientos %>
           <%= f.text_area  :requerimientos %>
         </div>

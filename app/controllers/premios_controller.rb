@@ -25,7 +25,9 @@
   # GET /premios/new.json
   def new
     @premio = Premio.new
-
+    @rifas = Rifa.all
+    @patrocinantes = Patrocinante.all
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @premio }
@@ -35,12 +37,16 @@
   # GET /premios/1/edit
   def edit
     @premio = Premio.find(params[:id])
+    @rifas = Rifa.all
+    @patrocinantes = Patrocinante.all
   end
 
   # POST /premios
   # POST /premios.json
   def create
     @premio = Premio.new(params[:premio])
+    @rifas = Rifa.all
+    @patrocinantes = Patrocinante.all
 
     respond_to do |format|
       if @premio.save
