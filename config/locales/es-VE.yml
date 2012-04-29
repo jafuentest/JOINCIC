@@ -1,5 +1,6 @@
 ﻿es-VE:
   attributes:
+    correo: "E-Mail"
     cedula: "Cédula"
     direccion: "Dirección"
     fecha_nac: "Fecha de Nacimiento"
