@@ -45,8 +45,18 @@
         <%= @participante.zona.nombre %>
       </p>
       <p>
-      <b>Comió:</b>
-      <%= @participante.comida %>
+        <b>Entrada #:</b>
+        <%= @participante.entrada %>
+      </p>
+      <% unless @participante.deposito.nil? %>
+      <p>
+        <b>Depósito #:</b>
+        <%= @participante.deposito %>
+      </p>
+      <% end %>
+      <p>
+        <b>Comió:</b>
+        <%= @participante.comida %>
       </p>
     </td>
     <td>

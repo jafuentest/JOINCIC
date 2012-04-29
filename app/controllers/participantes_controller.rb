@@ -1,31 +1,5 @@
 ﻿class ParticipantesController < ApplicationController
-  layout "application", :except => :_reporte
-    
-  def getParticipantes
-    Participante.find( :all, :order => "created_at DESC" )
-  end
-  
-  def buscarParticipantes(nombre)
-    Participante.find( :all, :conditions => ["nombre like ? OR seg_nombre like ? OR apellido like ? OR seg_apellido like ?", nombre, nombre, nombre, nombre] )
-  end
-  
-  def zonasDisponibles
-    zonas = Zona.all
-    zonas.each do |z|
-      if z.capacidad <= z.participantes.count
-        zonas.delete(z)
-      end
-    end
-  end
-  
-  def zonasDisponibles_Edit(zona)
-    zonas = Zona.all
-    zonas.each do |z|
-      if z.capacidad <= z.participantes.count && z != zona
-		    zonas.delete(z)
-      end
-    end
-  end
+  layout "application", :except => :reporte
   
   def reiniciarComidas
     getParticipantes.each do |p|
@@ -195,10 +169,36 @@
     end
   end
   
-  def _reporte
+  def reporte
     headers['Content-Type'] = "application/vnd.ms-excel"
     headers['Content-Disposition'] = 'attachment; filename="participantes.xls"'
     headers['Cache-Control'] = ''
     @participantes = getParticipantes
+  end
+  
+  def getParticipantes
+    Participante.find( :all, :order => "created_at DESC" )
+  end
+  
+  def buscarParticipantes(nombre)
+    Participante.find( :all, :conditions => ["nombre like ? OR seg_nombre like ? OR apellido like ? OR seg_apellido like ?", nombre, nombre, nombre, nombre] )
+  end
+  
+  def zonasDisponibles
+    zonas = Zona.all
+    zonas.each do |z|
+      if z.capacidad <= z.participantes.count
+        zonas.delete(z)
+      end
+    end
+  end
+  
+  def zonasDisponibles_Edit(zona)
+    zonas = Zona.all
+    zonas.each do |z|
+      if z.capacidad <= z.participantes.count && z != zona
+		    zonas.delete(z)
+      end
+    end
   end
 end
