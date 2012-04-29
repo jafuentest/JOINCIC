@@ -14,9 +14,9 @@ Sistema::Application.routes.draw do
   
   resources :participantes do
     collection do
-      get  "_reporte"
-      get  "reiniciarComidas"
+      get  "reporte"
       get  "buscar"
+      get  "reiniciarComidas"
       get  "entregarComida"
       post "entregarComida"
     end

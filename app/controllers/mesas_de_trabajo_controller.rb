@@ -18,7 +18,7 @@
       inscripciones = ParticipanteMesa.all(:conditions => { :prioridad => i, :mesa_de_trabajo_id => @mesa_de_trabajo.id })
       temp = []
       inscripciones.shuffle.each do |ins|
-        temp << ins if ins.participante.numDeMesasGanadas < 1
+        temp << ins if ins.participante.numDeMesasGanadas == 1
       end
       participantes += temp.shuffle
     end
