@@ -29,7 +29,7 @@
         </div>
         <div class="field">
           <%= f.label      :apellido %>
-          <%= f.text_field :apellido, :size => 10, :maxlength => 15 %>
+          <%= f.text_field :apellido,     :size => 10, :maxlength => 15 %>
           <%= f.text_field :seg_apellido, :size => 10, :maxlength => 15 %>
         </div>
         <div class="field">
@@ -65,6 +65,7 @@
         <div class="field">
           <%= f.label        :nivel %>
           <%= f.number_field :nivel, :in => 1..10, :value => 1 %>
+          <%= f.select       :tipo_nivel, ["Trimestre", "Semestre", "Año"] %>
         </div>
         <div class="field">
           <%= f.label  :coordinacion %>

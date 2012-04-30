@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(:version => 20120309023237) do
     t.string  "direccion",    :limit => 50,                    :null => false
     t.string  "institucion",  :limit => 5,                     :null => false
     t.integer "nivel",                                         :null => false
+    t.string  "tipo_nivel",   :limit => 9,                     :null => false
     t.string  "coordinacion", :limit => 15,                    :null => false
     t.boolean "coordinador",                :default => false, :null => false
     t.string  "seg_nombre",   :limit => 15

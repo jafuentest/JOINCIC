@@ -49,10 +49,12 @@
   end
   
   def edad
-    edad = Date.today.year - fecha_nac.year
-    aux = fecha_nac
-    aux.year = Date.today.year
-    edad -= 1 if Date.today < aux
+    hoy = Date.today
+    edad = hoy.year - fecha_nac.year
+    if ((hoy.month < fecha_nac.month) || ((hoy.day < hoy.day) && (hoy.month == fecha_nac.month)))
+      edad = edad - 1
+    end
+    edad
   end
   
   def numDeMesasGanadas
