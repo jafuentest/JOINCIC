@@ -8,7 +8,7 @@
     for i in 1..5
       inscripciones = ParticipanteMesa.all(:conditions => { :prioridad => i, :mesa_de_trabajo_id => @mesa_de_trabajo.id })
       temp = []
-      inscripciones.shuffle.each do |ins|
+      inscripciones.each do |ins|
         temp << ins if ins.participante.numDeMesasGanadas < 1
       end
       participantes += temp.shuffle
@@ -17,7 +17,7 @@
     for i in 1..5
       inscripciones = ParticipanteMesa.all(:conditions => { :prioridad => i, :mesa_de_trabajo_id => @mesa_de_trabajo.id })
       temp = []
-      inscripciones.shuffle.each do |ins|
+      inscripciones.each do |ins|
         temp << ins if ins.participante.numDeMesasGanadas == 1
       end
       participantes += temp.shuffle
