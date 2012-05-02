@@ -1,30 +1,22 @@
-﻿<p id="notice"><%= notice %></p>
+﻿<h1><%= @patrocinante.nombre %></h1>
+<p id="notice"><%= notice %></p>
 
 <p>
   <b>Rif:</b>
   <%= @patrocinante.rif %>
 </p>
-
-<p>
-  <b>Nombre:</b>
-  <%= @patrocinante.nombre %>
-</p>
-
 <p>
   <b>Plan:</b>
   <%= @patrocinante.plan.nombre %>
 </p>
-
 <p>
   <b>Aporte:</b>
   <%= @patrocinante.aporte %>
 </p>
-
 <p>
   <b>Comentario:</b>
   <%= @patrocinante.comentario %>
 </p>
 
-
-<%= link_to 'Edit', edit_patrocinante_path(@patrocinante) %> |
-<%= link_to 'Back', patrocinantes_path %>
+<%= link_to "Modificar", edit_patrocinante_path(@patrocinante) %> |
+<%= link_to "Volver a la lista", patrocinantes_path %>

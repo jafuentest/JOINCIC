@@ -1,20 +1,16 @@
 ﻿<p id="notice"><%= notice %></p>
 
 <p>
-  <b>Mensaje:</b>
+  <b>Pregunta:</b>
   <%= @pregunta.mensaje %>
 </p>
-
 <p>
-  <b>Id par:</b>
-  <%= @pregunta.participante_id %>
+  <b>Participante:</b>
+  <%= @pregunta.participante.nombreCompleto %>
+</p>
+<p>
+  <b>Ponencia:</b>
+  <%= @pregunta.ponencia.titulo %>
 </p>
 
-<p>
-  <b>Id pon:</b>
-  <%= @pregunta.ponencia_id %>
-</p>
-
-
-<%= link_to 'Edit', edit_pregunta_path(@pregunta) %> |
-<%= link_to 'Back', preguntas_path %>
+<%= link_to "Volver a la lista", preguntas_path %>
