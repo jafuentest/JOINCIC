@@ -23,7 +23,7 @@
     <td align=center><%= participante.institucion %></td>
     <td align=center><%= participante.nivel %> <%= participante.tipo_nivel %></td>
     <td align=center><%= participante.zona.nombre %></td>
-    <td align=center><%= I18n.l participante.created_at.in_time_zone("Caracas").to_date, :format => :medio %></td>
+    <td align=center><%= participante.created_at.in_time_zone("Caracas").to_date %></td>
     <td><%= link_to image_tag("/show.png", :alt => "Mostrar"), participante %></td>
     <td><%= link_to image_tag("/edit.png", :alt => "Modificar"), edit_participante_path(participante) %></td>
     <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), participante, :confirm => "¿Seguro que desea eliminar a " + participante.nombreCompleto + "?", :method => :delete unless participante.eliminado%></td>

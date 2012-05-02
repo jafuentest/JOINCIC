@@ -41,11 +41,20 @@
   end
   
   def nombres
-    nombre + " " + seg_nombre
+    if seg_nombre.nil?
+      ret = nombre
+    else
+      ret = nombre + " " + seg_nombre
+    end
+    ret
   end
   
   def apellidos
-    apellido + " " + seg_apellido
+    if seg_nombre.nil?
+      apellido
+    else
+      apellido + " " + seg_apellido
+    end
   end
   
   def edad
