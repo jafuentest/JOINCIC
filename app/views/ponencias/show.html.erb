@@ -1,45 +1,27 @@
-﻿<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Titulo:</b>
-  <%= @ponencia.titulo %>
-</p>
+﻿<h1><%= @ponencia.titulo %></h1>
+<p id="notice"><%= notice %></p>
 
 <p>
   <b>Tema:</b>
   <%= @ponencia.tema %>
 </p>
-
 <p>
   <b>Descripcion:</b>
   <%= @ponencia.descripcion %>
 </p>
-
 <p>
-  <b>Dia:</b>
-  <%= @ponencia.dia %>
+  <b>Dia y Hora:</b>
+  <%= I18n.l @ponencia.dia,      :format => :dia %>
+  <%= I18n.l @ponencia.hora_ini, :format => :hora %> - <%= I18n.l @ponencia.hora_fin, :format => :hora %>
+</p>
+<p>
+  <b>Ponente:</b>
+  <%= @ponencia.ponente.nombreCompleto %>
+</p>
+<p>
+  <b>Patrocinante:</b>
+  <%= @ponencia.patrocinante.nombre unless @ponencia.patrocinante.nil? %>
 </p>
 
-<p>
-  <b>Hora ini:</b>
-  <%= @ponencia.hora_ini %>
-</p>
-
-<p>
-  <b>Hora fin:</b>
-  <%= @ponencia.hora_fin %>
-</p>
-
-<p>
-  <b>Id ponente:</b>
-  <%= @ponencia.ponente_id %>
-</p>
-
-<p>
-  <b>Id pat:</b>
-  <%= @ponencia.patrocinante_id %>
-</p>
-
-
-<%= link_to 'Edit', edit_ponencia_path(@ponencia) %> |
-<%= link_to 'Back', ponencias_path %>
+<%= link_to "Modificar", edit_ponencia_path(@ponencia) %> |
+<%= link_to "Volver a la lista", ponencias_path %>
