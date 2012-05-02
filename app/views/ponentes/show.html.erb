@@ -1,50 +1,30 @@
-﻿<p id="notice"><%= notice %></p>
+﻿<h1><%= @ponente.nombreCompleto %></h1>
+<p id="notice"><%= notice %></p>
 
 <p>
   <b>Cedula:</b>
   <%= @ponente.cedula %>
 </p>
-
 <p>
-  <b>Nombre:</b>
-  <%= @ponente.nombre %>
+  <b>Nombre(s):</b>
+  <%= @ponente.nombres %>
 </p>
-
 <p>
-  <b>Seg nombre:</b>
-  <%= @ponente.seg_nombre %>
+  <b>Apellido(s):</b>
+  <%= @ponente.apellidos %>
 </p>
-
 <p>
-  <b>Apellido:</b>
-  <%= @ponente.apellido %>
+  <b>Telefonos:</b>
+  <%= @ponente.telefono %>, <%= @ponente.telefono2 unless @ponente.telefono2.nil? %>
 </p>
-
-<p>
-  <b>Seg apellido:</b>
-  <%= @ponente.seg_apellido %>
-</p>
-
-<p>
-  <b>Telefono:</b>
-  <%= @ponente.telefono %>
-</p>
-
-<p>
-  <b>Telefono2:</b>
-  <%= @ponente.telefono2 %>
-</p>
-
 <p>
   <b>Correo:</b>
   <%= @ponente.correo %>
 </p>
-
 <p>
   <b>Institucion:</b>
   <%= @ponente.institucion %>
 </p>
 
-
-<%= link_to 'Edit', edit_ponente_path(@ponente) %> |
-<%= link_to 'Back', ponentes_path %>
+<%= link_to "Modificar", edit_ponente_path(@ponente) %> |
+<%= link_to "Volver a la lista", ponentes_path %>
