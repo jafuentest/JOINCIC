@@ -17,7 +17,7 @@
     <td><%= premio.participante.nombreCompleto unless premio.participante.nil? %></td>
     <td><%= link_to image_tag("/show.png", :alt => "Mostrar"), premio %></td>
     <td><%= link_to image_tag("/edit.png", :alt => "Modificar"), edit_premio_path(premio) %></td>
-    <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), premio, confirm: "¿Seguro que desea eliminar el premio " + premio.nombre + " ?", method: :delete %></td>
+    <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), premio, :confirm => "¿Seguro que desea eliminar el premio " + premio.nombre + " ?", :method => :delete %></td>
   </tr>
   <% end %>
 </table>

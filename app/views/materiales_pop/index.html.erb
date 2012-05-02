@@ -19,7 +19,7 @@
     <td><%= material.disponibilidad %></td>
     <td><%= link_to image_tag("/show.png", :alt => "Mostrar"), material %></td>
     <td><%= link_to image_tag("/edit.png", :alt => "Modificar"), edit_material_pop_path(material) %></td>
-    <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), material, confirm: "¿Seguro que desea eliminar el material: '" + material.nombre + "'?", method: :delete %></td>
+    <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), material, :confirm => "¿Seguro que desea eliminar el material: '" + material.nombre + "'?", :method => :delete %></td>
   </tr>
   <% end %>
 </table>
