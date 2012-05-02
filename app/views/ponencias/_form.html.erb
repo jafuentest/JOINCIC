@@ -44,7 +44,7 @@
         </div>
         <div class="field">
           <%= f.label :ponente_id %>
-          <%= f.number_field :ponente_id %>
+          <%= f.select :ponente_id, @ponentes.collect {|p| [ p.nombre, p.id ] } %>
         </div>
         <div class="field">
           <%= f.label :patrocinante_id %>

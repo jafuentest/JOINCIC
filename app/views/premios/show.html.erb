@@ -1,25 +1,18 @@
-﻿<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Nombre:</b>
-  <%= @premio.nombre %>
-</p>
+﻿<h1><%= @premio.nombre %></h1>
+<p id="notice"><%= notice %></p>
 
 <p>
   <b>Rifa:</b>
   <%= @premio.rifa.nombre %>
 </p>
-
 <p>
   <b>Patrocinante:</b>
   <%= @premio.patrocinante.nombre %>
 </p>
-
 <p>
   <b>Participante:</b>
   <%= @premio.participante.nombreCompleto unless @premio.participante.nil? %>
 </p>
 
-
-<%= link_to 'Edit', edit_premio_path(@premio) %> |
-<%= link_to 'Back', premios_path %>
+<%= link_to "Modificar", edit_premio_path(@premio) %> |
+<%= link_to "Volver a la lista", premios_path %>
