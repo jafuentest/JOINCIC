@@ -17,7 +17,7 @@
     <td align=justify><%= patrocinante.comentario %></td>
     <td><%= link_to image_tag("/show.png", :alt => "Mostrar"), patrocinante %></td>
     <td><%= link_to image_tag("/edit.png", :alt => "Modificar"), edit_patrocinante_path(patrocinante) %></td>
-    <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), patrocinante, confirm: "¿Seguro que desea eliminar el patrocinante " + patrocinante.nombre + " ?", method: :delete %></td>
+    <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), patrocinante, :confirm => "¿Seguro que desea eliminar el patrocinante " + patrocinante.nombre + " ?", :method => :delete %></td>
   </tr>
   <% end %>
 </table>

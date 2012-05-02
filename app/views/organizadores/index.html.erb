@@ -21,7 +21,7 @@
       <td align=center><%= org.coordinacion %></td>
       <td><%= link_to image_tag("/show.png", :alt => "Mostrar"), org %></td>
       <td><%= link_to image_tag("/edit.png", :alt => "Modificar"), edit_organizador_path(org) %></td>
-      <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), org, confirm: "¿Seguro que desea eliminar a " + org.nombreCompleto + "?", method: :delete %></td>
+      <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), org, :confirm => "¿Seguro que desea eliminar a " + org.nombreCompleto + "?", :method => :delete %></td>
     </tr>
   <% end %>
 </table>
