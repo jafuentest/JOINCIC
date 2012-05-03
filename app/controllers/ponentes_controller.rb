@@ -1,4 +1,4 @@
-﻿class PonentesController < ApplicationController
+class PonentesController < ApplicationController
   # GET /ponentes
   # GET /ponentes.json
   def index
@@ -6,7 +6,7 @@
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @ponentes }
+      format.json { render json => @ponentes }
     end
   end
 
@@ -17,7 +17,7 @@
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @ponente }
+      format.json { render json => @ponente }
     end
   end
 
@@ -28,7 +28,7 @@
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @ponente }
+      format.json { render json => @ponente }
     end
   end
 
@@ -44,11 +44,11 @@
 
     respond_to do |format|
       if @ponente.save
-        format.html { redirect_to @ponente, notice: 'Ponente was successfully created.' }
-        format.json { render json: @ponente, status: :created, location: @ponente }
+        format.html { redirect_to @ponente, notice => 'Ponente was successfully created.' }
+        format.json { render json => @ponente, status => :created, location => @ponente }
       else
-        format.html { render action: "new" }
-        format.json { render json: @ponente.errors, status: :unprocessable_entity }
+        format.html { render "new.html.erb" }
+        format.json { render json => @ponente.errors, status => :unprocessable_entity }
       end
     end
   end
@@ -60,11 +60,11 @@
 
     respond_to do |format|
       if @ponente.update_attributes(params[:ponente])
-        format.html { redirect_to @ponente, notice: 'Ponente was successfully updated.' }
+        format.html { redirect_to @ponente, notice => 'Ponente was successfully updated.' }
         format.json { head :ok }
       else
-        format.html { render action: "edit" }
-        format.json { render json: @ponente.errors, status: :unprocessable_entity }
+        format.html { render "edit.html.erb" }
+        format.json { render json => @ponente.errors, status => :unprocessable_entity }
       end
     end
   end

@@ -1,14 +1,14 @@
-ï»¿class ParticipantesMatesController < ApplicationController
+class ParticipantesMatesController < ApplicationController
   # GET /participantes_mates
   # GET /participantes_mates.json
   def index
     if params.has_key?(:cedula) && params[:cedula] != ""
       respond_to do |format|
         format.html # index.html.erb
-        format.json { render json: @participantes_mates }
+        format.json { render json => @participantes_mates }
       end
     else
-      flash[:notice] = "Ingresa el nÃºmero de cÃ©dula del participante"
+      flash[:notice] = "Ingresa el número de cédula del participante"
       redirect_to buscar_participantes_mates_path
     end
   end
@@ -22,7 +22,7 @@
       @participante = Participante.find_by_cedula(params[:id])
       
       if @participante.nil?
-        flash[:notice] = "No se encontrÃ³ ningÃºn participante cuya cÃ©dula sea: <br/>".html_safe + params[:id]
+        flash[:notice] = "No se encontró ningún participante cuya cédula sea: <br/>".html_safe + params[:id]
         redirect_to buscar_participantes_mates_path
       else
         @participantes_mates = @participante.participantes_mates
@@ -33,17 +33,17 @@
         else
           respond_to do |format|
             if @participantes_mates.size > 0
-              format.html { render action: "index" }
+              format.html { render "index.html.erb" }
             else
               @materiales_pop = MaterialPop.all
-              format.html { render action: "new" }
+              format.html { render "new.html.erb" }
             end
           end
         end
       end
     
     else
-      flash[:notice] = "Error: NÃºmero de cÃ©dula invÃ¡lido"
+      flash[:notice] = "Error: Número de cédula inválido"
       redirect_to buscar_participantes_mates_path
     end
   end
@@ -69,7 +69,7 @@
     @participantes_mates = @participante.participantes_mates
     
     respond_to do |format|
-      format.html { render action: "index" }
+      format.html { render "index.html.erb" }
     end
   end
   
@@ -95,7 +95,7 @@
     @participantes_mates = @participante.participantes_mates
     
     respond_to do |format|
-      format.html { render action: "index" }
+      format.html { render "index.html.erb" }
     end
   end
 end

@@ -1,4 +1,4 @@
-ï»¿class MaterialesPopController < ApplicationController
+class MaterialesPopController < ApplicationController
   # GET /materiales_pop
   # GET /materiales_pop.json
   def index
@@ -6,7 +6,7 @@
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @materiales_pop }
+      format.json { render json => @materiales_pop }
     end
   end
 
@@ -17,7 +17,7 @@
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @material_pop }
+      format.json { render json => @material_pop }
     end
   end
 
@@ -28,7 +28,7 @@
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @material_pop }
+      format.json { render json => @material_pop }
     end
   end
 
@@ -54,14 +54,14 @@
       end
       
       respond_to do |format|
-        format.html { redirect_to @material_pop, notice: "El material fue agregado con Ã©xito." }
-        format.json { render json: @material_pop, status: :created, location: @material_pop }
+        format.html { redirect_to @material_pop, notice => "El material fue agregado con éxito." }
+        format.json { render json => @material_pop, status => :created, location =>  @material_pop }
       end
     
     else
       respond_to do |format|
-        format.html { render action: "new" }
-        format.json { render json: @material_pop.errors, status: :unprocessable_entity }
+        format.html { render "new.html.erb" }
+        format.json { render json => @material_pop.errors, status => :unprocessable_entity }
       end
     end
   end
@@ -73,11 +73,11 @@
 
     respond_to do |format|
       if @material_pop.update_attributes(params[:material_pop])
-        format.html { redirect_to @material_pop, notice: "El material fue actualizado con Ã©xito." }
+        format.html { redirect_to @material_pop, notice => "El material fue actualizado con éxito." }
         format.json { head :ok }
       else
-        format.html { render action: "edit" }
-        format.json { render json: @material_pop.errors, status: :unprocessable_entity }
+        format.html { render "edit.html.erb" }
+        format.json { render json => @material_pop.errors, status => :unprocessable_entity }
       end
     end
   end

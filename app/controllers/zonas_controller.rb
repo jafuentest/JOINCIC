@@ -1,4 +1,4 @@
-﻿class ZonasController < ApplicationController
+class ZonasController < ApplicationController
   # GET /zonas
   # GET /zonas.json
   def index
@@ -6,7 +6,7 @@
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @zonas }
+      format.json { render json => @zonas }
     end
   end
 
@@ -18,7 +18,7 @@
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @zona }
+      format.json { render json => @zona }
     end
   end
 
@@ -29,7 +29,7 @@
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @zona }
+      format.json { render json => @zona }
     end
   end
 
@@ -45,11 +45,11 @@
 
     respond_to do |format|
       if @zona.save
-        format.html { redirect_to @zona, notice: 'Zona was successfully created.' }
-        format.json { render json: @zona, status: :created, location: @zona }
+        format.html { redirect_to @zona, notice => 'Zona was successfully created.' }
+        format.json { render json => @zona, status => :created, location => @zona }
       else
-        format.html { render action: "new" }
-        format.json { render json: @zona.errors, status: :unprocessable_entity }
+        format.html { render "new.html.erb" }
+        format.json { render json => @zona.errors, status => :unprocessable_entity }
       end
     end
   end
@@ -61,11 +61,11 @@
 
     respond_to do |format|
       if @zona.update_attributes(params[:zona])
-        format.html { redirect_to @zona, notice: 'Zona was successfully updated.' }
+        format.html { redirect_to @zona, notice => 'Zona was successfully updated.' }
         format.json { head :ok }
       else
-        format.html { render action: "edit" }
-        format.json { render json: @zona.errors, status: :unprocessable_entity }
+        format.html { render "edit.html.erb" }
+        format.json { render json => @zona.errors, status => :unprocessable_entity }
       end
     end
   end

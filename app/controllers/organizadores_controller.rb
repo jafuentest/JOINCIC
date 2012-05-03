@@ -1,4 +1,4 @@
-ï»¿class OrganizadoresController < ApplicationController
+class OrganizadoresController < ApplicationController
   # GET /organizadores
   # GET /organizadores.json
   def index
@@ -6,7 +6,7 @@
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @organizadores }
+      format.json { render json => @organizadores }
     end
   end
 
@@ -17,7 +17,7 @@
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @organizador }
+      format.json { render json => @organizador }
     end
   end
 
@@ -28,7 +28,7 @@
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @organizador }
+      format.json { render json => @organizador }
     end
   end
 
@@ -44,11 +44,11 @@
     
     respond_to do |format|
       if @organizador.save
-        format.html { redirect_to @organizador, notice: "El organizador fue creado con Ã©xito" }
-        format.json { render json: @organizador, status: :created, location: @organizador }
+        format.html { redirect_to @organizador, notice => "El organizador fue creado con éxito" }
+        format.json { render json => @organizador, status => :created, location => @organizador }
       else
-        format.html { render action: "new" }
-        format.json { render json: @organizador.errors, status: :unprocessable_entity }
+        format.html { render "new.html.erb" }
+        format.json { render json => @organizador.errors, status => :unprocessable_entity }
       end
     end
   end
@@ -60,11 +60,11 @@
 
     respond_to do |format|
       if @organizador.update_attributes(params[:organizador])
-        format.html { redirect_to @organizador, notice: "El organizador fue modificado con Ã©xito" }
+        format.html { redirect_to @organizador, notice => "El organizador fue modificado con éxito" }
         format.json { head :ok }
       else
-        format.html { render action: "editar" }
-        format.json { render json: @organizador.errors, status: :unprocessable_entity }
+        format.html { render "edit.html.erb" }
+        format.json { render json => @organizador.errors, status => :unprocessable_entity }
       end
     end
   end
