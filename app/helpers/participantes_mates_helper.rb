@@ -1,2 +1,2 @@
-﻿module ParticipantesMatesHelper
+module ParticipantesMatesHelper
 end

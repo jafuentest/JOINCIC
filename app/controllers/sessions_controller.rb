@@ -1,4 +1,4 @@
-﻿class SessionsController < ApplicationController
+class SessionsController < ApplicationController
   skip_before_filter :estarLogueado, :only => [:new, :create]
   layout "login"
   
@@ -10,7 +10,7 @@
     organizador = Organizador.comprobarOrganizador(params[:session][:usuario],
             params[:session][:clave])
     if (!organizador)
-      flash.now[:notice] = "Error: La contraseña y el nombre de usuario no coinciden"
+      flash.now[:notice] = "Error: La contrase�a y el nombre de usuario no coinciden"
       @title = "Iniciar Sesion"
       render "new"
     else
