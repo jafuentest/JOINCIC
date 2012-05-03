@@ -1,4 +1,4 @@
-﻿class MesasDeTrabajoController < ApplicationController
+class MesasDeTrabajoController < ApplicationController
   # POST /mesas_de_trabajo
   # POST /mesas_de_trabajo.json
   def sortear
@@ -55,7 +55,7 @@
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @mesas_de_trabajo }
+      format.json { render json => @mesas_de_trabajo }
     end
   end
 
@@ -67,7 +67,7 @@
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @mesa_de_trabajo }
+      format.json { render json => @mesa_de_trabajo }
     end
   end
 
@@ -80,7 +80,7 @@
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @mesa_de_trabajo }
+      format.json { render json => @mesa_de_trabajo }
     end
   end
 
@@ -100,11 +100,11 @@
 
     respond_to do |format|
       if @mesa_de_trabajo.save
-        format.html { redirect_to @mesa_de_trabajo, notice: 'Mesa de trabajo was successfully created.' }
-        format.json { render json: @mesa_de_trabajo, status: :created, location: @mesa_de_trabajo }
+        format.html { redirect_to @mesa_de_trabajo, notice => 'Mesa de trabajo was successfully created.' }
+        format.json { render json => @mesa_de_trabajo, status => :created, location => @mesa_de_trabajo }
       else
-        format.html { render action: "new" }
-        format.json { render json: @mesa_de_trabajo.errors, status: :unprocessable_entity }
+        format.html { render "new.html.erb" }
+        format.json { render json => @mesa_de_trabajo.errors, status => :unprocessable_entity }
       end
     end
   end
@@ -118,11 +118,11 @@
 
     respond_to do |format|
       if @mesa_de_trabajo.update_attributes(params[:mesa_de_trabajo])
-        format.html { redirect_to @mesa_de_trabajo, notice: 'Mesa de trabajo was successfully updated.' }
+        format.html { redirect_to @mesa_de_trabajo, notice => 'Mesa de trabajo was successfully updated.' }
         format.json { head :ok }
       else
-        format.html { render action: "edit" }
-        format.json { render json: @mesa_de_trabajo.errors, status: :unprocessable_entity }
+        format.html { render "edit.html.erb" }
+        format.json { render json => @mesa_de_trabajo.errors, status => :unprocessable_entity }
       end
     end
   end

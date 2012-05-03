@@ -1,14 +1,14 @@
-ï»¿class ParticipantesMesasController < ApplicationController
+class ParticipantesMesasController < ApplicationController
   # GET /participantes_mesas
   # GET /participantes_mesas.json
   def index
     if params.has_key?(:cedula) && params[:cedula] != ""
       respond_to do |format|
         format.html # index.html.erb
-        format.json { render json: @participantes_mesas }
+        format.json { render json => @participantes_mesas }
       end
     else
-      flash[:notice] = "Ingresa el nÃºmero de cÃ©dula del participante"
+      flash[:notice] = "Ingresa el número de cédula del participante"
       redirect_to buscar_participantes_mesas_path
     end
   end
@@ -22,7 +22,7 @@
       @participante = Participante.find_by_cedula(params[:id])
       
       if @participante.nil?
-        flash[:notice] = "No se encontrÃ³ ningÃºn participante cuya cÃ©dula sea: <br/>".html_safe + params[:id]
+        flash[:notice] = "No se encontró ningún participante cuya cédula sea: <br/>".html_safe + params[:id]
         redirect_to buscar_participantes_mesas_path
       else
         @participantes_mesas = @participante.participantes_mesas
@@ -33,17 +33,17 @@
         else
           respond_to do |format|
             if @participantes_mesas.size > 0
-              format.html { render action: "index" }
+              format.html { render "index.html.erb" }
             else
               @mesas_de_trabajo = MesasDeTrabajo.all
-              format.html { render action: "new" }
+              format.html { render "new.html.erb" }
             end
           end
         end
       end
     
     else
-      flash[:notice] = "Error: NÃºmero de cÃ©dula invÃ¡lido"
+      flash[:notice] = "Error: Número de cédula inválido"
       redirect_to buscar_participantes_mesas_path
     end
   end
@@ -79,7 +79,7 @@
     @participantes_mesas = @participante.participantes_mesas
     
     respond_to do |format|
-      format.html { render action: "index" }
+      format.html { render "index.html.erb" }
     end
   end
   

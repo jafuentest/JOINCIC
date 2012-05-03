@@ -1,4 +1,4 @@
-﻿class PlanesController < ApplicationController
+class PlanesController < ApplicationController
   # GET /planes
   # GET /planes.json
   def index
@@ -6,7 +6,7 @@
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @planes }
+      format.json { render json => @planes }
     end
   end
 
@@ -17,7 +17,7 @@
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @plan }
+      format.json { render json => @plan }
     end
   end
 
@@ -28,7 +28,7 @@
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @plan }
+      format.json { render json => @plan }
     end
   end
 
@@ -44,11 +44,11 @@
 
     respond_to do |format|
       if @plan.save
-        format.html { redirect_to @plan, notice: 'Plan was successfully created.' }
-        format.json { render json: @plan, status: :created, location: @plan }
+        format.html { redirect_to @plan, notice => 'Plan was successfully created.' }
+        format.json { render json => @plan, status => :created, location => @plan }
       else
-        format.html { render action: "new" }
-        format.json { render json: @plan.errors, status: :unprocessable_entity }
+        format.html { render "new.html.erb" }
+        format.json { render json => @plan.errors, status => :unprocessable_entity }
       end
     end
   end
@@ -60,11 +60,11 @@
 
     respond_to do |format|
       if @plan.update_attributes(params[:plan])
-        format.html { redirect_to @plan, notice: 'Plan was successfully updated.' }
+        format.html { redirect_to @plan, notice => 'Plan was successfully updated.' }
         format.json { head :ok }
       else
-        format.html { render action: "edit" }
-        format.json { render json: @plan.errors, status: :unprocessable_entity }
+        format.html { render "edit.html.erb" }
+        format.json { render json => @plan.errors, status => :unprocessable_entity }
       end
     end
   end
