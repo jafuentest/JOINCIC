@@ -1,4 +1,4 @@
-﻿class Ponencia < ActiveRecord::Base
+class Ponencia < ActiveRecord::Base
   belongs_to :ponente
   belongs_to :patrocinante
   has_many   :preguntas

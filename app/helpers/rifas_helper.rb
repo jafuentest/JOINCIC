@@ -1,2 +1,2 @@
-﻿module RifasHelper
+module RifasHelper
 end

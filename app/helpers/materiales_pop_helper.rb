@@ -1,2 +1,2 @@
-﻿module MaterialesPopHelper
+module MaterialesPopHelper
 end
