@@ -1,2 +1,2 @@
-﻿class Rifa < ActiveRecord::Base
+class Rifa < ActiveRecord::Base
 end

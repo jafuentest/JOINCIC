@@ -1,4 +1,4 @@
-﻿class Zona < ActiveRecord::Base
+class Zona < ActiveRecord::Base
   has_many :participantes
   
   palabra_regex	= /\A[a-z]+\z/i

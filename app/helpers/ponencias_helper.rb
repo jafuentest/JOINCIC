@@ -1,2 +1,2 @@
-﻿module PonenciasHelper
+module PonenciasHelper
 end
