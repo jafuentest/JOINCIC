@@ -1,4 +1,4 @@
-ï»¿class ParticipantesController < ApplicationController
+class ParticipantesController < ApplicationController
   layout "application", :except => :reporte
   
   def reiniciarComidas
@@ -6,7 +6,7 @@
       p.update_attribute(:comida, false)
     end
     respond_to do |format|
-      format.html { redirect_to entregarComida_participantes_path, notice: "El control de comidas ha sido reiniciado con Ã©xito." }
+      format.html { redirect_to entregarComida_participantes_path, notice =>  "El control de comidas ha sido reiniciado con éxito." }
       format.json { head :ok }
     end
   end
@@ -22,14 +22,14 @@
         @participante = Participante.find_by_cedula(params[:cedula])
         
         if @participante.nil?
-          flash[:notice] = "No se encontrÃ³ ningÃºn participante cuya cÃ©dula sea:<br/>".html_safe + params[:cedula]
+          flash[:notice] = "No se encontró ningún participante cuya cédula sea:<br/>".html_safe + params[:cedula]
         else
           if @participante.eliminado
             flash[:notice] = "Error: El participante fue eliminado del sistema"
           else
             
             if @participante.comida
-              flash[:notice] = "Ya comiÃ³"
+              flash[:notice] = "Ya comió"
             else
               @participante.update_attribute(:comida, true)
               flash[:notice] = "Marcado"
@@ -37,10 +37,10 @@
           end
         end
       else
-        flash[:notice] = "Error: NÃºmero de cÃ©dula invÃ¡lido"
+        flash[:notice] = "Error: Número de cédula inválido"
       end
     else
-      flash[:notice] = "Ingresa el nÃºmero de cÃ©dula del participante"
+      flash[:notice] = "Ingresa el número de cédula del participante"
     end
     
     respond_to do |format|
@@ -56,7 +56,7 @@
         @participante = Participante.find_by_cedula(params[:query])
         
         if @participante.nil?
-          flash[:notice] = "No se encontrÃ³ ningÃºn participante cuya cÃ©dula sea: " + params[:query]
+          flash[:notice] = "No se encontró ningún participante cuya cédula sea: " + params[:query]
           @encabezado = "Lista de participantes (" + @participantes.size.to_s + ")" unless @participantes.nil?
           @participantes = getParticipantes
         else
@@ -65,11 +65,11 @@
       
       else
         nombre = "%"+ params[:query] +"%"
-        @encabezado = "BÃºsqueda: " + params[:query]
+        @encabezado = "Búsqueda =>  " + params[:query]
         @participantes = buscarParticipantes(nombre)
         
         if @participantes.size == 0
-          flash[:notice] = "No se encontrÃ³ ningÃºn particpante cuyo nombre o apellido contenga " + params[:query]
+          flash[:notice] = "No se encontró ningún particpante cuyo nombre o apellido contenga " + params[:query]
           @participantes = getParticipantes
         end
       end
@@ -82,7 +82,7 @@
     
     if @participante.nil?
       respond_to do |format|
-        format.html { render action: "index" }
+        format.html { render "index.html.erb" }
       end
     end
   end
@@ -95,7 +95,7 @@
     
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @participantes }
+      format.json { render json =>  @participantes }
     end
   end
 
@@ -106,7 +106,7 @@
     
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @participante }
+      format.json { render json =>  @participante }
     end
   end
   
@@ -117,7 +117,7 @@
     @zonas = zonasDisponibles
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @participante }
+      format.json { render json =>  @participante }
     end
   end
 
@@ -134,11 +134,11 @@
     @zonas = zonasDisponibles
     respond_to do |format|
       if @participante.save
-        format.html { redirect_to @participante, notice: "El participante fue registrado con Ã©xito" }
-        format.json { render json: @participante, status: :created, location: @participante }
+        format.html { redirect_to @participante, notice =>  "El participante fue registrado con éxito" }
+        format.json { render json =>  @participante, status =>  :created, location =>  @participante }
       else
-        format.html { render action: "new" }
-        format.json { render json: @participante.errors, status: :unprocessable_entity }
+        format.html { render "new.html.erb" }
+        format.json { render json =>  @participante.errors, status =>  :unprocessable_entity }
       end
     end
   end
@@ -150,11 +150,11 @@
     @zonas = zonasDisponibles_Edit(@participante.zona)
     respond_to do |format|
       if @participante.update_attributes(params[:participante])
-        format.html { redirect_to @participante, notice: "El participante fue modificado con Ã©xito" }
+        format.html { redirect_to @participante, notice =>  "El participante fue modificado con éxito" }
         format.json { head :ok }
       else
-        format.html { render action: "edit" }
-        format.json { render json: @participante.errors, status: :unprocessable_entity }
+        format.html { render "edit.html.erb" }
+        format.json { render json =>  @participante.errors, status =>  :unprocessable_entity }
       end
     end
   end

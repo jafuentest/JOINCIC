@@ -1,4 +1,4 @@
-﻿class RifasController < ApplicationController
+class RifasController < ApplicationController
   # GET /rifas
   # GET /rifas.json
   def index
@@ -6,7 +6,7 @@
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @rifas }
+      format.json { render json => @rifas }
     end
   end
 
@@ -17,7 +17,7 @@
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @rifa }
+      format.json { render json => @rifa }
     end
   end
 
@@ -28,7 +28,7 @@
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @rifa }
+      format.json { render json => @rifa }
     end
   end
 
@@ -44,11 +44,11 @@
 
     respond_to do |format|
       if @rifa.save
-        format.html { redirect_to @rifa, notice: 'Rifa was successfully created.' }
-        format.json { render json: @rifa, status: :created, location: @rifa }
+        format.html { redirect_to @rifa, notice => 'Rifa was successfully created.' }
+        format.json { render json => @rifa, status => :created, location => @rifa }
       else
-        format.html { render action: "new" }
-        format.json { render json: @rifa.errors, status: :unprocessable_entity }
+        format.html { render "new.html.erb" }
+        format.json { render json => @rifa.errors, status => :unprocessable_entity }
       end
     end
   end
@@ -60,11 +60,11 @@
 
     respond_to do |format|
       if @rifa.update_attributes(params[:rifa])
-        format.html { redirect_to @rifa, notice: 'Rifa was successfully updated.' }
+        format.html { redirect_to @rifa, notice => 'Rifa was successfully updated.' }
         format.json { head :ok }
       else
-        format.html { render action: "edit" }
-        format.json { render json: @rifa.errors, status: :unprocessable_entity }
+        format.html { render "edit.html.erb" }
+        format.json { render json => @rifa.errors, status => :unprocessable_entity }
       end
     end
   end
