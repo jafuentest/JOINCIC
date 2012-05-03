@@ -1,2 +1,2 @@
-﻿module MesasDeTrabajoHelper
+module MesasDeTrabajoHelper
 end

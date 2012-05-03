@@ -1,2 +1,2 @@
-﻿module PreguntasHelper
+module PreguntasHelper
 end
