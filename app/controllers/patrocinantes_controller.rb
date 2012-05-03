@@ -1,4 +1,4 @@
-﻿class PatrocinantesController < ApplicationController
+class PatrocinantesController < ApplicationController
   # GET /patrocinantes
   # GET /patrocinantes.json
   def index
@@ -6,7 +6,7 @@
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @patrocinantes }
+      format.json { render json => @patrocinantes }
     end
   end
 
@@ -17,7 +17,7 @@
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: @patrocinante }
+      format.json { render json => @patrocinante }
     end
   end
 
@@ -29,7 +29,7 @@
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json: @patrocinante }
+      format.json { render json => @patrocinante }
     end
   end
 
@@ -47,11 +47,11 @@
 
     respond_to do |format|
       if @patrocinante.save
-        format.html { redirect_to @patrocinante, notice: 'Patrocinante was successfully created.' }
-        format.json { render json: @patrocinante, status: :created, location: @patrocinante }
+        format.html { redirect_to @patrocinante, notice => 'Patrocinante was successfully created.' }
+        format.json { render json => @patrocinante, status => :created, location => @patrocinante }
       else
-        format.html { render action: "new" }
-        format.json { render json: @patrocinante.errors, status: :unprocessable_entity }
+        format.html { render "new.html.erb" }
+        format.json { render json => @patrocinante.errors, status => :unprocessable_entity }
       end
     end
   end
@@ -64,11 +64,11 @@
 
     respond_to do |format|
       if @patrocinante.update_attributes(params[:patrocinante])
-        format.html { redirect_to @patrocinante, notice: 'Patrocinante was successfully updated.' }
+        format.html { redirect_to @patrocinante, notice => 'Patrocinante was successfully updated.' }
         format.json { head :ok }
       else
-        format.html { render action: "edit" }
-        format.json { render json: @patrocinante.errors, status: :unprocessable_entity }
+        format.html { render "edit.html.erb" }
+        format.json { render json => @patrocinante.errors, status => :unprocessable_entity }
       end
     end
   end
