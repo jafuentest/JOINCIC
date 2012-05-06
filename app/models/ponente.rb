@@ -1,9 +1,9 @@
-﻿class Ponente < ActiveRecord::Base
+class Ponente < ActiveRecord::Base
   has_many :mesas_de_trabajo
   has_many :ponencias
 
   email_regex	= /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  texto_regex	= /[[a-z]+\s]+\z/i
+  texto_regex   = /\A[a-z ]+\z/i
   palabra_regex	= /\A[a-z]+\z/i
   
   validates :cedula,        :numericality => true
@@ -44,10 +44,11 @@
   end
   
   def apellidos
-    if seg_nombre.nil?
-      apellido
+    if seg_apellido.nil?
+      ret = apellido
     else
-      apellido + " " + seg_apellido
+      ret = apellido + " " + seg_apellido
     end
+    ret
   end
 end
