@@ -1,12 +1,12 @@
 development:
   adapter: mysql2
   encoding: utf8
-  reconnect: false
-  database: joincicc_development
+  reconnect: true
+  database: miguelob_joincic
   pool: 5
-  username: root
-  password:
-  host: localhost
+  username: miguelob_joincic
+  password: j0rn4d45
+  socket: /tmp/mysql.sock
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -14,19 +14,19 @@ development:
 test:
   adapter: mysql2
   encoding: utf8
-  reconnect: false
-  database: joincicc_test
+  reconnect: true
+  database: miguelob_joincic
   pool: 5
-  username: root
-  password:
-  host: localhost
+  username: miguelob_joincic
+  password: j0rn4d45
+  socket: /tmp/mysql.sock
 
 production:
   adapter: mysql2
   encoding: utf8
-  reconnect: false
-  database: joincicc_production
+  reconnect: true
+  database: miguelob_joincic
   pool: 5
-  username: root
-  password:
-  host: localhost
+  username: miguelob_joincic
+  password: j0rn4d45
+  socket: /tmp/mysql.sock
