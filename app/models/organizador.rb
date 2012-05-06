@@ -1,7 +1,7 @@
-﻿class Organizador < ActiveRecord::Base
+class Organizador < ActiveRecord::Base
   email_regex	= /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   login_regex	= /\A[a-z0-9\-_]+\z/i
-  texto_regex	= /[[a-z]+\s]+\z/i
+  texto_regex   = /\A[a-z ]+\z/i
   palabra_regex	= /\A[a-z]+\z/i
   
   validates :usuario,      :format => { :with => login_regex },
@@ -47,11 +47,12 @@
   end
   
   def apellidos
-    if seg_nombre.nil?
-      apellido
+    if seg_apellido.nil?
+      ret = apellido
     else
-      apellido + " " + seg_apellido
+      ret = apellido + " " + seg_apellido
     end
+    ret
   end
   
   def comprobarPass(pass)
