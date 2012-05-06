@@ -1,6 +1,6 @@
-﻿module ApplicationHelper
+module ApplicationHelper
 
-# Retorna un título por defecto
+# Retorna un titulo por defecto
 	def title
 		base_title = "Sistema JOINCIC"
     base_title if @title.nil?

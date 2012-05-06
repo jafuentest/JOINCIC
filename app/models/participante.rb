@@ -1,4 +1,4 @@
-﻿class Participante < ActiveRecord::Base
+class Participante < ActiveRecord::Base
   belongs_to :zona
   
   has_many :preguntas
@@ -8,7 +8,7 @@
   has_many :materiales_pop,   :through => :participantes_mates
 
   email_regex	= /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  texto_regex	= /[[a-z]+\s]+\z/i
+  texto_regex   = /\A[a-z ]+\z/i
   palabra_regex	= /\A[a-z]+\z/i
   
   validates :cedula,        :numericality => true,
@@ -50,11 +50,12 @@
   end
   
   def apellidos
-    if seg_nombre.nil?
-      apellido
+    if seg_apellido.nil?
+      ret = apellido
     else
-      apellido + " " + seg_apellido
+      ret = apellido + " " + seg_apellido
     end
+    ret
   end
   
   def edad
