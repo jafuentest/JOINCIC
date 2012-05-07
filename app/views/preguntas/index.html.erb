@@ -1,18 +1,55 @@
-﻿<h1>Lista de preguntas</h1>
+<% content_for :js do %>
+<script>
+  function cargar_preguntas(id) {
+    $.getJSON("/preguntas/dame_preguntas",
+    {
+      aceptada: "1",
+      <% if @hay_ponencia %>
+      ponencia_id: <%= @num_ponencia %>
+      <% end %>
+    }).success(
+      function(data) {
+        fila = ""
+        $.each(data, function(i,item){
+          participante = "<b>"+item.participante.nombre+" "+item.participante.apellido+"</b>: ";
+          mensaje = item.mensaje;
+          <% if @hay_ponencia %>
+            ponencia = "";
+          <% else %>
+            ponencia = '<td align="center">'+item.ponencia.titulo+"</td>";
+          <% end %>
+          fila = fila+"<tr><td>"+participante+mensaje+"</td>"+ponencia+"</tr>";
+
+        });
+        $("tbody").html(fila);
+      });
+  }
+
+  $(document).ready(function (){
+    setInterval(function() {
+      cargar_preguntas()
+    },5000);
+  });
+</script>
+<% end %>
+<h1>Lista de preguntas</h1>
 
 <% if @preguntas.present? %>
 <table class="lista">
-  <tr>
-    <th style="text-align:left;">Pregunta</th>
-    <% unless @hay_ponencia %><th>Ponencia</th><% end %>
-  </tr>
-
+  <thead>
+    <tr>
+      <th style="text-align:left;">Pregunta</th>
+      <% unless @hay_ponencia %><th>Ponencia</th><% end %>
+    </tr>
+  </thead>
+  <tbody>
   <% @preguntas.each do |pregunta| %>
-  <tr>
-    <td><b><%= pregunta.participante.nombreCompleto %></b>: <%= pregunta.mensaje %></td>
-    <% unless @hay_ponencia %><td align="center"><%= pregunta.ponencia.titulo %></td><% end %>
-  </tr>
+    <tr>
+      <td><b><%= pregunta.participante.nombreCompleto %></b>: <%= pregunta.mensaje %></td>
+      <% unless @hay_ponencia %><td align="center"><%= pregunta.ponencia.titulo %></td><% end %>
+    </tr>
   <% end %>
+  </tbody>
 </table>
 <% else %>
   <p style="text-align:center;">Aún no se han recibido preguntas.</p>

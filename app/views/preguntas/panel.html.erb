@@ -1,23 +1,66 @@
+<% content_for :js do %>
+<script>
+  var max_id = <%= @ultimaid %>
+  function cargar_preguntas(id) {
+    $.getJSON("/preguntas/dame_preguntas",
+    {
+      ultimoid: id,
+    }).success(
+      function(data) {
+        fila = ""
+        $.each(data, function(i,item){
+          participante = '<td align="center">'+item.participante.nombre+" "+item.participante.apellido+'</td>';
+          mensaje = "<td>"+item.mensaje+"</td>";
+          ponencia = '<td align="center">'+item.ponencia.titulo+"</td>";
+          if(item.aceptada == "true") {
+            aprobar = "<td></td>";
+          }
+          else
+          {
+            aprobar = '<td><a href="/preguntas/'+item.id+'/aprobar"><img src="/check.png" alt="Aprobar"></a></td>';
+          }
+          eliminar = '<td><a rel="nofollow" data-method="delete" data-confirm="¿Seguro que desea eliminar la pregunta?" href=\"/preguntas/"+item.id+"\"><img src="/delete.png" alt="Eliminar"></a></td>';
+          fila = "<tr>"+participante+mensaje+ponencia+aprobar+eliminar+"</tr>";
+
+         $("tbody").prepend(fila);
+
+          if(max_id < item.id) {
+            max_id = item.id;
+          }
+        });
+      });
+  }
+
+  $(document).ready(function (){
+    setInterval(function() {
+      cargar_preguntas(max_id)
+    },5000);
+  });
+</script>
+<% end %>
 ﻿<h1>Lista de preguntas</h1>
 <% if notice.present? %>
   <p id="notice"><%= notice %></p>
 <% end %>
 <table class="lista">
-  <tr>
-    <th>Mensaje</th>
-    <th>Participante</th>
-    <th>Ponencia</th>
-    <th></th>
-    <th></th>
-  </tr>
-
+  <thead>
+    <tr>
+      <th>Mensaje</th>
+      <th>Participante</th>
+      <th>Ponencia</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
   <% @preguntas.each do |pregunta| %>
-  <tr>
-    <td align="center"><%= pregunta.participante.nombreCompleto %></td>
-    <td><%= pregunta.mensaje %></td>
-    <td align="center"><%= pregunta.ponencia.titulo %></td>
-    <td><%= link_to(image_tag("/check.png", :alt => "Aprobar"), {:action => "aprobar", :id => pregunta}) unless pregunta.aceptada %></td>
-    <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), pregunta, :confirm => "¿Seguro que desea eliminar la pregunta?", :method => :delete %></td>
-  </tr>
+    <tr>
+      <td align="center"><%= pregunta.participante.nombreCompleto %></td>
+      <td><%= pregunta.mensaje %></td>
+      <td align="center"><%= pregunta.ponencia.titulo %></td>
+      <td><%= link_to(image_tag("/check.png", :alt => "Aprobar"), {:action => "aprobar", :id => pregunta}) unless pregunta.aceptada %></td>
+      <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), pregunta, :confirm => "¿Seguro que desea eliminar la pregunta?", :method => :delete %></td>
+    </tr>
   <% end %>
+  </tbody>
 </table>

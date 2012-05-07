@@ -15,9 +15,8 @@ Sistema::Application.routes.draw do
   get "/preguntarAlPonente", :to => "preguntas#new"
   get "/preguntaralponente", :to => "preguntas#new"
   match "/preguntas/ver/:id",     :to => "preguntas#show", :as => :ver_pregunta
-  match "/preguntas/ponencia/:ponencia_id", :to => "preguntas#index"
-  match "/panel-preguntas/:ponencia_id", :to => "preguntas#panel"
-  match "/panel-preguntas",       :to=> "preguntas#panel", :as => :panel_preguntas
+  match "/preguntas/ponencia/:ponencia_id(.:format)", :to => "preguntas#index"
+  match "/panel-preguntas(/:ponencia_id)", :to => "preguntas#panel", :as => :panel_preguntas
 
   resources :participantes do
     collection do
@@ -57,9 +56,12 @@ Sistema::Application.routes.draw do
   resources :premios
   resources :planes
   resources :patrocinantes
-  resources :preguntas do
+  resources :preguntas, :only => [:index, :show, :new, :create] do
     member do
       get "aprobar"
+    end
+    collection do
+      get "dame_preguntas"
     end
   end
   resources :ponencias
