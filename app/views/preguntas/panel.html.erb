@@ -1,0 +1,23 @@
+﻿<h1>Lista de preguntas</h1>
+<% if notice.present? %>
+  <p id="notice"><%= notice %></p>
+<% end %>
+<table class="lista">
+  <tr>
+    <th>Mensaje</th>
+    <th>Participante</th>
+    <th>Ponencia</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+  <% @preguntas.each do |pregunta| %>
+  <tr>
+    <td align="center"><%= pregunta.participante.nombreCompleto %></td>
+    <td><%= pregunta.mensaje %></td>
+    <td align="center"><%= pregunta.ponencia.titulo %></td>
+    <td><%= link_to(image_tag("/check.png", :alt => "Aprobar"), {:action => "aprobar", :id => pregunta}) unless pregunta.aceptada %></td>
+    <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), pregunta, :confirm => "¿Seguro que desea eliminar la pregunta?", :method => :delete %></td>
+  </tr>
+  <% end %>
+</table>
