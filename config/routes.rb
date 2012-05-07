@@ -6,12 +6,19 @@ Sistema::Application.routes.draw do
   match "/cerrarSesion",          :to => "sessions#destroy"
   match "/login",                 :to => "sessions#new"
   match "/logout",                :to => "sessions#destroy"
-  
+
   get "sessions/new"
   get "home/inicio"
   get "home/academico"
   get "home/patrocinio"
-  
+
+  get "/preguntarAlPonente", :to => "preguntas#new"
+  get "/preguntaralponente", :to => "preguntas#new"
+  match "/preguntas/ver/:id",     :to => "preguntas#show", :as => :ver_pregunta
+  match "/preguntas/ponencia/:ponencia_id", :to => "preguntas#index"
+  match "/panel-preguntas/:ponencia_id", :to => "preguntas#panel"
+  match "/panel-preguntas",       :to=> "preguntas#panel", :as => :panel_preguntas
+
   resources :participantes do
     collection do
       get  "reporte"
@@ -21,14 +28,14 @@ Sistema::Application.routes.draw do
       post "entregarComida"
     end
   end
-  
+
   resources :mesas_de_trabajo do
     member do
       post "sortear"
       post "reiniciar"
     end
   end
-  
+
   resources :participantes_mates, :only => [:index, :show, :new] do
     collection do
       get  "buscar"
@@ -36,21 +43,25 @@ Sistema::Application.routes.draw do
       post "entregar"
     end
   end
-  
+
   resources :participantes_mesas, :only => [:index, :show, :new] do
     collection do
       get  "buscar"
       post "crear"
     end
   end
-  
+
   resources :sessions, :only => [:new, :create, :destroy]
   resources :organizadores
   resources :materiales_pop
   resources :premios
   resources :planes
   resources :patrocinantes
-  resources :preguntas
+  resources :preguntas do
+    member do
+      get "aprobar"
+    end
+  end
   resources :ponencias
   resources :ponentes
   resources :rifas
