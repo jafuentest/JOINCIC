@@ -1,19 +1,19 @@
 ﻿<h1>Lista de preguntas</h1>
 
+<% if @preguntas.present? %>
 <table class="lista">
   <tr>
-    <th>Mensaje</th>
-    <th>Participante</th>
-    <th>Ponencia</th>
-    <th></th>
+    <th style="text-align:left;">Pregunta</th>
+    <% unless @hay_ponencia %><th>Ponencia</th><% end %>
   </tr>
 
   <% @preguntas.each do |pregunta| %>
   <tr>
-    <td><%= pregunta.mensaje %></td>
-    <td align="center"><%= pregunta.participante.nombreCompleto %></td>
-    <td align="center"><%= pregunta.ponencia.titulo %></td>
-    <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), pregunta, :confirm => "¿Seguro que desea eliminar la pregunta?", :method => :delete %></td>
+    <td><b><%= pregunta.participante.nombreCompleto %></b>: <%= pregunta.mensaje %></td>
+    <% unless @hay_ponencia %><td align="center"><%= pregunta.ponencia.titulo %></td><% end %>
   </tr>
   <% end %>
 </table>
+<% else %>
+  <p style="text-align:center;">Aún no se han recibido preguntas.</p>
+<% end %> 
