@@ -12,7 +12,7 @@ class PreguntasController < ApplicationController
       end
     end
 
-    if @hay_ponencia
+    unless @hay_ponencia
       @preguntas = Pregunta.aceptada.includes(:ponencia, :participante).limit(50)
     end
 
