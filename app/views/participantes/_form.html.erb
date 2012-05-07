@@ -1,7 +1,7 @@
-ï»¿<%= form_for(@participante) do |f| %>
+<%= form_for(@participante) do |f| %>
   <% if @participante.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@participante.errors.count, "error prohibiÃ³", "errores prohibieron") %> guardar el organizador:</h2>
+      <h2><%= pluralize(@participante.errors.count, "error prohibió", "errores prohibieron") %> guardar el organizador:</h2>
 
       <ul>
       <% @participante.errors.full_messages.each do |msg| %>
@@ -48,7 +48,7 @@
       <td>
         <div class="field">
           <%= f.label      :correo %>
-          <%= f.text_field :correo, :size => 20, :maxlength => 25 %>
+          <%= f.text_field :correo, :size => 20, :maxlength => 50 %>
         </div>
         <div class="field">
           <%= f.label      :institucion %>
@@ -57,7 +57,7 @@
         <div class="field">
           <%= f.label        :nivel %>
           <%= f.number_field :nivel, :in => 1..15, :value => 1 %>
-          <%= f.select       :tipo_nivel, ["Trimestre", "Semestre", "AÃ±o"] %>
+          <%= f.select       :tipo_nivel, ["Trimestre", "Semestre", "Año"] %>
         </div>
         <div class="field">
           <%= f.label  :zona_id %>
