@@ -1,16 +1,8 @@
-﻿<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Pregunta:</b>
-  <%= @pregunta.mensaje %>
-</p>
-<p>
-  <b>Participante:</b>
-  <%= @pregunta.participante.nombreCompleto %>
-</p>
-<p>
-  <b>Ponencia:</b>
-  <%= @pregunta.ponencia.titulo %>
-</p>
+﻿<h1>Preguntas al ponente</h1>
+<h2 id="titulo_ponencia_pregunta">En <i><%= @pregunta.ponencia.titulo %></i></h2>
+<dl>
+  <dt>Pregunta de <b><%= @pregunta.participante.nombreCompleto %></b></dt>
+  <dd><%= @pregunta.mensaje %></dd>
+</dl>
 
 <%= link_to "Volver a la lista", preguntas_path %>
