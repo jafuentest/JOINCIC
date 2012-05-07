@@ -1,8 +1,33 @@
 class PreguntasController < ApplicationController
+  skip_before_filter :estarLogueado, :except => [:panel, :edit, :update, :destroy]
+  layout :verificar_layout #Ver al final
   # GET /preguntas
   # GET /preguntas.json
   def index
-    @preguntas = Pregunta.all
+    @hay_ponencia = false
+    if params[:ponencia_id].present?
+      if Ponencia.find(params[:ponencia_id]).present?
+        @preguntas = Pregunta.find_by_ponencia_id(params[:ponencia_id]).aceptada.includes(:ponencia, :participante)
+        @hay_ponencia = true
+      end
+    end
+
+    unless @hay_ponencia
+      @preguntas = Pregunta.aceptada.includes(:ponencia, :participante).limit(50)
+    end
+
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json => @preguntas }
+    end
+  end
+
+  def panel
+    if params[:ponencia].present?
+      @preguntas = Pregunta.find_by_ponencia_id(params[:ponencia]).includes(:ponencia, :participante).order("aceptada")
+    else
+      @preguntas = Pregunta.includes(:ponencia, :participante).limit(100)
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -25,31 +50,40 @@ class PreguntasController < ApplicationController
   # GET /preguntas/new.json
   def new
     @pregunta = Pregunta.new
+    @ponencias = Ponencia.all
 
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json => @pregunta }
-    end
+    render :layout => "movil"
   end
 
   # GET /preguntas/1/edit
   def edit
     @pregunta = Pregunta.find(params[:id])
+    @ponencias = Ponencia.all
   end
 
   # POST /preguntas
   # POST /preguntas.json
   def create
-    @pregunta = Pregunta.new(params[:pregunta])
+    @ponencias = Ponencia.all
+    p = Participante.find_by_cedula(params[:participante_cedula])
+    if p.present?
+      params[:pregunta][:participante_id] = p.id
 
-    respond_to do |format|
-      if @pregunta.save
-        format.html { redirect_to @pregunta, notice => 'Pregunta was successfully created.' }
-        format.json { render json => @pregunta, status => :created, location => @pregunta }
-      else
-        format.html { render "new.html.erb" }
-        format.json { render json => @pregunta.errors, status => :unprocessable_entity }
+      @pregunta = Pregunta.new(params[:pregunta])
+
+      respond_to do |format|
+        if @pregunta.save
+          format.html { redirect_to @pregunta, notice => 'Pregunta creada satisfactoriamente.' }
+          format.json { render json => @pregunta, status => :created, location => @pregunta }
+        else
+          format.html { render "new.html.erb" }
+          format.json { render json => @pregunta.errors, status => :unprocessable_entity }
+        end
       end
+    else
+      @pregunta = Pregunta.new(params[:pregunta])
+      flash[:notice] = 'Participante no registrado.'
+      render "new.html.erb"
     end
   end
 
@@ -80,4 +114,31 @@ class PreguntasController < ApplicationController
       format.json { head :ok }
     end
   end
+
+  def aprobar
+    p = Pregunta.find(params[:id])
+    p.aceptada = true
+    respond_to do |format|
+      if p.save
+        flash[:notice] = 'Pregunta aceptada.'
+        format.html { redirect_to panel_preguntas_url }
+        format.json { head :ok }
+      else
+        flash[:notice] = 'Pregunta sin cambios.'
+        format.html { redirect_to panel_preguntas_url }
+        format.json { render json => p.errors, status => :unprocessable_entity }
+      end
+    end
+  end
+
+  private
+    def verificar_layout
+    case action_name
+    when "new", "create", "edit", "update", "show", "index"
+      "movil"
+    else
+      "application"
+    end
+  end
+
 end

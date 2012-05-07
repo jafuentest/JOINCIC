@@ -1,0 +1,71 @@
+body {
+  background: url(http://www.joincic.com.ve/img/menu-bg.jpg) repeat scroll left top transparent;
+  color: white;
+  font-family:Verdana,Helvetica,sans-serif;
+  font-size:medium;
+  margin:0px;
+  padding:0px;
+}
+a { color:white; }
+h1, h2, h3 { font-family:Arial; text-align:center;}
+form { text-align:center; }
+input, select { margin:1em; padding:1em; text-align:center; width:75%;}
+dl { border-bottom:thin solid white; margin: 1em auto; width:75%; }
+dl dt { border-bottom:thin solid white; padding-bottom:5px;}
+dl dd { font-style:italic; margin-bottom:0.75em; margin-top:0.75em;}
+table { margin: 1em auto; width:85%; }
+td {
+  border:thin solid white;
+  padding:0.5em;
+  -moz-border-radius: 20px; /* Firefox */
+  -webkit-border-radius: 20px; /* Safari and Chrome */
+  -khtml-border-radius: 20px; /* Linux browsers */
+  border-radius: 20px; /* Opera 10.50, IE and CSS3 */
+}
+header {
+    background: url(http://www.joincic.com.ve/img/top-bg.jpg) repeat-x scroll left top transparent;
+    color:white;
+    height: 66px;
+    padding-top: 10px;
+    position: relative;
+    text-align:center;
+}
+div#contenido {
+}
+footer {
+    background: url(http://www.joincic.com.ve/img/footer-bg.jpg) repeat-x scroll left bottom transparent;
+    clear: both;
+    font-size:small;
+    min-height: 60px;
+    text-align: center;
+}
+footer p { font-family: Arial,Helvetica,sans-serif; margin:0; padding-top:1.5em;}
+#joincic-title {
+    color: #FFFFFF;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 40px;
+    padding-right: 15px;
+    position: relative;
+}
+#joincic-name {
+    color: #FFFFFF;
+    font-family: Verdana;
+    font-size: 20px;
+    padding-left: 15px;
+    position: relative;
+    display:none;
+}
+#titulo_ponencia_pregunta {
+  margin-left:7.5%;
+  text-align:left;
+}
+.field {margin:1em;}
+
+#contentfooter {
+  border-color:#660000;
+  margin:1em auto; padding:1em;
+  -moz-border-radius: 20px; /* Firefox */
+  -webkit-border-radius: 20px; /* Safari and Chrome */
+  -khtml-border-radius: 20px; /* Linux browsers */
+  border-radius: 20px; /* Opera 10.50, IE and CSS3 */
+}
