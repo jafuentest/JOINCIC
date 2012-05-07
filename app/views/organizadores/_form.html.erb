@@ -1,4 +1,4 @@
-﻿<%= form_for(@organizador) do |f| %>
+<%= form_for(@organizador) do |f| %>
   <% if @organizador.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@organizador.errors.count, "error prohibió", "errores prohibieron") %> guardar el organizador:</h2>
@@ -42,7 +42,7 @@
         </div>
         <div class="field">
           <%= f.label      :correo %>
-          <%= f.text_field :correo, :size => 20, :maxlength => 25 %>
+          <%= f.text_field :correo, :size => 20, :maxlength => 50 %>
         </div>
         <div class="field">
           <%= f.label      :direccion %>
