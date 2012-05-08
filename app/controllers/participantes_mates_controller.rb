@@ -8,7 +8,7 @@ class ParticipantesMatesController < ApplicationController
         format.json { render json => @participantes_mates }
       end
     else
-      flash[:notice] = "Ingresa el número de cédula del participante"
+      flash[:notice] = "Ingresa el n&uacute;mero de c&eacute;dula del participante"
       redirect_to buscar_participantes_mates_path
     end
   end
@@ -22,7 +22,7 @@ class ParticipantesMatesController < ApplicationController
       @participante = Participante.find_by_cedula(params[:id])
       
       if @participante.nil?
-        flash[:notice] = "No se encontró ningún participante cuya cédula sea: <br/>".html_safe + params[:id]
+        flash[:notice] = "No se encontr&oacute; ning&uacute;n participante cuya c&eacute;dula sea: <br/>".html_safe + params[:id]
         redirect_to buscar_participantes_mates_path
       else
         @participantes_mates = @participante.participantes_mates
@@ -43,7 +43,7 @@ class ParticipantesMatesController < ApplicationController
       end
     
     else
-      flash[:notice] = "Error: Número de cédula inválido"
+      flash[:notice] = "Error: N&uacute;mero de c&eacute;dula inv&aacute;lido"
       redirect_to buscar_participantes_mates_path
     end
   end
