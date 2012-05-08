@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120309023237) do
+ActiveRecord::Schema.define(:version => 20120507222652) do
 
   create_table "materiales_pop", :force => true do |t|
     t.string  "nombre",   :limit => 20, :null => false
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(:version => 20120309023237) do
     t.string  "apellido",     :limit => 15,                    :null => false
     t.date    "fecha_nac",                                     :null => false
     t.string  "telefono",     :limit => 11,                    :null => false
-    t.string  "correo",       :limit => 25,                    :null => false
+    t.string  "correo",       :limit => 50,                    :null => false
     t.string  "direccion",    :limit => 50,                    :null => false
     t.string  "institucion",  :limit => 5,                     :null => false
     t.integer "nivel",                                         :null => false
@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(:version => 20120309023237) do
     t.string   "apellido",     :limit => 15,                    :null => false
     t.date     "fecha_nac",                                     :null => false
     t.string   "telefono",     :limit => 11,                    :null => false
-    t.string   "correo",       :limit => 25,                    :null => false
+    t.string   "correo",       :limit => 50,                    :null => false
     t.string   "direccion",    :limit => 50,                    :null => false
     t.string   "institucion",  :limit => 20,                    :null => false
     t.integer  "nivel",                                         :null => false
@@ -120,7 +120,7 @@ ActiveRecord::Schema.define(:version => 20120309023237) do
     t.string  "nombre",       :limit => 15, :null => false
     t.string  "apellido",     :limit => 15, :null => false
     t.string  "telefono",     :limit => 11, :null => false
-    t.string  "correo",       :limit => 25, :null => false
+    t.string  "correo",       :limit => 50, :null => false
     t.string  "institucion",  :limit => 20, :null => false
     t.string  "seg_nombre",   :limit => 15
     t.string  "seg_apellido", :limit => 15
@@ -131,6 +131,7 @@ ActiveRecord::Schema.define(:version => 20120309023237) do
     t.string  "mensaje",         :null => false
     t.integer "participante_id", :null => false
     t.integer "ponencia_id",     :null => false
+    t.boolean "aceptada"
   end
 
   create_table "premios", :force => true do |t|
