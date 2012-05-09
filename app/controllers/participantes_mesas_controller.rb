@@ -8,7 +8,7 @@ class ParticipantesMesasController < ApplicationController
         format.json { render json => @participantes_mesas }
       end
     else
-      flash[:notice] = "Ingresa el n&uacute;mero de c&eacute;dula del participante"
+      flash[:notice] = "Ingresa el n&uacute;mero de c&eacute;dula del participante".html_safe
       redirect_to buscar_participantes_mesas_path
     end
   end
@@ -43,7 +43,7 @@ class ParticipantesMesasController < ApplicationController
       end
     
     else
-      flash[:notice] = "Error: N&uacute;mero de c&eacute;dula inv&aacute;lido"
+      flash[:notice] = "Error: N&uacute;mero de c&eacute;dula inv&aacute;lido".html_safe
       redirect_to buscar_participantes_mesas_path
     end
   end

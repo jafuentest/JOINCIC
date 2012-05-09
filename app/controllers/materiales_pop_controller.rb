@@ -54,7 +54,7 @@ class MaterialesPopController < ApplicationController
       end
       
       respond_to do |format|
-        format.html { redirect_to @material_pop, notice => "El material fue agregado con &eacute;xito." }
+        format.html { redirect_to @material_pop, notice => "El material fue agregado con &eacute;xito.".html_safe }
         format.json { render json => @material_pop, status => :created, location =>  @material_pop }
       end
     
@@ -73,7 +73,7 @@ class MaterialesPopController < ApplicationController
 
     respond_to do |format|
       if @material_pop.update_attributes(params[:material_pop])
-        format.html { redirect_to @material_pop, notice => "El material fue actualizado con &eacute;xito." }
+        format.html { redirect_to @material_pop, notice => "El material fue actualizado con &eacute;xito.".html_safe }
         format.json { head :ok }
       else
         format.html { render "edit.html.erb" }
