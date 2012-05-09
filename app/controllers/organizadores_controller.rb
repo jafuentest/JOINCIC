@@ -44,7 +44,7 @@ class OrganizadoresController < ApplicationController
     
     respond_to do |format|
       if @organizador.save
-        format.html { redirect_to @organizador, notice => "El organizador fue creado con &eacute;xito" }
+        format.html { redirect_to @organizador, notice => "El organizador fue creado con &eacute;xito".html_safe }
         format.json { render json => @organizador, status => :created, location => @organizador }
       else
         format.html { render "new.html.erb" }
@@ -60,7 +60,7 @@ class OrganizadoresController < ApplicationController
 
     respond_to do |format|
       if @organizador.update_attributes(params[:organizador])
-        format.html { redirect_to @organizador, notice => "El organizador fue modificado con &eacute;xito" }
+        format.html { redirect_to @organizador, notice => "El organizador fue modificado con &eacute;xito".html_safe }
         format.json { head :ok }
       else
         format.html { render "edit.html.erb" }

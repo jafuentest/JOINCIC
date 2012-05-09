@@ -6,7 +6,7 @@ class ParticipantesController < ApplicationController
       p.update_attribute(:comida, false)
     end
     respond_to do |format|
-      format.html { redirect_to entregarComida_participantes_path, notice =>  "El control de comidas ha sido reiniciado con &eacute;xito." }
+      format.html { redirect_to entregarComida_participantes_path, notice =>  "El control de comidas ha sido reiniciado con &eacute;xito.".html_safe }
       format.json { head :ok }
     end
   end
@@ -29,7 +29,7 @@ class ParticipantesController < ApplicationController
           else
             
             if @participante.comida
-              flash[:notice] = "Ya comi&oacute;"
+              flash[:notice] = "Ya comi&oacute;".html_safe
             else
               @participante.update_attribute(:comida, true)
               flash[:notice] = "Marcado"
@@ -37,10 +37,10 @@ class ParticipantesController < ApplicationController
           end
         end
       else
-        flash[:notice] = "Error: N&uacute;mero de c&eacute;dula inv&aacute;lido"
+        flash[:notice] = "Error: N&uacute;mero de c&eacute;dula inv&aacute;lido".html_safe
       end
     else
-      flash[:notice] = "Ingresa el n&uacute;mero de c&eacute;dula del participante"
+      flash[:notice] = "Ingresa el n&uacute;mero de c&eacute;dula del participante".html_safe
     end
     
     respond_to do |format|
@@ -56,7 +56,7 @@ class ParticipantesController < ApplicationController
         @participante = Participante.find_by_cedula(params[:query])
         
         if @participante.nil?
-          flash[:notice] = "No se encontr&oacute; ning&uacute;n participante cuya c&eacute;dula sea: " + params[:query]
+          flash[:notice] = "No se encontr&oacute; ning&uacute;n participante cuya c&eacute;dula sea: ".html_safe + params[:query]
           @encabezado = "Lista de participantes (" + @participantes.size.to_s + ")" unless @participantes.nil?
           @participantes = getParticipantes
         else
@@ -65,11 +65,11 @@ class ParticipantesController < ApplicationController
       
       else
         nombre = "%"+ params[:query] +"%"
-        @encabezado = "B&uacute;squeda =>  " + params[:query]
+        @encabezado = "B&uacute;squeda =>  ".html_safe + params[:query]
         @participantes = buscarParticipantes(nombre)
         
         if @participantes.size == 0
-          flash[:notice] = "No se encontr&oacute; ning&uacute;n particpante cuyo nombre o apellido contenga " + params[:query]
+          flash[:notice] = "No se encontr&oacute; ning&uacute;n particpante cuyo nombre o apellido contenga ".html_safe + params[:query]
           @participantes = getParticipantes
         end
       end
@@ -134,7 +134,7 @@ class ParticipantesController < ApplicationController
     @zonas = zonasDisponibles
     respond_to do |format|
       if @participante.save
-        format.html { redirect_to @participante, notice =>  "El participante fue registrado con &eacute;xito" }
+        format.html { redirect_to @participante, notice =>  "El participante fue registrado con &eacute;xito".html_safe }
         format.json { render json =>  @participante, status =>  :created, location =>  @participante }
       else
         format.html { render "new.html.erb" }
@@ -150,7 +150,7 @@ class ParticipantesController < ApplicationController
     @zonas = zonasDisponibles_Edit(@participante.zona)
     respond_to do |format|
       if @participante.update_attributes(params[:participante])
-        format.html { redirect_to @participante, notice =>  "El participante fue modificado con &eacute;xito" }
+        format.html { redirect_to @participante, notice =>  "El participante fue modificado con &eacute;xito".html_safe }
         format.json { head :ok }
       else
         format.html { render "edit.html.erb" }
