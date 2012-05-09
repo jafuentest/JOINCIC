@@ -51,11 +51,16 @@ class ParticipantesMatesController < ApplicationController
   # GET /participantes_mates/new
   # GET /participantes_mates/new.json
   def new
-    @participante = Participante.find_by_cedula(params[:cedula])
-    @materiales_pop = MaterialPop.all
-    
-    respond_to do |format|
-      format.html # new.html.erb
+    if params.has_key?(:cedula) && params[:cedula] != ""
+      @participante = Participante.find_by_cedula(params[:cedula])
+      @materiales_pop = MaterialPop.all
+      
+      respond_to do |format|
+        format.html # new.html.erb
+      end
+    else
+      flash[:notice] = "Ingresa el n&uacute;mero de c&eacute;dula del participante".html_safe
+      redirect_to buscar_participantes_mates_path
     end
   end
   
