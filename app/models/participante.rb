@@ -36,6 +36,9 @@ class Participante < ActiveRecord::Base
                             
   validates :nivel,         :presence => true
   
+  validates :entrada,       :presence => true,
+                            :uniqueness => true
+  
   def nombreCompleto
     nombre + " " + apellido
   end
