@@ -26,10 +26,6 @@
     <%= f.text_field :seg_apellido, :size => 10, :maxlength => 15 %>
   </div>
   <div class="field">
-    <%= f.label       :fecha_nac %>
-    <%= f.date_select :fecha_nac, :start_year =>  Time.now.year - 70, :end_year =>  Time.now.year - 10, :order => [:day, :month, :year], :use_short_month => true %>
-  </div>
-  <div class="field">
     <%= f.label      :direccion %>
     <%= f.text_field :direccion, :size => 20, :maxlength => 50 %>
   </div>
