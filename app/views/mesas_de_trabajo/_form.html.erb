@@ -20,11 +20,11 @@
       <td>
         <div class="field">
           <%= f.label      :titulo %>
-          <%= f.text_field :titulo, :size => 20, :maxlength => 15 %>
+          <%= f.text_field :titulo, :size => 20, :maxlength => 255 %>
         </div>
         <div class="field">
           <%= f.label      :tema %>
-          <%= f.text_field :tema, :size => 20, :maxlength => 15 %>
+          <%= f.text_field :tema, :size => 20, :maxlength => 50 %>
         </div>
         <div class="field">
           <%= f.label      :descripcion %>
@@ -32,7 +32,7 @@
         </div>
         <div class="field">
           <%= f.label      :lugar %>
-          <%= f.text_field :lugar, :size => 20, :maxlength => 15 %>
+          <%= f.text_field :lugar, :size => 20, :maxlength => 50 %>
         </div>
         <div class="field">
           <%= f.label        :capacidad %>
