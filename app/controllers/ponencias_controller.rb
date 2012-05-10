@@ -25,6 +25,7 @@ class PonenciasController < ApplicationController
   # GET /ponencias/new.json
   def new
     @ponencia = Ponencia.new
+    @ponentes = Ponente.all
     @patrocinantes = Patrocinante.all
 
     respond_to do |format|
@@ -36,6 +37,7 @@ class PonenciasController < ApplicationController
   # GET /ponencias/1/edit
   def edit
     @ponencia = Ponencia.find(params[:id])
+    @ponentes = Ponente.all
     @patrocinantes = Patrocinante.all
   end
 
@@ -43,13 +45,14 @@ class PonenciasController < ApplicationController
   # POST /ponencias.json
   def create
     @ponencia = Ponencia.new(params[:ponencia])
-    @patrocinantes = Patrocinante.all
 
     respond_to do |format|
       if @ponencia.save
         format.html { redirect_to @ponencia, notice => 'Ponencia was successfully created.' }
         format.json { render json => @ponencia, status => :created, location => @ponencia }
       else
+        @ponentes = Ponente.all
+        @patrocinantes = Patrocinante.all
         format.html { render "new.html.erb" }
         format.json { render json => @ponencia.errors, status => :unprocessable_entity }
       end
@@ -66,6 +69,8 @@ class PonenciasController < ApplicationController
         format.html { redirect_to @ponencia, notice => 'Ponencia was successfully updated.' }
         format.json { head :ok }
       else
+        @ponentes = Ponente.all
+        @patrocinantes = Patrocinante.all
         format.html { render "edit.html.erb" }
         format.json { render json => @ponencia.errors, status => :unprocessable_entity }
       end
