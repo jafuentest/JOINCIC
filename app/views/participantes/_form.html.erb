@@ -64,8 +64,8 @@
           <%= f.select :zona_id, @zonas.collect {|z| [ z.nombre, z.id ] } %>
         </div>
         <div class="field">
-          <%= f.label      :entrada %>
-          <%= f.text_field :entrada, :size => 20, :maxlength => 3 %>
+          <%= f.label        :entrada %>
+          <%= f.number_field :entrada, :in => 1..500, :value => 1 %>
         </div>
         <div class="field">
           <%= f.label      :deposito %>
