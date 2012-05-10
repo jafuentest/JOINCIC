@@ -6,9 +6,6 @@ class Ponente < ActiveRecord::Base
   texto_regex   = /\A[a-z ÁÉÍÓÚÑáéíóúñ]+\z/i
   palabra_regex	= /\A[a-zÁÉÍÓÚÑáéíóúñ]+\z/i
   
-  validates :cedula,        :numericality => true,
-                            :uniqueness => true
-                            
   validates :nombre,        :format => { :with => palabra_regex }
   
   validates :seg_nombre,    :allow_blank => true,
@@ -19,7 +16,8 @@ class Ponente < ActiveRecord::Base
   validates :seg_apellido,  :allow_blank => true,
                             :format => { :with => texto_regex }
   
-  validates :telefono,      :numericality => true,
+  validates :telefono,      :allow_blank => true,
+                            :numericality => true,
                             :length => { :is => 11}
   
   validates :telefono2,     :allow_blank => true,
