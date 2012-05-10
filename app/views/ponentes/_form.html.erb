@@ -11,32 +11,61 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label      :nombre %>
-    <%= f.text_field :nombre,     :size => 10, :maxlength => 15 %>
-    <%= f.text_field :seg_nombre, :size => 10, :maxlength => 15 %>
-  </div>
-  <div class="field">
-    <%= f.label      :apellido %>
-    <%= f.text_field :apellido,     :size => 10, :maxlength => 15 %>
-    <%= f.text_field :seg_apellido, :size => 10, :maxlength => 15 %>
-  </div>
-  <div class="field">
-    <%= f.label      :telefono %>
-    <%= f.text_field :telefono, :size => 20, :maxlength => 11 %>
-  </div>
-  <div class="field">
-    <%= f.label      :telefono2 %>
-    <%= f.text_field :telefono2, :size => 20, :maxlength => 11 %>
-  </div>
-  <div class="field">
-    <%= f.label      :correo %>
-    <%= f.text_field :correo, :size => 20, :maxlength => 50 %>
-  </div>
-  <div class="field">
-    <%= f.label      :institucion %>
-    <%= f.text_field :institucion, :size => 20, :maxlength => 15 %>
-  </div>
+  <table class="formularioS">
+    <tr>
+      <th></th>
+    </tr>
+    <tr>
+      <td>
+        <div class="field">
+          <%= f.label      :nombre %>
+          <%= f.text_field :nombre,     :size => 10, :maxlength => 15 %>
+          <%= f.text_field :seg_nombre, :size => 10, :maxlength => 15 %>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="field">
+          <%= f.label      :apellido %>
+          <%= f.text_field :apellido,     :size => 10, :maxlength => 15 %>
+          <%= f.text_field :seg_apellido, :size => 10, :maxlength => 15 %>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="field">
+          <%= f.label      :telefono %>
+          <%= f.text_field :telefono, :size => 20, :maxlength => 11 %>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="field">
+          <%= f.label      :telefono2 %>
+          <%= f.text_field :telefono2, :size => 20, :maxlength => 11 %>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="field">
+          <%= f.label      :correo %>
+          <%= f.text_field :correo, :size => 20, :maxlength => 50 %>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="field">
+          <%= f.label      :institucion %>
+          <%= f.text_field :institucion, :size => 20, :maxlength => 15 %>
+        </div>
+      </td>
+    </tr>
+  </table>
   
   <br/>
   
