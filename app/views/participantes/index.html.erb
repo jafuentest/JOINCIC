@@ -2,8 +2,10 @@
 <p id="notice"><%= notice %></p>
 
 <div align=center>
-<%= link_to "Exportar a Archivo Excel", reporte_participantes_path %>
+  <%= link_to "Exportar a Archivo Excel", reporte_participantes_path %>
 </div>
+
+<br />
 
 <table class="lista">
   <tr>
@@ -12,6 +14,7 @@
     <th>Institución</th>
     <th>Nivel</th>
     <th>Zona</th>
+    <th>Entrada</th>
     <th>Fecha de Compra</th>
     <th colspan=3>Opciones</th>
   </tr>
@@ -24,6 +27,7 @@
     <td align=center><%= participante.nivel %> <%= participante.tipo_nivel %></td>
     <td align=center><%= participante.zona.nombre %></td>
     <td align=center><%= participante.created_at.in_time_zone("Caracas").to_date %></td>
+    <td align=center><%= participante.entrada %></td>
     <td><%= link_to image_tag("/show.png", :alt => "Mostrar"), participante %></td>
     <td><%= link_to image_tag("/edit.png", :alt => "Modificar"), edit_participante_path(participante) %></td>
     <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), participante, :confirm => "¿Seguro que desea eliminar a " + participante.nombreCompleto + "?", :method => :delete unless participante.eliminado%></td>
