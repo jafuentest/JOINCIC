@@ -1,5 +1,6 @@
 ﻿<table border="1">
   <tr>
+    <th>Cedula</th>
     <th>Nombre(s)</th>
     <th>Apellido(s)</th>
     <th>Edad</th>
@@ -12,6 +13,7 @@
   
   <% @participantes.each do |participante| %>
   <tr>
+    <td align=center><%= participante.cedula %></td>
     <td align=center><%= participante.nombres %></td>
     <td align=center><%= participante.apellidos %></td>
     <td align=center><%= participante.edad %></td>
