@@ -1,5 +1,15 @@
 class ParticipantesController < ApplicationController
   layout "application", :except => :reporte
+
+  def universidades
+    unis = []
+    instituciones = Participante.find(:all, :group => :institucion)
+    instituciones.each do |ins|
+	  participantes = Participante.count(:all, :conditions => { :institucion => ins.institucion } )
+	  unis << { :nombre => ins.institucion, :participantes => participantes }
+    end
+    @universidades = unis.sort_by { |h| h[:participantes] }.reverse!
+  end
   
   def reiniciarComidas
     getParticipantes.each do |p|
@@ -57,7 +67,7 @@ class ParticipantesController < ApplicationController
         
         if @participante.nil?
           flash[:notice] = "No se encontr&oacute; ning&uacute;n participante cuya c&eacute;dula sea: ".html_safe + params[:query]
-          @encabezado = "Lista de participantes (" + @participantes.size.to_s + ")" unless @participantes.nil?
+          @titulo = "Lista de participantes"
           @participantes = getParticipantes
         else
           redirect_to @participante
@@ -65,19 +75,21 @@ class ParticipantesController < ApplicationController
       
       else
         nombre = "%"+ params[:query] +"%"
-        @encabezado = "B&uacute;squeda =>  ".html_safe + params[:query]
+        @titulo = "B&uacute;squeda =>  ".html_safe + params[:query]
         @participantes = buscarParticipantes(nombre)
+        flash[:notice] = ""
         
         if @participantes.size == 0
           flash[:notice] = "No se encontr&oacute; ning&uacute;n particpante cuyo nombre o apellido contenga ".html_safe + params[:query]
           @participantes = getParticipantes
+          @titulo = "Lista de participantes"
         end
       end
       
     else
       flash[:notice] = "Tienes que escribir algo si quieres hacer una busqueda..."
       @participantes = getParticipantes
-      @encabezado = "Lista de participantes (" + @participantes.size.to_s + ")"
+      @titulo = "Lista de participantes"
     end
     
     if @participante.nil?
@@ -90,7 +102,14 @@ class ParticipantesController < ApplicationController
   # GET /participantes
   # GET /participantes.json
   def index
-    @participantes = getParticipantes
+	if params.has_key?(:uni) && params[:uni] != ""
+	  @titulo = "Listda de estudiantes " + params[:uni]
+	  @participantes = Participante.paginate :per_page => 20, :page => params[:page], :order => "created_at DESC", :conditions => ["institucion like ?", params[:uni]]
+	  # @participantes = Participante.find( :all, :order => "created_at DESC", :conditions => ["institucion like ?", params[:uni]])
+	else
+      @titulo = "Lista de participantes"
+      @participantes = getParticipantes
+    end
     flash[:notice] = ""
     
     respond_to do |format|
@@ -177,7 +196,7 @@ class ParticipantesController < ApplicationController
   end
   
   def getParticipantes
-    Participante.find( :all, :order => "created_at DESC" )
+    Participante.paginate :per_page => 20, :page => params[:page], :order => "created_at DESC"
   end
   
   def buscarParticipantes(nombre)
