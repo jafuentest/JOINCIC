@@ -56,7 +56,7 @@
         </div>
         <div class="field">
           <%= f.label        :nivel %>
-          <%= f.number_field :nivel, :in => 1..15, :value => 1 %>
+          <%= f.number_field :nivel, :in => 1..15, :value => 1, :size => 5 %>
           <%= f.select       :tipo_nivel, ["Trimestre", "Semestre", "A&#241;o".html_safe] %>
         </div>
         <div class="field">
@@ -65,7 +65,7 @@
         </div>
         <div class="field">
           <%= f.label        :entrada %>
-          <%= f.number_field :entrada, :in => 1..500, :value => 1 %>
+          <%= f.number_field :entrada, :in => 1..500, :value => 1, :size => 5 %>
         </div>
         <div class="field">
           <%= f.label      :deposito %>
