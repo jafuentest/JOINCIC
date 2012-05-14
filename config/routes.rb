@@ -24,6 +24,7 @@ Sistema::Application.routes.draw do
       get  "buscar"
       get  "reiniciarComidas"
       get  "entregarComida"
+      get  "universidades"
       post "entregarComida"
     end
   end

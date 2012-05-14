@@ -1,0 +1,25 @@
+﻿<h1>Universidades (<%= @universidades.size %>)</h1>
+<p id="notice"><%= notice %></p>
+
+<br />
+
+<table class="listaS">
+  <tr>
+    <th>Institución</th>
+    <th>Participantes</th>
+    <th>Opciones</th>
+  </tr>
+  
+  <% @universidades.each do |uni| %>
+  
+  <tr>
+    <td><%= uni[:nombre] %></td>
+    <td><%= uni[:participantes] %></td>
+    <td><%= link_to image_tag("/show.png", :alt => "Mostrar"), participantes_path(:uni => uni[:nombre]) %></td>
+  </tr>
+  <% end %>
+</table>
+
+<br />
+
+<%= link_to "Agregar Participante", new_participante_path %>
