@@ -1,5 +1,6 @@
 <table border="1">
   <tr>
+    <th>Entrada</th>
     <th>Cedula</th>
     <th>Nombre(s)</th>
     <th>Apellido(s)</th>
@@ -7,10 +8,12 @@
     <th>Institución</th>
     <th>Teléfono</th>
     <th>Correo</th>
+    <th>Fecha de Compra</th>
   </tr>
   
   <% @participantes.each do |participante| %>
   <tr>
+    <td align=center><%= participante.entrada %></td>
     <td align=center><%= participante.cedula %></td>
     <td align=center><%= participante.nombres %></td>
     <td align=center><%= participante.apellidos %></td>
@@ -18,6 +21,7 @@
     <td align=center><%= participante.institucion %></td>
     <td align=center><%= participante.telefono %></td>
     <td align=center><%= participante.correo %></td>
+    <td align=center><%= participante.created_at.in_time_zone("Caracas").to_date.day %>/<%= participante.created_at.in_time_zone("Caracas").to_date.month %></td>
   </tr>
   <% end %>
 </table>
