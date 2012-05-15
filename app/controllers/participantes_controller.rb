@@ -1,5 +1,5 @@
 class ParticipantesController < ApplicationController
-  layout "application", :except => :reporte
+  layout "application", :except => [:excel, :excelPatrocinantes]
 
   def universidades
     unis = []
@@ -188,15 +188,26 @@ class ParticipantesController < ApplicationController
     end
   end
   
-  def reporte
+  def excel
     headers['Content-Type'] = "application/vnd.ms-excel"
     headers['Content-Disposition'] = 'attachment; filename="participantes.xls"'
     headers['Cache-Control'] = ''
-    @participantes = getParticipantes
+    @participantes = getParticipantesFull
+  end
+  
+  def excelPatrocinantes
+    headers['Content-Type'] = "application/vnd.ms-excel"
+    headers['Content-Disposition'] = 'attachment; filename="participantes.xls"'
+    headers['Cache-Control'] = ''
+    @participantes = getParticipantesFull
   end
   
   def getParticipantes
     Participante.paginate :per_page => 20, :page => params[:page], :order => "created_at DESC"
+  end
+  
+  def getParticipantesFull
+	Participante.find :all, :order => "created_at DESC", :conditions => { :eliminado => false }
   end
   
   def buscarParticipantes(nombre)
