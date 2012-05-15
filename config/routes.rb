@@ -11,6 +11,7 @@ Sistema::Application.routes.draw do
   get "home/inicio"
   get "home/academico"
   get "home/patrocinio"
+  get "home/reportes"
 
   get "/preguntarAlPonente", :to => "preguntas#new"
   get "/preguntaralponente", :to => "preguntas#new"
@@ -20,7 +21,8 @@ Sistema::Application.routes.draw do
 
   resources :participantes do
     collection do
-      get  "reporte"
+      get  "excel"
+      get  "excelPatrocinantes"
       get  "buscar"
       get  "reiniciarComidas"
       get  "entregarComida"
