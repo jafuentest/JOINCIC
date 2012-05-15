@@ -1,5 +1,6 @@
 class ParticipantesController < ApplicationController
   layout "application", :except => [:excel, :excelPatrocinantes]
+  helper_method :sort_column, :sort_direction
 
   def universidades
     unis = []
@@ -12,7 +13,7 @@ class ParticipantesController < ApplicationController
   end
   
   def reiniciarComidas
-    getParticipantes.each do |p|
+    Participante.all.each do |p|
       p.update_attribute(:comida, false)
     end
     respond_to do |format|
@@ -102,11 +103,10 @@ class ParticipantesController < ApplicationController
   # GET /participantes
   # GET /participantes.json
   def index
-	if params.has_key?(:uni) && params[:uni] != ""
-	  @titulo = "Listda de estudiantes " + params[:uni]
-	  @participantes = Participante.paginate :per_page => 20, :page => params[:page], :order => "created_at DESC", :conditions => ["institucion like ?", params[:uni]]
-	  # @participantes = Participante.find( :all, :order => "created_at DESC", :conditions => ["institucion like ?", params[:uni]])
-	else
+    if params.has_key?(:uni) && params[:uni] != ""
+      @titulo = "Listda de estudiantes " + params[:uni]
+      @participantes = getParticipantesFiltrar("institucion", params[:uni])
+    else
       @titulo = "Lista de participantes"
       @participantes = getParticipantes
     end
@@ -202,16 +202,30 @@ class ParticipantesController < ApplicationController
     @participantes = getParticipantesFull
   end
   
+  private
+  
   def getParticipantes
-    Participante.paginate :per_page => 20, :page => params[:page], :order => "created_at DESC"
+    Participante.order(sort_column + " " + sort_direction).paginate :per_page => 20, :page => params[:page]
+  end
+  
+  def getParticipantesFiltrar(tipo, param)
+    Participante.order(sort_column + " " + sort_direction).paginate :per_page => 20, :page => params[:page], :conditions => { tipo.to_sym => param }
   end
   
   def getParticipantesFull
-	Participante.find :all, :order => "created_at DESC", :conditions => { :eliminado => false }
+	Participante.find :all, :order => "cedula", :conditions => { :eliminado => false }
   end
   
   def buscarParticipantes(nombre)
-    Participante.find( :all, :conditions => ["nombre like ? OR seg_nombre like ? OR apellido like ? OR seg_apellido like ?", nombre, nombre, nombre, nombre] )
+    Participante.find :all, :conditions => ["nombre like ? OR seg_nombre like ? OR apellido like ? OR seg_apellido like ?", nombre, nombre, nombre, nombre]
+  end
+  
+  def sort_column
+    Participante.column_names.include?(params[:sort]) ? params[:sort] : "created_at"
+  end
+  
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
   
   def zonasDisponibles
