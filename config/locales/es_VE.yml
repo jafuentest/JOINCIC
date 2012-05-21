@@ -1,57 +1,16 @@
 es_VE:
   date:
-    abbr_day_names:
-    - dom
-    - lun
-    - mar
-    - mié
-    - jue
-    - vie
-    - sáb
-    abbr_month_names:
-    -
-    - ene
-    - feb
-    - mar
-    - abr
-    - may
-    - jun
-    - jul
-    - ago
-    - sep
-    - oct
-    - nov
-    - dic
-    day_names:
-    - domingo
-    - lunes
-    - martes
-    - miércoles
-    - jueves
-    - viernes
-    - sábado
+    abbr_day_names: [Dom, Lun, Mar, Mie, Jue, Vie, Sab]
+    abbr_month_names: [~, Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic]
+    day_names: [Domingo, Lunes, Martes, Miércoles, Jueves, Viernes, Sábado]
+    month_names: [~, Enero, Febero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre]
     formats:
-      default: ! '%d/%m/%Y'
-      long: ! '%d de %B de %Y'
-      short: ! '%d de %b'
-    month_names:
-    -
-    - enero
-    - febrero
-    - marzo
-    - abril
-    - mayo
-    - junio
-    - julio
-    - agosto
-    - septiembre
-    - octubre
-    - noviembre
-    - diciembre
-    order:
-    - :day
-    - :month
-    - :year
+      default: "%d-%m-%Y"
+      short: "%b %d"
+      medio: "%d de %B"
+      long: "%B %d, %Y"
+      dia: "%A"
+    order: [:day, :month, :year]
   datetime:
     distance_in_words:
       about_x_hours:
