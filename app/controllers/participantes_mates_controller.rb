@@ -1,62 +1,37 @@
 class ParticipantesMatesController < ApplicationController
-  # GET /participantes_mates
-  # GET /participantes_mates.json
-  def index
-    if params.has_key?(:cedula) && params[:cedula] != ""
-      respond_to do |format|
-        format.html # index.html.erb
-        format.json { render json => @participantes_mates }
-      end
-    else
-      flash[:notice] = "Ingresa el n&uacute;mero de c&eacute;dula del participante".html_safe
-      redirect_to buscar_participantes_mates_path
-    end
-  end
-  
-  # GET /participantes_mates/1
-  # GET /participantes_mates/1.json
-  def show
-    numero_regex = /^[0-9]+$/
-    
-    if params[:id] =~ numero_regex
-      @participante = Participante.find_by_cedula(params[:id])
-      
-      if @participante.nil?
-        flash[:notice] = "No se encontr&oacute; ning&uacute;n participante cuya c&eacute;dula sea: <br/>".html_safe + params[:id]
-        redirect_to buscar_participantes_mates_path
-      else
-        @participantes_mates = @participante.participantes_mates
-        
-        if @participante.eliminado
-          flash[:notice] = "Error: El participante fue eliminado del sistema"
-          redirect_to buscar_participantes_mates_path
-        else
-          respond_to do |format|
-            if @participantes_mates.size > 0
-              format.html { render "index.html.erb" }
-            else
-              @materiales_pop = MaterialPop.all
-              format.html { render "new.html.erb" }
-            end
-          end
-        end
-      end
-    
-    else
-      flash[:notice] = "Error: N&uacute;mero de c&eacute;dula inv&aacute;lido".html_safe
-      redirect_to buscar_participantes_mates_path
-    end
-  end
-  
   # GET /participantes_mates/new
   # GET /participantes_mates/new.json
   def new
+    numero_regex = /^[0-9]+$/
+    
     if params.has_key?(:cedula) && params[:cedula] != ""
-      @participante = Participante.find_by_cedula(params[:cedula])
-      @materiales_pop = MaterialPop.all
+      if params[:cedula] =~ numero_regex
+        @participante = Participante.find_by_cedula(params[:cedula])
+        
+        if @participante.nil?
+          flash[:notice] = "No se encontr&oacute; ning&uacute;n participante cuya c&eacute;dula sea: <br/>".html_safe + params[:cedula]
+          redirect_to buscar_participantes_mates_path
+        else
+          @participantes_mates = @participante.participantes_mates
+          
+          if @participante.eliminado
+            flash[:notice] = "Error: El participante fue eliminado del sistema"
+            redirect_to buscar_participantes_mates_path
+          else
+            respond_to do |format|
+              if @participantes_mates.size > 0
+                format.html { render "edit.html.erb" }
+              else
+                @materiales_pop = MaterialPop.all
+                format.html { render "new.html.erb" }
+              end
+            end
+          end
+        end
       
-      respond_to do |format|
-        format.html # new.html.erb
+      else
+        flash[:notice] = "Error: N&uacute;mero de c&eacute;dula inv&aacute;lido".html_safe
+        redirect_to buscar_participantes_mates_path
       end
     else
       flash[:notice] = "Ingresa el n&uacute;mero de c&eacute;dula del participante".html_safe
@@ -74,7 +49,7 @@ class ParticipantesMatesController < ApplicationController
     @participantes_mates = @participante.participantes_mates
     
     respond_to do |format|
-      format.html { render "index.html.erb" }
+      format.html { render "edit.html.erb" }
     end
   end
   
@@ -100,7 +75,7 @@ class ParticipantesMatesController < ApplicationController
     @participantes_mates = @participante.participantes_mates
     
     respond_to do |format|
-      format.html { render "index.html.erb" }
+      format.html { render "edit.html.erb" }
     end
   end
 end
