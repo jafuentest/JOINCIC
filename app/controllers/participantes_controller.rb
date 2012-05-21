@@ -13,7 +13,7 @@ class ParticipantesController < ApplicationController
   end
   
   def reiniciarComidas
-    Participante.all.each do |p|
+    Participante.find (:all, :conditions => { :comida => true }).each do |p|
       p.update_attribute(:comida, false)
     end
     respond_to do |format|
@@ -56,6 +56,17 @@ class ParticipantesController < ApplicationController
     
     respond_to do |format|
       format.html # entregarComida.html.erb
+    end
+  end
+  
+  # GET /participantes/comidas
+  def infoComidas
+    @participantes = Participante.all.count
+    @entregadas = Participante.find (:all, :conditions => { :comida => true }).count
+    @por_entregar = @participantes - @entregadas
+    
+    respond_to do |format|
+      format.html # comidas.html.erb
     end
   end
   
@@ -202,6 +213,14 @@ class ParticipantesController < ApplicationController
     @participantes = getParticipantesFull
   end
   
+  def xml
+	@participantes = getParticipantesFull
+	
+	respond_to do |format|
+	  format.xml # participantesRifas.xml.builder
+	end
+  end
+  
   private
   
   def getParticipantes
@@ -217,7 +236,7 @@ class ParticipantesController < ApplicationController
   end
   
   def buscarParticipantes(nombre)
-    Participante.find :all, :conditions => ["nombre like ? OR seg_nombre like ? OR apellido like ? OR seg_apellido like ?", nombre, nombre, nombre, nombre]
+    Participante.order(sort_column + " " + sort_direction).paginate :per_page => 20, :page => params[:page], :conditions => ["nombre like ? OR seg_nombre like ? OR apellido like ? OR seg_apellido like ?", nombre, nombre, nombre, nombre]
   end
   
   def sort_column

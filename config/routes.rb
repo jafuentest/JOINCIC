@@ -2,10 +2,13 @@ Sistema::Application.routes.draw do
 
   root :to => "home#inicio"
 
-  match "/iniciarSesion",         :to => "sessions#new"
-  match "/cerrarSesion",          :to => "sessions#destroy"
-  match "/login",                 :to => "sessions#new"
-  match "/logout",                :to => "sessions#destroy"
+  match "/iniciarSesion", :to => "sessions#new"
+  match "/cerrarSesion",  :to => "sessions#destroy"
+  match "/login",         :to => "sessions#new"
+  match "/logout",        :to => "sessions#destroy"
+  match "/reportes",      :to => "home#reportes"
+  match "/academico",     :to => "home#academico"
+  match "/patrocinio",    :to => "home#patrocinio"
 
   get "sessions/new"
   get "home/inicio"
@@ -13,21 +16,34 @@ Sistema::Application.routes.draw do
   get "home/patrocinio"
   get "home/reportes"
 
-  get "/preguntarAlPonente", :to => "preguntas#new"
-  get "/preguntaralponente", :to => "preguntas#new"
-  match "/preguntas/ver/:id",     :to => "preguntas#show", :as => :ver_pregunta
+  match "/enviarPregunta",     :to => "preguntas#new"
+  match "/enviarpregunta",     :to => "preguntas#new"
+  match "/preguntarAlPonente", :to => "preguntas#new"
+  match "/preguntaralponente", :to => "preguntas#new"
+  match "/preguntas/ver/:id",  :to => "preguntas#show", :as => :ver_pregunta
   match "/preguntas/ponencia/:ponencia_id(.:format)", :to => "preguntas#index"
   match "/panel-preguntas(/:ponencia_id)", :to => "preguntas#panel", :as => :panel_preguntas
 
   resources :participantes do
     collection do
+      get  "xml"
       get  "excel"
       get  "excelPatrocinantes"
       get  "buscar"
-      get  "reiniciarComidas"
-      get  "entregarComida"
       get  "universidades"
+      get  "reiniciarComidas"
+      get  "infoComidas"
+      get  "entregarComida"
       post "entregarComida"
+    end
+  end
+  
+  resources :preguntas, :only => [:index, :show, :new, :create] do
+    member do
+      get "aprobar"
+    end
+    collection do
+      get "dame_preguntas"
     end
   end
 
@@ -59,14 +75,6 @@ Sistema::Application.routes.draw do
   resources :premios
   resources :planes
   resources :patrocinantes
-  resources :preguntas, :only => [:index, :show, :new, :create] do
-    member do
-      get "aprobar"
-    end
-    collection do
-      get "dame_preguntas"
-    end
-  end
   resources :ponencias
   resources :ponentes
   resources :rifas
