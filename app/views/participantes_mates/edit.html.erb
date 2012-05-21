@@ -1,6 +1,33 @@
-﻿<h1>Editing participante_mate</h1>
+﻿<h1><%= @participante.nombreCompleto %></h1>
 
-<%= render 'form' %>
+<table class="listaS">
+  <tr>
+    <th>Material</th>
+    <th>Entregado</th>
+    <th></th>
+  </tr>
 
-<%= link_to 'Show', @participante_mate %> |
-<%= link_to 'Back', participantes_mates_path %>
+  <% @participantes_mates.each do |pm| %>
+  <tr>
+    <td><%= pm.material_pop.nombre %></td>
+    <td>
+      <% if pm.entregado %>
+        <%= image_tag("/check.png", :alt => "SI") %>
+      <% else %>
+        <%= image_tag("/cross.png", :alt => "NO") %>
+      <% end %>
+    </td>
+    <td>
+      <%= form_tag entregar_participantes_mates_path do %>
+        <%= hidden_field_tag :participante_id, @participante.id %>
+        <%= hidden_field_tag :material_pop_id, pm.material_pop.id %>
+        <%= submit_tag  "Entregar" unless pm.entregado %>
+      <% end %>
+    </td>
+  </tr>
+  <% end %>
+</table>
+
+<br />
+
+<%= link_to "Volver", new_participante_mate_path %>
