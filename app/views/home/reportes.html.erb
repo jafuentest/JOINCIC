@@ -1,4 +1,15 @@
+<br />
+
 <h1>Reportes</h1>
 
-<%= link_to "Lista de participantes", excel_participantes_path %> <br />
-<%= link_to "Excel para empresas", excelPatrocinantes_participantes_path %>
+<br />
+
+<p>
+  <%= link_to "Lista de participantes", excel_participantes_path %>
+</p>
+<p>
+  <%= link_to "Excel para empresas", excelPatrocinantes_participantes_path %>
+</p>
+<p>
+  <%= link_to "XML para rifas", xml_participantes_path(:format => :xml) %>
+</p>
