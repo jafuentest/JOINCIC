@@ -13,7 +13,7 @@ class ParticipantesController < ApplicationController
   end
   
   def reiniciarComidas
-    Participante.find (:all, :conditions => { :comida => true }).each do |p|
+    Participante.find(:all, :conditions => { :comida => true }).each do |p|
       p.update_attribute(:comida, false)
     end
     respond_to do |format|
@@ -62,7 +62,7 @@ class ParticipantesController < ApplicationController
   # GET /participantes/comidas
   def infoComidas
     @participantes = Participante.all.count
-    @entregadas = Participante.find (:all, :conditions => { :comida => true }).count
+    @entregadas = Participante.find(:all, :conditions => { :comida => true }).count
     @por_entregar = @participantes - @entregadas
     
     respond_to do |format|
