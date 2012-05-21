@@ -13,7 +13,7 @@ class ParticipantesController < ApplicationController
   end
   
   def reiniciarComidas
-    Participante.all.each do |p|
+    Participante.find (:all, :conditions => { :comida => true }).each do |p|
       p.update_attribute(:comida, false)
     end
     respond_to do |format|
@@ -56,6 +56,17 @@ class ParticipantesController < ApplicationController
     
     respond_to do |format|
       format.html # entregarComida.html.erb
+    end
+  end
+  
+  # GET /participantes/comidas
+  def infoComidas
+    @participantes = Participante.all.count
+    @entregadas = Participante.find (:all, :conditions => { :comida => true }).count
+    @por_entregar = @participantes - @entregadas
+    
+    respond_to do |format|
+      format.html # comidas.html.erb
     end
   end
   
@@ -200,6 +211,14 @@ class ParticipantesController < ApplicationController
     headers['Content-Disposition'] = 'attachment; filename="participantes.xls"'
     headers['Cache-Control'] = ''
     @participantes = getParticipantesFull
+  end
+  
+  def xml
+	@participantes = getParticipantesFull
+	
+	respond_to do |format|
+	  format.xml # participantesRifas.xml.builder
+	end
   end
   
   private
