@@ -54,7 +54,7 @@ Sistema::Application.routes.draw do
     end
   end
 
-  resources :participantes_mates, :only => [:index, :show, :new] do
+  resources :participantes_mates, :only => [:new] do
     collection do
       get  "buscar"
       post "crear"
