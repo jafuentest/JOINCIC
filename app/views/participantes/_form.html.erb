@@ -1,3 +1,4 @@
+<% if @zonas.size > 0 %>
 <%= form_for(@participante) do |f| %>
   <% if @participante.errors.any? %>
     <div id="error_explanation">
@@ -81,4 +82,8 @@
     <%= f.submit %>
   </div>
   
+<% end %>
+<% else %>
+  
+  <h2 id="notice" align="center">Lamentablemente no queda ninguna zona disponible</h2>
 <% end %>
