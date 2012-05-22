@@ -144,7 +144,7 @@ class ParticipantesController < ApplicationController
   # GET /participantes/new.json
   def new
     @participante = Participante.new
-    @zonas = zonasDisponibles
+    @zonas = getZonasDisponibles
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json =>  @participante }
@@ -154,14 +154,14 @@ class ParticipantesController < ApplicationController
   # GET /participantes/1/edit
   def edit
     @participante = Participante.find(params[:id])
-    @zonas = zonasDisponibles_Edit(@participante.zona)
+    @zonas = getZonasDisponibles_Edit(@participante.zona)
   end
   
   # POST /participantes
   # POST /participantes.json
   def create
     @participante = Participante.new(params[:participante])
-    @zonas = zonasDisponibles
+    @zonas = getZonasDisponibles
     respond_to do |format|
       if @participante.save
         format.html { redirect_to @participante, notice =>  "El participante fue registrado con &eacute;xito".html_safe }
@@ -177,7 +177,7 @@ class ParticipantesController < ApplicationController
   # PUT /participantes/1.json
   def update
     @participante = Participante.find(params[:id])
-    @zonas = zonasDisponibles_Edit(@participante.zona)
+    @zonas = getZonasDisponibles_Edit(@participante.zona)
     respond_to do |format|
       if @participante.update_attributes(params[:participante])
         format.html { redirect_to @participante, notice =>  "El participante fue modificado con &eacute;xito".html_safe }
@@ -247,21 +247,29 @@ class ParticipantesController < ApplicationController
     %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
   
-  def zonasDisponibles
+  def getZonasDisponibles
     zonas = Zona.all
+    zonasDisponibles = []
+    
     zonas.each do |z|
-      if z.capacidad <= z.participantes.count
-        zonas.delete(z)
+      if z.capacidad > z.participantes.count
+        zonasDisponibles << z
       end
     end
+    
+    zonasDisponibles
   end
   
-  def zonasDisponibles_Edit(zona)
+  def getZonasDisponibles_Edit(zona)
     zonas = Zona.all
+    zonasDisponibles = []
+    
     zonas.each do |z|
-      if z.capacidad <= z.participantes.count && z != zona
-		    zonas.delete(z)
+      if (z.capacidad > z.participantes.count) || (z == zona)
+        zonasDisponibles << z
       end
     end
+    
+    zonasDisponibles
   end
 end
