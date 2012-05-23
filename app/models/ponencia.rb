@@ -3,7 +3,7 @@ class Ponencia < ActiveRecord::Base
   belongs_to :patrocinante
   has_many   :preguntas
   
-  texto_regex   = /\A[a-z ÁÉÍÓÚÑáéíóúñ]+\z/i
+  texto_regex   = /\A[a-z .,:;!¡¿?'"ÁÉÍÓÚÑáéíóúñ0123456789]+\z/i
   palabra_regex	= /\A[a-zÁÉÍÓÚÑáéíóúñ]+\z/i
   
   validates :titulo,         :format => { :with => texto_regex }
