@@ -51,6 +51,7 @@ Sistema::Application.routes.draw do
     member do
       post "sortear"
       post "reiniciar"
+      get "excel"
     end
   end
 
