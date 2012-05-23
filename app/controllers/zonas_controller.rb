@@ -14,7 +14,7 @@ class ZonasController < ApplicationController
   # GET /zonas/1.json
   def show
     @zona = Zona.find(params[:id])
-		@disponibilidad = @zona.capacidad - @zona.participantes.count
+    @disponibilidad = @zona.capacidad - @zona.participantes.count
 
     respond_to do |format|
       format.html # show.html.erb

@@ -79,6 +79,14 @@
           <% end %>
         </div>
         <% end %>
+        
+        <div align=center>
+          <%= form_tag excel_mesas_de_trabajo_path, :method => "get" do %>
+            <%= hidden_field_tag :id, @mesa_de_trabajo.id %>
+            <br />
+            <%= submit_tag "Excel"%>
+          <% end %>
+        </div>
     </td>
   </tr>
 </table>
