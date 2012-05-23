@@ -1,4 +1,6 @@
 class MesasDeTrabajoController < ApplicationController
+  layout "application", :except => [:excel]
+
   # POST /mesas_de_trabajo
   # POST /mesas_de_trabajo.json
   def sortear
