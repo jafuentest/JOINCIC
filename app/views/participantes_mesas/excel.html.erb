@@ -1,0 +1,25 @@
+<table border="1">
+  <tr>
+    <th>Cédula</th>
+    <th>Nombre</th>
+    <th>Prioridad</th>
+    <th>Puesto</th>
+    <th>Asistencia</th>
+  </tr>
+  
+  <% @participantes.each do |participante| %>
+  <tr>
+    <td><%= p.participante.cedula %></td>
+    <td><%= p.participante.nombreCompleto %></td>
+    <td><%= p.prioridad %></td>
+    <td><%= p.puesto %></td>
+    <td>
+      <% if p.seleccionado %>
+        <%= image_tag("/check.png", :alt => "SI") %>
+      <% else %>
+        <%= image_tag("/cross.png", :alt => "NO") %>
+      <% end %>
+    </td>
+  </tr>
+  <% end %>
+</table>

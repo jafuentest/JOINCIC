@@ -19,7 +19,7 @@
         </td>
         <td>
           <div class="field" align=left>
-            <%= select_tag mesa.id, options_for_select( (0..@prioridad_maxima).map {|i| [ "#{i}", i ] } ) %>
+            <%= select_tag mesa.id, options_for_select( (1..@prioridad_maxima).map {|i| [ "#{i}", i ] } ) %>
           </div>
         </td>
       </tr>
