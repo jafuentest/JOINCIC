@@ -20,11 +20,11 @@
       <td>
         <div class="field">
           <%= f.label :titulo %>
-          <%= f.text_field :titulo, :size => 20, :maxlength => 25 %>
+          <%= f.text_field :titulo, :size => 20, :maxlength => 255 %>
         </div>
         <div class="field">
           <%= f.label :tema %>
-          <%= f.text_field :tema, :size => 20, :maxlength => 25 %>
+          <%= f.text_field :tema, :size => 20, :maxlength => 50 %>
         </div>
         <div class="field">
           <%= f.label :descripcion %>
@@ -44,7 +44,7 @@
         </div>
         <div class="field">
           <%= f.label :ponente_id %>
-          <%= f.select :ponente_id, @ponentes.collect {|p| [ p.nombre, p.id ] } %>
+          <%= f.select :ponente_id, @ponentes.collect {|p| [ p.nombreCompleto, p.id ] } %>
         </div>
         <div class="field">
           <%= f.label :patrocinante_id %>
