@@ -145,6 +145,6 @@ class MesasDeTrabajoController < ApplicationController
     headers['Content-Type'] = "application/vnd.ms-excel"
     headers['Content-Disposition'] = 'attachment; filename="participantes.xls"'
     headers['Cache-Control'] = ''
-    @participantes = ParticipanteMesa.find :all, :conditions => { :mesa_de_trabajo_id => params[:id] }
+    @participantes = ParticipanteMesa.find :all, :conditions => { :mesa_de_trabajo_id => params[:id] }, :order => "puesto"
   end
 end
