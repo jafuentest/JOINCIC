@@ -233,7 +233,7 @@ class ParticipantesController < ApplicationController
   end
   
   def getParticipantesFull
-	Participante.find :all, :order => "created_at DESC", :conditions => { :eliminado => false }
+    Participante.find :all, :order => "created_at DESC", :conditions => { :eliminado => false }
   end
   
   def buscarParticipantes(nombre)

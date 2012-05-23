@@ -52,7 +52,7 @@ class ParticipantesMesasController < ApplicationController
   # GET /participantes_mesas/new.json
   def new
     @participante = Participante.find_by_cedula(params[:cedula])
-    @mesas_de_trabajo = MesaDeTrabajo.all
+    @mesas_de_trabajo = MesaDeTrabajo.find(:all, :conditions => {:dia => Time.now.strftime("%Y-%m-%d")})
     @prioridad_maxima = @mesas_de_trabajo.count
     
     respond_to do |format|
