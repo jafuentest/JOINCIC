@@ -227,12 +227,13 @@ class ParticipantesController < ApplicationController
     Participante.order(sort_column + " " + sort_direction).paginate :per_page => 20, :page => params[:page]
   end
   
+  
   def getParticipantesFiltrar(tipo, param)
     Participante.order(sort_column + " " + sort_direction).paginate :per_page => 20, :page => params[:page], :conditions => { tipo.to_sym => param }
   end
   
   def getParticipantesFull
-	Participante.find :all, :order => "cedula", :conditions => { :eliminado => false }
+	Participante.find :all, :order => "created_at", :conditions => { :eliminado => false }
   end
   
   def buscarParticipantes(nombre)
