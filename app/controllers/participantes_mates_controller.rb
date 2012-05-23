@@ -72,10 +72,6 @@ class ParticipantesMatesController < ApplicationController
       pm.save unless ParticipanteMate.find_by_participante_id_and_material_pop_id(pm.participante.id, pm.material_pop.id)
     end
     
-    @participantes_mates = @participante.participantes_mates
-    
-    respond_to do |format|
-      format.html { render "edit.html.erb" }
-    end
+    redirect_to participantes_mesas_path
   end
 end
