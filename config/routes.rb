@@ -70,6 +70,13 @@ Sistema::Application.routes.draw do
     end
   end
 
+  resources :rifas do
+    collection do
+      post "getParticipants"
+      post "setWinner"
+    end
+  end
+  
   resources :sessions, :only => [:new, :create, :destroy]
   resources :organizadores
   resources :materiales_pop
@@ -78,6 +85,5 @@ Sistema::Application.routes.draw do
   resources :patrocinantes
   resources :ponencias
   resources :ponentes
-  resources :rifas
   resources :zonas
 end

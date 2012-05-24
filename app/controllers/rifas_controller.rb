@@ -2,11 +2,11 @@ class RifasController < ApplicationController
   # GET /rifas
   # GET /rifas.json
   def index
-    @rifas = Rifa.all
+    @rifas = Rifa.order('name').select {|e| e.participantes.size < e.amount}
 
     respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json => @rifas }
+      format.html  # index.html.erb
+      format.json  { render :json => @rifas }
     end
   end
 
@@ -78,6 +78,53 @@ class RifasController < ApplicationController
     respond_to do |format|
       format.html { redirect_to rifas_url }
       format.json { head :ok }
+    end
+  end
+  
+  def getParticipantes
+    @rifas = Rifa.find(params[:rifa]);
+
+    if @rifa.limit.nil?
+      if @rifa.participantes.empty?
+        @participantes = Participante.all
+      else
+        @participantes = Participante.where('id not in (?)',@rifa.[participante_ids])
+      end
+        
+    else
+      if @rifa.Participantes.empty?
+        @participantes = Participante.limit(@rifa.limit)
+      else
+        @participantes = Participante.where('id not in (?)',@rifa.participante_ids).limit(@rifa.limite)
+      end
+    end
+    
+    respond_to do |format|
+      format.json  { render :json => [@participantes,@rifa] }
+    end
+  end
+  
+  def setWinner
+    @winner = Participante.find(params[:winner][:id])
+    @raffle = Rifa.find(params[:raffle][:id])
+    @error = nil
+    @raffleDone = false;
+    if @raffle.users.include? @winner
+      @error = "El usuario ya gano en esta rifa."
+    else
+      if @raffle.participantes.size < @raffle.amount
+        @raffle.participantes = @raffle.participantes + [@winner]
+        @raffle.save
+        if @raffle.participantes.size == @raffle.amount
+          @raffleDone = true;
+        end
+      else
+        @error = "Todos los sorteos de esta rifa fueron realizados."
+      end
+    end
+
+    respond_to do |format|
+      format.json  { render :json => [:winner => @winner, :error => @error, :raffle => @raffle, :raffleDone => @raffleDone] }
     end
   end
 end
