@@ -1,5 +1,6 @@
 class RifasController < ApplicationController
-  layout :verificar_layout #Ver al final
+  skip_before_filter :estarLogueado, :only => [:getParticipantes, :setWinner]
+  layout :verificar_layout, :except => [:getParticipantes] #Ver al final
   
   # GET /rifas
   # GET /rifas.json
@@ -83,6 +84,10 @@ class RifasController < ApplicationController
     end
   end
   
+  
+  # POST /rifas/getParticipantes
+  # POST /rifas/getParticipantes.json
+  # POST /rifas/getParticipantes.html
   def getParticipantes
     @rifa = Rifa.find(params[:rifa]);
 
@@ -102,7 +107,7 @@ class RifasController < ApplicationController
     end
     
     respond_to do |format|
-      format.json  { render :json => [@participantes,@rifa] }
+      format.json  { render :json => { :participantes => @participantes.shuffle!, :rifa => @rifa } }
     end
   end
   
@@ -111,7 +116,7 @@ class RifasController < ApplicationController
     @raffle = Rifa.find(params[:raffle][:id])
     @error = nil
     @raffleDone = false;
-    if @raffle.users.include? @winner
+    if @raffle.participantes.include? @winner
       @error = "El usuario ya gano en esta rifa."
     else
       if @raffle.participantes.size < @raffle.amount
