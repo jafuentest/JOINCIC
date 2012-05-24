@@ -63,14 +63,14 @@ class PreguntasController < ApplicationController
   # GET /preguntas/new
   # GET /preguntas/new.json
   def new
-    @pregunta = Pregunta.new
     @ponencias = Ponencia.all
+    @pregunta = Pregunta.new
   end
 
   # GET /preguntas/1/edit
   def edit
-    @pregunta = Pregunta.find(params[:id])
     @ponencias = Ponencia.all
+    @pregunta = Pregunta.find(params[:id])
   end
 
   # POST /preguntas
