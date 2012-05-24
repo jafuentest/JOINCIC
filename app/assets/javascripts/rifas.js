@@ -21,12 +21,10 @@ function setRaffleTypeListener() {
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     smoke.alert('Ocurrió un error!:\n' + errorThrown);
-                    console.log(jqXHR);
-                    console.log(textStatus);
                 },
                 success: function(data, textStatus, jqXHR) {
-                    participants = data[0];
-                    raffle = data[1];
+                    participants = data.participantes;
+                    raffle = data.rifa;
                     iniciado = true;
                     $('#roulette_button').removeAttr('disabled');
                 }
@@ -74,12 +72,13 @@ function initRoulette(people){
                 //var casilla_ganadora = Math.floor(Math.random()*people.length);
                 //var ganador          = people[casilla_ganadora];
                 //$("#concursante").text("");
-                $("#winner").val(people[index].name + ' - ' + people[index].ci);
                 winner = people[index];
-                smoke.confirm("El ganador es "+ people[index].name + ' - ' + people[index].ci + '\n Marcar a este usuario como ganador?', function(e){
+                var winnerstr = winner.nombre+' '+winner.apellido+ ' - ' + winner.cedula;
+                $("#winner").val(winnerstr);
+                smoke.confirm("El ganador es "+ winnerstr + '\n Marcar a este usuario como ganador?', function(e){
                     if (e) {
                         $.ajax({
-                            url: '/home/setWinner',
+                            url: '/rifas/setWinner',
                             type: 'POST',
                             dataType: 'json',
                             data: {
@@ -94,7 +93,7 @@ function initRoulette(people){
                                 if (testdata.error) {
                                     smoke.alert('Ha ocurrido un error3:\n'+testdata.error);
                                 } else {
-                                    smoke.alert('Ganador registrado con éxito!:\nNombre: '+data[0].winner.name+'\nCédula: ' + data[0].winner.ci);
+                                    smoke.alert('Ganador registrado con éxito!:\nNombre: '+data[0].winner.nombre+' '+data[0].winner.apellido+'\nCédula: ' + data[0].winner.cedula);
                                     if (testdata.raffleDone) {
                                         $('option[value="'+testdata.raffle.id+'"]').remove();
                                     }
@@ -131,8 +130,7 @@ function initRoulette(people){
                 return false;
             }
         }
-
-        $("#winner").val(people[index].name + ' - ' + people[index].ci);
+        $("#winner").val(people[index].nombre+' '+people[index].apellido+ ' - ' + people[index].cedula);
         //Si el contador llega al final, se reinicia
         if(index < participants.length - 1){
             index++;
