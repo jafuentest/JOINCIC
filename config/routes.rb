@@ -72,7 +72,8 @@ Sistema::Application.routes.draw do
 
   resources :rifas do
     collection do
-      post "getParticipants"
+      get "getParticipantes"
+      post "getParticipantes"
       post "setWinner"
     end
   end
