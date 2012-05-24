@@ -6,6 +6,7 @@ class Participante < ActiveRecord::Base
   has_many :participantes_mates
   has_many :mesas_de_trabajo, :through => :participantes_mesas
   has_many :materiales_pop,   :through => :participantes_mates
+  has_and_belongs_to_many :rifas
 
   email_regex	= /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   texto_regex   = /\A[a-z ÁÉÍÓÚÑáéíóúñ]+\z/i
