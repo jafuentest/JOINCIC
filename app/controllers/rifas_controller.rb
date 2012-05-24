@@ -1,12 +1,14 @@
 class RifasController < ApplicationController
+  layout :verificar_layout #Ver al final
+  
   # GET /rifas
   # GET /rifas.json
   def index
-    @rifas = Rifa.order('name').select {|e| e.participantes.size < e.amount}
+    @rifas = Rifa.order('nombre').select {|e| e.participantes.size < e.amount}
 
     respond_to do |format|
       format.html  # index.html.erb
-      format.json  { render :json => @rifas }
+      format.json  { render json => @rifas }
     end
   end
 
@@ -82,13 +84,13 @@ class RifasController < ApplicationController
   end
   
   def getParticipantes
-    @rifas = Rifa.find(params[:rifa]);
+    @rifa = Rifa.find(params[:rifa]);
 
     if @rifa.limit.nil?
       if @rifa.participantes.empty?
         @participantes = Participante.all
       else
-        @participantes = Participante.where('id not in (?)',@rifa.[participante_ids])
+        @participantes = Participante.where('id not in (?)',@rifa.participante_ids)
       end
         
     else
@@ -125,6 +127,17 @@ class RifasController < ApplicationController
 
     respond_to do |format|
       format.json  { render :json => [:winner => @winner, :error => @error, :raffle => @raffle, :raffleDone => @raffleDone] }
+    end
+  end
+  
+  private
+  
+  def verificar_layout
+    case action_name
+    when "new", "create", "edit", "update", "show", "index"
+      "movil"
+    else
+      "application"
     end
   end
 end
