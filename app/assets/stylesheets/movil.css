@@ -69,3 +69,7 @@ footer p { font-family: Arial,Helvetica,sans-serif; margin:0; padding-top:1.5em;
   -khtml-border-radius: 20px; /* Linux browsers */
   border-radius: 20px; /* Opera 10.50, IE and CSS3 */
 }
+
+#ruleta {
+  text-align:center;
+}

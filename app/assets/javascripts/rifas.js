@@ -13,14 +13,16 @@ function setRaffleTypeListener() {
         var rifa = $(this);
         if (rifa.val() != '' && rifa.val() != null) {
             $.ajax({
-                url: '/home/getParticipants',
+                url: '/rifas/getParticipantes.json',
                 type: 'POST',
                 dataType: 'json',
                 data: {
-                    raffle : rifa.val()
+                    rifa : rifa.val()
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    smoke.alert('Ocurrió un error!:\n' + textStatus);
+                    smoke.alert('Ocurrió un error!:\n' + errorThrown);
+                    console.log(jqXHR);
+                    console.log(textStatus);
                 },
                 success: function(data, textStatus, jqXHR) {
                     participants = data[0];
@@ -85,12 +87,12 @@ function initRoulette(people){
                                 raffle : raffle
                             },
                             error: function(jqXHR, textStatus, errorThrown) {
-                                smoke.alert('Ocurrió un error!:\n' + textStatus);
+                                smoke.alert('Ocurrió un error!2:\n' + errorThrown);
                             },
                             success: function(data, textStatus, jqXHR) {
                                 testdata = data[0];
                                 if (testdata.error) {
-                                    smoke.alert('Ha ocurrido un error:\n'+testdata.error);
+                                    smoke.alert('Ha ocurrido un error3:\n'+testdata.error);
                                 } else {
                                     smoke.alert('Ganador registrado con éxito!:\nNombre: '+data[0].winner.name+'\nCédula: ' + data[0].winner.ci);
                                     if (testdata.raffleDone) {
