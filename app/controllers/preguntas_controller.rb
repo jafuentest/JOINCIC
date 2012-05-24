@@ -63,7 +63,7 @@ class PreguntasController < ApplicationController
   # GET /preguntas/new
   # GET /preguntas/new.json
   def new
-    @ponencias = Ponencia.all
+    @ponencias = Ponencia.find(:all, :order => :titulo)
     @pregunta = Pregunta.new
   end
 
