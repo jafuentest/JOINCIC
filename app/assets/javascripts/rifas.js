@@ -119,11 +119,7 @@ function initRoulette(people){
                         running = true;
                         slowDown = false;
                         delay = initDelay;
-                        if(index < participants.length - 1){
-                            index++;
-                        } else {
-                            index = 0;
-                        }
+                        index = Math.floor(Math.random()*people.length);
                         initRoulette(people);
                     }
                 });
@@ -131,12 +127,8 @@ function initRoulette(people){
             }
         }
         $("#winner").val(people[index].nombre+' '+people[index].apellido+ ' - ' + people[index].cedula);
-        //Si el contador llega al final, se reinicia
-        if(index < participants.length - 1){
-            index++;
-        } else {
-            index = 0;
-        }
+        //Elegir un siguiente posible ganador al random 
+        index = Math.floor(Math.random()*people.length);
         initRoulette(people);
     },
     delay
