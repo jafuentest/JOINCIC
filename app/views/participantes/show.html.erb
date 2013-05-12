@@ -60,16 +60,44 @@
       </p>
     </td>
     <td>
-      <% @participante.participantes_mates.each do |mat| %>
-      <p>
-        <b><%= mat.material_pop.nombre %></b>:
-        <% if mat.entregado %>
-          Entregado
-        <% else %>
-          Por Entregar
+      <table class="listaS">
+        <tr>
+          <th colspan="2">Material POP</th>
+        </tr>
+        <% @participante.participantes_mates.each do |mat| %>
+        <tr>
+          <td><%= mat.material_pop.nombre %></td>
+          <td>
+            <% if mat.entregado %>
+              <%= image_tag("/check.png", :alt => "Entregado") %>
+            <% else %>
+              <%= image_tag("/cross.png", :alt => "Por Entregar") %>
+            <% end %>
+          </td>
+        </tr>
         <% end %>
-      </p>
-      <% end %>
+      </table>
+      <table class="listaS">
+        <tr>
+          <th colspan="2">Mesas de Trabajo</th>
+        </tr>
+        <% @participante.participantes_mesas.each do |mesa| %>
+        <tr>
+          <td><%= mesa.mesa_de_trabajo.titulo %></td>
+          <td>
+            <% if mesa.mesa_de_trabajo.sorteada %>
+              <% if mesa.seleccionado %>
+                <%= image_tag("/check.png", :alt => "Entregado") %>
+              <% else %>
+                <%= image_tag("/cross.png", :alt => "Por Entregar") %>
+              <% end %>
+            <% else %>
+              <%= image_tag("/clock.png", :alt => "Por Sortear") %>
+            <% end %>
+          </td>
+        </tr>
+        <% end %>
+      </table>
     </td>
   </tr>
 </table>
