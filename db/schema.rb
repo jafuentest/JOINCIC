@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120507222652) do
+ActiveRecord::Schema.define(:version => 20130512090735) do
 
   create_table "materiales_pop", :force => true do |t|
     t.string  "nombre",   :limit => 20, :null => false
@@ -19,13 +18,13 @@ ActiveRecord::Schema.define(:version => 20120507222652) do
   end
 
   create_table "mesas_de_trabajo", :force => true do |t|
-    t.string  "titulo",          :limit => 25,                    :null => false
-    t.string  "tema",            :limit => 25,                    :null => false
+    t.string  "titulo",                                           :null => false
+    t.string  "tema",            :limit => 50,                    :null => false
     t.string  "descripcion",                                      :null => false
     t.date    "dia",                                              :null => false
     t.time    "hora_ini",                                         :null => false
     t.time    "hora_fin",                                         :null => false
-    t.string  "lugar",           :limit => 25,                    :null => false
+    t.string  "lugar",           :limit => 50,                    :null => false
     t.integer "capacidad",                                        :null => false
     t.text    "requerimientos",                                   :null => false
     t.boolean "sorteada",                      :default => false, :null => false
@@ -71,6 +70,7 @@ ActiveRecord::Schema.define(:version => 20120507222652) do
     t.string   "seg_nombre",   :limit => 15
     t.string   "seg_apellido", :limit => 15
     t.integer  "deposito"
+    t.integer  "organizador",                                   :null => false
   end
 
   create_table "participantes_mates", :force => true do |t|
@@ -104,8 +104,8 @@ ActiveRecord::Schema.define(:version => 20120507222652) do
   end
 
   create_table "ponencias", :force => true do |t|
-    t.string  "titulo",          :limit => 25, :null => false
-    t.string  "tema",            :limit => 25, :null => false
+    t.string  "titulo",                        :null => false
+    t.string  "tema",            :limit => 50, :null => false
     t.string  "descripcion",                   :null => false
     t.date    "dia",                           :null => false
     t.time    "hora_ini",                      :null => false
@@ -116,15 +116,14 @@ ActiveRecord::Schema.define(:version => 20120507222652) do
   end
 
   create_table "ponentes", :force => true do |t|
-    t.integer "cedula",                     :null => false
-    t.string  "nombre",       :limit => 15, :null => false
-    t.string  "apellido",     :limit => 15, :null => false
-    t.string  "telefono",     :limit => 11, :null => false
-    t.string  "correo",       :limit => 50, :null => false
-    t.string  "institucion",  :limit => 20, :null => false
-    t.string  "seg_nombre",   :limit => 15
-    t.string  "seg_apellido", :limit => 15
-    t.string  "telefono2",    :limit => 11
+    t.string "nombre",       :limit => 15, :null => false
+    t.string "apellido",     :limit => 15, :null => false
+    t.string "telefono",     :limit => 11, :null => false
+    t.string "correo",       :limit => 50, :null => false
+    t.string "institucion",  :limit => 20, :null => false
+    t.string "seg_nombre",   :limit => 15
+    t.string "seg_apellido", :limit => 15
+    t.string "telefono2",    :limit => 11
   end
 
   create_table "preguntas", :force => true do |t|
