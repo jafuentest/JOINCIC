@@ -52,25 +52,25 @@ ActiveRecord::Schema.define(:version => 20130512090735) do
   end
 
   create_table "participantes", :force => true do |t|
-    t.integer  "cedula",                                        :null => false
-    t.string   "nombre",       :limit => 15,                    :null => false
-    t.string   "apellido",     :limit => 15,                    :null => false
-    t.date     "fecha_nac",                                     :null => false
-    t.string   "telefono",     :limit => 11,                    :null => false
-    t.string   "correo",       :limit => 50,                    :null => false
-    t.string   "direccion",    :limit => 50,                    :null => false
-    t.string   "institucion",  :limit => 20,                    :null => false
-    t.integer  "nivel",                                         :null => false
-    t.string   "tipo_nivel",   :limit => 9,                     :null => false
-    t.integer  "zona_id",                                       :null => false
-    t.integer  "entrada",                                       :null => false
-    t.boolean  "comida",                     :default => false, :null => false
-    t.boolean  "eliminado",                  :default => false, :null => false
-    t.datetime "created_at",                                    :null => false
-    t.string   "seg_nombre",   :limit => 15
-    t.string   "seg_apellido", :limit => 15
+    t.integer  "cedula",                                          :null => false
+    t.string   "nombre",         :limit => 15,                    :null => false
+    t.string   "apellido",       :limit => 15,                    :null => false
+    t.date     "fecha_nac",                                       :null => false
+    t.string   "telefono",       :limit => 11,                    :null => false
+    t.string   "correo",         :limit => 50,                    :null => false
+    t.string   "direccion",      :limit => 50,                    :null => false
+    t.string   "institucion",    :limit => 20,                    :null => false
+    t.integer  "nivel",                                           :null => false
+    t.string   "tipo_nivel",     :limit => 9,                     :null => false
+    t.integer  "zona_id",                                         :null => false
+    t.integer  "entrada",                                         :null => false
+    t.integer  "organizador_id",                                  :null => false
+    t.boolean  "comida",                       :default => false, :null => false
+    t.datetime "created_at",                                      :null => false
+    t.string   "seg_nombre",     :limit => 15
+    t.string   "seg_apellido",   :limit => 15
     t.integer  "deposito"
-    t.integer  "organizador",                                   :null => false
+    t.boolean  "eliminado"
   end
 
   create_table "participantes_mates", :force => true do |t|

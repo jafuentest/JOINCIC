@@ -1,5 +1,6 @@
 class Participante < ActiveRecord::Base
   belongs_to :zona
+  belongs_to :organizador
   
   has_many :preguntas
   has_many :participantes_mesas
