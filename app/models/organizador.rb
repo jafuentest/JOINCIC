@@ -4,6 +4,8 @@ class Organizador < ActiveRecord::Base
   texto_regex   = /\A[a-z ÁÉÍÓÚÑáéíóúñ]+\z/i
   palabra_regex	= /\A[a-zÁÉÍÓÚÑáéíóúñ]+\z/i
   
+  has_many :participantes
+  
   validates :usuario,      :format => { :with => login_regex },
                            :uniqueness => { :case_sensitive => false }
                            
