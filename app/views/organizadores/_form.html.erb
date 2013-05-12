@@ -63,9 +63,13 @@
           <%= f.select :institucion, ["UCAB", "UCV", "UNIMET", "USB","UNEFA"] %>
         </div>
         <div class="field">
-          <%= f.label        :nivel %>
-          <%= f.number_field :nivel, :in => 1..10, :value => 1 %>
-          <%= f.select       :tipo_nivel, ["Trimestre", "Semestre", "Año"] %>
+          <%= f.label :nivel %>
+          <% if @organizador[:nivel] == nil %>
+            <%= f.number_field :nivel, :in => 1..15, :value => 1, :size => 5 %>
+          <% else %>
+            <%= f.number_field :nivel, :in => 1..15, :size => 5 %>
+          <% end %>
+          <%= f.select :tipo_nivel, ["Trimestre", "Semestre", "Año"] %>
         </div>
         <div class="field">
           <%= f.label  :coordinacion %>
