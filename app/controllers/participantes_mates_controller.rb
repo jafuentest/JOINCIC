@@ -9,7 +9,7 @@ class ParticipantesMatesController < ApplicationController
         @participante = Participante.find_by_cedula(params[:cedula])
         
         if @participante.nil?
-          flash[:notice] = "No se encontr&oacute; ning&uacute;n participante cuya c&eacute;dula sea: <br/>".html_safe + params[:cedula]
+          flash[:notice] = "No se encontró ningún participante cuya cédula sea: <br/>" + params[:cedula]
           redirect_to buscar_participantes_mates_path
         else
           @participantes_mates = @participante.participantes_mates
@@ -30,11 +30,11 @@ class ParticipantesMatesController < ApplicationController
         end
       
       else
-        flash[:notice] = "Error: N&uacute;mero de c&eacute;dula inv&aacute;lido".html_safe
+        flash[:notice] = "Error: Número de cédula inválido"
         redirect_to buscar_participantes_mates_path
       end
     else
-      flash[:notice] = "Ingresa el n&uacute;mero de c&eacute;dula del participante".html_safe
+      flash[:notice] = "Ingresa el número de cédula del participante"
       redirect_to buscar_participantes_mates_path
     end
   end
@@ -72,6 +72,7 @@ class ParticipantesMatesController < ApplicationController
       pm.save unless ParticipanteMate.find_by_participante_id_and_material_pop_id(pm.participante.id, pm.material_pop.id)
     end
     
-    redirect_to participantes_mesas_path
+    flash[:notice] = "¡Entrega registrada con éxito!"
+    redirect_to buscar_participantes_mates_path
   end
 end
