@@ -15,12 +15,14 @@ class SessionsController < ApplicationController
       render "new"
     else
       session[:organizador] = organizador.nombreCompleto
+      session[:id] = organizador.id
       redirect_to root_path
     end
   end
 
   def destroy
     /@_current_user = session[:organizador] = nil/
+    /@_current_user = session[:id] = nil/
     reset_session
     redirect_to root_path
   end
