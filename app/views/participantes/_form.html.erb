@@ -57,7 +57,7 @@
         </div>
         <div class="field">
           <%= f.label :nivel %>
-          <% if @participante[:nivel] == nil %>
+          <% if @participante.new_record? %>
             <%= f.number_field :nivel, :in => 1..15, :value => 1, :size => 5 %>
           <% else %>
             <%= f.number_field :nivel, :in => 1..15, :size => 5 %>
@@ -70,7 +70,7 @@
         </div>
         <div class="field">
           <%= f.label :entrada %>
-          <% if @participante[:entrada] == nil %>
+          <% if @participante.new_record? %>
             <%= f.number_field :entrada, :in => 1..1000, :value => 1, :size => 5 %>
           <% else %>
             <%= f.number_field :entrada, :in => 1..1000, :size => 5 %>

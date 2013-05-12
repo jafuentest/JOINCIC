@@ -50,21 +50,23 @@
         </div>
       </td>
       <td>
+      <% if @organizador.new_record? %> 
         <div class="field">
           <%= f.label      :usuario %>
           <%= f.text_field :usuario, :size => 20, :maxlength => 15 %>
         </div>
+      <% end %>
         <div class="field">
           <%= f.label          :clave %>
           <%= f.password_field :clave, :size => 20, :maxlength => 8 %>
         </div>
         <div class="field">
           <%= f.label  :institucion %>
-          <%= f.select :institucion, ["UCAB", "UCV", "UNIMET", "USB","UNEFA"] %>
+          <%= f.select :institucion, ["UCAB", "UCV", "UNIMET", "USB", "UNEFA"] %>
         </div>
         <div class="field">
           <%= f.label :nivel %>
-          <% if @organizador[:nivel] == nil %>
+          <% if @organizador.new_record? %>
             <%= f.number_field :nivel, :in => 1..15, :value => 1, :size => 5 %>
           <% else %>
             <%= f.number_field :nivel, :in => 1..15, :size => 5 %>
