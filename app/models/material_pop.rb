@@ -1,3 +1,12 @@
+# == Schema Information
+#
+# Table name: materiales_pop
+#
+#  id       :integer          not null, primary key
+#  nombre   :string(20)       not null
+#  cantidad :integer          not null
+#
+
 class MaterialPop < ActiveRecord::Base
   has_many :participantes_mates
   has_many :participantes, :through => :participante_mate
