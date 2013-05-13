@@ -1,7 +1,31 @@
+# == Schema Information
+#
+# Table name: organizadores
+#
+#  id           :integer          not null, primary key
+#  usuario      :string(15)       not null
+#  clave        :string(15)       not null
+#  cedula       :integer          not null
+#  nombre       :string(15)       not null
+#  apellido     :string(15)       not null
+#  fecha_nac    :date             not null
+#  telefono     :string(11)       not null
+#  correo       :string(50)       not null
+#  direccion    :string(50)       not null
+#  institucion  :string(5)        not null
+#  nivel        :integer          not null
+#  tipo_nivel   :string(9)        not null
+#  coordinacion :string(15)       not null
+#  coordinador  :boolean          default(FALSE), not null
+#  seg_nombre   :string(15)
+#  seg_apellido :string(15)
+#  eliminado    :boolean
+#
+
 class Organizador < ActiveRecord::Base
   email_regex	= /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   login_regex	= /\A[a-z0-9\-_]+\z/i
-  texto_regex   = /\A[a-z ÁÉÍÓÚÑáéíóúñ]+\z/i
+  texto_regex   = /\A[a-zÁÉÍÓÚÑáéíóúñ,. ]+[a-zÁÉÍÓÚÑáéíóúñ]+\z/i
   palabra_regex	= /\A[a-zÁÉÍÓÚÑáéíóúñ]+\z/i
   
   has_many :participantes

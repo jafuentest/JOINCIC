@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: ponentes
+#
+#  id           :integer          not null, primary key
+#  nombre       :string(15)       not null
+#  apellido     :string(15)       not null
+#  telefono     :string(11)       not null
+#  correo       :string(50)       not null
+#  institucion  :string(20)       not null
+#  seg_nombre   :string(15)
+#  seg_apellido :string(15)
+#  telefono2    :string(11)
+#
+
 class Ponente < ActiveRecord::Base
   has_many :mesas_de_trabajo
   has_many :ponencias
