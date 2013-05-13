@@ -1,3 +1,12 @@
+# == Schema Information
+#
+# Table name: zonas
+#
+#  id        :integer          not null, primary key
+#  nombre    :string(10)       not null
+#  capacidad :integer          not null
+#
+
 class Zona < ActiveRecord::Base
   has_many :participantes
   
