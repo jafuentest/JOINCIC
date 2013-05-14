@@ -7,28 +7,23 @@ class ParticipantesMatesController < ApplicationController
     if params.has_key?(:cedula) && params[:cedula] != ""
       if params[:cedula] =~ numero_regex
         @participante = Participante.find_by_cedula(params[:cedula])
-        
         if @participante.nil?
           flash[:notice] = "No se encontró ningún participante cuya cédula sea: <br/>" + params[:cedula]
           redirect_to buscar_participantes_mates_path
+        elsif @participante.eliminado
+          flash[:notice] = "Error: El participante fue eliminado del sistema"
+          redirect_to buscar_participantes_mates_path
         else
           @participantes_mates = @participante.participantes_mates
-          
-          if @participante.eliminado
-            flash[:notice] = "Error: El participante fue eliminado del sistema"
-            redirect_to buscar_participantes_mates_path
-          else
-            respond_to do |format|
-              if @participantes_mates.size > 0
-                format.html { render "edit.html.erb" }
-              else
-                @materiales_pop = MaterialPop.all
-                format.html { render "new.html.erb" }
-              end
+          respond_to do |format|
+            if @participantes_mates.size > 0
+              format.html { render "edit.html.erb" }
+            else
+              @materiales_pop = MaterialPop.all
+              format.html { render "new.html.erb" }
             end
           end
         end
-      
       else
         flash[:notice] = "Error: Número de cédula inválido"
         redirect_to buscar_participantes_mates_path
@@ -55,7 +50,7 @@ class ParticipantesMatesController < ApplicationController
   
   # POST /participantes_mates
   # POST /participantes_mates.json
-  def crear
+  def create
     @materiales_pop = MaterialPop.all
     @participante = Participante.find_by_cedula(params[:cedula])
     
