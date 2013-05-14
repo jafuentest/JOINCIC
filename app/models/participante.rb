@@ -35,22 +35,22 @@ class Participante < ActiveRecord::Base
   has_many :materiales_pop,   :through => :participantes_mates
   has_and_belongs_to_many :rifas
 
-  email_regex	= /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  texto_regex   = /\A[a-z ÁÉÍÓÚÑáéíóúñ]+\z/i
-  palabra_regex	= /\A[a-zÁÉÍÓÚÑáéíóúñ]+\z/i
+  email_regex	 = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  texto_regex  = /\A[a-z ÁÉÍÓÚÑáéíóúñ,.]+[a-zÁÉÍÓÚÑáéíóúñ]+\z/i
+  nombre_regex = /\A[a-z ÁÉÍÓÚÑáéíóúñ]+[a-zÁÉÍÓÚÑáéíóúñ]+\z/i
   
   validates :cedula,        :numericality => true,
                             :uniqueness => true
                             
-  validates :nombre,        :format => { :with => palabra_regex }
+  validates :nombre,        :format => { :with => nombre_regex }
                             
   validates :seg_nombre,    :allow_blank => true,
-                            :format => { :with => palabra_regex }
+                            :format => { :with => nombre_regex }
                             
-  validates :apellido,      :format => { :with => texto_regex }
+  validates :apellido,      :format => { :with => nombre_regex }
                             
   validates :seg_apellido,  :allow_blank => true,
-                            :format => { :with => texto_regex }
+                            :format => { :with => nombre_regex }
                             
   validates :telefono,      :numericality => true,
                             :length => { :is => 11}

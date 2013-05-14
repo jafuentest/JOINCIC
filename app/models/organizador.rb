@@ -23,10 +23,10 @@
 #
 
 class Organizador < ActiveRecord::Base
-  email_regex	= /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  login_regex	= /\A[a-z0-9\-_]+\z/i
-  texto_regex   = /\A[a-zÁÉÍÓÚÑáéíóúñ,. ]+[a-zÁÉÍÓÚÑáéíóúñ]+\z/i
-  palabra_regex	= /\A[a-zÁÉÍÓÚÑáéíóúñ]+\z/i
+  email_regex	 = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  login_regex  = /\A[a-z0-9\-_]+\z/i
+  texto_regex  = /\A[a-z ÁÉÍÓÚÑáéíóúñ,.]+[a-zÁÉÍÓÚÑáéíóúñ]+\z/i
+  nombre_regex = /\A[a-z ÁÉÍÓÚÑáéíóúñ]+[a-zÁÉÍÓÚÑáéíóúñ]+\z/i
   
   has_many :participantes
   
@@ -39,15 +39,15 @@ class Organizador < ActiveRecord::Base
   validates :cedula,       :numericality => true,
                            :uniqueness => true
   
-  validates :nombre,       :format => { :with => palabra_regex }
-  
-  validates :seg_nombre,   :allow_blank => true,
-                           :format => { :with => palabra_regex }
-                           
-  validates :apellido,     :format => { :with => texto_regex }
-  
-  validates :seg_apellido, :allow_blank => true,
-                           :format => { :with => texto_regex }
+  validates :nombre,        :format => { :with => nombre_regex }
+                            
+  validates :seg_nombre,    :allow_blank => true,
+                            :format => { :with => nombre_regex }
+                            
+  validates :apellido,      :format => { :with => nombre_regex }
+                            
+  validates :seg_apellido,  :allow_blank => true,
+                            :format => { :with => nombre_regex }
                            
   validates :telefono,     :numericality => true,
                            :length => { :is => 11}
