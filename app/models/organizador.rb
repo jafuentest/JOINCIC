@@ -12,7 +12,7 @@
 #  telefono     :string(11)       not null
 #  correo       :string(50)       not null
 #  direccion    :string(50)       not null
-#  institucion  :string(5)        not null
+#  institucion  :string(7)        not null
 #  nivel        :integer          not null
 #  tipo_nivel   :string(9)        not null
 #  coordinacion :string(15)       not null

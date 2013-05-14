@@ -36,7 +36,7 @@
   </tr>
   
   <% @participantes.each do |participante| %>
-  <tr <%= "style='color:red;'".html_safe if participante.eliminado %>>
+  <tr <%= "style='color:red;'" if participante.eliminado %>>
     <td><%= participante.nombres %></td>
     <td><%= participante.apellidos %></td>
     <td align=center><%= participante.institucion %></td>
