@@ -87,4 +87,6 @@ Sistema::Application.routes.draw do
   resources :ponencias
   resources :ponentes
   resources :zonas
+  
+  match '*a', :to => 'errors#routing'
 end
