@@ -2,7 +2,7 @@
 <p id="notice"><%= notice %></p>
 
 <div align="center">
-  <%= form_tag crear_participantes_mesas_path do %>
+  <%= form_tag participantes_mesas_path do %>
     <div class="field">
       <%= hidden_field_tag :cedula, @participante.cedula %>
     </div>
@@ -19,7 +19,7 @@
         </td>
         <td>
           <div class="field" align=left>
-            <%= select_tag mesa.id, options_for_select( (1..@prioridad_maxima).map {|i| [ "#{i}", i ] } ) %>
+            <%= select_tag mesa.id, options_for_select( (0..@prioridad_maxima).map {|i| [ "#{i}", i ] } ) %>
           </div>
         </td>
       </tr>
@@ -36,5 +36,5 @@
   
   <br />
   
-  <%= link_to "Cancelar", participantes_mesas_path %>
+  <%= link_to "Cancelar", new_participante_mesa_path %>
 </div>
