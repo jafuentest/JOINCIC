@@ -9,7 +9,7 @@
 #  dia             :date             not null
 #  hora_ini        :time             not null
 #  hora_fin        :time             not null
-#  requerimientos  :text(16777215)   default(""), not null
+#  requerimientos  :text             default(""), not null
 #  ponente_id      :integer          not null
 #  patrocinante_id :integer
 #

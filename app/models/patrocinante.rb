@@ -7,7 +7,7 @@
 #  nombre     :string(30)       not null
 #  aporte     :integer          not null
 #  plan_id    :integer          not null
-#  comentario :text(16777215)
+#  comentario :text
 #  logo       :binary
 #
 

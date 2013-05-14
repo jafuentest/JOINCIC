@@ -11,7 +11,7 @@
 #  hora_fin        :time             not null
 #  lugar           :string(50)       not null
 #  capacidad       :integer          not null
-#  requerimientos  :text(16777215)   default(""), not null
+#  requerimientos  :text             default(""), not null
 #  sorteada        :boolean          default(FALSE), not null
 #  ponente_id      :integer
 #  patrocinante_id :integer
