@@ -89,7 +89,7 @@ class RifasController < ApplicationController
   # POST /rifas/getParticipantes.json
   # POST /rifas/getParticipantes.html
   def getParticipantes
-    @rifa = Rifa.find(params[:rifa]);
+    @rifa = Rifa.find(params[:rifa])
 
     if @rifa.limit.nil?
       if @rifa.participantes.empty?
@@ -115,7 +115,7 @@ class RifasController < ApplicationController
     @winner = Participante.find(params[:winner][:id])
     @raffle = Rifa.find(params[:raffle][:id])
     @error = nil
-    @raffleDone = false;
+    @raffleDone = false
     if @raffle.participantes.include? @winner
       @error = "El usuario ya gano en esta rifa."
     else
@@ -123,7 +123,7 @@ class RifasController < ApplicationController
         @raffle.participantes = @raffle.participantes + [@winner]
         @raffle.save
         if @raffle.participantes.size == @raffle.amount
-          @raffleDone = true;
+          @raffleDone = true
         end
       else
         @error = "Todos los sorteos de esta rifa fueron realizados."
@@ -139,7 +139,7 @@ class RifasController < ApplicationController
   
   def verificar_layout
     case action_name
-    when "new", "create", "edit", "update", "show", "index"
+    when "index"
       "movil"
     else
       "application"
