@@ -1,5 +1,5 @@
 ﻿<h1><%= @participante.nombreCompleto %></h1>
-<p id="notice"><%= notice %></p>
+<h3 id="notice"><%= notice %></h3>
 <table width=80%>
   <tr>
     <td width=50%>
@@ -106,5 +106,9 @@
   </tr>
 </table>
 
-<%= link_to "Modificar", edit_participante_path(@participante) %> |
-<%= link_to "Volver a la lista", participantes_path %>
+<% if @hash.nil? %>
+  <%= link_to "Modificar", edit_participante_path(@participante) %> |
+  <%= link_to "Volver a la lista", participantes_path %>
+<% else %>
+  <%= link_to "Modificar Datos", edit_participante_path(@participante, :hash => @hash) %>
+<% end %>
