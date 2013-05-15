@@ -1,8 +1,14 @@
 ﻿<h1>Modificar: <%= @participante.nombreCompleto %></h1>
-
+<h3 id="notice"><%= notice %></h3>
 <div align="center">
-  <%= render "form" %>
-  <br />
-  <%= link_to "Mostrar", @participante %> |
-  <%= link_to "Volver a la lista", participantes_path %>
+  <% if @hash.nil? %>
+    <%= render "form_0" %>
+    <br/>
+    <%= link_to "Mostrar", @participante %> |
+    <%= link_to "Volver a la lista", participantes_path %>
+  <% else %>
+    <%= render "form_1" %>
+    <br/>
+    <%= link_to "Cancelar", @participante %>
+  <% end %>
 </div>
