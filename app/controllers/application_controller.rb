@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   
   def estarLogueado
     if session[:organizador].nil?
-      flash[:notice] = "Debe iniciar sesion para poder acceder al sistema"
+      flash[:notice] = "Debe iniciar sesión para poder acceder al sistema"
       redirect_to new_session_path
     end
   end
