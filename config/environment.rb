@@ -6,3 +6,4 @@ require "will_paginate"
 # Initialize the rails application
 Sistema::Application.initialize!
 
+SALT = "J0iNcIC"

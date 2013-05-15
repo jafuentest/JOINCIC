@@ -1,4 +1,5 @@
 class ParticipantesController < ApplicationController
+  skip_before_filter :estarLogueado, :only => [:edit, :update, :show]
   layout "application", :except => [:excel, :excelPatrocinantes]
   helper_method :sort_column, :sort_direction
 
@@ -17,7 +18,7 @@ class ParticipantesController < ApplicationController
       p.update_attribute(:comida, false)
     end
     respond_to do |format|
-      format.html { redirect_to entregarComida_participantes_path, notice =>  "El control de comidas ha sido reiniciado con &eacute;xito.".html_safe }
+      format.html { redirect_to entregarComida_participantes_path, notice =>  "El control de comidas ha sido reiniciado con éxito." }
       format.json { head :ok }
     end
   end
@@ -33,14 +34,14 @@ class ParticipantesController < ApplicationController
         @participante = Participante.find_by_cedula(params[:cedula])
         
         if @participante.nil?
-          flash[:notice] = "No se encontr&oacute; ning&uacute;n participante cuya c&eacute;dula sea:<br/>".html_safe + params[:cedula]
+          flash[:notice] = "No se encontró ningún participante cuya cédula sea:<br/>" + params[:cedula]
         else
           if @participante.eliminado
             flash[:notice] = "Error: El participante fue eliminado del sistema"
           else
             
             if @participante.comida
-              flash[:notice] = "Ya comi&oacute;".html_safe
+              flash[:notice] = "Ya comió"
             else
               @participante.update_attribute(:comida, true)
               flash[:notice] = "Marcado"
@@ -48,10 +49,10 @@ class ParticipantesController < ApplicationController
           end
         end
       else
-        flash[:notice] = "Error: N&uacute;mero de c&eacute;dula inv&aacute;lido".html_safe
+        flash[:notice] = "Error: Número de cédula inválido"
       end
     else
-      flash[:notice] = "Ingresa el n&uacute;mero de c&eacute;dula del participante".html_safe
+      flash[:notice] = "Ingresa el número de cédula del participante"
     end
     
     respond_to do |format|
@@ -78,7 +79,7 @@ class ParticipantesController < ApplicationController
         @participante = Participante.find_by_cedula(params[:query])
         
         if @participante.nil?
-          flash[:notice] = "No se encontr&oacute; ning&uacute;n participante cuya c&eacute;dula sea: ".html_safe + params[:query]
+          flash[:notice] = "No se encontró ningún participante cuya cédula sea: " + params[:query]
           @titulo = "Lista de participantes"
           @participantes = getParticipantes
         else
@@ -87,12 +88,12 @@ class ParticipantesController < ApplicationController
       
       else
         nombre = "%"+ params[:query] +"%"
-        @titulo = "B&uacute;squeda =>  ".html_safe + params[:query]
+        @titulo = "Búsqueda =>  " + params[:query]
         @participantes = buscarParticipantes(nombre)
         flash[:notice] = ""
         
         if @participantes.size == 0
-          flash[:notice] = "No se encontr&oacute; ning&uacute;n particpante cuyo nombre o apellido contenga ".html_safe + params[:query]
+          flash[:notice] = "No se encontró ningún particpante cuyo nombre o apellido contenga " + params[:query]
           @participantes = getParticipantes
           @titulo = "Lista de participantes"
         end
@@ -132,11 +133,18 @@ class ParticipantesController < ApplicationController
   # GET /participantes/1
   # GET /participantes/1.json
   def show
-    @participante = Participante.find(params[:id])
-    
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json =>  @participante }
+    @hash = params[:hash]
+    hashCorrecto = Digest::SHA1.hexdigest(params[:id].to_s + SALT)
+    if !session[:organizador].nil? || !@hash.nil? && @hash == hashCorrecto
+      @participante = Participante.find(params[:id])
+      
+      respond_to do |format|
+        format.html # show.html.erb
+        format.json { render json =>  @participante }
+      end
+    else
+      flash[:notice] = params.map { |k,v| "#{k} is #{v} | " } #"Debe iniciar sesión para poder acceder al sistema"
+      redirect_to new_session_path
     end
   end
   
@@ -153,24 +161,31 @@ class ParticipantesController < ApplicationController
 
   # GET /participantes/1/edit
   def edit
-    @participante = Participante.find(params[:id])
-    @zonas = getZonasDisponibles_Edit(@participante.zona)
+    @hash = params[:hash]
+    hashCorrecto = Digest::SHA1.hexdigest(params[:id].to_s + SALT)
+    if !session[:organizador].nil? || !@hash.nil? && @hash == hashCorrecto
+      @participante = Participante.find(params[:id])
+      @zonas = getZonasDisponibles_Edit(@participante.zona)
+    else
+      flash[:notice] = "Debe iniciar sesión para poder acceder al sistema"
+      redirect_to new_session_path
+    end
   end
   
   # POST /participantes
   # POST /participantes.json
   def create
-    params[:participante][:organizador_id]=session[:id]
     @participante = Participante.new(params[:participante])
-    @participante[:organizador] = session[:id]
+    @participante[:organizador_id] = session[:id]
     @zonas = getZonasDisponibles
     respond_to do |format|
       if @participante.save
-        format.html { redirect_to @participante, notice =>  "El participante fue registrado con &eacute;xito".html_safe }
-        format.json { render json =>  @participante, status =>  :created, location =>  @participante }
+        UserMailer.enviarHash(@participante).deliver
+        format.html { redirect_to @participante, notice => "El participante fue registrado con éxito" }
+        format.json { render json =>  @participante, status => :created, location => @participante }
       else
         format.html { render "new.html.erb" }
-        format.json { render json =>  @participante.errors, status =>  :unprocessable_entity }
+        format.json { render json => @participante.errors, status => :unprocessable_entity }
       end
     end
   end
@@ -178,16 +193,27 @@ class ParticipantesController < ApplicationController
   # PUT /participantes/1
   # PUT /participantes/1.json
   def update
-    @participante = Participante.find(params[:id])
-    @zonas = getZonasDisponibles_Edit(@participante.zona)
-    respond_to do |format|
-      if @participante.update_attributes(params[:participante])
-        format.html { redirect_to @participante, notice =>  "El participante fue modificado con &eacute;xito".html_safe }
-        format.json { head :ok }
-      else
-        format.html { render "edit.html.erb" }
-        format.json { render json =>  @participante.errors, status =>  :unprocessable_entity }
+    @hash = params[:participante][:hash]
+    hashCorrecto = Digest::SHA1.hexdigest(params[:id].to_s + SALT)
+    if !session[:organizador].nil? || !@hash.nil? && @hash == hashCorrecto
+      @participante = Participante.find(params[:id])
+      @zonas = getZonasDisponibles_Edit(@participante.zona)
+      params[:participante].tap { |h| h.delete(:hash) }
+      respond_to do |format|
+        if @participante.update_attributes(params[:participante])
+          flash[:notice] = 'Sus datos fueron modificados con éxito'
+          format.html { redirect_to :controller => 'participantes', :action => 'show', :id => params[:id], :hash => @hash }
+          format.json { head :ok }
+        else
+          # @errors = obtener_errores(@participante)
+          flash[:notice] = 'Hubo ' + @participante.errors.count.to_s + ' error(es), por favor verifique la información ingresada'
+          format.html { redirect_to :controller => 'participantes', :action => 'edit', :id => params[:id], :hash => @hash }
+          format.json { render json =>  @participante.errors, status => :unprocessable_entity }
+        end
       end
+    else
+      flash[:notice] = "Debe iniciar sesión para poder acceder al sistema"
+      redirect_to new_session_path
     end
   end
   
