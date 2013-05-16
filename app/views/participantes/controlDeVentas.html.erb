@@ -1,0 +1,71 @@
+﻿<h1>Entradas vendidas: <%= @participantes %></h1>
+<h2>
+  
+    
+    <br/>
+
+
+</h2>
+<p id="notice"><%= notice %></p>
+
+<br />
+
+<table class="listaS">
+  <tr>
+    <th>Dia</th>
+    <th>UCAB</th>
+    <th>UCV</th>
+    <th>UNEFA</th>
+    <th>USB</th>
+  </tr>
+  <% @fechas.each do |dia| %>
+  <tr>
+    <td><%= dia[:fecha] %></td>
+    <td><%= dia[:UCAB] %></td>
+    <td><%= dia[:UCV] %></td>
+    <td><%= dia[:UNEFA] %></td>
+    <td><%= dia[:USB] %></td>
+  </tr>
+  <% end %>
+  <tr>
+    <td>Sub-Total de pre-venta</td>
+    <% @unisPreventa.each do |u| %>
+      <td>
+        <%= u[:totalEntradas] %>
+      </td>
+    <% end %>
+  </tr>
+  <tr>
+    <td>Recaudo de pre-venta</td>
+    <% @unisPreventa.each do |u| %>
+      <td>
+        <%= u[:totalIngreso] %>
+      </td>
+    <% end %>
+  </tr>
+  <tr>
+    <td>Sub-Total de venta regular</td>
+    <% @unisVenta.each do |u| %>
+      <td>
+        <%= u[:totalEntradas] %>
+      </td>
+    <% end %>
+  </tr>
+  <tr>
+    <td>Recaudo de venta regular </td>
+    <% @unisVenta.each do |u| %>
+      <td>
+        <%= u[:totalIngreso] %>
+      </td>
+    <% end %>
+  </tr>
+  <tr>
+    <td rowspan=2 >Dinero Recaudado</td>
+    <td colspan=2 >Pre-venta</td>
+    <td colspan=2 >Venta regular</td>
+  </tr>
+  <tr>
+    <td colspan=2 ><%= @totalPreventa %></td>
+    <td colspan=2 ><%= @totalVentaReg %></td>
+  </tr>
+</table>
