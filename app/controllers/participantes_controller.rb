@@ -2,17 +2,52 @@ class ParticipantesController < ApplicationController
   skip_before_filter :estarLogueado, :only => [:edit, :update, :show]
   layout "application", :except => [:excel, :excelPatrocinantes]
   helper_method :sort_column, :sort_direction
+  
+  def excel
+    headers['Content-Type'] = "application/vnd.ms-excel"
+    headers['Content-Disposition'] = 'attachment; filename="participantes.xls"'
+    headers['Cache-Control'] = ''
+    @participantes = getParticipantesFull
+  end
+  
+  def excelPatrocinantes
+    headers['Content-Type'] = "application/vnd.ms-excel"
+    headers['Content-Disposition'] = 'attachment; filename="participantes.xls"'
+    headers['Cache-Control'] = ''
+    @participantes = getParticipantesFull
+  end
+  
+  def xml
+    @participantes = getParticipantesFull
+    
+    respond_to do |format|
+      format.xml # participantesRifas.xml.builder
+    end
+  end
+  
+  # GET /participantes/enviarHashAll
+  # GET /participantes/enviarHashAll.json
+  def enviarHashAll
+    Participante.all do |p|
+      UserMailer.enviarHash(p).deliver
+    end
+    render :text => "OK"
+  end 
 
+  # GET /participantes/universidades
+  # GET /participantes/universidades.json
   def universidades
     unis = []
     instituciones = Participante.find(:all, :group => :institucion)
     instituciones.each do |ins|
-	  participantes = Participante.count(:all, :conditions => { :institucion => ins.institucion } )
-	  unis << { :nombre => ins.institucion, :participantes => participantes }
+      participantes = Participante.count(:all, :conditions => { :institucion => ins.institucion } )
+      unis << { :nombre => ins.institucion, :participantes => participantes }
     end
     @universidades = unis.sort_by { |h| h[:participantes] }.reverse!
   end
   
+  # GET /participantes/controlDeVentas
+  # GET /participantes/controlDeVentas.json
   def controlDeVentas
     @participantes = Participante.count
     @fechas = []
@@ -46,6 +81,8 @@ class ParticipantesController < ApplicationController
     end
   end
   
+  # GET /participantes/reiniciarComidas
+  # GET /participantes/reiniciarComidas.json
   def reiniciarComidas
     Participante.find(:all, :conditions => { :comida => true }).each do |p|
       p.update_attribute(:comida, false)
@@ -223,38 +260,40 @@ class ParticipantesController < ApplicationController
     end
   end
   
-  
-  # GET /participantes/enviarHashAll
-  # GET /participantes/enviarHashAll.json
-  def enviarHashAll
-		Participante.all do |p|
-			UserMailer.enviarHash(p).deliver
-		end
-		render :text => "OK"
-  end
-  
-  
   # PUT /participantes/1
   # PUT /participantes/1.json
   def update
     @hash = params[:participante][:hash]
     hashCorrecto = Digest::SHA1.hexdigest(params[:id].to_s + SALT)
     if !session[:organizador].nil? || !@hash.nil? && @hash == hashCorrecto
-	  logger.warn "Intentando editar participante, id:{params[:id]}"
-	  logger.warn "Organizador responsable:{session[:organizador]}" unless session[:organizador].nil?
-	  logger.warn "Con datos:{params}"
+      logger.warn "Intentando editar participante, id:#{params[:id]}"
+      logger.warn "Organizador responsable:#{session[:organizador]}" unless session[:organizador].nil?
+      logger.warn "-------------------------------"
+      logger.warn "Datos de la peticion:"
+      params[:participante].map.each do |k,v|
+        logger.warn "#{k} => #{v}"
+    end
       @participante = Participante.find(params[:id])
       @zonas = getZonasDisponibles_Edit(@participante.zona)
-      params[:participante].tap { |h| h.delete(:hash) }
+      logger.warn "-------------------------------"
+      logger.warn "Datos previos del participante:"
+      @participante.attributes.keys.each do |k|
+        logger.warn "#{k} => #{@participante[k]}"
+      end
+      
+      if session[:organizador].nil?
+        params[:participante].tap { |h| h.delete(:hash) }
+      end
+      
       respond_to do |format|
-        if @participante.update_attributes(params[:participante])
-		  logger.warn "Edit: Ok"
+        update = @participante.update_attributes(params[:participante])
+        logger.warn "Resultado del update: #{update}"
+        if update
           flash[:notice] = 'Sus datos fueron modificados con éxito'
           format.html { redirect_to :controller => 'participantes', :action => 'show', :id => params[:id], :hash => @hash }
           format.json { head :ok }
         else
           # @errors = obtener_errores(@participante)
-		  logger.warn "Edit: Rejected"
           flash[:notice] = 'Hubo ' + @participante.errors.count.to_s + ' error(es), por favor verifique la información ingresada'
           format.html { redirect_to :controller => 'participantes', :action => 'edit', :id => params[:id], :hash => @hash }
           format.json { render json =>  @participante.errors, status => :unprocessable_entity }
@@ -270,47 +309,25 @@ class ParticipantesController < ApplicationController
   # DELETE /participantes/1.json
   def destroy
     Participante.find(params[:id]).update_attribute(:eliminado, true)
+	logger.warn "#{session[:organizador]} eliminó al participante de id: #{params[:id]}"
     respond_to do |format|
       format.html { redirect_to participantes_url }
       format.json { head :ok }
     end
   end
   
-  def excel
-    headers['Content-Type'] = "application/vnd.ms-excel"
-    headers['Content-Disposition'] = 'attachment; filename="participantes.xls"'
-    headers['Cache-Control'] = ''
-    @participantes = getParticipantesFull
-  end
-  
-  def excelPatrocinantes
-    headers['Content-Type'] = "application/vnd.ms-excel"
-    headers['Content-Disposition'] = 'attachment; filename="participantes.xls"'
-    headers['Cache-Control'] = ''
-    @participantes = getParticipantesFull
-  end
-  
-  def xml
-	@participantes = getParticipantesFull
-	
-	respond_to do |format|
-	  format.xml # participantesRifas.xml.builder
-	end
-  end
-  
   private
   
   def getParticipantes
-    Participante.order(sort_column + " " + sort_direction).paginate :per_page => 20, :page => params[:page]
+    Participante.order(sort_column + " " + sort_direction).paginate :per_page => 20, :page => params[:page], :conditions => [ :eliminado => nil ]
   end
-  
   
   def getParticipantesFiltrar(tipo, param)
     Participante.order(sort_column + " " + sort_direction).paginate :per_page => 20, :page => params[:page], :conditions => { tipo.to_sym => param }
   end
   
   def getParticipantesFull
-    Participante.find :all, :order => "created_at DESC", :conditions => { :eliminado => false }
+    Participante.find :all, :order => "created_at DESC", :conditions => { :eliminado => nil }
   end
   
   def buscarParticipantes(nombre)
