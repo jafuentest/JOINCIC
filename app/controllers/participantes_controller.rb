@@ -224,6 +224,8 @@ class ParticipantesController < ApplicationController
   end
   
   
+  # GET /participantes/enviarHashAll
+  # GET /participantes/enviarHashAll.json
   def enviarHashAll
 		Participante.all do |p|
 			UserMailer.enviarHash(p).deliver
