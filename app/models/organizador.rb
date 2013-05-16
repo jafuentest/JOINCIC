@@ -25,7 +25,7 @@
 class Organizador < ActiveRecord::Base
   email_regex	 = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   login_regex  = /\A[a-z0-9\-_]+\z/i
-  texto_regex  = /\A[a-z ÁÉÍÓÚÑáéíóúñ,.]+[a-zÁÉÍÓÚÑáéíóúñ]+\z/i
+  texto_regex  = /\A[a-z\d ÁÉÍÓÚÑáéíóúñ,.]+[a-z\dÁÉÍÓÚÑáéíóúñ]+\z/i
   nombre_regex = /\A[a-z ÁÉÍÓÚÑáéíóúñ]+[a-zÁÉÍÓÚÑáéíóúñ]+\z/i
   
   has_many :participantes

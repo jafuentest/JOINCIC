@@ -36,7 +36,7 @@ class Participante < ActiveRecord::Base
   has_and_belongs_to_many :rifas
 
   email_regex	 = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  texto_regex  = /\A[a-z ÁÉÍÓÚÑáéíóúñ,.]+[a-zÁÉÍÓÚÑáéíóúñ]+\z/i
+  texto_regex  = /\A[a-z\d ÁÉÍÓÚÑáéíóúñ,.]+[a-z\dÁÉÍÓÚÑáéíóúñ]+\z/i
   nombre_regex = /\A[a-z ÁÉÍÓÚÑáéíóúñ]+[a-zÁÉÍÓÚÑáéíóúñ]+\z/i
   
   validates :cedula,        :numericality => true,
