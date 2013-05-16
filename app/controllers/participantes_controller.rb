@@ -240,16 +240,21 @@ class ParticipantesController < ApplicationController
     @hash = params[:participante][:hash]
     hashCorrecto = Digest::SHA1.hexdigest(params[:id].to_s + SALT)
     if !session[:organizador].nil? || !@hash.nil? && @hash == hashCorrecto
+	  logger.warn "Intentando editar participante, id:{params[:id]}"
+	  logger.warn "Organizador responsable:{session[:organizador]}" unless session[:organizador].nil?
+	  logger.warn "Con datos:{params}"
       @participante = Participante.find(params[:id])
       @zonas = getZonasDisponibles_Edit(@participante.zona)
       params[:participante].tap { |h| h.delete(:hash) }
       respond_to do |format|
         if @participante.update_attributes(params[:participante])
+		  logger.warn "Edit: Ok"
           flash[:notice] = 'Sus datos fueron modificados con éxito'
           format.html { redirect_to :controller => 'participantes', :action => 'show', :id => params[:id], :hash => @hash }
           format.json { head :ok }
         else
           # @errors = obtener_errores(@participante)
+		  logger.warn "Edit: Rejected"
           flash[:notice] = 'Hubo ' + @participante.errors.count.to_s + ' error(es), por favor verifique la información ingresada'
           format.html { redirect_to :controller => 'participantes', :action => 'edit', :id => params[:id], :hash => @hash }
           format.json { render json =>  @participante.errors, status => :unprocessable_entity }
