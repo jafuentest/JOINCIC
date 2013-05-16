@@ -24,6 +24,8 @@ Sistema::Application.routes.draw do
   match "/preguntas/ponencia/:ponencia_id(.:format)", :to => "preguntas#index"
   match "/panel-preguntas(/:ponencia_id)", :to => "preguntas#panel", :as => :panel_preguntas
 
+  match "/enviar_hash_all",    :to => "participantes#enviarHashAll"
+  
   resources :participantes do
     collection do
       get  "xml"
