@@ -13,6 +13,39 @@ class ParticipantesController < ApplicationController
     @universidades = unis.sort_by { |h| h[:participantes] }.reverse!
   end
   
+  def controlDeVentas
+    @participantes = Participante.count
+    @fechas = []
+    dias = Participante.group('date(created_at)')
+    dias.each do |d|
+      fecha = d.created_at.to_date
+      dia = { :fecha => fecha.strftime("%b - %d") }
+      ventasDelDia = Participante.find(:all, :conditions => ["date(created_at) >= ? AND date(created_at) <= ?", fecha, fecha])
+        dia[:UCAB]   = ventasDelDia.count{ |p| p.organizador.institucion == "UCAB" }
+        dia[:UCV]    = ventasDelDia.count{ |p| p.organizador.institucion == "UCV" }
+        dia[:UNEFA]  = ventasDelDia.count{ |p| p.organizador.institucion == "UNEFA" }
+        dia[:USB]    = ventasDelDia.count{ |p| p.organizador.institucion == "USB" }
+      @fechas << dia
+    end
+    entradasVendidas  = Participante.find(:all, :conditions => ["date(created_at) <= ?", "2013-05-17"])
+    @totalPreventa = 0
+    @unisPreventa = [ { :nombre => "UCAB" }, { :nombre => "UCV" }, { :nombre => "UNEFA" }, { :nombre => "USB" } ]
+    @unisPreventa.each do |u|
+      entradasPorUni = entradasVendidas.count{ |p| p.organizador.institucion == u[:nombre] }
+      u[:totalEntradas] = entradasPorUni
+      u[:totalIngreso]  = entradasPorUni * 250
+      @totalPreventa = @totalPreventa + u[:totalIngreso]
+    end
+    entradasVendidas  = Participante.find(:all, :conditions => ["date(created_at) > ?", "2013-05-17"])
+    @unisVenta = [ { :nombre => "UCAB" }, { :nombre => "UCV" }, { :nombre => "UNEFA" }, { :nombre => "USB" } ]
+    @unisVenta.each do |u|
+      entradasPorUni = entradasVendidas.count{ |p| p.organizador.institucion == u[:nombre] }
+      u[:totalEntradas] = entradasPorUni
+      u[:totalIngreso]  = entradasPorUni * 300
+      @totalVentaReg = u[:totalIngreso]  = entradasPorUni * 300
+    end
+  end
+  
   def reiniciarComidas
     Participante.find(:all, :conditions => { :comida => true }).each do |p|
       p.update_attribute(:comida, false)
@@ -143,7 +176,7 @@ class ParticipantesController < ApplicationController
         format.json { render json =>  @participante }
       end
     else
-      flash[:notice] = params.map { |k,v| "#{k} is #{v} | " } #"Debe iniciar sesión para poder acceder al sistema"
+      flash[:notice] = "Debe iniciar sesión para poder acceder al sistema"
       redirect_to new_session_path
     end
   end

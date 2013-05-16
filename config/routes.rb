@@ -29,6 +29,7 @@ Sistema::Application.routes.draw do
       get  "xml"
       get  "excel"
       get  "excelPatrocinantes"
+      get  "controlDeVentas"
       get  "buscar"
       get  "universidades"
       get  "reiniciarComidas"
