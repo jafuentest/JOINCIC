@@ -223,6 +223,15 @@ class ParticipantesController < ApplicationController
     end
   end
   
+  
+  def enviarHashAll
+		Participante.all do |p|
+			UserMailer.enviarHash(p).deliver
+		end
+		render :text => "OK"
+  end
+  
+  
   # PUT /participantes/1
   # PUT /participantes/1.json
   def update
