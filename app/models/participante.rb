@@ -68,7 +68,7 @@ class Participante < ActiveRecord::Base
                             :uniqueness => true
                             
   validates :deposito,      :allow_blank => true,
-                            :format => { :with => /\A\d\z/i }
+                            :format => { :with => /\A[\d]+\z/i }
                             
   def nombreCompleto
     nombre + " " + apellido
