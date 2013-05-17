@@ -319,7 +319,7 @@ class ParticipantesController < ApplicationController
   private
   
   def getParticipantes
-    Participante.order(sort_column + " " + sort_direction).paginate :per_page => 20, :page => params[:page], :conditions => [ :eliminado => nil ]
+    Participante.order(sort_column + " " + sort_direction).paginate :per_page => 20, :page => params[:page], :conditions => { :eliminado => nil }
   end
   
   def getParticipantesFiltrar(tipo, param)
