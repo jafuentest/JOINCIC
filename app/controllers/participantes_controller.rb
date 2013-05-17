@@ -250,7 +250,7 @@ class ParticipantesController < ApplicationController
     @zonas = getZonasDisponibles
     respond_to do |format|
       if @participante.save
-        UserMailer.enviarHash(@participante).deliver
+        #UserMailer.enviarHash(@participante).deliver
         format.html { redirect_to @participante, notice => "El participante fue registrado con éxito" }
         format.json { render json =>  @participante, status => :created, location => @participante }
       else
