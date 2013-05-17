@@ -35,7 +35,7 @@ class Participante < ActiveRecord::Base
   has_many :materiales_pop,   :through => :participantes_mates
   has_and_belongs_to_many :rifas
 
-  email_regex	 = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  email_regex  = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   texto_regex  = /\A[a-z\d ÁÉÍÓÚÑáéíóúñ,.]+[a-z\dÁÉÍÓÚÑáéíóúñ]+\z/i
   nombre_regex = /\A[a-z ÁÉÍÓÚÑáéíóúñ]+[a-zÁÉÍÓÚÑáéíóúñ]+\z/i
   
@@ -67,7 +67,7 @@ class Participante < ActiveRecord::Base
   validates :entrada,       :presence => true,
                             :uniqueness => true
                             
-  validates :deposito,      :format => { :with => /\A0123456789\z/i }
+  validates :deposito,      :format => { :with => /\A\d\z/i }
                             
   def nombreCompleto
     nombre + " " + apellido
