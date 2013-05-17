@@ -63,10 +63,12 @@ class Participante < ActiveRecord::Base
   validates :institucion,   :format => { :with => texto_regex }
                             
   validates :nivel,         :presence => true
-  
+                            
   validates :entrada,       :presence => true,
                             :uniqueness => true
-  
+                            
+  validates :deposito,      :format => { :with => /\A0123456789\z/i }
+                            
   def nombreCompleto
     nombre + " " + apellido
   end
