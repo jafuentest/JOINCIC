@@ -51,18 +51,18 @@ class ParticipantesController < ApplicationController
   def controlDeVentas
     @participantes = Participante.count
     @fechas = []
-    dias = Participante.group('date(created_at)')
+    dias = Participante.group("date(convert_tz(created_at,'+0:00','-4:30'))")
     dias.each do |d|
       fecha = d.created_at.to_date
       dia = { :fecha => fecha.strftime("%b - %d") }
-      ventasDelDia = Participante.find(:all, :conditions => ["date(created_at) >= ? AND date(created_at) <= ?", fecha, fecha])
+      ventasDelDia = Participante.find(:all, :conditions => ["date(convert_tz(created_at,'+0:00','-4:30')) >= ? AND date(convert_tz(created_at,'+0:00','-4:30')) <= ?", fecha, fecha])
         dia[:UCAB]   = ventasDelDia.count{ |p| p.organizador.institucion == "UCAB" }
         dia[:UCV]    = ventasDelDia.count{ |p| p.organizador.institucion == "UCV" }
         dia[:UNEFA]  = ventasDelDia.count{ |p| p.organizador.institucion == "UNEFA" }
         dia[:USB]    = ventasDelDia.count{ |p| p.organizador.institucion == "USB" }
       @fechas << dia
     end
-    entradasVendidas  = Participante.find(:all, :conditions => ["date(created_at) <= ?", "2013-05-17"])
+    entradasVendidas  = Participante.find(:all, :conditions => ["date(convert_tz(created_at,'+0:00','-4:30')) <= ?", "2013-05-17"])
     @totalPreventa = 0
     @unisPreventa = [ { :nombre => "UCAB" }, { :nombre => "UCV" }, { :nombre => "UNEFA" }, { :nombre => "USB" } ]
     @unisPreventa.each do |u|
@@ -71,7 +71,7 @@ class ParticipantesController < ApplicationController
       u[:totalIngreso]  = entradasPorUni * 250
       @totalPreventa = @totalPreventa + u[:totalIngreso]
     end
-    entradasVendidas  = Participante.find(:all, :conditions => ["date(created_at) > ?", "2013-05-17"])
+    entradasVendidas  = Participante.find(:all, :conditions => ["date(convert_tz(created_at,'+0:00','-4:30')) > ?", "2013-05-17"])
     @unisVenta = [ { :nombre => "UCAB" }, { :nombre => "UCV" }, { :nombre => "UNEFA" }, { :nombre => "USB" } ]
     @unisVenta.each do |u|
       entradasPorUni = entradasVendidas.count{ |p| p.organizador.institucion == u[:nombre] }
