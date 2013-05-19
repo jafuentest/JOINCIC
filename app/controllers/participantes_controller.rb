@@ -31,7 +31,7 @@ class ParticipantesController < ApplicationController
 	str="<hr/>"
 	participantes = getParticipantesFull
     participantes.each do |p|
-	  str+=p.correo
+	  str+=p.nombreCompleto
 	  str+=" <br/> "
       UserMailer.enviarHash(p).deliver
     end
