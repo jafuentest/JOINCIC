@@ -1,13 +1,6 @@
 ﻿<h1>Modificar: <%= @participante.nombreCompleto %></h1>
 <h3 id="notice"><%= notice %></h3>
 <div align="center">
-<% if params.has_key?(:hash) -%>
-  
-	<p style="color:red" >
-    	Recuerde que los datos acontinuacion serán los datos finales de su certificado por favor, lea con cuidado su información.  
-
-		</p>
-<% end -%>
   <% if @hash.nil? %>
     <%= render "form_0" %>
     <br/>
