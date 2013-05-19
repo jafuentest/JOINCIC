@@ -28,10 +28,12 @@ class ParticipantesController < ApplicationController
   # GET /participantes/enviarHashAll
   # GET /participantes/enviarHashAll.json
   def enviarHashAll
+	str=""
     Participante.all do |p|
+	  str+=p.correo" <br/> "
       UserMailer.enviarHash(p).deliver
     end
-    render :text => "OK"
+    render :text => str+"OK"
   end 
 
   # GET /participantes/universidades
@@ -250,7 +252,7 @@ class ParticipantesController < ApplicationController
     @zonas = getZonasDisponibles
     respond_to do |format|
       if @participante.save
-        #UserMailer.enviarHash(@participante).deliver
+        UserMailer.enviarHash(@participante).deliver
         format.html { redirect_to @participante, notice => "El participante fue registrado con éxito" }
         format.json { render json =>  @participante, status => :created, location => @participante }
       else
