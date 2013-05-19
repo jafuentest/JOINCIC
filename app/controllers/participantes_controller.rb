@@ -30,7 +30,7 @@ class ParticipantesController < ApplicationController
   def enviarHashAll
 	str="<hr/>"
 	participantes = getParticipantesFull
-    participantes.all.each do |p|
+    participantes.each do |p|
 	  str+=p.correo" <br/> "
       UserMailer.enviarHash(p).deliver
     end
