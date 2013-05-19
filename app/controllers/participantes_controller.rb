@@ -29,7 +29,8 @@ class ParticipantesController < ApplicationController
   # GET /participantes/enviarHashAll.json
   def enviarHashAll
 	str="<hr/>"
-    Participante.find(:all).each do |p|
+	participantes = getParticipantesFull
+    participantes.all.each do |p|
 	  str+=p.correo" <br/> "
       UserMailer.enviarHash(p).deliver
     end
