@@ -33,7 +33,7 @@ class ParticipantesController < ApplicationController
 	  str+=p.correo" <br/> "
       UserMailer.enviarHash(p).deliver
     end
-    render :text => str+"OK"
+    render :text => str
   end 
 
   # GET /participantes/universidades
