@@ -29,7 +29,7 @@ class ParticipantesController < ApplicationController
   # GET /participantes/enviarHashAll.json
   def enviarHashAll
 	str=""
-    Participante.all.each do |p|
+    getParticipantesFull.each do |p|
 	  str+=p.correo" <br/> "
       UserMailer.enviarHash(p).deliver
     end
