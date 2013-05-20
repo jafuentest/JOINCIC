@@ -166,7 +166,6 @@ class ParticipantesController < ApplicationController
     @participantes = Participante.all.count
     @entregadas = Participante.find(:all, :conditions => { :comida => true }).count
     @por_entregar = @participantes - @entregadas
-    
     respond_to do |format|
       format.html # comidas.html.erb
     end
@@ -178,7 +177,6 @@ class ParticipantesController < ApplicationController
     if params.has_key?(:query) && params[:query] != ""
       if params[:query] =~ /^[0-9]+$/
         @participante = Participante.find_by_cedula(params[:query])
-        
         if @participante.nil?
           flash[:notice] = "No se encontró ningún participante cuya cédula sea: " + params[:query]
           @titulo = "Lista de participantes"
@@ -277,17 +275,22 @@ class ParticipantesController < ApplicationController
   # POST /participantes.json
   def create
     @participante = Participante.new(params[:participante])
-    @participante[:organizador_id] = session[:id]
-    @zonas = getZonasDisponibles
-    respond_to do |format|
-      if @participante.save
-        UserMailer.enviarHash(@participante).deliver
-        format.html { redirect_to @participante, notice => "El participante fue registrado con éxito" }
-        format.json { render json =>  @participante, status => :created, location => @participante }
-      else
-        format.html { render "new.html.erb" }
-        format.json { render json => @participante.errors, status => :unprocessable_entity }
+    if session.has_key?(:id)
+	  @participante[:organizador_id] = session[:id]
+      @zonas = getZonasDisponibles
+      respond_to do |format|
+        if @participante.save
+          UserMailer.enviarHash(@participante).deliver
+          format.html { redirect_to @participante, notice => "El participante fue registrado con éxito" }
+          format.json { render json =>  @participante, status => :created, location => @participante }
+        else
+          format.html { render "new.html.erb" }
+          format.json { render json => @participante.errors, status => :unprocessable_entity }
+        end
       end
+    else
+      flash[:notice] = "Error: El sistema no soporta tu dispositivo/navegador para registrar usuarios. Sorry, estoy viendo como arreglar esto =("
+	  format.html { render "new.html.erb" }
     end
   end
   
@@ -340,7 +343,7 @@ class ParticipantesController < ApplicationController
   # DELETE /participantes/1.json
   def destroy
     Participante.find(params[:id]).update_attribute(:eliminado, true)
-	logger.warn "#{session[:organizador]} eliminó al participante de id: #{params[:id]}"
+    logger.warn "#{session[:organizador]} eliminó al participante de id: #{params[:id]}"
     respond_to do |format|
       format.html { redirect_to participantes_url }
       format.json { head :ok }
