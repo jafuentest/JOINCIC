@@ -1,5 +1,5 @@
 class ParticipantesController < ApplicationController
-  skip_before_filter :estarLogueado, :only => [:edit, :update, :show]
+  skip_before_filter :estarLogueado, :only => [:edit, :update, :show, :enviarCorreo]
   layout "application", :except => [:excel, :excelPatrocinantes]
   helper_method :sort_column, :sort_direction
   
