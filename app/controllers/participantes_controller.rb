@@ -215,7 +215,7 @@ class ParticipantesController < ApplicationController
   # GET /participantes.json
   def index
     if params.has_key?(:uni) && params[:uni] != ""
-      @titulo = "Listda de estudiantes " + params[:uni]
+      @titulo = "Lista de estudiantes " + params[:uni]
       @participantes = getParticipantesFiltrar("institucion", params[:uni])
     else
       @titulo = "Lista de participantes"
