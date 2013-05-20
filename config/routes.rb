@@ -37,6 +37,8 @@ Sistema::Application.routes.draw do
       get  "infoComidas"
       get  "entregarComida"
       post "entregarComida"
+	  get  "enviarCorreo"
+      post "enviarCorreo"
     end
   end
   
