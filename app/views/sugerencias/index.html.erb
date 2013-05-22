@@ -1,0 +1,21 @@
+<h1>Lista de Sugerencias</h1>
+
+<table class="listaS">
+  <tr>
+    <th>Texto</th>
+    <th>Nombre</th>
+    <th>Correo</th>
+    <th colspan="3">Opciones</th>
+  </tr>
+
+  <% @sugerencias.each do |sugerencia| %>
+  <tr>
+    <td><%= sugerencia.texto %></td>
+    <td><%= sugerencia.nombre %></td>
+    <td><%= sugerencia.correo %></td>
+    <td><%= link_to image_tag("/show.png", :alt => "Mostrar"), sugerencia %></td>
+    <td><%= link_to image_tag("/edit.png", :alt => "Modificar"), edit_sugerencia_path(sugerencia) %></td>
+    <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), sugerencia, :confirm => "¿Seguro que desea eliminar la sugerencia?", :method => :delete %></td>
+  </tr>
+  <% end %>
+</table>

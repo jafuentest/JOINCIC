@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Texto:</b>
+  <%= @sugerencia.texto %>
+</p>
+
+<p>
+  <b>Nombre:</b>
+  <%= @sugerencia.nombre %>
+</p>
+
+<p>
+  <b>Correo:</b>
+  <%= @sugerencia.correo %>
+</p>
+
+<%= link_to "Modificar", edit_sugerencia_path(@sugerencia) %> |
+<%= link_to "Volver a la lista", sugerencias_path %>
