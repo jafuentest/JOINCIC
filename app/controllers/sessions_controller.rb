@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
       render "new"
     else
       session[:organizador] = organizador.nombreCompleto
-      session[:id] = organizador.id
+      session[:organizador_id] = organizador.id
       redirect_to root_path
     end
   end

@@ -2,7 +2,7 @@ class OrganizadoresController < ApplicationController
   # GET /organizadores
   # GET /organizadores.json
   def index
-    @organizadores = Organizador.all
+    @organizadores = Organizador.find :all, :conditions => { :eliminado => nil }
 
     respond_to do |format|
       format.html # index.html.erb
@@ -78,7 +78,8 @@ class OrganizadoresController < ApplicationController
   # DELETE /organizadores/1.json
   def destroy
     @organizador = Organizador.find(params[:id])
-    @organizador.destroy
+    @organizador.update_attribute(:eliminado, true)
+    logger.warn "#{session[:organizador]} eliminó a: #{@organizador.nombreCompleto}"
 
     respond_to do |format|
       format.html { redirect_to organizadores_url }
