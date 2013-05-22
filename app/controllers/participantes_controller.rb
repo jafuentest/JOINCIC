@@ -4,14 +4,14 @@ class ParticipantesController < ApplicationController
   helper_method :sort_column, :sort_direction
   
   def excel
-    headers['Content-Type'] = "application/vnd.ms-excel"
+    headers['Content-Type'] = 'application/vnd.ms-excel'
     headers['Content-Disposition'] = 'attachment; filename="participantes.xls"'
     headers['Cache-Control'] = ''
     @participantes = getParticipantesFull
   end
   
   def excelPatrocinantes
-    headers['Content-Type'] = "application/vnd.ms-excel"
+    headers['Content-Type'] = 'application/vnd.ms-excel'
     headers['Content-Disposition'] = 'attachment; filename="participantes.xls"'
     headers['Cache-Control'] = ''
     @participantes = getParticipantesFull
@@ -28,12 +28,12 @@ class ParticipantesController < ApplicationController
   # GET /participantes/enviarHashAll
   # GET /participantes/enviarHashAll.json
   def enviarHashAll
-	str="<hr/>"
-	participantes = getParticipantesFull
+	  str="<hr/>"
+	  participantes = getParticipantesFull
     participantes.each do |p|
-	  str+=p.nombreCompleto
-	  str+=" <br/> "
-      UserMailer.enviarHash(p).deliver
+	    str+=p.nombreCompleto
+	    str+="<br/>"
+      #UserMailer.enviarHash(p).deliver
     end
     render :text => str
   end 
@@ -44,7 +44,7 @@ class ParticipantesController < ApplicationController
       if params[:cedula] =~ numero_regex    
         @participante = Participante.find_by_cedula(params[:cedula])
         if @participante.nil?
-          flash[:notice] = "No se encontró ningún participante cuya cédula sea:<br/>" + params[:cedula]
+          flash[:notice] = "No se encontró ningún participante cuya cédula sea:<br/>".html_safe + params[:cedula]
         else
           if @participante.eliminado
             flash[:notice] = "Error: El participante fue eliminado del sistema"
@@ -135,7 +135,7 @@ class ParticipantesController < ApplicationController
         @participante = Participante.find_by_cedula(params[:cedula])
         
         if @participante.nil?
-          flash[:notice] = "No se encontró ningún participante cuya cédula sea:<br/>" + params[:cedula]
+          flash[:notice] = "No se encontró ningún participante cuya cédula sea:<br/>".html_safe + params[:cedula]
         else
           if @participante.eliminado
             flash[:notice] = "Error: El participante fue eliminado del sistema"
@@ -275,22 +275,17 @@ class ParticipantesController < ApplicationController
   # POST /participantes.json
   def create
     @participante = Participante.new(params[:participante])
-    if session.has_key?(:id)
-	  @participante[:organizador_id] = session[:id]
-      @zonas = getZonasDisponibles
-      respond_to do |format|
-        if @participante.save
-          UserMailer.enviarHash(@participante).deliver
-          format.html { redirect_to @participante, notice => "El participante fue registrado con éxito" }
-          format.json { render json =>  @participante, status => :created, location => @participante }
-        else
-          format.html { render "new.html.erb" }
-          format.json { render json => @participante.errors, status => :unprocessable_entity }
-        end
+	  @participante[:organizador_id] = session[:organizador_id]
+    @zonas = getZonasDisponibles
+    respond_to do |format|
+      if @participante.save
+        UserMailer.enviarHash(@participante).deliver
+        format.html { redirect_to @participante, notice => "El participante fue registrado con éxito" }
+        format.json { render json =>  @participante, status => :created, location => @participante }
+      else
+        format.html { render "new.html.erb" }
+        format.json { render json => @participante.errors, status => :unprocessable_entity }
       end
-    else
-      flash[:notice] = "Error: El sistema no soporta tu dispositivo/navegador para registrar usuarios. Sorry, estoy viendo como arreglar esto =("
-	  format.html { render "new.html.erb" }
     end
   end
   
