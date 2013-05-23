@@ -1,5 +1,5 @@
 ﻿<header>
-<% if ! params.has_key?(:hash) -%>
+<% unless session[:organizador].nil? %>
   <nav class="round">
     <ul>
       <li><%= link_to "Inicio", root_path %></li>
@@ -10,5 +10,5 @@
       <li><%= link_to "Cerrar Sesión", cerrarSesion_path, :method => :delete %></li>
     </ul>
   </nav>
-<% end -%>
+<% end %>
 </header>

@@ -2,9 +2,11 @@
   <nav class="round">
     <ul>
       <li><%= link_to "JOINCIC", "http://www.joincic.com.ve" %></li>
+      <% unless session[:organizador].nil? %>
       <li><%= link_to "Académico", "/academico" %></li>
       <li><%= link_to "Patrocinio", "/patrocinio" %></li>
       <li><%= link_to "Guía de Rails", "http://guides.rubyonrails.org/" %></li>
+      <% end %>
     </ul>
     <p>Sistema centralizado de las Jornadas Interuniversitarias de Ciencias de la Computación. Todos los derechos reservados.</p>
   </nav>
