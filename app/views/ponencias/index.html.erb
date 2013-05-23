@@ -20,7 +20,7 @@
     <td align=center><%= ponencia.ponente.nombreCompleto %></td>
     <td align=center><%= ponencia.patrocinante.nombre unless ponencia.patrocinante.nil? %></td>
     <td><%= link_to image_tag("/show.png", :alt => "Mostrar"), ponencia %></td>
-    <td><%= link_to image_tag("/edit.png", :alt => "Modificar"), edit_zona_path(ponencia) %></td>
+    <td><%= link_to image_tag("/edit.png", :alt => "Modificar"), edit_ponencia_path(ponencia) %></td>
     <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), ponencia, :confirm => "¿Seguro que desea eliminar la ponencia " + ponencia.titulo + "?", :method => :delete %></td>
   </tr>
   <% end %>

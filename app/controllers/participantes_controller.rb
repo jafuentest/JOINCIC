@@ -262,12 +262,14 @@ class ParticipantesController < ApplicationController
   def edit
     @hash = params[:hash]
     hashCorrecto = Digest::SHA1.hexdigest(params[:id].to_s + SALT)
-    if !session[:organizador].nil? || !@hash.nil? && @hash == hashCorrecto
-      @participante = Participante.find(params[:id])
-      @zonas = getZonasDisponibles_Edit(@participante.zona)
-    else
+    if session[:organizador].nil? && @hash.nil? || @hash != hashCorrecto
       flash[:notice] = "Debe iniciar sesión para poder acceder al sistema"
       redirect_to new_session_path
+    else
+      @participante = Participante.find(params[:id])
+      unless session[:organizador].nil?
+        @zonas = getZonasDisponibles_Edit(@participante.zona)
+      end
     end
   end
   
@@ -294,23 +296,37 @@ class ParticipantesController < ApplicationController
   def update
     @hash = params[:participante][:hash]
     hashCorrecto = Digest::SHA1.hexdigest(params[:id].to_s + SALT)
-    if !session[:organizador].nil? || !@hash.nil? && @hash == hashCorrecto
+    
+    if session[:organizador].nil? && @hash.nil? || @hash != hashCorrecto
+      flash[:notice] = "Debe iniciar sesión para poder acceder al sistema"
+      redirect_to new_session_path
+    else
+	  #BEGIN Registro de los datos de la petición y el responsable
       logger.warn "Intentando editar participante, id:#{params[:id]}"
       logger.warn "Organizador responsable:#{session[:organizador]}" unless session[:organizador].nil?
       logger.warn "-------------------------------"
       logger.warn "Datos de la peticion:"
+      parametrosActualizados = ""
       params[:participante].map.each do |k,v|
-        logger.warn "#{k} => #{v}"
-    end
+        parametrosActualizados += "#{k}: #{v} - "
+      end
+      logger.warn parametrosActualizados
+      #END
+      
       @participante = Participante.find(params[:id])
       @zonas = getZonasDisponibles_Edit(@participante.zona)
+      
+      #BEGIN Respaldo de los datos anteriores del participante
       logger.warn "-------------------------------"
       logger.warn "Datos previos del participante:"
+      parametrosOriginales = ""
       @participante.attributes.keys.each do |k|
-        logger.warn "#{k} => #{@participante[k]}"
+        parametrosOriginales += "#{k}: #{@participante[k]} - "
       end
+      logger.warn parametrosOriginales
+      #END
       
-      if session[:organizador].nil?
+      unless params[:participante][:hash].nil?
         params[:participante].tap { |h| h.delete(:hash) }
       end
       
@@ -318,19 +334,14 @@ class ParticipantesController < ApplicationController
         update = @participante.update_attributes(params[:participante])
         logger.warn "Resultado del update: #{update}"
         if update
-          flash[:notice] = 'Sus datos fueron modificados con éxito'
+          flash[:notice] = "Sus datos fueron modificados con éxito"
           format.html { redirect_to :controller => 'participantes', :action => 'show', :id => params[:id], :hash => @hash }
           format.json { head :ok }
         else
-          # @errors = obtener_errores(@participante)
-          flash[:notice] = 'Hubo ' + @participante.errors.count.to_s + ' error(es), por favor verifique la información ingresada'
-          format.html { redirect_to :controller => 'participantes', :action => 'edit', :id => params[:id], :hash => @hash }
+          format.html { render "edit.html.erb" }
           format.json { render json =>  @participante.errors, status => :unprocessable_entity }
         end
       end
-    else
-      flash[:notice] = "Debe iniciar sesión para poder acceder al sistema"
-      redirect_to new_session_path
     end
   end
   

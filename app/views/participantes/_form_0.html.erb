@@ -1,8 +1,8 @@
-<% if @zonas.size > 0 %>
+<% if @participante.new_record? && @zonas.size > 0 %>
 <%= form_for(@participante) do |f| %>
   <% if @participante.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@participante.errors.count, "error prohibió", "errores prohibieron") %> guardar el organizador:</h2>
+      <h2><%= pluralize(@participante.errors.count, "error prohibió", "errores prohibieron") %> guardar el participante.</h2>
 
       <ul>
       <% @participante.errors.full_messages.each do |msg| %>

@@ -1,21 +1,22 @@
 Sistema::Application.routes.draw do
-
+  
   root :to => "home#inicio"
-
-  match "/iniciarSesion", :to => "sessions#new"
-  match "/cerrarSesion",  :to => "sessions#destroy"
-  match "/login",         :to => "sessions#new"
-  match "/logout",        :to => "sessions#destroy"
-  match "/reportes",      :to => "home#reportes"
-  match "/academico",     :to => "home#academico"
-  match "/patrocinio",    :to => "home#patrocinio"
-
+  
+  match "/iniciarSesion",   :to => "sessions#new"
+  match "/cerrarSesion",    :to => "sessions#destroy"
+  match "/login",           :to => "sessions#new"
+  match "/logout",          :to => "sessions#destroy"
+  match "/reportes",        :to => "home#reportes"
+  match "/academico",       :to => "home#academico"
+  match "/patrocinio",      :to => "home#patrocinio"
+  
   get "sessions/new"
   get "home/inicio"
   get "home/academico"
   get "home/patrocinio"
   get "home/reportes"
-
+  
+  match "/preguntar",          :to => "preguntas#new"
   match "/enviarPregunta",     :to => "preguntas#new"
   match "/enviarpregunta",     :to => "preguntas#new"
   match "/preguntarAlPonente", :to => "preguntas#new"
@@ -23,7 +24,6 @@ Sistema::Application.routes.draw do
   match "/preguntas/ver/:id",  :to => "preguntas#show", :as => :ver_pregunta
   match "/preguntas/ponencia/:ponencia_id(.:format)", :to => "preguntas#index"
   match "/panel-preguntas(/:ponencia_id)", :to => "preguntas#panel", :as => :panel_preguntas
-  match "/enviar_hash_all",    :to => "participantes#enviarHashAll"
   
   resources :participantes do
     collection do
@@ -35,6 +35,7 @@ Sistema::Application.routes.draw do
       get  "universidades"
       get  "reiniciarComidas"
       get  "infoComidas"
+      get  "enviarCorreoATodos"
       get  "entregarComida"
       post "entregarComida"
       get  "enviarCorreo"
@@ -50,7 +51,7 @@ Sistema::Application.routes.draw do
       get "dame_preguntas"
     end
   end
-
+  
   resources :mesas_de_trabajo do
     member do
       post "sortear"
@@ -58,20 +59,20 @@ Sistema::Application.routes.draw do
       post "excel"
     end
   end
-
+  
   resources :participantes_mates, :only => [:new, :create] do
     collection do
       get  "buscar"
       post "entregar"
     end
   end
-
+  
   resources :participantes_mesas, :only => [:new, :create] do
     collection do
       get  "buscar"
     end
   end
-
+  
   resources :rifas do
     collection do
       get "getParticipantes"
@@ -81,6 +82,7 @@ Sistema::Application.routes.draw do
   end
   
   resources :sessions, :only => [:new, :create, :destroy]
+  resources :sugerencias, :only => [:index, :show, :destroy]
   resources :organizadores
   resources :materiales_pop
   resources :premios
