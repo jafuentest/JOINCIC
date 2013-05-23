@@ -9,6 +9,6 @@
   <% else %>
     <%= render "form_1" %>
     <br/>
-    <%= link_to "Cancelar", @participante %>
+    <%= link_to "Cancelar", :controller => 'participantes', :action => 'show', :id => params[:id], :hash => @hash %>
   <% end %>
 </div>

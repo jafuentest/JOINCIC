@@ -1,18 +1,13 @@
-
-
-	<p style="color:red" >
-    	Recuerde que los datos acontinuacion serán los datos finales de su certificado por favor, lea con cuidado su información.  
-
-		</p>
+<h2 id="notice" align="center">
+  Recuerde que para su certificado se usaran los datos a continuación.<br/>Por favor, lea con cuidado y verifique su información.
+</h2>
 		
-<% if @zonas.size > 0 %>
-
 <%= form_for(@participante) do |f| %>
-  <% if !@errors.nil? %>
+  <% if @participante.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@errors.count, "error prohibió", "errores prohibieron") %> guardar el organizador:</h2>
+      <h2><%= pluralize(@participante.errors.count, "error prohibió", "errores prohibieron") %> guardar sus datos.</h2>
       <ul>
-      <% @errors.full_messages.each do |msg| %>
+      <% @participante.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
       <% end %>
       </ul>
@@ -70,7 +65,7 @@
             <%= f.number_field :nivel, :in => 1..15, :size => 5 %>
           <% end %>
           <%= f.select :tipo_nivel, ["Trimestre", "Semestre", "Año"] %>
-          <%= f.hidden_field :hash, :value => params[:hash] %>
+          <%= f.hidden_field :hash, :value => @hash %>
         </div>
       </td>
     </tr>
@@ -81,9 +76,4 @@
   <div class="actions">
     <%= f.submit :value => "Actualizar Datos" %>
   </div>
-  
-<% end %>
-<% else %>
-  
-  <h2 id="notice" align="center">Lamentablemente no queda ninguna zona disponible</h2>
 <% end %>
