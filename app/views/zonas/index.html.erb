@@ -15,7 +15,12 @@
     <td><%= zona.disponibilidad %></td>
     <td><%= link_to image_tag("/show.png", :alt => "Mostrar"), zona %></td>
     <td><%= link_to image_tag("/edit.png", :alt => "Modificar"), edit_zona_path(zona) %></td>
-    <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), zona, :confirm => "¿Seguro que desea eliminar la zona " + zona.nombre + "?", :method => :delete %></td>
+    <td>
+      <% if zona.estaVacia %>
+        <% confirmacion = "¿Seguro que desea eliminar la zona " + zona.nombre + "?" %>
+        <%= link_to image_tag("/delete.png", :alt => "Eliminar"), zona, :confirm => confirmacion, :method => :delete %>
+      <% end %>
+    </td>
   </tr>
   <% end %>
 </table>

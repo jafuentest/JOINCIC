@@ -20,4 +20,8 @@ class Zona < ActiveRecord::Base
   def disponibilidad
     capacidad - participantes.count
   end
+  
+  def estaVacia
+    participantes.count == 0
+  end
 end

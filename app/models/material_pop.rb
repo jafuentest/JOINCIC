@@ -16,15 +16,23 @@ class MaterialPop < ActiveRecord::Base
   validates :nombre,   :format => { :with => palabra_regex }
   validates :cantidad, :presence => true
   
+  def noHaSidoEntregado
+    participantes_mates.count(:conditions => { :entregado => true }) == 0
+  end
+  
   def existencia
     cantidad - participantes_mates.count(:conditions => { :entregado => true })
   end
   
-  def deuda
+  def porEntregar
     Participante.all.size - participantes_mates.count(:conditions => { :entregado => true })
   end
   
   def disponibilidad
     cantidad - Participante.all.size
+  end
+  
+  def disponible
+    existencia > 0
   end
 end
