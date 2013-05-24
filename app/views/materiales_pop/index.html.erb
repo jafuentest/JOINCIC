@@ -15,11 +15,16 @@
     <td><%= material.nombre %></td>
     <td><%= material.cantidad %></td>
     <td><%= material.existencia %></td>
-    <td><%= material.deuda %></td>
+    <td><%= material.porEntregar %></td>
     <td><%= material.disponibilidad %></td>
     <td><%= link_to image_tag("/show.png", :alt => "Mostrar"), material %></td>
     <td><%= link_to image_tag("/edit.png", :alt => "Modificar"), edit_material_pop_path(material) %></td>
-    <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), material, :confirm => "¿Seguro que desea eliminar el material: '" + material.nombre + "'?", :method => :delete %></td>
+    <td>
+      <% if material.noHaSidoEntregado %>
+        <% confirmacion = "¿Seguro que desea eliminar el material " + material.nombre + "?" %>
+        <%= link_to image_tag("/delete.png", :alt => "Eliminar"), material, :confirm => confirmacion, :method => :delete %>
+      <% end %>
+    </td>
   </tr>
   <% end %>
 </table>

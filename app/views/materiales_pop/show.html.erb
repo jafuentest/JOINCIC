@@ -15,12 +15,19 @@
 </p>
 <p>
   <b>Por entregar:</b>
-  <%= @material_pop.deuda %>
+  <%= @material_pop.porEntregar %>
 </p>
+<% if @material_pop.disponibilidad < 0 %>
+<h3>
+  <b>Deuda:</b>
+  <%= @material_pop.disponibilidad * -1 %>
+</h3>
+<% else %>
 <p>
   <b>Cantidad restante:</b>
   <%= @material_pop.disponibilidad %>
 </p>
+<% end %>
 
 <%= link_to "Modificar", edit_material_pop_path(@material_pop) %> |
 <%= link_to "Volver a la lista", materiales_pop_path %>
