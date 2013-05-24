@@ -1,4 +1,4 @@
-<% if (@participante.new_record? && @zonas.size > 0) || !@participante.new_record? %>
+<% if (!@participante.new_record? && @zonas.size > 0) %>
 <%= form_for(@participante) do |f| %>
   <% if @participante.errors.any? %>
     <div id="error_explanation">

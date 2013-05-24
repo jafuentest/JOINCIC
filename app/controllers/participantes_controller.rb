@@ -234,16 +234,16 @@ class ParticipantesController < ApplicationController
   def show
     @hash = params[:hash]
     hashCorrecto = Digest::SHA1.hexdigest(params[:id].to_s + SALT)
-    if !session[:organizador].nil? ||  ( !@hash.nil? && @hash == hashCorrecto )
+    if session[:organizador].nil? && (@hash.nil? || @hash != hashCorrecto)
+      flash[:notice] = "Debe iniciar sesión para poder acceder al sistema"
+      redirect_to new_session_path
+    else
       @participante = Participante.find(params[:id])
       
       respond_to do |format|
         format.html # show.html.erb
         format.json { render json =>  @participante }
       end
-    else
-      flash[:notice] = "Debe iniciar sesión para poder acceder al sistema"
-      redirect_to new_session_path
     end
   end
   
@@ -262,7 +262,7 @@ class ParticipantesController < ApplicationController
   def edit
     @hash = params[:hash]
     hashCorrecto = Digest::SHA1.hexdigest(params[:id].to_s + SALT)
-    if session[:organizador].nil?  && ( @hash.nil? || @hash != hashCorrecto)
+    if session[:organizador].nil?  && (@hash.nil? || @hash != hashCorrecto)
       flash[:notice] = "Debe iniciar sesión para poder acceder al sistema"
       redirect_to new_session_path
     else
@@ -297,7 +297,7 @@ class ParticipantesController < ApplicationController
     @hash = params[:participante][:hash]
     hashCorrecto = Digest::SHA1.hexdigest(params[:id].to_s + SALT)
     
-    if session[:organizador].nil?  && ( @hash.nil? || @hash != hashCorrecto)
+    if session[:organizador].nil?  && (@hash.nil? || @hash != hashCorrecto)
       flash[:notice] = "Debe iniciar sesión para poder acceder al sistema"
       redirect_to new_session_path
     else
