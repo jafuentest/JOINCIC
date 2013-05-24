@@ -54,6 +54,7 @@
         <%= @participante.deposito %>
       </p>
       <% end %>
+      <% unless session[:organizador].nil? %>
       <p>
         <b>Comió:</b>
         <%= @participante.comida %>
@@ -62,6 +63,7 @@
         <b>Vendedor:</b>
         <%= @participante.organizador.nombreCompleto %>
       </p>
+      <% end %>
     </td>
     <td>
       <table class="listaS">
