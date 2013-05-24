@@ -28,12 +28,12 @@ class ParticipantesController < ApplicationController
   # GET /participantes/enviarHashAll
   # GET /participantes/enviarHashAll.json
   def enviarHashAll
-	  str="<hr/>"
-	  participantes = getParticipantesFull
+    str="<hr/>"
+    participantes = getParticipantesFull
     participantes.each do |p|
-	    str+=p.nombreCompleto
-	    str+="<br/>"
-      #UserMailer.enviarHash(p).deliver
+      str+=p.nombreCompleto
+      str+="<br/>"
+      UserMailer.enviarHash(p).deliver
     end
     render :text => str
   end 
@@ -277,7 +277,7 @@ class ParticipantesController < ApplicationController
   # POST /participantes.json
   def create
     @participante = Participante.new(params[:participante])
-	  @participante[:organizador_id] = session[:organizador_id]
+    @participante[:organizador_id] = session[:organizador_id]
     @zonas = getZonasDisponibles
     respond_to do |format|
       if @participante.save
@@ -301,29 +301,29 @@ class ParticipantesController < ApplicationController
       flash[:notice] = "Debe iniciar sesión para poder acceder al sistema"
       redirect_to new_session_path
     else
-	  #BEGIN Registro de los datos de la petición y el responsable
-      logger.warn "Intentando editar participante, id:#{params[:id]}"
-      logger.warn "Organizador responsable:#{session[:organizador]}" unless session[:organizador].nil?
-      logger.warn "-------------------------------"
-      logger.warn "Datos de la peticion:"
+      #BEGIN Registro de los datos de la petición y el responsable
+      logger.warn "Modificacion sobre el participante: #{params[:id]}"
+      registro = "Organizador responsable:#{session[:organizador]}\n" unless session[:organizador].nil?
+      registro += "-------------------------------\n"
+      registro += "Datos de la peticion:\n"
       parametrosActualizados = ""
       params[:participante].map.each do |k,v|
         parametrosActualizados += "#{k}: #{v} - "
       end
-      logger.warn parametrosActualizados
+      registro += parametrosActualizados + "\n"
       #END
       
       @participante = Participante.find(params[:id])
       @zonas = getZonasDisponibles_Edit(@participante.zona)
       
       #BEGIN Respaldo de los datos anteriores del participante
-      logger.warn "-------------------------------"
-      logger.warn "Datos previos del participante:"
+      registro +=  "-------------------------------\n"
+      registro +=  "Datos previos:\n"
       parametrosOriginales = ""
       @participante.attributes.keys.each do |k|
         parametrosOriginales += "#{k}: #{@participante[k]} - "
       end
-      logger.warn parametrosOriginales
+      registro +=  parametrosOriginales + "\n"
       #END
       
       unless params[:participante][:hash].nil?
@@ -331,13 +331,17 @@ class ParticipantesController < ApplicationController
       end
       
       respond_to do |format|
-        update = @participante.update_attributes(params[:participante])
-        logger.warn "Resultado del update: #{update}"
-        if update
+        if @participante.update_attributes(params[:participante])
+          logger.warn registro
           flash[:notice] = "Sus datos fueron modificados con éxito"
           format.html { redirect_to :controller => 'participantes', :action => 'show', :id => params[:id], :hash => @hash }
           format.json { head :ok }
         else
+          if session[:organizador].nil?
+            logger.warn "Fail (Participante)"
+          else
+            logger.warn "Fail (Organizador: #{session[:organizador]})"	
+          end
           format.html { render "edit.html.erb" }
           format.json { render json =>  @participante.errors, status => :unprocessable_entity }
         end
