@@ -303,7 +303,8 @@ class ParticipantesController < ApplicationController
     else
       #BEGIN Registro de los datos de la petición y el responsable
       logger.warn "Modificacion sobre el participante: #{params[:id]}"
-      registro = "Organizador responsable:#{session[:organizador]}\n" unless session[:organizador].nil?
+      registro = ""
+      registro += "Organizador responsable:#{session[:organizador]}\n" unless session[:organizador].nil?
       registro += "-------------------------------\n"
       registro += "Datos de la peticion:\n"
       parametrosActualizados = ""
