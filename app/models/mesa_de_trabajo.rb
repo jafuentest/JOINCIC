@@ -23,12 +23,6 @@ class MesaDeTrabajo < ActiveRecord::Base
   has_many   :participantes_mesas
   has_many   :participantes, :through => :participantes_mesas
   
-  texto_regex   = /\A[a-z .,:;!¡¿?'"ÁÉÍÓÚÑáéíóúñ0123456789]+\z/i
-  palabra_regex	= /\A[a-zÁÉÍÓÚÑáéíóúñ]+\z/i
-  
-  validates :titulo,         :format => { :with => texto_regex }
-  validates :tema,           :format => { :with => texto_regex }
-  validates :descripcion,    :format => { :with => texto_regex }
-  validates :requerimientos, :format => { :with => texto_regex }
-  validates :capacidad,      :presence => true
+  validates :titulo,    :presence => true
+  validates :capacidad, :presence => true
 end

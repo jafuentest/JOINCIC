@@ -11,9 +11,7 @@ class MaterialPop < ActiveRecord::Base
   has_many :participantes_mates
   has_many :participantes, :through => :participante_mate
   
-  palabra_regex	= /\A[a-z]+\z/i
-  
-  validates :nombre,   :format => { :with => palabra_regex }
+  validates :nombre,   :format => { :with => TEXTO_REGEX }
   validates :cantidad, :presence => true
   
   def noHaSidoEntregado
