@@ -25,6 +25,8 @@
 #
 
 class Participante < ActiveRecord::Base
+  include Persona
+  
   belongs_to :zona
   belongs_to :organizador
   
@@ -36,8 +38,8 @@ class Participante < ActiveRecord::Base
   has_and_belongs_to_many :rifas
 
   email_regex  = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  texto_regex  = /\A[a-z\d ÁÉÍÓÚÑáéíóúñ,.]+[a-z\dÁÉÍÓÚÑáéíóúñ]+\z/i
-  nombre_regex = /\A[a-z ÁÉÍÓÚÑáéíóúñ]+[a-zÁÉÍÓÚÑáéíóúñ]+\z/i
+  texto_regex  = /\A[a-z\d �?É�?ÓÚÑáéíóúñ,.]+[a-z\d�?É�?ÓÚÑáéíóúñ]+\z/i
+  nombre_regex = /\A[a-z �?É�?ÓÚÑáéíóúñ]+[a-z�?É�?ÓÚÑáéíóúñ]+\z/i
   
   validates :cedula,        :numericality => true,
                             :uniqueness => true
@@ -69,28 +71,6 @@ class Participante < ActiveRecord::Base
                             
   validates :deposito,      :allow_blank => true,
                             :format => { :with => /\A[\d]+\z/i }
-                            
-  def nombreCompleto
-    nombre + " " + apellido
-  end
-  
-  def nombres
-    if seg_nombre.nil?
-      ret = nombre
-    else
-      ret = nombre + " " + seg_nombre
-    end
-    ret
-  end
-  
-  def apellidos
-    if seg_apellido.nil?
-      ret = apellido
-    else
-      ret = apellido + " " + seg_apellido
-    end
-    ret
-  end
   
   def edad
     hoy = Date.today

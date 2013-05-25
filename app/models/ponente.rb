@@ -14,12 +14,14 @@
 #
 
 class Ponente < ActiveRecord::Base
+  include Persona
+  
   has_many :mesas_de_trabajo
   has_many :ponencias
 
   email_regex	= /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  texto_regex   = /\A[a-z ÁÉÍÓÚÑáéíóúñ]+\z/i
-  palabra_regex	= /\A[a-zÁÉÍÓÚÑáéíóúñ]+\z/i
+  texto_regex   = /\A[a-z �?É�?ÓÚÑáéíóúñ]+\z/i
+  palabra_regex	= /\A[a-z�?É�?ÓÚÑáéíóúñ]+\z/i
   
   validates :nombre,        :format => { :with => palabra_regex }
   
@@ -44,25 +46,4 @@ class Ponente < ActiveRecord::Base
   
   validates :institucion,   :format => { :with => texto_regex }
   
-  def nombreCompleto
-    nombre + " " + apellido
-  end
-  
-  def nombres
-    if seg_nombre.nil?
-      ret = nombre
-    else
-      ret = nombre + " " + seg_nombre
-    end
-    ret
-  end
-  
-  def apellidos
-    if seg_apellido.nil?
-      ret = apellido
-    else
-      ret = apellido + " " + seg_apellido
-    end
-    ret
-  end
 end
