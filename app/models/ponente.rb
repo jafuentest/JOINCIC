@@ -18,20 +18,16 @@ class Ponente < ActiveRecord::Base
   
   has_many :mesas_de_trabajo
   has_many :ponencias
-
-  email_regex	= /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  texto_regex   = /\A[a-z �?É�?ÓÚÑáéíóúñ]+\z/i
-  palabra_regex	= /\A[a-z�?É�?ÓÚÑáéíóúñ]+\z/i
   
-  validates :nombre,        :format => { :with => palabra_regex }
+  validates :nombre,        :format => { :with => PALABRA_REGEX }
   
   validates :seg_nombre,    :allow_blank => true,
-                            :format => { :with => palabra_regex }
+                            :format => { :with => NOMBRES_REGEX }
   
-  validates :apellido,      :format => { :with => texto_regex }
+  validates :apellido,      :format => { :with => PALABRA_REGEX }
   
   validates :seg_apellido,  :allow_blank => true,
-                            :format => { :with => texto_regex }
+                            :format => { :with => NOMBRES_REGEX }
   
   validates :telefono,      :allow_blank => true,
                             :numericality => true,
@@ -44,6 +40,6 @@ class Ponente < ActiveRecord::Base
   validates :correo,        :format => { :with => email_regex },
                             :uniqueness => { :case_sensitive => false }
   
-  validates :institucion,   :format => { :with => texto_regex }
+  validates :institucion,   :format => { :with => TEXTO_REGEX }
   
 end

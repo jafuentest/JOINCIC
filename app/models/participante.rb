@@ -36,33 +36,29 @@ class Participante < ActiveRecord::Base
   has_many :mesas_de_trabajo, :through => :participantes_mesas
   has_many :materiales_pop,   :through => :participantes_mates
   has_and_belongs_to_many :rifas
-
-  email_regex  = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  texto_regex  = /\A[a-z\d �?É�?ÓÚÑáéíóúñ,.]+[a-z\d�?É�?ÓÚÑáéíóúñ]+\z/i
-  nombre_regex = /\A[a-z �?É�?ÓÚÑáéíóúñ]+[a-z�?É�?ÓÚÑáéíóúñ]+\z/i
   
   validates :cedula,        :numericality => true,
                             :uniqueness => true
                             
-  validates :nombre,        :format => { :with => nombre_regex }
+  validates :nombre,        :format => { :with => PALABRA_REGEX }
                             
   validates :seg_nombre,    :allow_blank => true,
-                            :format => { :with => nombre_regex }
+                            :format => { :with => NOMBRES_REGEX }
                             
-  validates :apellido,      :format => { :with => nombre_regex }
+  validates :apellido,      :format => { :with => PALABRA_REGEX }
                             
   validates :seg_apellido,  :allow_blank => true,
-                            :format => { :with => nombre_regex }
+                            :format => { :with => NOMBRES_REGEX }
                             
   validates :telefono,      :numericality => true,
                             :length => { :is => 11}
                             
-  validates :correo,        :format => { :with => email_regex },
+  validates :correo,        :format => { :with => EMAIL_REGEX },
                             :uniqueness => { :case_sensitive => false }
                             
-  validates :direccion,     :format => { :with => texto_regex }
+  validates :direccion,     :format => { :with => TEXTO_REGEX }
                             
-  validates :institucion,   :format => { :with => texto_regex }
+  validates :institucion,   :format => { :with => TEXTO_REGEX }
                             
   validates :nivel,         :presence => true
                             

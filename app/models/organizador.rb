@@ -24,15 +24,11 @@
 
 class Organizador < ActiveRecord::Base
   include Persona
-  email_regex	 = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-  login_regex  = /\A[a-z0-9\-_]+\z/i
-  texto_regex  = /\A[a-z\d �?É�?ÓÚÑáéíóúñ,.]+[a-z\d�?É�?ÓÚÑáéíóúñ]+\z/i
-  nombre_regex = /\A[a-z �?É�?ÓÚÑáéíóúñ]+[a-z�?É�?ÓÚÑáéíóúñ]+\z/i
   
   has_many :participantes
   
-  validates :usuario,      :format => { :with => login_regex },
-                           :uniqueness => { :case_sensitive => false }
+  validates :usuario,       :format => { :with => LOGIN_REGEX },
+                            :uniqueness => { :case_sensitive => false }
                             
   validates :clave,         :presence => true,
                             :length => { :maximum => 15 }
@@ -40,23 +36,23 @@ class Organizador < ActiveRecord::Base
   validates :cedula,        :numericality => true,
                             :uniqueness => true
                             
-  validates :nombre,        :format => { :with => nombre_regex }
+  validates :nombre,        :format => { :with => PALABRA_REGEX }
                             
   validates :seg_nombre,    :allow_blank => true,
-                            :format => { :with => nombre_regex }
+                            :format => { :with => NOMBRES_REGEX }
                             
-  validates :apellido,      :format => { :with => nombre_regex }
+  validates :apellido,      :format => { :with => PALABRA_REGEX }
                             
   validates :seg_apellido,  :allow_blank => true,
-                            :format => { :with => nombre_regex }
+                            :format => { :with => NOMBRES_REGEX }
                             
   validates :telefono,      :numericality => true,
                             :length => { :is => 11}
                             
-  validates :correo,       :format => { :with => email_regex },
-                           :uniqueness => { :case_sensitive => false }
+  validates :correo,        :format => { :with => EMAIL_REGEX },
+                            :uniqueness => { :case_sensitive => false }
                             
-  validates :direccion,    :format => { :with => texto_regex }
+  validates :direccion,     :format => { :with => TEXTO_REGEX }
                             
   validates :nivel,         :presence => true
   
