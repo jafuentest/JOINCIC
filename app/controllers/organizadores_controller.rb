@@ -2,7 +2,7 @@ class OrganizadoresController < ApplicationController
   # GET /organizadores
   # GET /organizadores.json
   def index
-    @organizadores = Organizador.find :all, :conditions => { :eliminado => nil }
+    @organizadores = Organizador.paginate :per_page => 20, :page => params[:page], :conditions => { :eliminado => nil }
 
     respond_to do |format|
       format.html # index.html.erb

@@ -1,4 +1,13 @@
-﻿<h1>Lista de organizadores (<%= @organizadores.size %>)</h1>
+﻿<h1>Lista de organizadores (<%= @organizadores.total_entries %>)</h1>
+<p id="notice"><%= notice %></p>
+
+<br />
+
+<div align=center>
+  <%= link_to "Agregar Organizador", new_organizador_path %>
+</div>
+
+<br />
 
 <table class="lista">
   <tr>
@@ -12,20 +21,19 @@
   </tr>
 
   <% @organizadores.each do |org| %>
-    <tr>
-      <td><%= org.nombreCompleto %></td>
-      <td><%= org.telefono %></td>
-      <td><%= org.correo %></td>
-      <td><%= org.direccion %></td>
-      <td align=center><%= org.institucion %></td>
-      <td align=center><%= org.coordinacion %></td>
-      <td><%= link_to image_tag("/show.png", :alt => "Mostrar"), org %></td>
-      <td><%= link_to image_tag("/edit.png", :alt => "Modificar"), edit_organizador_path(org) %></td>
-      <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), org, :confirm => "¿Seguro que desea eliminar a " + org.nombreCompleto + "?", :method => :delete %></td>
-    </tr>
+  <tr>
+    <td><%= org.nombreCompleto %></td>
+    <td><%= org.telefono %></td>
+    <td><%= org.correo %></td>
+    <td><%= org.direccion %></td>
+    <td align=center><%= org.institucion %></td>
+    <td align=center><%= org.coordinacion %></td>
+    <td><%= link_to image_tag("/show.png", :alt => "Mostrar"), org %></td>
+    <td><%= link_to image_tag("/edit.png", :alt => "Modificar"), edit_organizador_path(org) %></td>
+    <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), org, :confirm => "¿Seguro que desea eliminar a " + org.nombreCompleto + "?", :method => :delete %></td>
+  </tr>
   <% end %>
 </table>
 
-<br />
+<%= will_paginate @organizadores %>
 
-<%= link_to "Agregar Organizador", new_organizador_path %>

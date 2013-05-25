@@ -221,7 +221,6 @@ class ParticipantesController < ApplicationController
       @titulo = "Lista de participantes"
       @participantes = getParticipantes
     end
-    flash[:notice] = ""
     
     respond_to do |format|
       format.html # index.html.erb
