@@ -33,11 +33,8 @@ class Ponente < ActiveRecord::Base
                             :numericality => true,
                             :length => { :is => 11}
   
-  validates :telefono2,     :allow_blank => true,
-                            :numericality => true,
-                            :length => { :is => 11}
-  
-  validates :correo,        :format => { :with => email_regex },
+  validates :correo,        :allow_blank => true,
+                            :format => { :with => EMAIL_REGEX },
                             :uniqueness => { :case_sensitive => false }
   
   validates :institucion,   :format => { :with => TEXTO_REGEX }
