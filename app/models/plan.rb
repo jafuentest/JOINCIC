@@ -9,5 +9,5 @@
 #
 
 class Plan < ActiveRecord::Base
-  has_many :planes
+  has_many :patrocinantes
 end
