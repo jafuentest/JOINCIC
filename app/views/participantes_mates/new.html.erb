@@ -7,21 +7,17 @@
       <%= hidden_field_tag :cedula, @participante.cedula %>
     </div>
     
-    <table class="formularioS">
-      <tr>
-        <th></th>
-      </tr>
-      <% @materiales_pop.each do |material_pop| %>
-      <tr>
-        <td>
-          <div class="field" align=left>
-            <%= check_box_tag material_pop.nombre, 1, true %>
-            <%= label_tag     material_pop.nombre %>
-          </div>
-        </td>
-      </tr>
+    <div style="width:100px" >    
+      <% @materiales_pop.each do |material| %>
+        <% if material.disponible %>
+        <div class="field" align="left">
+          <%= check_box_tag material.nombre, 1, true %>
+          <%= label_tag     material.nombre %>
+        </div>
+        <br/>
+        <% end %>
       <% end %>
-    </table>
+    </div>
     
     <br />
     
