@@ -1,0 +1,43 @@
+<%= form_for(@grupo) do |f| %>
+  <% if @grupo.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@grupo.errors.count, "error prohibió", "errores prohibieron") %> registrar el grupo:</h2>
+
+      <ul>
+      <% @grupo.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  
+  <div class="field">
+    <%= label_tag      "Integrante 1 (cédula)" %><br />
+    <%= text_field_tag "integrante1", @p1 ? @p1.cedula : nil , :size => 17, :maxlength => 15 %>
+  </div>
+  <br/>
+  <div class="field">
+    <%= label_tag      "Integrante 2 (cédula)" %><br />
+    <%= text_field_tag "integrante2", @p2 ? @p2.cedula : nil, :size => 17, :maxlength => 15 %>
+  </div>
+  <br/>
+  <div class="field">
+    <%= f.label      :login %><br />
+    <%= f.text_field :login, :size => 17, :maxlength => 15 %>
+  </div>
+  <br/>
+  <div class="field">
+    <%= f.label          :clave %><br />
+    <%= f.password_field :clave, :size => 17, :maxlength => 20 %>
+  </div>
+  <div class="field">
+    <%= f.label          :clave_confirmation %><br />
+    <%= f.password_field :clave_confirmation, :size => 17, :maxlength => 20 %>
+  </div>
+  
+  <br/>
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

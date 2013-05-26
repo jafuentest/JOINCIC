@@ -1,0 +1,18 @@
+# == Schema Information
+#
+# Table name: grupos
+#
+#  id    :integer          not null, primary key
+#  login :string(20)       not null
+#  pass  :string(20)       not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  login: MyString
+  pass: MyString
+
+two:
+  login: MyString
+  pass: MyString

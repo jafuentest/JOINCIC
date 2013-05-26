@@ -1,23 +1,25 @@
 es_VE:
   attributes:
-    cedula:       Cédula
-    correo:       E-Mail
+    cedula: Cédula
+    correo: E-Mail
     coordinacion: Coordinación
-    descripcion:  Descripción
-    duracion:     Duración
-    direccion:    Dirección
-    dia:          Día
-    fecha_nac:    Fecha de Nacimiento
-    hora_ini:     Hora de Inicio
-    hora_fin:     Hora de Finalización
-    institucion:  Institución
-    rif:          RIF
+    descripcion: Descripción
+    duracion: Duración
+    direccion: Dirección
+    dia: Día
+    fecha_nac: Fecha de Nacimiento
+    hora_ini: Hora de Inicio
+    hora_fin: Hora de Finalización
+    institucion: Institución
+    clave: Contraseña
+    clave_confirmation: Confirmar Contraseña
+    rif: RIF
     seg_apellido: Segundo Apellido
-    seg_nombre:   Segundo Nombre
-    telefono:     Teléfono
-    telefono2:    Celular
-    titulo:       Título
-    zona_id:      Zona
+    seg_nombre: Segundo Nombre
+    telefono: Teléfono
+    telefono2: Celular
+    titulo: Título
+    zona_id: Zona
     
   date:
     abbr_day_names: [Dom, Lun, Mar, Mie, Jue, Vie, Sab]

@@ -10,10 +10,13 @@ Sistema::Application.initialize!
 # Variables de entorno #
 # -------------------- #
 SALT = "J0iNcIC"
+ORGANIZADOR = 3
+GRUPO = 2
+PARTICIPANTE = 1
 
 #Expresiones Regulares
 EMAIL_REGEX   = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
-PALABRA_REGEX = /\A[a-z�?É�?ÓÚÑáéíóúñ]+\z/i
-TEXTO_REGEX   = /\A[a-z\d �?É�?ÓÚÑáéíóúñ,.]+\z/i
-NOMBRES_REGEX = /\A[a-z �?É�?ÓÚÑáéíóúñ]+[a-z�?É�?ÓÚÑáéíóúñ]+\z/i
+PALABRA_REGEX = /\A[a-zÁÉÍÓÚÑáéíóúñ]+\z/i
+TEXTO_REGEX   = /\A[a-z\d ÁÉÍÓÚÑáéíóúñ,.]+\z/i
+NOMBRES_REGEX = /\A[a-z ÁÉÍÓÚÑáéíóúñ]+[a-zÁÉÍÓÚÑáéíóúñ]+\z/i
 LOGIN_REGEX   = /\A[a-z\d\-_]+\z/i

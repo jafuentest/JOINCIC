@@ -2,13 +2,15 @@ Sistema::Application.routes.draw do
   
   root :to => "home#inicio"
   
-  match "/iniciarSesion",   :to => "sessions#new"
-  match "/cerrarSesion",    :to => "sessions#destroy"
-  match "/login",           :to => "sessions#new"
-  match "/logout",          :to => "sessions#destroy"
-  match "/reportes",        :to => "home#reportes"
-  match "/academico",       :to => "home#academico"
-  match "/patrocinio",      :to => "home#patrocinio"
+  match "/ologin",      :to => "sessions#new"
+  match "/ologout",     :to => "sessions#destroy"
+  match "/glogin",      :to => "group_sessions#new"
+  match "/glogout",     :to => "group_sessions#destroy"
+  match "/perfil",      :to => "grupos#perfil"
+  match "/maraton",     :to => "grupos#perfil"
+  match "/reportes",    :to => "home#reportes"
+  match "/academico",   :to => "home#academico"
+  match "/patrocinio",  :to => "home#patrocinio"
   
   get "sessions/new"
   get "home/inicio"
@@ -75,14 +77,26 @@ Sistema::Application.routes.draw do
   
   resources :rifas do
     collection do
+      get "rifar"
       get "getParticipantes"
       post "getParticipantes"
       post "setWinner"
     end
   end
   
+  resources :grupos do
+    collection do
+      get "perfil"
+    end
+    member do
+      get "reiniciarClave"
+    end
+  end
+  
   resources :sessions, :only => [:new, :create, :destroy]
-  resources :sugerencias, :only => [:index, :show, :destroy]
+  resources :group_sessions, :only => [:new, :create, :destroy]
+  resources :sugerencias, :except => [:edit, :update]
+  resources :problemas
   resources :organizadores
   resources :materiales_pop
   resources :premios
