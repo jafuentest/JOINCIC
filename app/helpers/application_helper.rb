@@ -1,9 +1,13 @@
 module ApplicationHelper
 
-# Retorna un titulo por defecto
+  # Retorna un titulo por defecto
 	def title
 		base_title = "Sistema JOINCIC"
-    base_title if @title.nil?
+		if @title
+		  @title
+		else
+      base_title
+    end
 	end
   
   def sortable(column, title = nil)
