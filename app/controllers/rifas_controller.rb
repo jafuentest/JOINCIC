@@ -1,5 +1,5 @@
 class RifasController < ApplicationController
-  skip_before_filter :estarLogueado, :only => [:getParticipantes, :setWinner]
+  skip_before_filter :organizadorLogin, :only => [:getParticipantes, :setWinner]
   layout :verificar_layout, :except => [:getParticipantes] #Ver al final
   
   # GET /rifas
@@ -129,7 +129,7 @@ class RifasController < ApplicationController
         @error = "Todos los sorteos de esta rifa fueron realizados."
       end
     end
-
+    
     respond_to do |format|
       format.json  { render :json => [:winner => @winner, :error => @error, :raffle => @raffle, :raffleDone => @raffleDone] }
     end

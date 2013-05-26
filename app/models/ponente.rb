@@ -10,7 +10,6 @@
 #  institucion  :string(20)       not null
 #  seg_nombre   :string(15)
 #  seg_apellido :string(15)
-#  telefono2    :string(11)
 #
 
 class Ponente < ActiveRecord::Base

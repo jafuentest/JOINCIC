@@ -1,5 +1,5 @@
 ﻿<header>
-<% unless session[:organizador].nil? %>
+<% if session[:privilegios] == "organizador" %>
   <nav class="round">
     <ul>
       <li><%= link_to "Inicio", root_path %></li>
@@ -7,7 +7,16 @@
       <li><%= link_to "Organizadores", organizadores_path %></li>
       <li><%= link_to "Materiales POP", materiales_pop_path %></li>
       <li><%= link_to "Zonas", zonas_path %></li>
-      <li><%= link_to "Cerrar Sesión", cerrarSesion_path, :method => :delete %></li>
+      <li><%= link_to "Cerrar Sesión", ologout_path, :method => :delete %></li>
+    </ul>
+  </nav>
+<% elsif session[:privilegios] == "grupo" %>
+  <nav class="round">
+    <ul>
+      <li><%= link_to "Problemas", problemas_path %></li>
+      <li><!--%= link_to "Programas", programas_path %-->Programas</li>
+      <li><%= link_to "Perfil", perfil_path %></li>
+      <li><%= link_to "Cerrar Sesión", glogout_path %></li>
     </ul>
   </nav>
 <% end %>

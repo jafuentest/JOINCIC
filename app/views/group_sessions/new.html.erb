@@ -1,0 +1,21 @@
+<div align="center">
+  <h1>Iniciar Sesion</h1>
+<p id="notice"><%= notice %></p>
+
+<%= form_for(:session, :url => group_sessions_path) do |f| %>
+  <div class="field">
+    <%= f.label      :login %><br />
+    <%= f.text_field :login, :size => 15 %>
+  </div>
+  <div class="field">
+    <%= f.label          :clave %><br />
+    <%= f.password_field :clave, :size => 15 %>
+  </div>
+  
+  <br />
+  
+  <div class="actions" align="center">
+    <%= f.submit "Acceder" %>
+  </div>
+</div>
+<% end %>

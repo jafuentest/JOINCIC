@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Nombre:</b>
+  <%= @grupo.login %>
+</p>
+
+<% @grupo.participantes.each_with_index do |p, i| %>
+</p>
+  <b>Integrante <%= i+1 %>:</b>
+  <%= p.nombreCompleto %>, <%= p.cedula %>
+</p>
+<% end %>
+  
+<%= form_tag reiniciarClave_grupo_path(@grupo), :method => "get" do %>
+  <%= text_field_tag :clave, nil, { :placeholder => "Contraseña Nueva" } %>
+  <br />
+  <%= submit_tag "Reiniciar Clave"%>
+<% end %>
+

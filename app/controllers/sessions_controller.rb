@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  skip_before_filter :estarLogueado, :only => [:new, :create]
+  skip_before_filter :organizadorLogin
 
   def new
     @title = "Iniciar Sesion"
@@ -8,19 +8,22 @@ class SessionsController < ApplicationController
   def create
     organizador = Organizador.comprobarOrganizador(params[:session][:usuario], params[:session][:clave])
     if (!organizador)
-      flash.now[:notice] = "Error: La clave y el nombre de usuario no coinciden"
+      if Organizador.find_by_usuario.nil?
+        flash.now[:notice] = "El usuario no existe"
+      else
+        flash.now[:notice] = "La clave y el nombre de usuario no coinciden"
+      end
       @title = "Iniciar Sesion"
       render "new"
     else
+      session[:usuario_id]  = organizador.id
+      session[:privilegios] = "organizador"
       session[:organizador] = organizador.nombreCompleto
-      session[:organizador_id] = organizador.id
       redirect_to root_path
     end
   end
 
   def destroy
-    /@_current_user = session[:organizador] = nil/
-    /@_current_user = session[:id] = nil/
     reset_session
     redirect_to root_path
   end

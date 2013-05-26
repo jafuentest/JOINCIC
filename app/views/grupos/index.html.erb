@@ -1,0 +1,35 @@
+<h1>Listing grupos</h1>
+
+<br />
+
+<div align="center">
+  <%= link_to 'Registrar Grupo', new_grupo_path %>
+</div>
+
+<br />
+
+<table class="listaS">
+  <tr>
+    <th>Nombre</th>
+    <th colspan="2">Participantes</th>
+    <th colspan="2">Opciones</th>
+  </tr>
+
+<% @grupos.each do |grupo| %>
+  <tr>
+    <td><%= grupo.login %></td>
+    <% grupo.participantes.each do |p| %>
+    <td>
+      <%= p.nombreCompleto %>
+      <br/>
+      <%= p.cedula %>
+    </td>
+    <% end %>
+    <td><%= link_to image_tag("/show.png", :alt => "Mostrar"), grupo %></td>
+    <td>
+      <% confirmacion = "¿Seguro que desea eliminar el grupo " + grupo.login + "?" %>
+      <%= link_to image_tag("/delete.png", :alt => "Eliminar"), grupo, :confirm => 'Are you sure?', :method => :delete %>
+    </td>
+  </tr>
+<% end %>
+</table>

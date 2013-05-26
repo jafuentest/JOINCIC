@@ -1,6 +1,7 @@
 class PreguntasController < ApplicationController
-  skip_before_filter :estarLogueado, :except => [:panel, :edit, :update, :destroy]
+  skip_before_filter :organizadorLogin, :only => [:new, :create, :index]
   layout :verificar_layout #Ver al final
+  
   # GET /preguntas
   # GET /preguntas.json
   def index
@@ -17,8 +18,6 @@ class PreguntasController < ApplicationController
     unless @hay_ponencia
       @preguntas = Pregunta.aceptada.includes(:ponencia, :participante).limit(50)
     end
-
-    #@ultimaid = @preguntas.maximum("id")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -67,12 +66,6 @@ class PreguntasController < ApplicationController
     @pregunta = Pregunta.new
   end
 
-  # GET /preguntas/1/edit
-  def edit
-    @ponencias = Ponencia.all
-    @pregunta = Pregunta.find(params[:id])
-  end
-
   # POST /preguntas
   # POST /preguntas.json
   def create
@@ -99,22 +92,6 @@ class PreguntasController < ApplicationController
     end
   end
 
-  # PUT /preguntas/1
-  # PUT /preguntas/1.json
-  def update
-    @pregunta = Pregunta.find(params[:id])
-
-    respond_to do |format|
-      if @pregunta.update_attributes(params[:pregunta])
-        format.html { redirect_to @pregunta, notice => 'Pregunta was successfully updated.' }
-        format.json { head :ok }
-      else
-        format.html { render "edit.html.erb" }
-        format.json { render :json => @pregunta.errors, status => :unprocessable_entity }
-      end
-    end
-  end
-
   # DELETE /preguntas/1
   # DELETE /preguntas/1.json
   def destroy
@@ -126,7 +103,7 @@ class PreguntasController < ApplicationController
       format.json { head :ok }
     end
   end
-
+  
   def aprobar
     p = Pregunta.find(params[:id])
     p.aceptada = true
@@ -142,7 +119,7 @@ class PreguntasController < ApplicationController
       end
     end
   end
-
+  
   def dame_preguntas
     ponencia = ""
     ultimoid = " id > 0 "
@@ -168,13 +145,13 @@ class PreguntasController < ApplicationController
   end
 
   private
-    def verificar_layout
+  
+  def verificar_layout
     case action_name
-    when "new", "create", "edit", "update", "show", "index"
+    when "new", "create", "show", "index"
       "movil"
     else
       "application"
     end
   end
-
 end

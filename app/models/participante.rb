@@ -22,12 +22,14 @@
 #  seg_apellido   :string(15)
 #  deposito       :integer
 #  eliminado      :boolean
+#  grupo_id       :integer
 #
 
 class Participante < ActiveRecord::Base
   include Persona
   
   belongs_to :zona
+  belongs_to :grupo
   belongs_to :organizador
   
   has_many :preguntas

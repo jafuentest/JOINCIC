@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+<% if @grupo %>
+  <p>
+    <b>Nombre:</b>
+    <%= @grupo.login %>
+  </p>
+
+  <% @grupo.participantes.each_with_index do |p, i| %>
+  </p>
+    <b>Integrante <%= i+1 %>:</b>
+    <%= p.nombreCompleto %>
+  </p>
+  <% end %>
+<% end %>
