@@ -1,0 +1,14 @@
+﻿<div id="ruleta">
+<select name="rifa" id="rifa">
+  <option value="">Seleccione una rifa</option>
+  <% @rifas.each do |raffle| %>
+  <option value="<%= raffle.id %>"><%= raffle.nombre %></option>
+  <% end %>
+</select>
+
+
+  <form action="#" id="roulette" method="POST">
+    <input id="winner" name="winner" type="text"/>
+    <input id="roulette_button" type="submit" value="Iniciar!"/>
+  </form>
+</div>
