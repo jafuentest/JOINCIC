@@ -1,0 +1,43 @@
+<h1>Listing problemas</h1>
+
+<table class="lista">
+  <tr>
+    <th>Titulo</th>
+    <th>Enunciado</th>
+    <th colspan="2">Archivos</th>
+    <th>Fin de Entrega</th>
+    <th>Última Actualización</th>
+    <% if session[:privilegios] == 'organizador' %>
+      <th colspan="3">Opciones</th>
+    <% else %>
+      <th></th>
+    <% end %>
+
+  </tr>
+
+<% @problemas.each do |problema| %>
+  <tr>
+    <td><%= problema.titulo %></td>
+    <td><%= problema.enunciado %></td>
+    <td><%= link_to image_tag('/download.png', :alt => 'Descargar') +' entrada', descargarEntrada_problema_path(problema) %></td>
+    <td><%= link_to image_tag('/download.png', :alt => 'Descargar') +' salida', descargarSalida_problema_path(problema) %></td>
+    <td><%= problema.fin_de_entrega.in_time_zone("Caracas").to_formatted_s(:short) %></td>
+    <td><%= problema.updated_at.in_time_zone("Caracas").to_formatted_s(:short) %></td>
+    <td><%= link_to image_tag('/show.png', :alt => 'Mostrar'), problema %></td>
+    <% if session[:privilegios] == 'organizador' %>
+      <td><%= link_to image_tag('/edit.png', :alt => 'Modificar'), edit_problema_path(problema) %></td>
+      <td>
+        <% confirmacion = "¿Seguro que desea eliminar el problema " + problema.titulo + "?" %>
+        <%= link_to image_tag('/delete.png', :alt => 'Eliminar'), problema, :confirm => confirmacion, :method => :delete %>
+      </td>
+    <% end %>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<% if session[:privilegios] == 'organizador' %>
+  <%= link_to 'Agregar Problema', new_problema_path %>
+<% end %>
+

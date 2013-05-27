@@ -1,0 +1,36 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Título:</b>
+  <%= @problema.titulo %>
+</p>
+<p>
+  <b>Enunciado:</b>
+  <%= @problema.enunciado %>
+</p>
+<p>
+  <b>Fin de Entrega:</b>
+  <%= @problema.fin_de_entrega.in_time_zone("Caracas") %>
+</p>
+<p>
+  <b>Última Actualización:</b>
+  <%= @problema.updated_at.in_time_zone("Caracas") %>
+</p>
+
+<br/>
+<h2>Casos de Prueba</h2>
+<p>
+  <b>Entrada:</b>
+  <br/>
+  <%= text_area_tag 'entrada', @problema.entradas, :size => '15x5', :disabled => true %>
+</p>
+<p>
+  <b>Salida:</b>
+  <br/>
+  <%= text_area_tag 'salida', @problema.entradas, :size => '15x5', :disabled => true %>
+</p>
+
+<% if session[:privilegios] == 'organizador' %>
+  <%= link_to 'Modificar', edit_problema_path(@problema) %> |
+<% end %>
+<%= link_to 'Volver a la Lista', problemas_path %>

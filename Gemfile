@@ -2,7 +2,7 @@ source 'http://rubygems.org'
 
 gem 'rails', '3.1.1'
 gem 'mysql2'
-gem "will_paginate", "~> 3.0.pre2", :require => nil
+gem 'will_paginate', '~> 3.0.pre2', :require => nil
 
 # Bundle edge Rails instead:
 # gem 'rails',     :git => 'git://github.com/rails/rails.git'
