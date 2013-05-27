@@ -8,7 +8,6 @@
 #  entradas       :text
 #  salidas        :text
 #  fin_de_entrega :datetime
-#  created_at     :datetime
 #  updated_at     :datetime
 #
 
