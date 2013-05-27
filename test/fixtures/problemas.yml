@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  titulo: MyString
+  enunciado: MyText
+  casos_de_prueba: 
+  fin_de_entrega: 2013-05-26 15:50:05
+
+two:
+  titulo: MyString
+  enunciado: MyText
+  casos_de_prueba: 
+  fin_de_entrega: 2013-05-26 15:50:05

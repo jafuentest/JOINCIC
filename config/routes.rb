@@ -93,10 +93,16 @@ Sistema::Application.routes.draw do
     end
   end
   
+  resources :problemas do
+    member do
+      get "descargarEntrada"
+      get "descargarSalida"
+    end
+  end
+  
   resources :sessions, :only => [:new, :create, :destroy]
   resources :group_sessions, :only => [:new, :create, :destroy]
   resources :sugerencias, :except => [:edit, :update]
-  resources :problemas
   resources :organizadores
   resources :materiales_pop
   resources :premios
