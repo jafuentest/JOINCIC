@@ -8,7 +8,7 @@ class ParticipantesMesasController < ApplicationController
       if params[:cedula] =~ numero_regex
         @participante = Participante.find_by_cedula(params[:cedula])
         if @participante.nil?
-          flash[:notice] = "No se encontró ningún participante cuya cédula sea: <br/>" + params[:cedula]
+          flash[:notice] = "No se encontró ningún participante cuya cédula sea: <br/>".html_safe + params[:cedula]
           redirect_to buscar_participantes_mesas_path
         elsif @participante.eliminado
           flash[:notice] = "Error: El participante fue eliminado del sistema"

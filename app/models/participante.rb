@@ -79,7 +79,7 @@ class Participante < ActiveRecord::Base
     edad
   end
   
-  def numDeMesasGanadas
+  def numeroDeMesasGanadas
     participantes_mesas.count(:conditions => { :seleccionado => true })
   end
 end

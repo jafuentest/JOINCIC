@@ -5,10 +5,21 @@ class RifasController < ApplicationController
   # GET /rifas
   # GET /rifas.json
   def index
-    @rifas = Rifa.order('nombre').select {|e| e.participantes.size < e.amount}
+    @rifas = Rifa.all
 
     respond_to do |format|
       format.html  # index.html.erb
+      format.json  { render json => @rifas }
+    end
+  end
+  
+  # GET /rifas
+  # GET /rifas.json
+  def rifar
+    @rifas = Rifa.order('nombre').select {|e| e.participantes.size < e.amount}
+
+    respond_to do |format|
+      format.html  # rifar.html.erb
       format.json  { render json => @rifas }
     end
   end
@@ -139,7 +150,7 @@ class RifasController < ApplicationController
   
   def verificar_layout
     case action_name
-    when "index"
+    when "rifar"
       "movil"
     else
       "application"

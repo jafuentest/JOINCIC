@@ -32,11 +32,6 @@ class SugerenciasController < ApplicationController
     end
   end
 
-  # GET /sugerencias/1/edit
-  def edit
-    @sugerencia = Sugerencia.find(params[:id])
-  end
-
   # POST /sugerencias
   # POST /sugerencias.json
   def create
@@ -48,22 +43,6 @@ class SugerenciasController < ApplicationController
         format.json { render :json => @sugerencia, :status => :created, :location => @sugerencia }
       else
         format.html { render :action => "new" }
-        format.json { render :json => @sugerencia.errors, :status => :unprocessable_entity }
-      end
-    end
-  end
-
-  # PUT /sugerencias/1
-  # PUT /sugerencias/1.json
-  def update
-    @sugerencia = Sugerencia.find(params[:id])
-
-    respond_to do |format|
-      if @sugerencia.update_attributes(params[:sugerencia])
-        format.html { redirect_to @sugerencia, :notice => 'Sugerencia was successfully updated.' }
-        format.json { head :ok }
-      else
-        format.html { render :action => "edit" }
         format.json { render :json => @sugerencia.errors, :status => :unprocessable_entity }
       end
     end
