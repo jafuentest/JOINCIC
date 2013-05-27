@@ -276,7 +276,7 @@ class ParticipantesController < ApplicationController
   # POST /participantes.json
   def create
     @participante = Participante.new(params[:participante])
-    @participante[:organizador_id] = session[:organizador_id]
+    @participante[:organizador_id] = session[:usuario_id]
     @zonas = getZonasDisponibles
     respond_to do |format|
       if @participante.save
