@@ -2,34 +2,17 @@
 <p id="notice"><%= notice %></p>
 
 <div align="center">
-  <%= form_tag participantes_mesas_path do %>
+  <%= form_for(@participante_mesa) do |f| %>
     <div class="field">
-      <%= hidden_field_tag :cedula, @participante.cedula %>
+      <%= f.hidden_field :participante_id, :value => @participante.id.to_s %>
     </div>
     
-    <table class="formulario">
-      <tr>
-        <th width=50%></th>
-        <th width=50%></th>
-      </tr>
-      <% @mesas_de_trabajo.each do |mesa| %>
-      <tr>
-        <td>
-          <%= label_tag mesa.titulo %>
-        </td>
-        <td>
-          <div class="field" align=left>
-            <%= select_tag mesa.id, options_for_select( (0..@prioridad_maxima).map {|i| [ "#{i}", i ] } ) %>
-          </div>
-        </td>
-      </tr>
-      <% end %>
-    </table>
+    <%= f.select :mesa_de_trabajo_id, @mesas_de_trabajo.map {|m| [ m.titulo, m.id ] }, :prompt => 'Selecciona la Mesa de Trabajo' %>
     
     <br />
     
     <div class="actions">
-      <%= submit_tag "Enviar" %>
+      <%= f.submit "Enviar" %>
     </div>
     
   <% end %>

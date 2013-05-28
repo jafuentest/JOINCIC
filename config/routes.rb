@@ -69,7 +69,7 @@ Sistema::Application.routes.draw do
     end
   end
   
-  resources :participantes_mesas, :only => [:new, :create] do
+  resources :participantes_mesas, :only => [:new, :create, :show, :destroy] do
     collection do
       get  "buscar"
     end

@@ -4,62 +4,86 @@ class ParticipantesMesasController < ApplicationController
   def new
     numero_regex = /^[0-9]+$/
     
-    if params.has_key?(:cedula) && params[:cedula] != ""
+    if params.has_key?(:cedula) && params[:cedula] != ''
       if params[:cedula] =~ numero_regex
         @participante = Participante.find_by_cedula(params[:cedula])
         if @participante.nil?
-          flash[:notice] = "No se encontró ningún participante cuya cédula sea: <br/>".html_safe + params[:cedula]
+          flash[:notice] = 'No se encontró ningún participante cuya cédula sea: <br/>'.html_safe + params[:cedula]
           redirect_to buscar_participantes_mesas_path
         elsif @participante.eliminado
-          flash[:notice] = "Error: El participante fue eliminado del sistema"
+          flash[:notice] = 'Error: El participante fue eliminado del sistema'
           redirect_to buscar_participantes_mesas_path
         else
-          @participantes_mesas = @participante.participantes_mesas
+          @mesas_de_trabajo = mesasDisponibles
+          @participante_mesa = ParticipanteMesa.new
           respond_to do |format|
-            if @participantes_mesas.size > 0
-              format.html { render "edit.html.erb" }
-            else
-              @mesas_de_trabajo = MesaDeTrabajo.find(:all, :conditions => {:dia => Time.now.strftime("%Y-%m-%d")})
-              @prioridad_maxima = @mesas_de_trabajo.size
-              format.html { render "new.html.erb" }
-            end
+            format.html { render 'new.html.erb' }
           end
         end
       else
-        flash[:notice] = "Error: Número de cédula inválido"
+        flash[:notice] = 'Error: Número de cédula inválido'
         redirect_to buscar_participantes_mesas_path
       end
     else
-      flash[:notice] = "Ingresa el número de cédula del participante"
+      flash[:notice] = 'Ingresa el número de cédula del participante'
       redirect_to buscar_participantes_mesas_path
     end
   end
-
-
+  
   # POST /participantes_mesas
   # POST /participantes_mesas.json
   def create
-    @mesas_de_trabajo = MesaDeTrabajo.all
-    @participante = Participante.find_by_cedula(params[:cedula])
-    
-    @mesas_de_trabajo.each do |mesa|
-      if params.has_key?("#{mesa.id}") && params["#{mesa.id}"].to_i > 0
-        pm = ParticipanteMesa.new
-        pm.participante = @participante
-        pm.mesa_de_trabajo = mesa
-        pm.prioridad = params["#{mesa.id}"]
-        pm.save unless ParticipanteMesa.find_by_participante_id_and_mesa_de_trabajo_id(pm.participante.id, pm.mesa_de_trabajo.id)
+    pid = params[:participante_mesa][:participante_id]
+    mid = params[:participante_mesa][:mesa_de_trabajo_id]
+    existe = ParticipanteMesa.find_by_participante_id_and_mesa_de_trabajo_id(pid, mid)
+    if existe
+      flash[:notice] = 'El participante ya se encuentra registrado para esta mesa'
+      redirect_to existe
+    else
+      @participante_mesa = ParticipanteMesa.new(params[:participante_mesa])
+      p = Participante.find(pid)
+      m = MesaDeTrabajo.find(mid)
+      @participante_mesa.participante = p
+      @participante_mesa.mesa_de_trabajo = m
+
+      respond_to do |format|
+        if @participante_mesa.save
+          flash[:notice] = 'Participante registrado con éxito.'
+          format.html { redirect_to @participante_mesa }
+          format.json { render json => @participante_mesa, status => :created, location => @participante_mesa }
+        else
+          format.html { render 'new.html.erb' }
+          format.json { render json => @participante_mesa.errors, status => :unprocessable_entity }
+        end
       end
     end
-    
-    @participantes_mesas = @participante.participantes_mesas
-    
+  end
+  
+  # GET /participantes_mesas/1
+  # GET /participantes_mesas/1.json
+  def show
+    @participante_mesa = ParticipanteMesa.find(params[:id])
+
     respond_to do |format|
-      format.html { render "index.html.erb" }
+      format.html # show.html.erb
+      format.json { render json => @participante_mesa }
     end
   end
+  
+  # DELETE /participantes_mesas/1
+  # DELETE /participantes_mesas/1.json
+  def destroy
+    @participante_mesa = ParticipanteMesa.find(params[:id])
+    cedula = @participante_mesa.participante.cedula
+    @participante_mesa.destroy
 
+    respond_to do |format|
+      format.html { redirect_to :controller => 'participantes_mesas', :action => 'new', :cedula => cedula }
+      format.json { head :ok }
+    end
+  end
+  
   def mesasDisponibles
-    MesaDeTrabajo.find( :all, :conditions => [:sorteada => false] )
+    MesaDeTrabajo.find(:all, :conditions => {:sorteada => false})
   end
 end

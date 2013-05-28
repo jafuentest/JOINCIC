@@ -5,22 +5,25 @@ class MesasDeTrabajoController < ApplicationController
   # POST /mesas_de_trabajo.json
   def sortear
     @mesa_de_trabajo = MesaDeTrabajo.find(params[:id])
+    inscripciones = @mesa_de_trabajo.participantes_mesas
     
-    participantes = []
-    for i in 1..5
-      inscripciones = ParticipanteMesa.all(:conditions => { :prioridad => i, :mesa_de_trabajo_id => @mesa_de_trabajo.id })
-      temp = []
-      inscripciones.each do |ins|
-        temp << ins if ins.participante.numeroDeMesasGanadas < 1
+    ##
+    # Obtener la maxima cantidad de veces que un participante ha quedado
+    # seleccionado en mesas de trabajo
+    participantes = Participante.all
+    max = 0
+    participantes.each do |p|
+      temp = p.participantes_mesas.count(:conditions => { :seleccionado => true })
+      if temp > max
+        max = temp
       end
-      participantes += temp.shuffle
     end
     
-    for i in 1..5
-      inscripciones = ParticipanteMesa.all(:conditions => { :prioridad => i, :mesa_de_trabajo_id => @mesa_de_trabajo.id })
+    participantes = []
+    for i in 0..max
       temp = []
       inscripciones.each do |ins|
-        temp << ins if ins.participante.numeroDeMesasGanadas == 1
+        temp << ins if ins.participante.numeroDeMesasGanadas == i
       end
       participantes += temp.shuffle
     end
@@ -40,9 +43,9 @@ class MesasDeTrabajoController < ApplicationController
   def reiniciar
     @mesa_de_trabajo = MesaDeTrabajo.find(params[:id])
     
-    inscripciones = ParticipanteMesa.all(:conditions => { :mesa_de_trabajo_id => @mesa_de_trabajo.id })
+    inscripciones = ParticipanteMesa.all(:conditions => { :mesa_de_trabajo_id => params[:id] })
     inscripciones.each do |ins|
-      ins.update_attribute(:puesto, nil)
+      ins.update_attributes(:puesto => nil, :seleccionado => nil)
     end
     
     @mesa_de_trabajo.update_attribute(:sorteada, false)

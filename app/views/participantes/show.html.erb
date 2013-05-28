@@ -87,15 +87,15 @@
         <tr>
           <th colspan="2">Mesas de Trabajo</th>
         </tr>
-        <% @participante.participantes_mesas.sort_by{|p| p.prioridad}.each do |mesa| %>
+        <% @participante.participantes_mesas.each do |mesa| %>
         <tr>
           <td><%= mesa.mesa_de_trabajo.titulo %></td>
           <td>
             <% if mesa.mesa_de_trabajo.sorteada %>
               <% if mesa.seleccionado %>
-                <%= image_tag("/check.png", :alt => "Entregado") %>
+                <%= image_tag("/check.png", :alt => "Seleccionado") %>
               <% else %>
-                <%= image_tag("/cross.png", :alt => "Por Entregar") %>
+                <%= image_tag("/cross.png", :alt => "No Seleccionado") %>
               <% end %>
             <% else %>
               <%= image_tag("/clock.png", :alt => "Por Sortear") %>
