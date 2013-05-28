@@ -10,8 +10,8 @@
   <%= @ponente.apellidos %>
 </p>
 <p>
-  <b>Telefonos:</b>
-  <%= @ponente.telefono %>, <%= @ponente.telefono2 unless @ponente.telefono2.nil? %>
+  <b>Telefono:</b>
+  <%= @ponente.telefono %>
 </p>
 <p>
   <b>Correo:</b>
@@ -22,5 +22,5 @@
   <%= @ponente.institucion %>
 </p>
 
-<%= link_to "Modificar", edit_ponente_path(@ponente) %> |
-<%= link_to "Volver a la lista", ponentes_path %>
+<%= link_to 'Modificar', edit_ponente_path(@ponente) %> |
+<%= link_to 'Volver a la lista', ponentes_path %>
