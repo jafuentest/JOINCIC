@@ -43,22 +43,22 @@
         <tr>
           <th>Cédula</th>
           <th>Nombre</th>
-          <th>Prioridad</th>
           <th>Puesto</th>
-          <th>Asistencia</th>
+          <th>Seleccionado</th>
         </tr>
         
         <% @participantes.each do |p| %>
         <tr>
           <td><%= p.participante.cedula %></td>
           <td><%= p.participante.nombreCompleto %></td>
-          <td><%= p.prioridad %></td>
           <td><%= p.puesto %></td>
           <td>
-            <% if p.seleccionado %>
-              <%= image_tag("/check.png", :alt => "SI") %>
+            <% if p.seleccionado.nil? %>
+              <%= image_tag('/clock.png', :alt => 'NA') %>
+            <% elsif p.seleccionado %>
+              <%= image_tag('/check.png', :alt => 'SI') %>
             <% else %>
-              <%= image_tag("/cross.png", :alt => "NO") %>
+              <%= image_tag('/cross.png', :alt => 'NO') %>
             <% end %>
           </td>
         </tr>

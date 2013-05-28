@@ -3,14 +3,12 @@
 <table class="listaS">
   <tr>
     <th>Mesa de Trabajo</th>
-    <th>Prioridad</th>
     <th>Seleccionado</th>
   </tr>
 
   <% @participantes_mesas.each do |pm| %>
   <tr>
     <td><%= pm.mesa_de_trabajo.titulo %></td>
-    <td><%= pm.prioridad %></td>
     <td>
       <% if pm.seleccionado %>
         <%= image_tag("/check.png", :alt => "SI") %>

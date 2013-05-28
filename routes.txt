@@ -1,0 +1,175 @@
+                            root        /                                               {:action=>"inicio", :controller=>"home"}
+                          ologin        /ologin(.:format)                               {:action=>"new", :controller=>"sessions"}
+                         ologout        /ologout(.:format)                              {:action=>"destroy", :controller=>"sessions"}
+                          glogin        /glogin(.:format)                               {:action=>"new", :controller=>"group_sessions"}
+                         glogout        /glogout(.:format)                              {:action=>"destroy", :controller=>"group_sessions"}
+                          perfil        /perfil(.:format)                               {:action=>"perfil", :controller=>"grupos"}
+                         maraton        /maraton(.:format)                              {:action=>"perfil", :controller=>"grupos"}
+                        reportes        /reportes(.:format)                             {:action=>"reportes", :controller=>"home"}
+                       academico        /academico(.:format)                            {:action=>"academico", :controller=>"home"}
+                      patrocinio        /patrocinio(.:format)                           {:action=>"patrocinio", :controller=>"home"}
+                    sessions_new GET    /sessions/new(.:format)                         {:action=>"new", :controller=>"sessions"}
+                     home_inicio GET    /home/inicio(.:format)                          {:action=>"inicio", :controller=>"home"}
+                  home_academico GET    /home/academico(.:format)                       {:action=>"academico", :controller=>"home"}
+                 home_patrocinio GET    /home/patrocinio(.:format)                      {:action=>"patrocinio", :controller=>"home"}
+                   home_reportes GET    /home/reportes(.:format)                        {:action=>"reportes", :controller=>"home"}
+                       preguntar        /preguntar(.:format)                            {:action=>"new", :controller=>"preguntas"}
+                  enviarPregunta        /enviarPregunta(.:format)                       {:action=>"new", :controller=>"preguntas"}
+                  enviarpregunta        /enviarpregunta(.:format)                       {:action=>"new", :controller=>"preguntas"}
+              preguntarAlPonente        /preguntarAlPonente(.:format)                   {:action=>"new", :controller=>"preguntas"}
+              preguntaralponente        /preguntaralponente(.:format)                   {:action=>"new", :controller=>"preguntas"}
+                    ver_pregunta        /preguntas/ver/:id(.:format)                    {:action=>"show", :controller=>"preguntas"}
+                                        /preguntas/ponencia/:ponencia_id(.:format)      {:action=>"index", :controller=>"preguntas"}
+                 panel_preguntas        /panel-preguntas(/:ponencia_id)(.:format)       {:action=>"panel", :controller=>"preguntas"}
+               xml_participantes GET    /participantes/xml(.:format)                    {:action=>"xml", :controller=>"participantes"}
+             excel_participantes GET    /participantes/excel(.:format)                  {:action=>"excel", :controller=>"participantes"}
+excelPatrocinantes_participantes GET    /participantes/excelPatrocinantes(.:format)     {:action=>"excelPatrocinantes", :controller=>"participantes"}
+   controlDeVentas_participantes GET    /participantes/controlDeVentas(.:format)        {:action=>"controlDeVentas", :controller=>"participantes"}
+            buscar_participantes GET    /participantes/buscar(.:format)                 {:action=>"buscar", :controller=>"participantes"}
+     universidades_participantes GET    /participantes/universidades(.:format)          {:action=>"universidades", :controller=>"participantes"}
+  reiniciarComidas_participantes GET    /participantes/reiniciarComidas(.:format)       {:action=>"reiniciarComidas", :controller=>"participantes"}
+       infoComidas_participantes GET    /participantes/infoComidas(.:format)            {:action=>"infoComidas", :controller=>"participantes"}
+enviarCorreoATodos_participantes GET    /participantes/enviarCorreoATodos(.:format)     {:action=>"enviarCorreoATodos", :controller=>"participantes"}
+    entregarComida_participantes GET    /participantes/entregarComida(.:format)         {:action=>"entregarComida", :controller=>"participantes"}
+                                 POST   /participantes/entregarComida(.:format)         {:action=>"entregarComida", :controller=>"participantes"}
+      enviarCorreo_participantes GET    /participantes/enviarCorreo(.:format)           {:action=>"enviarCorreo", :controller=>"participantes"}
+                   participantes GET    /participantes(.:format)                        {:action=>"index", :controller=>"participantes"}
+                                 POST   /participantes(.:format)                        {:action=>"create", :controller=>"participantes"}
+                new_participante GET    /participantes/new(.:format)                    {:action=>"new", :controller=>"participantes"}
+               edit_participante GET    /participantes/:id/edit(.:format)               {:action=>"edit", :controller=>"participantes"}
+                    participante GET    /participantes/:id(.:format)                    {:action=>"show", :controller=>"participantes"}
+                                 PUT    /participantes/:id(.:format)                    {:action=>"update", :controller=>"participantes"}
+                                 DELETE /participantes/:id(.:format)                    {:action=>"destroy", :controller=>"participantes"}
+                aprobar_pregunta GET    /preguntas/:id/aprobar(.:format)                {:action=>"aprobar", :controller=>"preguntas"}
+        dame_preguntas_preguntas GET    /preguntas/dame_preguntas(.:format)             {:action=>"dame_preguntas", :controller=>"preguntas"}
+                       preguntas GET    /preguntas(.:format)                            {:action=>"index", :controller=>"preguntas"}
+                                 POST   /preguntas(.:format)                            {:action=>"create", :controller=>"preguntas"}
+                    new_pregunta GET    /preguntas/new(.:format)                        {:action=>"new", :controller=>"preguntas"}
+                        pregunta GET    /preguntas/:id(.:format)                        {:action=>"show", :controller=>"preguntas"}
+                                 DELETE /preguntas/:id(.:format)                        {:action=>"destroy", :controller=>"preguntas"}
+         sortear_mesa_de_trabajo POST   /mesas_de_trabajo/:id/sortear(.:format)         {:action=>"sortear", :controller=>"mesas_de_trabajo"}
+       reiniciar_mesa_de_trabajo POST   /mesas_de_trabajo/:id/reiniciar(.:format)       {:action=>"reiniciar", :controller=>"mesas_de_trabajo"}
+           excel_mesa_de_trabajo POST   /mesas_de_trabajo/:id/excel(.:format)           {:action=>"excel", :controller=>"mesas_de_trabajo"}
+                mesas_de_trabajo GET    /mesas_de_trabajo(.:format)                     {:action=>"index", :controller=>"mesas_de_trabajo"}
+                                 POST   /mesas_de_trabajo(.:format)                     {:action=>"create", :controller=>"mesas_de_trabajo"}
+             new_mesa_de_trabajo GET    /mesas_de_trabajo/new(.:format)                 {:action=>"new", :controller=>"mesas_de_trabajo"}
+            edit_mesa_de_trabajo GET    /mesas_de_trabajo/:id/edit(.:format)            {:action=>"edit", :controller=>"mesas_de_trabajo"}
+                 mesa_de_trabajo GET    /mesas_de_trabajo/:id(.:format)                 {:action=>"show", :controller=>"mesas_de_trabajo"}
+                                 PUT    /mesas_de_trabajo/:id(.:format)                 {:action=>"update", :controller=>"mesas_de_trabajo"}
+                                 DELETE /mesas_de_trabajo/:id(.:format)                 {:action=>"destroy", :controller=>"mesas_de_trabajo"}
+      buscar_participantes_mates GET    /participantes_mates/buscar(.:format)           {:action=>"buscar", :controller=>"participantes_mates"}
+    entregar_participantes_mates POST   /participantes_mates/entregar(.:format)         {:action=>"entregar", :controller=>"participantes_mates"}
+             participantes_mates POST   /participantes_mates(.:format)                  {:action=>"create", :controller=>"participantes_mates"}
+           new_participante_mate GET    /participantes_mates/new(.:format)              {:action=>"new", :controller=>"participantes_mates"}
+      buscar_participantes_mesas GET    /participantes_mesas/buscar(.:format)           {:action=>"buscar", :controller=>"participantes_mesas"}
+             participantes_mesas POST   /participantes_mesas(.:format)                  {:action=>"create", :controller=>"participantes_mesas"}
+           new_participante_mesa GET    /participantes_mesas/new(.:format)              {:action=>"new", :controller=>"participantes_mesas"}
+               participante_mesa GET    /participantes_mesas/:id(.:format)              {:action=>"show", :controller=>"participantes_mesas"}
+                                 DELETE /participantes_mesas/:id(.:format)              {:action=>"destroy", :controller=>"participantes_mesas"}
+                     rifar_rifas GET    /rifas/rifar(.:format)                          {:action=>"rifar", :controller=>"rifas"}
+          getParticipantes_rifas GET    /rifas/getParticipantes(.:format)               {:action=>"getParticipantes", :controller=>"rifas"}
+                                 POST   /rifas/getParticipantes(.:format)               {:action=>"getParticipantes", :controller=>"rifas"}
+                 setWinner_rifas POST   /rifas/setWinner(.:format)                      {:action=>"setWinner", :controller=>"rifas"}
+                           rifas GET    /rifas(.:format)                                {:action=>"index", :controller=>"rifas"}
+                                 POST   /rifas(.:format)                                {:action=>"create", :controller=>"rifas"}
+                        new_rifa GET    /rifas/new(.:format)                            {:action=>"new", :controller=>"rifas"}
+                       edit_rifa GET    /rifas/:id/edit(.:format)                       {:action=>"edit", :controller=>"rifas"}
+                            rifa GET    /rifas/:id(.:format)                            {:action=>"show", :controller=>"rifas"}
+                                 PUT    /rifas/:id(.:format)                            {:action=>"update", :controller=>"rifas"}
+                                 DELETE /rifas/:id(.:format)                            {:action=>"destroy", :controller=>"rifas"}
+                   perfil_grupos GET    /grupos/perfil(.:format)                        {:action=>"perfil", :controller=>"grupos"}
+            reiniciarClave_grupo GET    /grupos/:id/reiniciarClave(.:format)            {:action=>"reiniciarClave", :controller=>"grupos"}
+            serve_grupo_programa GET    /grupos/:grupo_id/programas/:id/serve(.:format) {:action=>"serve", :controller=>"programas"}
+                 grupo_programas GET    /grupos/:grupo_id/programas(.:format)           {:action=>"index", :controller=>"programas"}
+                                 POST   /grupos/:grupo_id/programas(.:format)           {:action=>"create", :controller=>"programas"}
+              new_grupo_programa GET    /grupos/:grupo_id/programas/new(.:format)       {:action=>"new", :controller=>"programas"}
+                  grupo_programa GET    /grupos/:grupo_id/programas/:id(.:format)       {:action=>"show", :controller=>"programas"}
+                                 DELETE /grupos/:grupo_id/programas/:id(.:format)       {:action=>"destroy", :controller=>"programas"}
+                          grupos GET    /grupos(.:format)                               {:action=>"index", :controller=>"grupos"}
+                                 POST   /grupos(.:format)                               {:action=>"create", :controller=>"grupos"}
+                       new_grupo GET    /grupos/new(.:format)                           {:action=>"new", :controller=>"grupos"}
+                           grupo GET    /grupos/:id(.:format)                           {:action=>"show", :controller=>"grupos"}
+                                 DELETE /grupos/:id(.:format)                           {:action=>"destroy", :controller=>"grupos"}
+       descargarEntrada_problema GET    /problemas/:id/descargarEntrada(.:format)       {:action=>"descargarEntrada", :controller=>"problemas"}
+        descargarSalida_problema GET    /problemas/:id/descargarSalida(.:format)        {:action=>"descargarSalida", :controller=>"problemas"}
+                       problemas GET    /problemas(.:format)                            {:action=>"index", :controller=>"problemas"}
+                                 POST   /problemas(.:format)                            {:action=>"create", :controller=>"problemas"}
+                    new_problema GET    /problemas/new(.:format)                        {:action=>"new", :controller=>"problemas"}
+                   edit_problema GET    /problemas/:id/edit(.:format)                   {:action=>"edit", :controller=>"problemas"}
+                        problema GET    /problemas/:id(.:format)                        {:action=>"show", :controller=>"problemas"}
+                                 PUT    /problemas/:id(.:format)                        {:action=>"update", :controller=>"problemas"}
+                                 DELETE /problemas/:id(.:format)                        {:action=>"destroy", :controller=>"problemas"}
+                  serve_programa GET    /programas/:id/serve(.:format)                  {:action=>"serve", :controller=>"programas"}
+                       programas GET    /programas(.:format)                            {:action=>"index", :controller=>"programas"}
+                                 POST   /programas(.:format)                            {:action=>"create", :controller=>"programas"}
+                    new_programa GET    /programas/new(.:format)                        {:action=>"new", :controller=>"programas"}
+                        programa GET    /programas/:id(.:format)                        {:action=>"show", :controller=>"programas"}
+                                 DELETE /programas/:id(.:format)                        {:action=>"destroy", :controller=>"programas"}
+                        sessions POST   /sessions(.:format)                             {:action=>"create", :controller=>"sessions"}
+                     new_session GET    /sessions/new(.:format)                         {:action=>"new", :controller=>"sessions"}
+                         session DELETE /sessions/:id(.:format)                         {:action=>"destroy", :controller=>"sessions"}
+                  group_sessions POST   /group_sessions(.:format)                       {:action=>"create", :controller=>"group_sessions"}
+               new_group_session GET    /group_sessions/new(.:format)                   {:action=>"new", :controller=>"group_sessions"}
+                   group_session DELETE /group_sessions/:id(.:format)                   {:action=>"destroy", :controller=>"group_sessions"}
+                     sugerencias GET    /sugerencias(.:format)                          {:action=>"index", :controller=>"sugerencias"}
+                                 POST   /sugerencias(.:format)                          {:action=>"create", :controller=>"sugerencias"}
+                  new_sugerencia GET    /sugerencias/new(.:format)                      {:action=>"new", :controller=>"sugerencias"}
+                      sugerencia GET    /sugerencias/:id(.:format)                      {:action=>"show", :controller=>"sugerencias"}
+                                 DELETE /sugerencias/:id(.:format)                      {:action=>"destroy", :controller=>"sugerencias"}
+                  materiales_pop GET    /materiales_pop(.:format)                       {:action=>"index", :controller=>"materiales_pop"}
+                                 POST   /materiales_pop(.:format)                       {:action=>"create", :controller=>"materiales_pop"}
+                new_material_pop GET    /materiales_pop/new(.:format)                   {:action=>"new", :controller=>"materiales_pop"}
+               edit_material_pop GET    /materiales_pop/:id/edit(.:format)              {:action=>"edit", :controller=>"materiales_pop"}
+                    material_pop GET    /materiales_pop/:id(.:format)                   {:action=>"show", :controller=>"materiales_pop"}
+                                 PUT    /materiales_pop/:id(.:format)                   {:action=>"update", :controller=>"materiales_pop"}
+                                 DELETE /materiales_pop/:id(.:format)                   {:action=>"destroy", :controller=>"materiales_pop"}
+                   organizadores GET    /organizadores(.:format)                        {:action=>"index", :controller=>"organizadores"}
+                                 POST   /organizadores(.:format)                        {:action=>"create", :controller=>"organizadores"}
+                 new_organizador GET    /organizadores/new(.:format)                    {:action=>"new", :controller=>"organizadores"}
+                edit_organizador GET    /organizadores/:id/edit(.:format)               {:action=>"edit", :controller=>"organizadores"}
+                     organizador GET    /organizadores/:id(.:format)                    {:action=>"show", :controller=>"organizadores"}
+                                 PUT    /organizadores/:id(.:format)                    {:action=>"update", :controller=>"organizadores"}
+                                 DELETE /organizadores/:id(.:format)                    {:action=>"destroy", :controller=>"organizadores"}
+                   patrocinantes GET    /patrocinantes(.:format)                        {:action=>"index", :controller=>"patrocinantes"}
+                                 POST   /patrocinantes(.:format)                        {:action=>"create", :controller=>"patrocinantes"}
+                new_patrocinante GET    /patrocinantes/new(.:format)                    {:action=>"new", :controller=>"patrocinantes"}
+               edit_patrocinante GET    /patrocinantes/:id/edit(.:format)               {:action=>"edit", :controller=>"patrocinantes"}
+                    patrocinante GET    /patrocinantes/:id(.:format)                    {:action=>"show", :controller=>"patrocinantes"}
+                                 PUT    /patrocinantes/:id(.:format)                    {:action=>"update", :controller=>"patrocinantes"}
+                                 DELETE /patrocinantes/:id(.:format)                    {:action=>"destroy", :controller=>"patrocinantes"}
+                          planes GET    /planes(.:format)                               {:action=>"index", :controller=>"planes"}
+                                 POST   /planes(.:format)                               {:action=>"create", :controller=>"planes"}
+                        new_plan GET    /planes/new(.:format)                           {:action=>"new", :controller=>"planes"}
+                       edit_plan GET    /planes/:id/edit(.:format)                      {:action=>"edit", :controller=>"planes"}
+                            plan GET    /planes/:id(.:format)                           {:action=>"show", :controller=>"planes"}
+                                 PUT    /planes/:id(.:format)                           {:action=>"update", :controller=>"planes"}
+                                 DELETE /planes/:id(.:format)                           {:action=>"destroy", :controller=>"planes"}
+                       ponencias GET    /ponencias(.:format)                            {:action=>"index", :controller=>"ponencias"}
+                                 POST   /ponencias(.:format)                            {:action=>"create", :controller=>"ponencias"}
+                    new_ponencia GET    /ponencias/new(.:format)                        {:action=>"new", :controller=>"ponencias"}
+                   edit_ponencia GET    /ponencias/:id/edit(.:format)                   {:action=>"edit", :controller=>"ponencias"}
+                        ponencia GET    /ponencias/:id(.:format)                        {:action=>"show", :controller=>"ponencias"}
+                                 PUT    /ponencias/:id(.:format)                        {:action=>"update", :controller=>"ponencias"}
+                                 DELETE /ponencias/:id(.:format)                        {:action=>"destroy", :controller=>"ponencias"}
+                        ponentes GET    /ponentes(.:format)                             {:action=>"index", :controller=>"ponentes"}
+                                 POST   /ponentes(.:format)                             {:action=>"create", :controller=>"ponentes"}
+                     new_ponente GET    /ponentes/new(.:format)                         {:action=>"new", :controller=>"ponentes"}
+                    edit_ponente GET    /ponentes/:id/edit(.:format)                    {:action=>"edit", :controller=>"ponentes"}
+                         ponente GET    /ponentes/:id(.:format)                         {:action=>"show", :controller=>"ponentes"}
+                                 PUT    /ponentes/:id(.:format)                         {:action=>"update", :controller=>"ponentes"}
+                                 DELETE /ponentes/:id(.:format)                         {:action=>"destroy", :controller=>"ponentes"}
+                         premios GET    /premios(.:format)                              {:action=>"index", :controller=>"premios"}
+                                 POST   /premios(.:format)                              {:action=>"create", :controller=>"premios"}
+                      new_premio GET    /premios/new(.:format)                          {:action=>"new", :controller=>"premios"}
+                     edit_premio GET    /premios/:id/edit(.:format)                     {:action=>"edit", :controller=>"premios"}
+                          premio GET    /premios/:id(.:format)                          {:action=>"show", :controller=>"premios"}
+                                 PUT    /premios/:id(.:format)                          {:action=>"update", :controller=>"premios"}
+                                 DELETE /premios/:id(.:format)                          {:action=>"destroy", :controller=>"premios"}
+                           zonas GET    /zonas(.:format)                                {:action=>"index", :controller=>"zonas"}
+                                 POST   /zonas(.:format)                                {:action=>"create", :controller=>"zonas"}
+                        new_zona GET    /zonas/new(.:format)                            {:action=>"new", :controller=>"zonas"}
+                       edit_zona GET    /zonas/:id/edit(.:format)                       {:action=>"edit", :controller=>"zonas"}
+                            zona GET    /zonas/:id(.:format)                            {:action=>"show", :controller=>"zonas"}
+                                 PUT    /zonas/:id(.:format)                            {:action=>"update", :controller=>"zonas"}
+                                 DELETE /zonas/:id(.:format)                            {:action=>"destroy", :controller=>"zonas"}
+                                        /*a(.:format)                                   {:a=>/.+?/, :action=>"routing", :controller=>"errors"}

@@ -1,5 +1,5 @@
-﻿<h1><%= @participante_mesa.participante.nombreCompleto %> - <%= @participante_mesa.mesa_de_trabajo.titulo %></h1>
-<p id="notice"><%= notice %></p>
+﻿<h1>Inscripción en Mesa de Trabajo</h1>
+<p id='notice'><%= notice %></p>
 
 <p>
   <b>Participante:</b>
@@ -10,13 +10,10 @@
   <%= @participante_mesa.mesa_de_trabajo.titulo %>
 </p>
 <p>
-  <b>Prioridad:</b>
-  <%= @participante_mesa.prioridad %>
-</p>
-<p>
   <b>Seleccionado:</b>
   <%= @participante_mesa.seleccionado %>
 </p>
 
-<%= link_to "Modificar", edit_participante_mesa_path(@participante_mesa) %> |
-<%= link_to "Volver a la lista", participantes_mesas_path %>
+<% confirmacion = '¿Seguro que deseas cancelar la inscripción?' %>
+<%= link_to 'Cancelar Inscripción', @participante_mesa, :confirm => confirmacion, :method => :delete %> |
+<%= link_to 'Continuar Registrando', new_participante_mesa_path %>
