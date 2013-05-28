@@ -71,7 +71,6 @@ Sistema::Application.routes.draw do
     end
   end
   
-  match '*a', :to => 'errors#routing'
   match '/ologin',      :to => 'sessions#new'
   match '/ologout',     :to => 'sessions#destroy'
   match '/glogin',      :to => 'group_sessions#new'
@@ -90,4 +89,5 @@ Sistema::Application.routes.draw do
   match '/preguntas/ver/:id',  :to => 'preguntas#show', :as => :ver_pregunta
   match '/preguntas/ponencia/:ponencia_id(.:format)', :to => 'preguntas#index'
   match '/panel-preguntas(/:ponencia_id)', :to => 'preguntas#panel', :as => :panel_preguntas
+  match '*a', :to => 'errors#routing'
 end
