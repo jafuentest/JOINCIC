@@ -1,6 +1,6 @@
 ﻿<h1>Lista de ponentes</h1>
 
-<table class="lista">
+<table class='lista'>
   <tr>
     <th>Nombre</th>
     <th width=20%>Ponencias</th>
@@ -17,31 +17,34 @@
     <td align=center>
       <% ponente.ponencias.each_with_index do |ponencia, i| %>
         <% if i < ponente.ponencias.size - 1 %>
-          <%= ponencia.titulo + "," %>
+          <%= ponencia.titulo + ',' %>
         <% else %>
-          <%= ponencia.titulo + "." %>
+          <%= ponencia.titulo + '.' %>
         <% end %>
       <% end %>
     </td>
     <td align=center>
       <% ponente.mesas_de_trabajo.each_with_index do |mesa, i| %>
         <% if i < ponente.mesas_de_trabajo.size - 1 %>
-          <%= mesa.titulo + "," %>
+          <%= mesa.titulo + ',' %>
         <% else %>
-          <%= mesa.titulo + "." %>
+          <%= mesa.titulo + '.' %>
         <% end %>
       <% end %>
     </td>
     <td align=center><%= ponente.telefono %></td>
     <td align=center><%= ponente.correo %></td>
     <td align=center><%= ponente.institucion %></td>
-    <td><%= link_to image_tag("/show.png", :alt => "Mostrar"), ponente %></td>
-    <td><%= link_to image_tag("/edit.png", :alt => "Modificar"), edit_ponente_path(ponente) %></td>
-    <td><%= link_to image_tag("/delete.png", :alt => "Eliminar"), ponente, :confirm => "¿Seguro que desea eliminar al ponente " + ponente.nombreCompleto + "?", :method => :delete %></td>
+    <td><%= link_to image_tag('/show.png', :alt => 'Mostrar'), ponente %></td>
+    <td><%= link_to image_tag('/edit.png', :alt => 'Modificar'), edit_ponente_path(ponente) %></td>
+    <td>
+      <% confirmacion = '¿Seguro que desea eliminar al ponente ' + ponente.nombreCompleto + '?' %>
+      <%= link_to image_tag('/delete.png', :alt => 'Eliminar'), ponente, :confirm => confirmacion, :method => :delete %>
+    </td>
   </tr>
   <% end %>
 </table>
 
 <br />
 
-<%= link_to "Agregar Ponente", new_ponente_path %>
+<%= link_to 'Agregar Ponente', new_ponente_path %>
