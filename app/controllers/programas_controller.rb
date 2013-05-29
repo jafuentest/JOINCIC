@@ -72,7 +72,7 @@ class ProgramasController < ApplicationController
       
       data+=[{'id'=>p.id ,'case'=>caseName,'language'=>language, 'filename'=> filename, 'content'=>content}]
     end
-    render :text  =>   ActiveSupport::JSON.encode(data)
+    render :json  =>   data
   end
   def validar
     #confiemos ciegamente xDD :P 
