@@ -2,6 +2,7 @@
 require File.expand_path('../application', __FILE__)
 
 require "will_paginate"
+require 'net/http'
 
 # Variables de entorno #
 # -------------------- #
