@@ -74,6 +74,9 @@ class ProgramasController < ApplicationController
     render :json  =>   data
   end
   def validar
+    if params[:salt]!= SALT
+             raise ActionController::RoutingError.new('Forbidden')
+    end
     #confiemos ciegamente xDD :P 
     @programa = Programa.find(params[:id])
     @programa.estado=params[:estado]    
