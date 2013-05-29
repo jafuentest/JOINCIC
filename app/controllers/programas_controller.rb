@@ -46,6 +46,7 @@ class ProgramasController < ApplicationController
   end
   
   def validar
+    data=[]
   	Programa.find_all_by_estado(:procesando).each  do |p|
   	  caseName=p.problema.titulo 
   	  language=p.mime_type
@@ -69,34 +70,9 @@ class ProgramasController < ApplicationController
   	  content=p.data
 
       
-      @host = params[:host]
-      @port = '7770'
-      
-      @path = "/evaluate"
-      
-      @body = ActiveSupport::JSON.encode({
-          :case => caseName, 
-          :language => language, 
-          :filename => filename,
-          :content => content
-      })
-      
-      request = Net::HTTP::Post.new(@path, initheader = {'Content-Type' =>'application/json'})
-      request.body = @body
-      resp = Net::HTTP.new(@host, @port).start {|http| http.request(request) }
-
-      
-      
-      
-      resp = resp.body.split( /\r?\n/ )
-      if resp[0].include? "SUCCESS"
-        p.estado="correcto"
-      else
-        p.estado="error"
-      end
-      p.save()
+      data+=[{'case'=>caseName,'language'=>language, 'filename'=> filename, 'content'=>content}]
   	end
-  	render :text  => "ok"
+  	render :text  =>   ActiveSupport::JSON.encode(data)
   end
 
   # POST /programas
