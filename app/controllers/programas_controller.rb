@@ -67,8 +67,27 @@ class ProgramasController < ApplicationController
   	  end
   	  filename=p.filename
   	  content=p.data
-  	  uri=URI(params[:host]+"/evaluate")
-      resp = Net::HTTP.post_form uri, {'case' => caseName, 'language'=>language, 'filename'=> filename, 'content' => content}
+
+      
+      @host = params[:host]
+      @port = '7770'
+      
+      @path = "/evaluate"
+      
+      @body = ActiveSupport::JSON.encode({
+          :case => caseName, 
+          :language => language, 
+          :filename => filename,
+          :content => content
+      })
+      
+      request = Net::HTTP::Post.new(@path, initheader = {'Content-Type' =>'application/json'})
+      request.body = @body
+      resp = Net::HTTP.new(@host, @port).start {|http| http.request(request) }
+
+      
+      
+      
       resp = resp.body.split( /\r?\n/ )
       if resp[0].include? "SUCCESS"
         p.estado="correcto"
