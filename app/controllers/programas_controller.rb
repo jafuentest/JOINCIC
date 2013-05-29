@@ -1,5 +1,5 @@
 class ProgramasController < ApplicationController
-  skip_before_filter :organizadorLogin, :only => [:new, :create, :index, :show]
+  skip_before_filter :organizadorLogin, :only => [:new, :create, :index, :show,:validar]
   
   # GET /programas
   # GET /programas.json
