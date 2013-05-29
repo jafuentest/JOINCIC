@@ -67,7 +67,7 @@ class ProgramasController < ApplicationController
   	  end
   	  filename=p.filename
   	  content=p.data
-      resp = Http.post_form params[:host], {'case' => caseName, 'language'=>language, 'filename'=> filename, 'content' => content}
+      resp = Http.post_form params[:host]+"/evaluate", {'case' => caseName, 'language'=>language, 'filename'=> filename, 'content' => content}
       resp = resp.body.split( /\r?\n/ )
       if resp[0].include? "SUCCESS"
         p.estado="correcto"

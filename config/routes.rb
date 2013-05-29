@@ -63,6 +63,7 @@ Sistema::Application.routes.draw do
       get 'descargarEntrada'
       get 'descargarSalida'
     end
+    get 'validar'
   end
   
   resources :programas, :except => [:edit, :update] do
