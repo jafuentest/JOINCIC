@@ -1,5 +1,5 @@
 class ProgramasController < ApplicationController
-  skip_before_filter :organizadorLogin, :only => [:new, :create, :index, :show,:validar,:listar]
+  skip_before_filter :organizadorLogin, :only => [:new, :create, :index, :show,:validar,:listar,:serve_privado]
   
   # GET /programas
   # GET /programas.json
@@ -83,6 +83,10 @@ class ProgramasController < ApplicationController
     render :text  =>   'ok'
   end
 
+  def serve_privado
+    @programa = Programa.find(params[:id])
+    send_data(@programa.data, :type => @programa.mime_type, :filename => "#{@programa.filename}", :disposition => "inline")
+  end
   # POST /programas
   # POST /programas.json
   def create
