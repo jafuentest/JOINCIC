@@ -45,12 +45,12 @@ class ProgramasController < ApplicationController
     end
   end
   
-  def validar
+  def listar
     data=[]
-  	Programa.find_all_by_estado(:procesando).each  do |p|
-  	  caseName=p.problema.titulo 
-  	  language=p.mime_type
-  	  
+    Programa.find_all_by_estado(:procesando).each  do |p|
+      caseName=p.problema.titulo 
+      language=p.mime_type
+      
       if language.include?  "java"
         language="java"
       else 
@@ -65,14 +65,23 @@ class ProgramasController < ApplicationController
              end
           end
         end
-  	  end
-  	  filename=p.filename
-  	  content=p.data
+      end
+      filename=p.filename
+      content=p.data
 
       
-      data+=[{'case'=>caseName,'language'=>language, 'filename'=> filename, 'content'=>content}]
-  	end
-  	render :text  =>   ActiveSupport::JSON.encode(data)
+      data+=[{'id'=>p.id ,'case'=>caseName,'language'=>language, 'filename'=> filename, 'content'=>content}]
+    end
+    render :text  =>   ActiveSupport::JSON.encode(data)
+  end
+  def validar
+    #confiemos ciegamente xDD :P 
+    @programa = Programa.find(params[:id])
+    @programa.estado=params[:estado]    
+    @programa.save()
+    
+    
+    render :text  =>   'ok'
   end
 
   # POST /programas
