@@ -52,22 +52,22 @@ class ProgramasController < ApplicationController
       caseName=p.problema.titulo 
       language=p.mime_type
       
-      if language.include?  "java"
+      filename=p.filename
+      if filename.include?  ".java"
         language="java"
       else 
-        if language.include? "c++"
+        if filename.include? ".cpp"
           language="c++"
         else 
-          if language.include?  "python"
+          if filename.include?  ".py"
           language="python"
           else
-             if language.include?  "c" 
+             if filename.include?  ".c" 
               language="c"
              end
           end
         end
       end
-      filename=p.filename
       
       data+=[{'id'=>p.id ,'case'=>caseName,'language'=>language, 'filename'=> filename }]
     end
