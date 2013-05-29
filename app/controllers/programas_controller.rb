@@ -72,7 +72,7 @@ class ProgramasController < ApplicationController
       
       data+=[{'id'=>p.id ,'case'=>caseName,'language'=>language, 'filename'=> filename, 'content'=>content}]
     end
-    render :json  =>   data
+    render :text  =>   content
   end
   def validar
     #confiemos ciegamente xDD :P 
