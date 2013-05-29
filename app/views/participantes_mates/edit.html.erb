@@ -12,16 +12,16 @@
     <td><%= pm.material_pop.nombre %></td>
     <td>
       <% if pm.entregado %>
-        <%= image_tag("/check.png", :alt => "SI") %>
+        <%= image_tag('/check.png', :alt => 'SI') %>
       <% else %>
-        <%= image_tag("/cross.png", :alt => "NO") %>
+        <%= image_tag('/cross.png', :alt => 'NO') %>
       <% end %>
     </td>
     <td>
       <%= form_tag entregar_participantes_mates_path do %>
         <%= hidden_field_tag :participante_id, @participante.id %>
         <%= hidden_field_tag :material_pop_id, pm.material_pop.id %>
-        <%= submit_tag  "Entregar" unless pm.entregado %>
+        <%= submit_tag  'Entregar' unless pm.entregado %>
       <% end %>
     </td>
   </tr>
@@ -30,4 +30,4 @@
 
 <br />
 
-<%= link_to "Volver", new_participante_mate_path %>
+<%= link_to 'Volver', new_participante_mate_path %>

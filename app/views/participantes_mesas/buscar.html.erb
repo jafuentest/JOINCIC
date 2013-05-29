@@ -2,9 +2,9 @@
 <h2 id="notice" align=center><%= notice %></h2>
 
 <div align=center>
-  <%= form_tag new_participante_mesa_path, :method => "get" do %>
-    <%= text_field_tag :cedula, nil, { :placeholder => "Cédula" } %>
+  <%= form_tag new_participante_mesa_path, :method => 'get' do %>
+    <%= text_field_tag :entrada, nil, { :placeholder => '# de Entrada' } %>
     <br />
-    <%= submit_tag "Buscar"%>
+    <%= submit_tag 'Buscar'%>
   <% end %>
 </div>

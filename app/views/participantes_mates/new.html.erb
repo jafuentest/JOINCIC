@@ -4,7 +4,7 @@
 <div align="center">
   <%= form_tag participantes_mates_path do %>
     <div class="field">
-      <%= hidden_field_tag :cedula, @participante.cedula %>
+      <%= hidden_field_tag :entrada, @participante.entrada %>
     </div>
     
     <div style="width:100px" >    
@@ -22,12 +22,12 @@
     <br />
     
     <div class="actions">
-      <%= submit_tag "Enviar" %>
+      <%= submit_tag 'Enviar' %>
     </div>
     
   <% end %>
   
   <br />
   
-  <%= link_to "Cancelar", new_participante_mate_path %>
+  <%= link_to 'Cancelar', new_participante_mate_path %>
 </div>
