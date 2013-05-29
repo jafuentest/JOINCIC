@@ -1,2 +1,34 @@
 ﻿<h1>Preguntar al ponente</h1>
-<%= render "form" %>
+﻿<%= form_for(@pregunta) do |f| %>
+  <% if @pregunta.errors.any? %>
+    <div id="error_explanation">
+      <h2>Errores en el formulario:</h2>
+      <ul>
+      <% @pregunta.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% elsif notice.present? %>
+    <div id="error_explanation">
+      ﻿<p id="notice"><%= notice %></p>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :participante_cedula, "Número de cédula" %><br />
+    <%= text_field_tag :participante_cedula %>
+    <%= f.hidden_field :participante_id %>
+  </div>
+  <div class="field">
+    <%= f.label :ponencia_id, "Ponencia" %><br />
+    <%= f.select(:ponencia_id, options_from_collection_for_select(@ponencias, :id, :titulo)) %>
+  </div>
+  <div class="field">
+    <%= f.label :mensaje %><br />
+    <%= f.text_field :mensaje %>
+  </div>
+  <div class="actions">
+    <%= f.submit 'Enviar Pregunta' %>
+  </div>
+<% end %>
