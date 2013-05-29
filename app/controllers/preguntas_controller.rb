@@ -79,7 +79,7 @@ class PreguntasController < ApplicationController
 
       respond_to do |format|
         if @pregunta.save
-          format.html { redirect_to @pregunta, notice => 'Pregunta creada satisfactoriamente.' }
+          format.html { redirect_to preguntas_path, notice => 'Pregunta creada satisfactoriamente.' }
           format.json { render :json => @pregunta, status => :created, location => @pregunta }
         else
           format.html { render "new.html.erb" }

@@ -16,17 +16,6 @@
 </p>
 
 <br/>
-<h2>Casos de Prueba</h2>
-<p>
-  <b>Entrada:</b>
-  <br/>
-  <%= text_area_tag 'entrada', @problema.entradas, :size => '15x5', :disabled => true %>
-</p>
-<p>
-  <b>Salida:</b>
-  <br/>
-  <%= text_area_tag 'salida', @problema.entradas, :size => '15x5', :disabled => true %>
-</p>
 
 <% if session[:privilegios] == 'organizador' %>
   <%= link_to 'Modificar', edit_problema_path(@problema) %> |
