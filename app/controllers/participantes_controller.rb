@@ -27,7 +27,7 @@ class ParticipantesController < ApplicationController
   
   # GET /participantes/enviarHashAll
   # GET /participantes/enviarHashAll.json
-  def enviarHashAll
+  def enviarCorreoATodos
     str="<hr/>"
     participantes = getParticipantesFull
     participantes.each do |p|
