@@ -84,6 +84,9 @@ class ProgramasController < ApplicationController
   end
 
   def serve_privado
+    if params[:salt]!= SALT
+             raise ActionController::RoutingError.new('Forbidden')
+    end
     @programa = Programa.find(params[:id])
     send_data(@programa.data, :type => @programa.mime_type, :filename => "#{@programa.filename}", :disposition => "inline")
   end
