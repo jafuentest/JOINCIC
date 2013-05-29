@@ -76,7 +76,7 @@ class ProgramasController < ApplicationController
       end
       p.save()
   	end
-  	  render :text , "ok"
+  	render :text  => "ok"
   end
 
   # POST /programas
