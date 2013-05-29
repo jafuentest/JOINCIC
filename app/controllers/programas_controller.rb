@@ -46,7 +46,37 @@ class ProgramasController < ApplicationController
   end
   
   def validar
-      #Http.post_form "host:7770", {}
+  	Programa.find_all_by_estado(:procesando).each  do |p|
+  	  caseName=p.problema.titulo 
+  	  language=p.mime_type
+  	  
+      if language.include?  "java"
+        language="java"
+      else 
+        if language.include? "c++"
+          language="c++"
+        else 
+          if language.include?  "python"
+          language="python"
+          else
+             if language.include?  "c" 
+              language="c"
+             end
+          end
+        end
+  	  end
+  	  filename=p.filename
+  	  content=p.data
+      resp = Http.post_form params[:host], {'case' => caseName, 'language'=>language, 'filename'=> filename, 'content' => content}
+      resp = resp.body.split( /\r?\n/ )
+      if resp[0].include? "SUCCESS"
+        p.estado="correcto"
+      else
+        p.estado="error"
+      end
+      p.save()
+  	end
+  	  render :text , "ok"
   end
 
   # POST /programas
