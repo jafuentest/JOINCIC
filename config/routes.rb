@@ -67,6 +67,7 @@ Sistema::Application.routes.draw do
   
   resources :programas, :except => [:edit, :update] do
     get 'serve', :on => :member
+    get 'serve_privado', :on => :member
     collection do
       get 'listar'
       get 'validar'
