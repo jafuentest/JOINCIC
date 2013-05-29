@@ -12,17 +12,21 @@
     <% else %>
       <th></th>
     <% end %>
-
   </tr>
-
-<% @problemas.each do |problema| %>
+  <% @problemas.each do |problema| %>
   <tr>
     <td><%= problema.titulo %></td>
     <td><%= problema.enunciado %></td>
     <td><%= link_to image_tag('/download.png', :alt => 'Descargar') +' entrada', descargarEntrada_problema_path(problema) %></td>
     <td><%= link_to image_tag('/download.png', :alt => 'Descargar') +' salida', descargarSalida_problema_path(problema) %></td>
-    <td><%= problema.fin_de_entrega.in_time_zone("Caracas").to_formatted_s(:short) %></td>
-    <td><%= problema.updated_at.in_time_zone("Caracas").to_formatted_s(:short) %></td>
+    <td>
+      <% date = problema.fin_de_entrega.in_time_zone('Caracas') %>
+      <%= I18n.localize(date, :format =>"%A, %d de %B %H:%M:%S") %>
+    </td>
+    <td>
+      <% date = problema.updated_at.in_time_zone("Caracas") %>
+      <%= I18n.localize(date, :format =>"%A, %d de %B %H:%M:%S") %>
+    </td>
     <td><%= link_to image_tag('/show.png', :alt => 'Mostrar'), problema %></td>
     <% if session[:privilegios] == 'organizador' %>
       <td><%= link_to image_tag('/edit.png', :alt => 'Modificar'), edit_problema_path(problema) %></td>
@@ -32,7 +36,7 @@
       </td>
     <% end %>
   </tr>
-<% end %>
+  <% end %>
 </table>
 
 <br />

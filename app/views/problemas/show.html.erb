@@ -1,20 +1,18 @@
+<h1><%= @problema.titulo %></h1>
 <p id="notice"><%= notice %></p>
-
-<p>
-  <b>Título:</b>
-  <%= @problema.titulo %>
-</p>
 <p>
   <b>Enunciado:</b>
   <%= @problema.enunciado %>
 </p>
 <p>
   <b>Fin de Entrega:</b>
-  <%= @problema.fin_de_entrega.in_time_zone("Caracas") %>
+  <% date = @problema.fin_de_entrega.in_time_zone('Caracas') %>
+  <%= I18n.localize(date, :format =>"%A, %d de %B %H:%M:%S") %>
 </p>
 <p>
   <b>Última Actualización:</b>
-  <%= @problema.updated_at.in_time_zone("Caracas") %>
+  <% date = @problema.updated_at.in_time_zone("Caracas") %>
+  <%= I18n.localize(date, :format =>"%A, %d de %B %H:%M:%S") %>
 </p>
 
 <br/>

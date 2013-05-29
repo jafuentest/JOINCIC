@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Problema:</b>
+  <%= link_to @programa.problema.titulo, @programa.problema %>
+</p>
+
+<p>
+  <b>Solución:</b>
+  <%= link_to 'Descargar Código', serve_programa_path(@photo) %>
+</p>
+
+<p>
+  <b>Estado:</b>
+  <%= @programa.estado %>
+</p>
+
+<p>
+  <b>Fecha de Entrega:</b>
+  <% date = @programa.created_at.in_time_zone('Caracas') %>
+  <%= I18n.localize(date, :format =>"%A, %d de %B %H:%M:%S") %>
+</p>
+
+<%= link_to 'Volver a la Lista', programas_path %>
