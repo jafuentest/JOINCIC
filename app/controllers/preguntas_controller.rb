@@ -62,7 +62,8 @@ class PreguntasController < ApplicationController
   # GET /preguntas/new
   # GET /preguntas/new.json
   def new
-    @ponencias = Ponencia.find(:all, :order => :titulo)
+    ahora = Time.now - (60 * 60 * 4.5)
+    @ponencias = Ponencia.find(:all, :order => :titulo, :conditions => ["hora_ini <= ? AND hora_fin >= ?", ahora, ahora])
     @pregunta = Pregunta.new
   end
 
