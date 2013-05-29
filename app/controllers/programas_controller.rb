@@ -68,11 +68,8 @@ class ProgramasController < ApplicationController
         end
       end
       filename=p.filename
-      content=p.data.to_s
-
-      contentData+=content
       
-      data+=[{'id'=>p.id ,'case'=>caseName,'language'=>language, 'filename'=> filename, 'content'=>content}]
+      data+=[{'id'=>p.id ,'case'=>caseName,'language'=>language, 'filename'=> filename }]
     end
     render :text  =>   contentData
   end
