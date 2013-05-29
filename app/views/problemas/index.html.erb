@@ -4,7 +4,6 @@
   <tr>
     <th>Titulo</th>
     <th>Enunciado</th>
-    <th colspan="2">Archivos</th>
     <th>Fin de Entrega</th>
     <th>Última Actualización</th>
     <% if session[:privilegios] == 'organizador' %>
@@ -17,8 +16,6 @@
   <tr>
     <td><%= problema.titulo %></td>
     <td><%= problema.enunciado %></td>
-    <td><%= link_to image_tag('/download.png', :alt => 'Descargar') +' entrada', descargarEntrada_problema_path(problema) %></td>
-    <td><%= link_to image_tag('/download.png', :alt => 'Descargar') +' salida', descargarSalida_problema_path(problema) %></td>
     <td>
       <% date = problema.fin_de_entrega.in_time_zone('Caracas') %>
       <%= I18n.localize(date, :format =>"%A, %d de %B %H:%M:%S") %>
