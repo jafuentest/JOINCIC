@@ -47,6 +47,7 @@ class ProgramasController < ApplicationController
   
   def listar
     data=[]
+    contentData=""
     Programa.find_all_by_estado(:procesando).each  do |p|
       caseName=p.problema.titulo 
       language=p.mime_type
@@ -69,10 +70,11 @@ class ProgramasController < ApplicationController
       filename=p.filename
       content=p.data.to_s
 
+      contentData+=content
       
       data+=[{'id'=>p.id ,'case'=>caseName,'language'=>language, 'filename'=> filename, 'content'=>content}]
     end
-    render :text  =>   data[0]['content']
+    render :text  =>   contentData
   end
   def validar
     #confiemos ciegamente xDD :P 
