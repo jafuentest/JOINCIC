@@ -4,11 +4,11 @@ class ParticipantesMesasController < ApplicationController
   def new
     numero_regex = /^[0-9]+$/
     
-    if params.has_key?(:cedula) && params[:cedula] != ''
-      if params[:cedula] =~ numero_regex
-        @participante = Participante.find_by_cedula(params[:cedula])
+    if params.has_key?(:entrada) && params[:entrada] != ''
+      if params[:entrada] =~ numero_regex
+        @participante = Participante.find_by_entrada(params[:entrada])
         if @participante.nil?
-          flash[:notice] = 'No se encontró ningún participante cuya cédula sea: <br/>'.html_safe + params[:cedula]
+          flash[:notice] = 'No se encontró ningún participante cuya entrada sea: <br/>'.html_safe + params[:entrada]
           redirect_to buscar_participantes_mesas_path
         elsif @participante.eliminado
           flash[:notice] = 'Error: El participante fue eliminado del sistema'
@@ -21,11 +21,11 @@ class ParticipantesMesasController < ApplicationController
           end
         end
       else
-        flash[:notice] = 'Error: Número de cédula inválido'
+        flash[:notice] = 'Error: Número de entrada inválido'
         redirect_to buscar_participantes_mesas_path
       end
     else
-      flash[:notice] = 'Ingresa el número de cédula del participante'
+      flash[:notice] = 'Ingresa el número de entrada del participante'
       redirect_to buscar_participantes_mesas_path
     end
   end
@@ -78,7 +78,7 @@ class ParticipantesMesasController < ApplicationController
     @participante_mesa.destroy
 
     respond_to do |format|
-      format.html { redirect_to :controller => 'participantes_mesas', :action => 'new', :cedula => cedula }
+      format.html { redirect_to :controller => 'participantes_mesas', :action => 'new', :entrada => entrada }
       format.json { head :ok }
     end
   end

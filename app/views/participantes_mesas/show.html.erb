@@ -16,6 +16,6 @@
 
 <% confirmacion = '¿Seguro que deseas cancelar la inscripción?' %>
 <%= link_to 'Cancelar Inscripción', @participante_mesa, :confirm => confirmacion, :method => :delete %> |
-<% cedula = @participante_mesa.participante.cedula %>
-<%= link_to 'Inscribir otra Mesa' => 'participantes_mesas', :action => 'new', :cedula => cedula %> |
+<% entrada = @participante_mesa.participante.cedula %>
+<%= link_to 'Inscribir otra Mesa', :controller => 'participantes_mesas', :action => 'new', :entrada => entrada %> |
 <%= link_to 'Inscribir Próximo Participante', new_participante_mesa_path %>
