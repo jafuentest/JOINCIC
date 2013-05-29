@@ -67,7 +67,7 @@ class ProgramasController < ApplicationController
         end
       end
       filename=p.filename
-      content=p.data
+      content=p.data.to_s
 
       
       data+=[{'id'=>p.id ,'case'=>caseName,'language'=>language, 'filename'=> filename, 'content'=>content}]
