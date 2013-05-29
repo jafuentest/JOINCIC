@@ -58,6 +58,13 @@ Sistema::Application.routes.draw do
     get 'dame_preguntas', :on => :collection
   end
   
+  resources :problemas do
+    member do
+      get 'descargarEntrada'
+      get 'descargarSalida'
+    end
+  end
+  
   resources :programas, :except => [:edit, :update] do
     get 'serve', :on => :member
   end

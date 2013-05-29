@@ -12,4 +12,5 @@
 #
 
 class Problema < ActiveRecord::Base
+  has_many :programas
 end

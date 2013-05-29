@@ -9,7 +9,8 @@
 
 class Grupo < ActiveRecord::Base
   has_many :participantes
-  has_many :programas
+  has_many :problemas
+  has_many :programas, :through => :problemas
   
   validates :clave,              :confirmation => true
   validates :clave_confirmation, :presence => true

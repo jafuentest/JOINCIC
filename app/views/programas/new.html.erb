@@ -1,0 +1,35 @@
+<h1>Subir Programa</h1>
+
+<%= form_for(@programa, :html => {:multipart => true}) do |f| %>
+  <% if @programa.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@programa.errors.count, "error") %> prohibited this programa from being saved:</h2>
+
+      <ul>
+      <% @programa.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label  :problema_id %><br />
+    <%= f.select :problema_id, @problemas.map {|p| [ p.titulo, p.id ] }, :prompt => 'Seleccione un problema' %>
+  </div>
+  <br/>
+  <div class="field">
+    <%= f.label      :data %><br />
+    <%= f.file_field :data %>
+  </div>
+  
+  <br/>
+  
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+<% end %>
+<br/>
+  
+<%= link_to 'Back', programas_path %>
