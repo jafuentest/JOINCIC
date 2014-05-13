@@ -36,7 +36,7 @@ class OrganizadoresController < ApplicationController
   def edit
     @organizador = Organizador.find(params[:id])
     
-    if @organizador.id != session[:id] && session[:id] != 1
+    if @organizador.id != session[:usuario_id] && session[:usuario_id] != 1
       flash[:notice] = "Usted no tiene privilegios para modificar otros usuarios"
       redirect_to @organizador
     end
