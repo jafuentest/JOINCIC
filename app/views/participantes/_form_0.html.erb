@@ -1,4 +1,4 @@
-<% if (!@participante.new_record? || @zonas.size > 0) %>
+<% if !@participante.new_record? || @zonas.size > 0 %>
 <%= form_for(@participante) do |f| %>
   <% if @participante.errors.any? %>
     <div id="error_explanation">
@@ -42,18 +42,20 @@
           <%= f.text_field :direccion, :size => 20, :maxlength => 50 %>
         </div>
         <div class="field">
-          <%= f.label      :telefono %>
-          <%= f.text_field :telefono, :size => 20, :maxlength => 11 %>
-        </div>
-      </td>
-      <td>
-        <div class="field">
           <%= f.label      :correo %>
           <%= f.text_field :correo, :size => 20, :maxlength => 50 %>
         </div>
         <div class="field">
+          <%= f.label      :telefono %>
+          <%= f.text_field :telefono, :size => 20, :maxlength => 11 %>
+        </div>
+        <div class="field">
           <%= f.label      :institucion %>
           <%= f.text_field :institucion, :size => 20, :maxlength => 15 %>
+        </div>
+        <div class="field">
+          <%= f.label      :carrera %>
+          <%= f.text_field :carrera, :size => 30, :maxlength => 35 %>
         </div>
         <div class="field">
           <%= f.label :nivel %>
@@ -82,6 +84,50 @@
           <%= f.text_field :deposito, :size => 20, :maxlength => 25 %>
         </div>
       </td>
+      <td>
+        <div class="field">
+          <%= f.label      :esEstudiante %>
+          <%= f.check_box  :esEstudiante %>
+        </div>
+        <div class="field">
+          <%= f.label      :interesadoPasantia, "Interesado en empleo/pasantías" %>
+          <%= f.check_box  :interesadoPasantia %>
+        </div>            
+        <div class="field">
+          <%= f.label      :periodoPasantia, "Periodo de pasantias" %>
+          <%= f.text_field :periodoPasantia, :size => 30, :maxlength => 35, :placeholder => "Mes año - Mes año" %>
+        </div>
+        <div class="field">
+          <%= f.label      :intereses, "Interesado en" %>
+          <%= f.select(:intereses, [['Desarrollo web', 'Desarrollo web'],
+                                  ['Desarrollo IOS', 'Desarrollo IOS'],
+                                  ['Desarrollo Android', 'Desarrollo Android'],
+                                  ['Pruebas/aseguramiento de la calidad QA', 'Pruebas/aseguramiento de la calidad QA'],
+                                  ['Bases de datos', 'Bases de datos'],
+                                  ['Gestión de proyectos', 'Gestión de proyectos'],
+                                  ['Redes', 'Redes'],
+                                  ['Diseño de interfaces', 'Diseño de interfaces'],
+                                  ['Integración (web services)', 'Integración (web services)']
+                                 ],{ :prompt => "Seleccionar"},
+                                   { :multiple => true}
+                                 ) %>
+        </div>
+        <div class="field">
+          <%= f.label      :experiencia, "Con experiencia en" %>
+          <%= f.select(:experiencia, [['Desarrollo web', 'Desarrollo web'],
+                                  ['Desarrollo IOS', 'Desarrollo IOS'],
+                                  ['Desarrollo Android', 'Desarrollo Android'],
+                                  ['Pruebas/aseguramiento de la calidad QA', 'Pruebas/aseguramiento de la calidad QA'],
+                                  ['Bases de datos', 'Bases de datos'],
+                                  ['Gestión de proyectos', 'Gestión de proyectos'],
+                                  ['Redes', 'Redes'],
+                                  ['Diseño de interfaces', 'Diseño de interfaces'],
+                                  ['Integración (web services)', 'Integración (web services)']
+                                 ],{ :prompt => "Seleccionar"},
+                                   { :multiple => true}
+                                 ) %>
+        </div>
+      </td>
     </tr>
   </table>
   
@@ -93,6 +139,5 @@
   
 <% end %>
 <% else %>
-  
   <h2 id="notice" align="center">Lamentablemente no queda ninguna zona disponible</h2>
 <% end %>

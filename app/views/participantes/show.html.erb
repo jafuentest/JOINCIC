@@ -60,6 +60,30 @@
         <%= @participante.comida %>
       </p>
       <p>
+        <b>Estudiante:</b>
+        <%= @participante.estudiante %>
+      </p>
+      <p>
+        <b>Carrera:</b>
+        <%= @participante.carrera %>
+      </p>
+      <p>
+        <b>Interesado en pasantías:</b>
+        <%= @participante.interesadoPasantia %>
+      </p>
+      <p>
+        <b>Periodo pasantías:</b>
+        <%= @participante.periodoPasantia %>
+      </p> 
+      <p>
+        <b>Intereses:</b>
+        <%= @participante.intereses %>
+      </p>
+      <p>
+        <b>Experiencia:</b>
+        <%= @participante.experiencia %>
+      </p>
+      <p>
         <b>Vendedor:</b>
         <%= @participante.organizador.nombreCompleto %>
       </p>
@@ -87,7 +111,7 @@
         <tr>
           <th colspan="2">Mesas de Trabajo</th>
         </tr>
-        <% @participante.participantes_mesas.each do |mesa| %>
+        <% @participante.participantes_mesas.sort_by{|p| p.prioridad}.each do |mesa| %>
         <tr>
           <td><%= mesa.mesa_de_trabajo.titulo %></td>
           <td>
