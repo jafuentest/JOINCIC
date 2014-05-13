@@ -36,15 +36,15 @@ class Organizador < ActiveRecord::Base
   validates :cedula,        :numericality => true,
                             :uniqueness => true
                             
-  validates :nombre,        :format => { :with => PALABRA_REGEX }
+  validates :nombre,        :format => { :with => TEXTO_REGEX }
                             
   validates :seg_nombre,    :allow_blank => true,
-                            :format => { :with => NOMBRES_REGEX }
+                            :format => { :with => TEXTO_REGEX }
                             
-  validates :apellido,      :format => { :with => PALABRA_REGEX }
+  validates :apellido,      :format => { :with => TEXTO_REGEX }
                             
   validates :seg_apellido,  :allow_blank => true,
-                            :format => { :with => NOMBRES_REGEX }
+                            :format => { :with => TEXTO_REGEX }
                             
   validates :telefono,      :numericality => true,
                             :length => { :is => 11}
