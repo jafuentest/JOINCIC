@@ -65,7 +65,7 @@ class Participante < ActiveRecord::Base
   validates :nivel,         :presence => true
                             
   validates :entrada,       :presence => true,
-                            :uniqueness => true
+                            :uniqueness => { :scope => :zona_id }
                             
   validates :deposito,      :allow_blank => true,
                             :format => { :with => /\A[\d]+\z/i }
