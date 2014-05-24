@@ -77,13 +77,11 @@
       </p> 
       <p>
         <b>Intereses:</b>
-        <!-- Temporal fixed TODO: borrar ese gsub !-->
-        <%= @participante.intereses.gsub("\\xC3\\xB3","ó").gsub("\\xC3\\xB1","ñ") %>
+        <%= @participante.intereses #gsub("\\xC3\\xB3","ó").gsub("\\xC3\\xB1","ñ") %>
       </p>
       <p>
         <b>Experiencia:</b>
-        <!-- Temporal fixed TODO: borrar ese gsub !-->
-        <%= @participante.experiencia.gsub("\\xC3\\xB3","ó").gsub("\\xC3\\xB1","ñ") %>
+        <%= @participante.experiencia #gsub("\\xC3\\xB3","ó").gsub("\\xC3\\xB1","ñ") %>
       </p>
       <p>
         <b>Vendedor:</b>
