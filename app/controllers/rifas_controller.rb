@@ -141,6 +141,14 @@ class RifasController < ApplicationController
       end
     end
     
+    begin
+       cedula = @winner.cedula
+      body = "Usted gano la rifa "+ @raffle.nombre+" comuníquese con algún organizador"
+      result = Net::HTTP.get(URI.parse("messages.joincic.com.ve/byCedulas?no_validate&cedulas[]="+cedula+"&body="+body))
+    rescue
+            logger.warn "Cant Send SMS to "+@winner.cedula
+    end
+   
     respond_to do |format|
       format.json  { render :json => [:winner => @winner, :error => @error, :raffle => @raffle, :raffleDone => @raffleDone] }
     end
