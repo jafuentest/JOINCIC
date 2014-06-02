@@ -7,8 +7,14 @@
     <th>Institución</th>
     <th>Teléfono</th>
     <th>Correo</th>
+    <th>Estudiante</th>
+    <th>Carrera</th>
+    <th>Interesado en pasantías</th>
+    <th>Periodo pasantías</th>
+    <th>Intereses</th>
+    <th>Experiencia</th>
   </tr>
-  
+
   <% @participantes.each do |participante| %>
   <tr>
     <td align=center><%= participante.nombres %></td>
@@ -18,6 +24,13 @@
     <td align=center><%= participante.institucion %></td>
     <td align=center><%= participante.telefono %></td>
     <td align=center><%= participante.correo %></td>
+    <td align=center><%= participante.esEstudiante %></td>
+    <td align=center><%= participante.carrera %></td>
+    <td align=center><%= participante.interesadoPasantia %></td>
+    <td align=center><%= participante.periodoPasantia %></td>
+    <td align=center><%= participante.intereses %></td>
+    <td align=center><%= participante.experiencia %></td>
+
   </tr>
   <% end %>
 </table>
