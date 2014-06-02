@@ -72,6 +72,7 @@ function initRoulette(people){
                 //var casilla_ganadora = Math.floor(Math.random()*people.length);
                 //var ganador          = people[casilla_ganadora];
                 //$("#concursante").text("");
+                index = Math.floor(Math.random()*people.length);
                 winner = people[index];
                 var winnerstr = winner.nombre+' '+winner.apellido+ ' - ' + winner.cedula;
                 $("#winner").val(winnerstr);
@@ -126,9 +127,9 @@ function initRoulette(people){
                 return false;
             }
         }
-        $("#winner").val(people[index].nombre+' '+people[index].apellido+ ' - ' + people[index].cedula);
-        //Elegir un siguiente posible ganador al random 
+        //Elegir un siguiente posible ganador al random
         index = Math.floor(Math.random()*people.length);
+        $("#winner").val(people[index].nombre+' '+people[index].apellido+ ' - ' + people[index].cedula);
         initRoulette(people);
     },
     delay
