@@ -111,7 +111,7 @@
         <tr>
           <th colspan="2">Mesas de Trabajo</th>
         </tr>
-        <% @participante.participantes_mesas.sort_by{|p| p.prioridad}.each do |mesa| %>
+        <% @participante.participantes_mesas.each do |mesa| %>
         <tr>
           <td><%= mesa.mesa_de_trabajo.titulo %></td>
           <td>
