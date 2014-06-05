@@ -14,9 +14,9 @@ input, select { margin:1em; padding:1em; text-align:center; width:75%;}
 dl { border-bottom:thin solid white; margin: 1em auto; width:75%; }
 dl dt { border-bottom:thin solid white; padding-bottom:5px;}
 dl dd { font-style:italic; margin-bottom:0.75em; margin-top:0.75em;}
-table { margin: 1em auto; width:85%; }
+table { margin: 1em auto; width:85%;  color: black; }
 td {
-  border:thin solid white;
+  border:thin solid black;
   padding:0.5em;
   -moz-border-radius: 20px; /* Firefox */
   -webkit-border-radius: 20px; /* Safari and Chrome */
