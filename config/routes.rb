@@ -53,7 +53,6 @@ Sistema::Application.routes.draw do
     get 'buscar', :on => :collection
   end
 
-  resources :preguntar, :path => :new, :as => :preguntas
   resources :preguntas, :except => [:edit, :update] do
     get 'aprobar',        :on => :member
     get 'dame_preguntas', :on => :collection
