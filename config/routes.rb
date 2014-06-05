@@ -56,7 +56,6 @@ Sistema::Application.routes.draw do
   resources :preguntas, :except => [:edit, :update] do
     get 'aprobar',        :on => :member
     get 'dame_preguntas', :on => :collection
-    get 'panel',          :on => :collection
   end
 
   resources :problemas do

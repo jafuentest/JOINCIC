@@ -121,8 +121,6 @@ enviarCorreoATodos_participantes GET    /participantes/enviarCorreoATodos(.:form
                        preguntas GET    /preguntas(.:format)                        {:action=>"index", :controller=>"preguntas"}
                                  POST   /preguntas(.:format)                        {:action=>"create", :controller=>"preguntas"}
                     new_pregunta GET    /preguntas/new(.:format)                    {:action=>"new", :controller=>"preguntas"}
-                aprobar_pregunta GET    /preguntas/aprobar(.:format)                {:action=>"aprobar", :controller=>"preguntas"}
-                  panel_pregunta GET    /preguntas/panel(.:format)                  {:action=>"panel", :controller=>"preguntas"}
                         pregunta GET    /preguntas/:id(.:format)                    {:action=>"show", :controller=>"preguntas"}
                                  DELETE /preguntas/:id(.:format)                    {:action=>"destroy", :controller=>"preguntas"}
        descargarEntrada_problema GET    /problemas/:id/descargarEntrada(.:format)   {:action=>"descargarEntrada", :controller=>"problemas"}
