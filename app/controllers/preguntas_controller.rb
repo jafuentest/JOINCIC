@@ -1,7 +1,7 @@
 class PreguntasController < ApplicationController
   skip_before_filter :organizadorLogin, :only => [:new, :create, :index]
   layout :verificar_layout #Ver al final
-  
+
   # GET /preguntas
   # GET /preguntas.json
   def index
@@ -104,7 +104,7 @@ class PreguntasController < ApplicationController
       format.json { head :ok }
     end
   end
-  
+
   def aprobar
     p = Pregunta.find(params[:id])
     p.aceptada = true
@@ -120,7 +120,7 @@ class PreguntasController < ApplicationController
       end
     end
   end
-  
+
   def dame_preguntas
     ponencia = ""
     ultimoid = " id > 0 "
@@ -146,7 +146,7 @@ class PreguntasController < ApplicationController
   end
 
   private
-  
+
   def verificar_layout
     case action_name
     when "new", "create", "show", "index"

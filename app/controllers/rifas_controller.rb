@@ -1,7 +1,7 @@
 class RifasController < ApplicationController
   skip_before_filter :organizadorLogin, :only => [:getParticipantes, :setWinner]
   layout :verificar_layout, :except => [:getParticipantes] #Ver al final
-  
+
   # GET /rifas
   # GET /rifas.json
   def index
@@ -12,7 +12,7 @@ class RifasController < ApplicationController
       format.json  { render json => @rifas }
     end
   end
-  
+
   # GET /rifas
   # GET /rifas.json
   def rifar
@@ -94,8 +94,8 @@ class RifasController < ApplicationController
       format.json { head :ok }
     end
   end
-  
-  
+
+
   # POST /rifas/getParticipantes
   # POST /rifas/getParticipantes.json
   # POST /rifas/getParticipantes.html
@@ -108,7 +108,7 @@ class RifasController < ApplicationController
       else
         @participantes = Participante.where('id not in (?)',@rifa.participante_ids)
       end
-        
+
     else
       if @rifa.Participantes.empty?
         @participantes = Participante.limit(@rifa.limit)
@@ -116,12 +116,12 @@ class RifasController < ApplicationController
         @participantes = Participante.where('id not in (?)',@rifa.participante_ids).limit(@rifa.limite)
       end
     end
-    
+
     respond_to do |format|
       format.json  { render :json => { :participantes => @participantes.shuffle!, :rifa => @rifa } }
     end
   end
-  
+
   def setWinner
     @winner = Participante.find(params[:winner][:id])
     @raffle = Rifa.find(params[:raffle][:id])
@@ -140,22 +140,22 @@ class RifasController < ApplicationController
         @error = "Todos los sorteos de esta rifa fueron realizados."
       end
     end
-    
+
     begin
       cedula = @winner.cedula.to_s
       body = "Usted gano la rifa "+ @raffle.nombre.to_s+" comuníquese con algún organizador"
-      result = Net::HTTP.get(URI.parse("messages.joincic.com.ve/byCedulas?no_validate&cedulas[]="+cedula+"&body="+body))
+      result = Net::HTTP.get(URI.parse("http://messages.joincic.com.ve/byCedulas?no_validate&cedulas[]="+cedula+"&body="+body))
     rescue => ex
             logger.warn " Cant Send SMS to " + @winner.cedula.to_s + " message: #{ex.backtrace}: #{ex.message} (#{ex.class})"
     end
-   
+
     respond_to do |format|
       format.json  { render :json => [:winner => @winner, :error => @error, :raffle => @raffle, :raffleDone => @raffleDone] }
     end
   end
-  
+
   private
-  
+
   def verificar_layout
     case action_name
     when "rifar"
