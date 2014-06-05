@@ -6,7 +6,7 @@ body {
   margin:0px;
   padding:0px;
 }
-div.contenido{
+div#contenido{
   color: black;
 
 }
@@ -34,8 +34,6 @@ header {
     padding-top: 10px;
     position: relative;
     text-align:center;
-}
-div#contenido {
 }
 footer {
     background: #333;
