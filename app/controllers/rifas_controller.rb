@@ -142,11 +142,11 @@ class RifasController < ApplicationController
     end
     
     begin
-       cedula = @winner.cedula
-      body = "Usted gano la rifa "+ @raffle.nombre+" comuníquese con algún organizador"
+      cedula = @winner.cedula.to_s
+      body = "Usted gano la rifa "+ @raffle.nombre.to_s+" comuníquese con algún organizador"
       result = Net::HTTP.get(URI.parse("messages.joincic.com.ve/byCedulas?no_validate&cedulas[]="+cedula+"&body="+body))
-    rescue
-            logger.warn "Cant Send SMS to "+@winner.cedula
+    rescue => ex
+            logger.warn " Cant Send SMS to " + @winner.cedula.to_s + " message: #{ex.backtrace}: #{ex.message} (#{ex.class})"
     end
    
     respond_to do |format|
