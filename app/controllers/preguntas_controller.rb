@@ -100,7 +100,7 @@ class PreguntasController < ApplicationController
     @pregunta.destroy
 
     respond_to do |format|
-      format.html { redirect_to preguntas_url }
+      format.html { redirect_to panel_preguntas_url }
       format.json { head :ok }
     end
   end
