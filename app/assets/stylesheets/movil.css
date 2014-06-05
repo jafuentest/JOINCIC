@@ -10,7 +10,7 @@ p { font-size:16px }
 a { color:white; }
 h1, h2, h3 { font-family:Arial; text-align:center;}
 form { text-align:center; }
-input, select { margin:1em; padding:1em; text-align:center; width:75%;}
+input, select, textarea { margin:1em; padding:1em; text-align:center; width:75%;}
 dl { border-bottom:thin solid white; margin: 1em auto; width:75%; }
 dl dt { border-bottom:thin solid white; padding-bottom:5px;}
 dl dd { font-style:italic; margin-bottom:0.75em; margin-top:0.75em;}
