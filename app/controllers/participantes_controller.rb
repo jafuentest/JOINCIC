@@ -87,10 +87,10 @@ class ParticipantesController < ApplicationController
       fecha = d.created_at.to_date
       dia = { :fecha => fecha.strftime("%b - %d") }
       ventasDelDia = Participante.find(:all, :conditions => ["date(convert_tz(created_at,'+0:00','-4:30')) >= ? AND date(convert_tz(created_at,'+0:00','-4:30')) <= ?", fecha, fecha])
-        dia[:UCAB]   = ventasDelDia.count{ |p| p.organizador.institucion == "UCAB"  unless p.organizador.nil? else false}
-        dia[:UCV]    = ventasDelDia.count{ |p| p.organizador.institucion == "UCV"   unless p.organizador.nil? else false}
-        dia[:UNEFA]  = ventasDelDia.count{ |p| p.organizador.institucion == "UNEFA" unless p.organizador.nil? else false}
-        dia[:USB]    = ventasDelDia.count{ |p| p.organizador.institucion == "USB"   unless p.organizador.nil? else false}
+        dia[:UCAB]   = ventasDelDia.count{ |p| p.organizador.institucion == "UCAB"  unless p.organizador.nil?}
+        dia[:UCV]    = ventasDelDia.count{ |p| p.organizador.institucion == "UCV"   unless p.organizador.nil?}
+        dia[:UNEFA]  = ventasDelDia.count{ |p| p.organizador.institucion == "UNEFA" unless p.organizador.nil?}
+        dia[:USB]    = ventasDelDia.count{ |p| p.organizador.institucion == "USB"   unless p.organizador.nil?}
       @fechas << dia
     end
     entradasVendidas  = Participante.find(:all, :conditions => ["date(convert_tz(created_at,'+0:00','-4:30')) <= ?", "2013-05-17"])
