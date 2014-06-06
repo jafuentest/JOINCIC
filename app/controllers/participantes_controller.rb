@@ -87,26 +87,10 @@ class ParticipantesController < ApplicationController
       fecha = d.created_at.to_date
       dia = { :fecha => fecha.strftime("%b - %d") }
       ventasDelDia = Participante.find(:all, :conditions => ["date(convert_tz(created_at,'+0:00','-4:30')) >= ? AND date(convert_tz(created_at,'+0:00','-4:30')) <= ?", fecha, fecha])
-                dia[:UCAB]   = ventasDelDia.count{ |p| 
-                  unless p.organizador.nil? then
-                       p.organizador.institucion == "UCAB"
-                  end          
-               }
-               dia[:UCV]     = ventasDelDia.count{ |p| 
-                  unless p.organizador.nil? then
-                       p.organizador.institucion == "UCV"
-                  end          
-               }
-              dia[:UNEFA]   = ventasDelDia.count{ |p| 
-                  unless p.organizador.nil? then
-                       p.organizador.institucion == "UNEFA"
-                  end          
-               }
-              dia[:USB]     = ventasDelDia.count{ |p| 
-                  unless p.organizador.nil? then
-                       p.organizador.institucion == "USB"
-                  end          
-               }
+        dia[:UCAB]   = ventasDelDia.count{ |p| p.organizador.institucion == "UCAB" unless p.organizador.nil?}
+        dia[:UCV]    = ventasDelDia.count{ |p| p.organizador.institucion == "UCV" unless p.organizador.nil?}
+        dia[:UNEFA]  = ventasDelDia.count{ |p| p.organizador.institucion == "UNEFA" unless p.organizador.nil?}
+        dia[:USB]    = ventasDelDia.count{ |p| p.organizador.institucion == "USB" unless p.organizador.nil?}
       @fechas << dia
     end
     entradasVendidas  = Participante.find(:all, :conditions => ["date(convert_tz(created_at,'+0:00','-4:30')) <= ?", "2013-05-17"])
@@ -121,7 +105,7 @@ class ParticipantesController < ApplicationController
     entradasVendidas  = Participante.find(:all, :conditions => ["date(convert_tz(created_at,'+0:00','-4:30')) > ?", "2013-05-17"])
     @unisVenta = [ { :nombre => "UCAB" }, { :nombre => "UCV" }, { :nombre => "UNEFA" }, { :nombre => "USB" } ]
     @unisVenta.each do |u|
-      entradasPorUni = entradasVendidas.count{ |p| p.organizador.institucion == u[:nombre] }
+      entradasPorUni = entradasVendidas.count{ |p| p.organizador.institucion == u[:nombre] unless p.organizador.nil?}
       u[:totalEntradas] = entradasPorUni
       u[:totalIngreso]  = entradasPorUni * 300
       @totalVentaReg = u[:totalIngreso]  = entradasPorUni * 300
