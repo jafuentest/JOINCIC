@@ -96,7 +96,7 @@
         </tr>
             <tr>
               <td colspan="2">>                
-                  <%= image_tag("http://messages.joincic.com.ve/carnet/"+@participante.cedula.to_s, :alt => "Carnet") %>
+                  <img width="300px" height="210px" src="http://messages.joincic.com.ve/carnet/<%= @participante.cedula %>" />
                   <a href="http://messages.joincic.com.ve/carnet/<%= @participante.cedula %>?download=1"> </a>
               </td>
             </tr>
