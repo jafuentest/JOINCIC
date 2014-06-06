@@ -92,6 +92,18 @@
     <td>
       <table class="listaS">
         <tr>
+          <th colspan="2">Carnet</th>
+        </tr>
+            <tr>
+              <td><%= mat.material_pop.nombre %></td>
+              <td>                
+                  <%= image_tag("http://messages.joincic.com.ve/carnet/"+@participante.cedula.to_s, :alt => "Carnet") %>
+                  <a href="http://messages.joincic.com.ve/carnet/<%= @participante.cedula %>?download=1"> </a>
+              </td>
+            </tr>
+      </table>
+      <table class="listaS">
+        <tr>
           <th colspan="2">Material POP</th>
         </tr>
         <% @participante.participantes_mates.each do |mat| %>
