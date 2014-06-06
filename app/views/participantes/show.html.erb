@@ -95,16 +95,18 @@
           <th colspan="2">Material POP</th>
         </tr>
         <% @participante.participantes_mates.each do |mat| %>
-        <tr>
-          <td><%= mat.material_pop.nombre %></td>
-          <td>
-            <% if mat.entregado %>
-              <%= image_tag("/check.png", :alt => "Entregado") %>
-            <% else %>
-              <%= image_tag("/cross.png", :alt => "Por Entregar") %>
-            <% end %>
-          </td>
-        </tr>
+          <% unless mesa.mesa_de_trabajo.nil? %>
+            <tr>
+              <td><%= mat.material_pop.nombre %></td>
+              <td>
+                <% if mat.entregado %>
+                  <%= image_tag("/check.png", :alt => "Entregado") %>
+                <% else %>
+                  <%= image_tag("/cross.png", :alt => "Por Entregar") %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
         <% end %>
       </table>
       <table class="listaS">
@@ -112,20 +114,22 @@
           <th colspan="2">Mesas de Trabajo</th>
         </tr>
         <% @participante.participantes_mesas.each do |mesa| %>
-        <tr>
-          <td><%= mesa.mesa_de_trabajo.titulo %></td>
-          <td>
-            <% if mesa.mesa_de_trabajo.sorteada %>
-              <% if mesa.seleccionado %>
-                <%= image_tag("/check.png", :alt => "Seleccionado") %>
-              <% else %>
-                <%= image_tag("/cross.png", :alt => "No Seleccionado") %>
-              <% end %>
-            <% else %>
-              <%= image_tag("/clock.png", :alt => "Por Sortear") %>
-            <% end %>
-          </td>
-        </tr>
+          <% unless mesa.mesa_de_trabajo.nil? %>
+              <tr>
+                <td><%= mesa.mesa_de_trabajo.titulo %></td>
+                <td>
+                  <% if mesa.mesa_de_trabajo.sorteada %>
+                    <% if mesa.seleccionado %>
+                      <%= image_tag("/check.png", :alt => "Seleccionado") %>
+                    <% else %>
+                      <%= image_tag("/cross.png", :alt => "No Seleccionado") %>
+                    <% end %>
+                  <% else %>
+                    <%= image_tag("/clock.png", :alt => "Por Sortear") %>
+                  <% end %>
+                </td>
+              </tr>
+           <% end %>
         <% end %>
       </table>
     </td>
