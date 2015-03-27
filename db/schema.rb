@@ -10,7 +10,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130512090735) do
+ActiveRecord::Schema.define(:version => 20140511052734) do
+
+  create_table "grupos", :force => true do |t|
+    t.string "login", :limit => 20, :null => false
+    t.string "clave", :limit => 20, :null => false
+  end
+
+  create_table "jo_ip", :primary_key => "jo_ip_id", :force => true do |t|
+    t.string "jo_ip_dir", :null => false
+  end
+
+  create_table "jo_other", :primary_key => "jo_other_id", :force => true do |t|
+    t.string "jo_other_topic", :null => false
+  end
+
+  create_table "jo_topic", :primary_key => "jo_topic_id", :force => true do |t|
+    t.integer "jo_topic_value", :null => false
+  end
 
   create_table "materiales_pop", :force => true do |t|
     t.string  "nombre",   :limit => 20, :null => false
@@ -42,36 +59,47 @@ ActiveRecord::Schema.define(:version => 20130512090735) do
     t.string  "telefono",     :limit => 11,                    :null => false
     t.string  "correo",       :limit => 50,                    :null => false
     t.string  "direccion",    :limit => 50,                    :null => false
-    t.string  "institucion",  :limit => 5,                     :null => false
+    t.string  "institucion",  :limit => 7,                     :null => false
     t.integer "nivel",                                         :null => false
     t.string  "tipo_nivel",   :limit => 9,                     :null => false
     t.string  "coordinacion", :limit => 15,                    :null => false
     t.boolean "coordinador",                :default => false, :null => false
     t.string  "seg_nombre",   :limit => 15
     t.string  "seg_apellido", :limit => 15
+    t.boolean "eliminado"
   end
 
   create_table "participantes", :force => true do |t|
-    t.integer  "cedula",                                          :null => false
-    t.string   "nombre",         :limit => 15,                    :null => false
-    t.string   "apellido",       :limit => 15,                    :null => false
-    t.date     "fecha_nac",                                       :null => false
-    t.string   "telefono",       :limit => 11,                    :null => false
-    t.string   "correo",         :limit => 50,                    :null => false
-    t.string   "direccion",      :limit => 50,                    :null => false
-    t.string   "institucion",    :limit => 20,                    :null => false
-    t.integer  "nivel",                                           :null => false
-    t.string   "tipo_nivel",     :limit => 9,                     :null => false
-    t.integer  "zona_id",                                         :null => false
-    t.integer  "entrada",                                         :null => false
-    t.integer  "organizador_id",                                  :null => false
-    t.boolean  "comida",                       :default => false, :null => false
-    t.datetime "created_at",                                      :null => false
-    t.string   "seg_nombre",     :limit => 15
-    t.string   "seg_apellido",   :limit => 15
+    t.integer  "cedula",                                              :null => false
+    t.string   "nombre",             :limit => 15,                    :null => false
+    t.string   "apellido",           :limit => 15,                    :null => false
+    t.date     "fecha_nac",                                           :null => false
+    t.string   "telefono",           :limit => 11,                    :null => false
+    t.string   "correo",             :limit => 50,                    :null => false
+    t.string   "direccion",          :limit => 50,                    :null => false
+    t.string   "institucion",        :limit => 20,                    :null => false
+    t.integer  "nivel",                                               :null => false
+    t.string   "tipo_nivel",         :limit => 9,                     :null => false
+    t.integer  "zona_id",                                             :null => false
+    t.integer  "entrada",                                             :null => false
+    t.integer  "organizador_id",                                      :null => false
+    t.boolean  "comida",                           :default => false, :null => false
+    t.datetime "created_at",                                          :null => false
+    t.string   "seg_nombre",         :limit => 15
+    t.string   "seg_apellido",       :limit => 15
     t.integer  "deposito"
     t.boolean  "eliminado"
+    t.integer  "grupo_id"
+    t.string   "carrera"
+    t.boolean  "esEstudiante"
+    t.boolean  "interesadoPasantia"
+    t.string   "periodoPasantia"
+    t.string   "intereses"
+    t.string   "experiencia"
   end
+
+  add_index "participantes", ["cedula"], :name => "cedula", :unique => true
+  add_index "participantes", ["correo"], :name => "correo", :unique => true
 
   create_table "participantes_mates", :force => true do |t|
     t.integer "participante_id",                    :null => false
@@ -80,12 +108,16 @@ ActiveRecord::Schema.define(:version => 20130512090735) do
   end
 
   create_table "participantes_mesas", :force => true do |t|
-    t.integer  "participante_id",                       :null => false
-    t.integer  "mesa_de_trabajo_id",                    :null => false
-    t.integer  "prioridad",                             :null => false
-    t.boolean  "seleccionado",       :default => false, :null => false
-    t.datetime "created_at",                            :null => false
+    t.integer  "participante_id",    :null => false
+    t.integer  "mesa_de_trabajo_id", :null => false
+    t.boolean  "seleccionado"
+    t.datetime "created_at",         :null => false
     t.integer  "puesto"
+  end
+
+  create_table "participantes_rifas", :id => false, :force => true do |t|
+    t.integer "participante_id", :null => false
+    t.integer "rifa_id",         :null => false
   end
 
   create_table "patrocinantes", :force => true do |t|
@@ -118,12 +150,11 @@ ActiveRecord::Schema.define(:version => 20130512090735) do
   create_table "ponentes", :force => true do |t|
     t.string "nombre",       :limit => 15, :null => false
     t.string "apellido",     :limit => 15, :null => false
-    t.string "telefono",     :limit => 11, :null => false
-    t.string "correo",       :limit => 50, :null => false
+    t.string "telefono",     :limit => 11
+    t.string "correo",       :limit => 50
     t.string "institucion",  :limit => 20, :null => false
     t.string "seg_nombre",   :limit => 15
     t.string "seg_apellido", :limit => 15
-    t.string "telefono2",    :limit => 11
   end
 
   create_table "preguntas", :force => true do |t|
@@ -140,8 +171,36 @@ ActiveRecord::Schema.define(:version => 20130512090735) do
     t.integer "patrocinante_id"
   end
 
+  create_table "problemas", :force => true do |t|
+    t.string   "titulo"
+    t.text     "enunciado"
+    t.text     "entradas"
+    t.text     "salidas"
+    t.datetime "fin_de_entrega"
+    t.datetime "updated_at"
+  end
+
+  create_table "programas", :force => true do |t|
+    t.integer  "problema_id",                           :null => false
+    t.integer  "grupo_id",                              :null => false
+    t.string   "estado",      :default => "procesando"
+    t.binary   "data"
+    t.string   "filename"
+    t.string   "mime_type"
+    t.datetime "created_at"
+  end
+
   create_table "rifas", :force => true do |t|
-    t.string "nombre", :limit => 20, :null => false
+    t.string  "nombre", :limit => 20, :null => false
+    t.integer "amount",               :null => false
+    t.integer "limit"
+  end
+
+  create_table "sugerencias", :force => true do |t|
+    t.string   "texto",                    :null => false
+    t.string   "nombre",     :limit => 30
+    t.string   "correo",     :limit => 25
+    t.datetime "created_at",               :null => false
   end
 
   create_table "zonas", :force => true do |t|
