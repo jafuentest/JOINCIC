@@ -1,4 +1,6 @@
 class PonenciasController < ApplicationController
+  skip_before_filter :organizadorLogin, :only => [:index, :show]
+
   # GET /ponencias
   # GET /ponencias.json
   def index
@@ -6,7 +8,7 @@ class PonenciasController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json => @ponencias }
+      format.json { render :json => @ponencias }
     end
   end
 
@@ -17,12 +19,11 @@ class PonenciasController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json => @ponencia }
+      format.json { render :json => @ponencia }
     end
   end
 
   # GET /ponencias/new
-  # GET /ponencias/new.json
   def new
     @ponencia = Ponencia.new
     @ponentes = Ponente.all
@@ -30,7 +31,6 @@ class PonenciasController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json => @ponencia }
     end
   end
 
@@ -42,50 +42,42 @@ class PonenciasController < ApplicationController
   end
 
   # POST /ponencias
-  # POST /ponencias.json
   def create
     @ponencia = Ponencia.new(params[:ponencia])
 
     respond_to do |format|
       if @ponencia.save
         format.html { redirect_to @ponencia, notice => 'Ponencia was successfully created.' }
-        format.json { render json => @ponencia, status => :created, location => @ponencia }
       else
         @ponentes = Ponente.all
         @patrocinantes = Patrocinante.all
-        format.html { render "new.html.erb" }
-        format.json { render json => @ponencia.errors, status => :unprocessable_entity }
+        format.html { render 'new.html.erb' }
       end
     end
   end
 
   # PUT /ponencias/1
-  # PUT /ponencias/1.json
   def update
     @ponencia = Ponencia.find(params[:id])
 
     respond_to do |format|
       if @ponencia.update_attributes(params[:ponencia])
         format.html { redirect_to @ponencia, notice => 'Ponencia was successfully updated.' }
-        format.json { head :ok }
       else
         @ponentes = Ponente.all
         @patrocinantes = Patrocinante.all
-        format.html { render "edit.html.erb" }
-        format.json { render json => @ponencia.errors, status => :unprocessable_entity }
+        format.html { render 'edit.html.erb' }
       end
     end
   end
 
   # DELETE /ponencias/1
-  # DELETE /ponencias/1.json
   def destroy
     @ponencia = Ponencia.find(params[:id])
     @ponencia.destroy
 
     respond_to do |format|
       format.html { redirect_to ponencias_url }
-      format.json { head :ok }
     end
   end
 end
