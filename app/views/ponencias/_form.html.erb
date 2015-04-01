@@ -32,7 +32,7 @@
         </div>
         <div class="field">
           <%= f.label :dia %>
-          <%= f.date_select :dia %>
+          <%= f.date_select :dia, :order => [:day, :month, :year], :use_short_month => true %>
         </div>
         <div class="field">
           <%= f.label :hora_ini %>
