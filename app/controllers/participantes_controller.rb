@@ -1,4 +1,6 @@
 class ParticipantesController < ApplicationController
+  require 'json'
+
   skip_before_filter :organizadorLogin, :only => [:edit, :update, :show, :enviarCorreo]
   layout "application", :except => [:excel, :excelPatrocinantes]
   helper_method :sort_column, :sort_direction
@@ -45,7 +47,7 @@ class ParticipantesController < ApplicationController
       UserMailer.enviarHash(p).deliver
     end
     render :text => str
-  end 
+  end
   
   def enviarCorreo
     if params.has_key?(:cedula)
@@ -96,10 +98,10 @@ class ParticipantesController < ApplicationController
       fecha = d.created_at.to_date
       dia = { :fecha => fecha.strftime("%b - %d") }
       ventasDelDia = Participante.find(:all, :conditions => ["date(convert_tz(created_at,'+0:00','-4:30')) >= ? AND date(convert_tz(created_at,'+0:00','-4:30')) <= ?", fecha, fecha])
-        dia[:UCAB]   = ventasDelDia.count{ |p| p.organizador.institucion == "UCAB" unless p.organizador.nil?}
-        dia[:UCV]    = ventasDelDia.count{ |p| p.organizador.institucion == "UCV" unless p.organizador.nil?}
-        dia[:UNEFA]  = ventasDelDia.count{ |p| p.organizador.institucion == "UNEFA" unless p.organizador.nil?}
-        dia[:USB]    = ventasDelDia.count{ |p| p.organizador.institucion == "USB" unless p.organizador.nil?}
+        dia[:UCAB]   = ventasDelDia.count{ |p| p.organizador.institucion == "UCAB"  unless p.organizador.nil? }
+        dia[:UCV]    = ventasDelDia.count{ |p| p.organizador.institucion == "UCV"   unless p.organizador.nil? }
+        dia[:UNEFA]  = ventasDelDia.count{ |p| p.organizador.institucion == "UNEFA" unless p.organizador.nil? }
+        dia[:USB]    = ventasDelDia.count{ |p| p.organizador.institucion == "USB"   unless p.organizador.nil? }
       @fechas << dia
     end
     entradasVendidas  = Participante.find(:all, :conditions => ["date(convert_tz(created_at,'+0:00','-4:30')) <= ?", "2013-05-17"])
@@ -140,7 +142,7 @@ class ParticipantesController < ApplicationController
     
       numero_regex = /^[0-9]+$/
       
-      if params[:entrada] =~ numero_regex    
+      if params[:entrada] =~ numero_regex
         @participante = Participante.find_by_entrada(params[:entrada])
         
         if @participante.nil?
@@ -224,7 +226,7 @@ class ParticipantesController < ApplicationController
   # GET /participantes.json
   def index
     if params.has_key?(:uni) && params[:uni] != ""
-      @titulo = 'Lista de estudiantes ' + params[:uni]
+      @titulo = 'Lista de participantes ' + params[:uni]
       @participantes = getParticipantesFiltrar("institucion", params[:uni])
     else
       @titulo = 'Lista de participantes'
@@ -233,7 +235,7 @@ class ParticipantesController < ApplicationController
     
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render :json =>  @participantes }
+      format.json { render :json => @participantes }
     end
   end
 
@@ -250,7 +252,7 @@ class ParticipantesController < ApplicationController
       
       respond_to do |format|
         format.html # show.html.erb
-        format.json { render json =>  @participante }
+        format.json { render :json => @participante }
       end
     end
   end
@@ -262,7 +264,6 @@ class ParticipantesController < ApplicationController
     @zonas = getZonasDisponibles
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json =>  @participante }
     end
   end
 
@@ -326,13 +327,13 @@ class ParticipantesController < ApplicationController
       @zonas = getZonasDisponibles_Edit(@participante.zona)
       
       #BEGIN Respaldo de los datos anteriores del participante
-      registro +=  "-------------------------------\n"
-      registro +=  "Datos previos:\n"
+      registro += "-------------------------------\n"
+      registro += "Datos previos:\n"
       parametrosOriginales = ""
       @participante.attributes.keys.each do |k|
         parametrosOriginales += "#{k}: #{@participante[k]} - "
       end
-      registro +=  parametrosOriginales + "\n"
+      registro += parametrosOriginales + "\n"
       #END
       
       unless params[:participante][:hash].nil?
