@@ -15,6 +15,8 @@ class Pregunta < ActiveRecord::Base
   belongs_to :participante
   belongs_to :ponencia
   
+  self.include_root_in_json = true
+  
   validates :mensaje, :presence => true,
                       :length => { :maximum => 255 }
                               

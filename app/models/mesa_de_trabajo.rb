@@ -23,6 +23,8 @@ class MesaDeTrabajo < ActiveRecord::Base
   has_many   :participantes_mesas
   has_many   :participantes, :through => :participantes_mesas
   
+  self.include_root_in_json = true
+  
   validates :titulo,    :presence => true
   validates :capacidad, :presence => true
 end

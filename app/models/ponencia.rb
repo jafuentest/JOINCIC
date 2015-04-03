@@ -19,5 +19,7 @@ class Ponencia < ActiveRecord::Base
   belongs_to :patrocinante
   has_many   :preguntas
   
+  self.include_root_in_json = true
+  
   validates :titulo,    :presence => true
 end

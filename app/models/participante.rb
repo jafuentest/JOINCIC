@@ -28,6 +28,8 @@
 class Participante < ActiveRecord::Base
   include Persona
   
+  self.include_root_in_json = true
+  
   belongs_to :zona
   belongs_to :grupo
   belongs_to :organizador
