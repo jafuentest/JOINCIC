@@ -5,9 +5,8 @@ class PonenciasController < ApplicationController
   # GET /ponencias.json
   def index
     @ponencias = Ponencia.all
-
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.json { render :json => @ponencias }
     end
   end
@@ -16,9 +15,8 @@ class PonenciasController < ApplicationController
   # GET /ponencias/1.json
   def show
     @ponencia = Ponencia.find(params[:id])
-
     respond_to do |format|
-      format.html # show.html.erb
+      format.html
       format.json { render :json => @ponencia }
     end
   end
@@ -28,7 +26,6 @@ class PonenciasController < ApplicationController
     @ponencia = Ponencia.new
     @ponentes = Ponente.all
     @patrocinantes = Patrocinante.all
-
     respond_to do |format|
       format.html # new.html.erb
     end
@@ -44,7 +41,6 @@ class PonenciasController < ApplicationController
   # POST /ponencias
   def create
     @ponencia = Ponencia.new(params[:ponencia])
-
     respond_to do |format|
       if @ponencia.save
         format.html { redirect_to @ponencia, notice => 'Ponencia was successfully created.' }
@@ -59,7 +55,6 @@ class PonenciasController < ApplicationController
   # PUT /ponencias/1
   def update
     @ponencia = Ponencia.find(params[:id])
-
     respond_to do |format|
       if @ponencia.update_attributes(params[:ponencia])
         format.html { redirect_to @ponencia, notice => 'Ponencia was successfully updated.' }
@@ -75,7 +70,6 @@ class PonenciasController < ApplicationController
   def destroy
     @ponencia = Ponencia.find(params[:id])
     @ponencia.destroy
-
     respond_to do |format|
       format.html { redirect_to ponencias_url }
     end

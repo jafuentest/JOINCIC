@@ -6,8 +6,7 @@ class MesasDeTrabajoController < ApplicationController
   def sortear
     @mesa_de_trabajo = MesaDeTrabajo.find(params[:id])
     inscripciones = @mesa_de_trabajo.participantes_mesas
-    
-    ##
+
     # Obtener la maxima cantidad de veces que un participante ha quedado
     # seleccionado en mesas de trabajo
     participantes = Participante.all
@@ -18,7 +17,7 @@ class MesasDeTrabajoController < ApplicationController
         max = temp
       end
     end
-    
+
     participantes = []
     for i in 0..max
       temp = []
@@ -27,40 +26,38 @@ class MesasDeTrabajoController < ApplicationController
       end
       participantes += temp.shuffle
     end
-    
+
     participantes.each_with_index do |p, i|
       p.update_attribute(:puesto, i+1)
       if p.puesto <= @mesa_de_trabajo.capacidad
         p.update_attribute(:seleccionado, true)
       end
     end
-    
+
     @mesa_de_trabajo.update_attribute(:sorteada, true)
     @participantes = @mesa_de_trabajo.participantes_mesas
     redirect_to @mesa_de_trabajo
   end
-  
+
   def reiniciar
-    @mesa_de_trabajo = MesaDeTrabajo.find(params[:id])
-    
     inscripciones = ParticipanteMesa.all(:conditions => { :mesa_de_trabajo_id => params[:id] })
-    inscripciones.each do |ins|
-      ins.update_attributes(:puesto => nil, :seleccionado => nil)
+    inscripciones.each do |inscripcion|
+      inscripcion.update_attributes(:puesto => nil, :seleccionado => nil)
     end
-    
+
+    @mesa_de_trabajo = MesaDeTrabajo.find(params[:id])
     @mesa_de_trabajo.update_attribute(:sorteada, false)
     @participantes = @mesa_de_trabajo.participantes_mesas
     redirect_to @mesa_de_trabajo
   end
-  
+
   # GET /mesas_de_trabajo
   # GET /mesas_de_trabajo.json
   def index
     @mesas_de_trabajo = MesaDeTrabajo.all
-
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json => @mesas_de_trabajo }
+      format.json { render :json => @mesas_de_trabajo }
     end
   end
 
@@ -68,11 +65,11 @@ class MesasDeTrabajoController < ApplicationController
   # GET /mesas_de_trabajo/1.json
   def show
     @mesa_de_trabajo = MesaDeTrabajo.find(params[:id])
-    @participantes = ParticipanteMesa.find(:all, :order => "puesto", :conditions => { :mesa_de_trabajo_id => params[:id] })
+    @participantes = ParticipanteMesa.find(:all, :order => 'puesto', :conditions => { :mesa_de_trabajo_id => params[:id] })
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json => @mesa_de_trabajo }
+      format.json { render :json => @mesa_de_trabajo }
     end
   end
 
@@ -85,7 +82,7 @@ class MesasDeTrabajoController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render json => @mesa_de_trabajo }
+      format.json { render :json => @mesa_de_trabajo }
     end
   end
 
@@ -108,7 +105,7 @@ class MesasDeTrabajoController < ApplicationController
         format.html { redirect_to @mesa_de_trabajo, notice => 'Mesa de trabajo was successfully created.' }
         format.json { render json => @mesa_de_trabajo, status => :created, location => @mesa_de_trabajo }
       else
-        format.html { render "new.html.erb" }
+        format.html { render 'new.html.erb' }
         format.json { render json => @mesa_de_trabajo.errors, status => :unprocessable_entity }
       end
     end
@@ -123,11 +120,11 @@ class MesasDeTrabajoController < ApplicationController
 
     respond_to do |format|
       if @mesa_de_trabajo.update_attributes(params[:mesa_de_trabajo])
-        format.html { redirect_to @mesa_de_trabajo, notice => 'Mesa de trabajo was successfully updated.' }
+        format.html { redirect_to @mesa_de_trabajo, notice => 'Mesa de Trabajo actualizada con éxito.' }
         format.json { head :ok }
       else
-        format.html { render "edit.html.erb" }
-        format.json { render json => @mesa_de_trabajo.errors, status => :unprocessable_entity }
+        format.html { render 'edit.html.erb' }
+        format.json { render :json => @mesa_de_trabajo.errors, status => :unprocessable_entity }
       end
     end
   end
@@ -143,7 +140,7 @@ class MesasDeTrabajoController < ApplicationController
       format.json { head :ok }
     end
   end
-  
+
   def excel
     headers['Content-Type'] = "application/vnd.ms-excel"
     headers['Content-Disposition'] = 'attachment; filename="participantes.xls"'
