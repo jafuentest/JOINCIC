@@ -1,4 +1,5 @@
 class MesasDeTrabajoController < ApplicationController
+  skip_before_filter :organizadorLogin, :only => [:index, :show]
   layout "application", :except => [:excel]
 
   # POST /mesas_de_trabajo
