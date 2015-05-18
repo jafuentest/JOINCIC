@@ -1,16 +1,19 @@
 class ParticipantesController < ApplicationController
   require 'json'
 
-  skip_before_filter :organizadorLogin, :only => [:edit, :update, :show, :enviarCorreo]
+  skip_before_filter :organizadorLogin, :only => [:edit, :update, :show, :enviarCorreo, :validarCedula]
   layout "application", :except => [:excel, :excelPatrocinantes]
   helper_method :sort_column, :sort_direction
   
+  # GET /participantes/validarCedula.json?cedula=1
   def validarCedula
     @participante = Participante.find_by_cedula(params[:cedula])
-    if @participante.nil?
-      # ERROR 401
-    else
-      # OK 200 + json con los datos
+    respond_to do |format|
+      if @participante.nil?
+        format.json { head :not_found }
+      else
+        format.json { render :json => @participante }
+      end
     end
   end
 
@@ -39,11 +42,11 @@ class ParticipantesController < ApplicationController
   # GET /participantes/enviarHashAll
   # GET /participantes/enviarHashAll.json
   def enviarCorreoATodos
-    str="<hr/>"
+    str='<hr/>'
     participantes = getParticipantesFull
     participantes.each do |p|
       str+=p.nombreCompleto
-      str+="<br/>"
+      str+='<br/>'
       UserMailer.enviarHash(p).deliver
     end
     render :text => str
@@ -55,20 +58,20 @@ class ParticipantesController < ApplicationController
       if params[:cedula] =~ numero_regex    
         @participante = Participante.find_by_cedula(params[:cedula])
         if @participante.nil?
-          flash[:notice] = "No se encontró ningún participante cuya cédula sea:<br/>".html_safe + params[:cedula]
+          flash[:notice] = 'No se encontró ningún participante cuya cédula sea:<br/>'.html_safe + params[:cedula]
         else
           if @participante.eliminado
-            flash[:notice] = "Error: El participante fue eliminado del sistema"
+            flash[:notice] = 'Error: El participante fue eliminado del sistema'
           else
-            flash[:notice] = "Correo enviado"
+            flash[:notice] = 'Correo enviado'
             UserMailer.enviarHash(@participante).deliver
           end
         end
       else
-        flash[:notice] = "Error: Número de cédula inválido"
+        flash[:notice] = 'Error: Número de cédula inválido'
       end
     else
-      flash[:notice] = "Ingresa el número de cédula del participante"
+      flash[:notice] = 'Ingresa el número de cédula del participante'
     end
     
     respond_to do |format|
@@ -93,28 +96,28 @@ class ParticipantesController < ApplicationController
   def controlDeVentas
     @participantes = Participante.count
     @fechas = []
-    dias = Participante.group("date(convert_tz(created_at,'+0:00','-4:30'))")
+    dias = Participante.group('date(convert_tz(created_at,\'+0:00\',\'-4:30\'))')
     dias.each do |d|
       fecha = d.created_at.to_date
-      dia = { :fecha => fecha.strftime("%b - %d") }
-      ventasDelDia = Participante.find(:all, :conditions => ["date(convert_tz(created_at,'+0:00','-4:30')) >= ? AND date(convert_tz(created_at,'+0:00','-4:30')) <= ?", fecha, fecha])
-        dia[:UCAB]   = ventasDelDia.count{ |p| p.organizador.institucion == "UCAB"  unless p.organizador.nil? }
-        dia[:UCV]    = ventasDelDia.count{ |p| p.organizador.institucion == "UCV"   unless p.organizador.nil? }
-        dia[:UNEFA]  = ventasDelDia.count{ |p| p.organizador.institucion == "UNEFA" unless p.organizador.nil? }
-        dia[:USB]    = ventasDelDia.count{ |p| p.organizador.institucion == "USB"   unless p.organizador.nil? }
+      dia = { :fecha => fecha.strftime('%b - %d') }
+      ventasDelDia = Participante.find(:all, :conditions => ['date(convert_tz(created_at,\'+0:00\',\'-4:30\')) >= ? AND date(convert_tz(created_at,\'+0:00\',\'-4:30\')) <= ?', fecha, fecha])
+        dia[:UCAB]   = ventasDelDia.count{ |p| p.organizador.institucion == 'UCAB'  unless p.organizador.nil? }
+        dia[:UCV]    = ventasDelDia.count{ |p| p.organizador.institucion == 'UCV'   unless p.organizador.nil? }
+        dia[:UNEFA]  = ventasDelDia.count{ |p| p.organizador.institucion == 'UNEFA' unless p.organizador.nil? }
+        dia[:USB]    = ventasDelDia.count{ |p| p.organizador.institucion == 'USB'   unless p.organizador.nil? }
       @fechas << dia
     end
-    entradasVendidas  = Participante.find(:all, :conditions => ["date(convert_tz(created_at,'+0:00','-4:30')) <= ?", "2013-05-17"])
+    entradasVendidas  = Participante.find(:all, :conditions => ['date(convert_tz(created_at,\'+0:00\',\'-4:30\')) <= ?', '2013-05-17'])
     @totalPreventa = 0
-    @unisPreventa = [ { :nombre => "UCAB" }, { :nombre => "UCV" }, { :nombre => "UNEFA" }, { :nombre => "USB" } ]
+    @unisPreventa = [ { :nombre => 'UCAB' }, { :nombre => 'UCV' }, { :nombre => 'UNEFA' }, { :nombre => 'USB' } ]
     @unisPreventa.each do |u|
       entradasPorUni = entradasVendidas.count{ |p| p.organizador.institucion == u[:nombre] }
       u[:totalEntradas] = entradasPorUni
       u[:totalIngreso]  = entradasPorUni * 250
       @totalPreventa = @totalPreventa + u[:totalIngreso]
     end
-    entradasVendidas  = Participante.find(:all, :conditions => ["date(convert_tz(created_at,'+0:00','-4:30')) > ?", "2013-05-17"])
-    @unisVenta = [ { :nombre => "UCAB" }, { :nombre => "UCV" }, { :nombre => "UNEFA" }, { :nombre => "USB" } ]
+    entradasVendidas  = Participante.find(:all, :conditions => ['date(convert_tz(created_at,\'+0:00\',\'-4:30\')) > ?', '2013-05-17'])
+    @unisVenta = [ { :nombre => 'UCAB' }, { :nombre => 'UCV' }, { :nombre => 'UNEFA' }, { :nombre => 'USB' } ]
     @unisVenta.each do |u|
       entradasPorUni = entradasVendidas.count{ |p| p.organizador.institucion == u[:nombre] unless p.organizador.nil?}
       u[:totalEntradas] = entradasPorUni
@@ -130,7 +133,7 @@ class ParticipantesController < ApplicationController
       p.update_attribute(:comida, false)
     end
     respond_to do |format|
-      format.html { redirect_to entregarComida_participantes_path, notice =>  "El control de comidas ha sido reiniciado con éxito." }
+      format.html { redirect_to entregarComida_participantes_path, notice =>  'El control de comidas ha sido reiniciado con éxito.' }
       format.json { head :ok }
     end
   end
@@ -225,9 +228,9 @@ class ParticipantesController < ApplicationController
   # GET /participantes
   # GET /participantes.json
   def index
-    if params.has_key?(:uni) && params[:uni] != ""
+    if params.has_key?(:uni) && params[:uni] != ''
       @titulo = 'Lista de participantes ' + params[:uni]
-      @participantes = getParticipantesFiltrar("institucion", params[:uni])
+      @participantes = getParticipantesFiltrar 'institucion', params[:uni]
     else
       @titulo = 'Lista de participantes'
       @participantes = getParticipantes
@@ -277,7 +280,7 @@ class ParticipantesController < ApplicationController
     else
       @participante = Participante.find(params[:id])
       unless session[:organizador].nil?
-        @zonas = getZonasDisponibles_Edit(@participante.zona)
+        @zonas = getZonasDisponiblesEdit(@participante.zona)
       end
     end
   end
@@ -324,7 +327,7 @@ class ParticipantesController < ApplicationController
       #END
       
       @participante = Participante.find(params[:id])
-      @zonas = getZonasDisponibles_Edit(@participante.zona)
+      @zonas = getZonasDisponiblesEdit @participante.zona
       
       #BEGIN Respaldo de los datos anteriores del participante
       registro += "-------------------------------\n"
@@ -348,11 +351,11 @@ class ParticipantesController < ApplicationController
           format.json { head :ok }
         else
           if session[:organizador].nil?
-            logger.warn "Fail (Participante)"
+            logger.warn 'Fail (Participante)'
           else
-            logger.warn "Fail (Organizador: #{session[:organizador]})"	
+            logger.warn "Fail (Organizador: #{session[:organizador]})"
           end
-          format.html { render "edit.html.erb" }
+          format.html { render 'edit.html.erb' }
           format.json { render json =>  @participante.errors, status => :unprocessable_entity }
         end
       end
@@ -409,7 +412,7 @@ class ParticipantesController < ApplicationController
     zonasDisponibles
   end
   
-  def getZonasDisponibles_Edit(zona)
+  def getZonasDisponiblesEdit(zona)
     zonas = Zona.all
     zonasDisponibles = []
     
