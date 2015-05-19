@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140511052734) do
+ActiveRecord::Schema.define(:version => 20150324001809) do
 
   create_table "grupos", :force => true do |t|
     t.string "login", :limit => 20, :null => false
@@ -82,13 +82,12 @@ ActiveRecord::Schema.define(:version => 20140511052734) do
     t.string   "tipo_nivel",         :limit => 9,                     :null => false
     t.integer  "zona_id",                                             :null => false
     t.integer  "entrada",                                             :null => false
-    t.integer  "organizador_id",                                      :null => false
     t.boolean  "comida",                           :default => false, :null => false
     t.datetime "created_at",                                          :null => false
     t.string   "seg_nombre",         :limit => 15
     t.string   "seg_apellido",       :limit => 15
     t.integer  "deposito"
-    t.boolean  "eliminado"
+    t.boolean  "eliminado",                        :default => false
     t.integer  "grupo_id"
     t.string   "carrera"
     t.boolean  "esEstudiante"
@@ -96,6 +95,7 @@ ActiveRecord::Schema.define(:version => 20140511052734) do
     t.string   "periodoPasantia"
     t.string   "intereses"
     t.string   "experiencia"
+    t.integer  "organizador_id"
   end
 
   add_index "participantes", ["cedula"], :name => "cedula", :unique => true

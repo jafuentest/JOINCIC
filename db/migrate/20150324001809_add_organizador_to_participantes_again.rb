@@ -1,4 +1,4 @@
-class AddOrganizadorToParticipantes < ActiveRecord::Migration
+class AddOrganizadorToParticipantesAgain < ActiveRecord::Migration
   def change
     add_column :participantes, :organizador_id, :integer
   end
