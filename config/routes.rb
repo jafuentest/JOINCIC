@@ -39,6 +39,7 @@ Sistema::Application.routes.draw do
       get  'entregarComida'
       post 'entregarComida'
       get  'enviarCorreo'
+      get  'validarCedula'
     end
   end
 
