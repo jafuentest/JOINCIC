@@ -64,8 +64,6 @@ class Participante < ActiveRecord::Base
                             
   validates :institucion,   :format => { :with => TEXTO_REGEX }
                             
-  validates :nivel,         :presence => true
-                            
   validates :entrada,       :presence => true,
                             :uniqueness => { :scope => :zona_id }
                             
@@ -75,7 +73,7 @@ class Participante < ActiveRecord::Base
   def edad
     hoy = Date.today
     edad = hoy.year - fecha_nac.year
-    if ((hoy.month < fecha_nac.month) || ((hoy.day < hoy.day) && (hoy.month == fecha_nac.month)))
+    if ((hoy.month < fecha_nac.month) || ((hoy.day < fecha_nac.day) && (hoy.month == fecha_nac.month)))
       edad = edad - 1
     end
     edad
