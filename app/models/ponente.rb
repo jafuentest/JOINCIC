@@ -18,6 +18,8 @@ class Ponente < ActiveRecord::Base
   has_many :mesas_de_trabajo
   has_many :ponencias
   
+  self.include_root_in_json = true
+  
   validates :nombre,        :format => { :with => TEXTO_REGEX }
   
   validates :seg_nombre,    :allow_blank => true,

@@ -1,4 +1,6 @@
 class PonentesController < ApplicationController
+  skip_before_filter :organizadorLogin, :only => [:index, :show]
+  
   # GET /ponentes
   # GET /ponentes.json
   def index
