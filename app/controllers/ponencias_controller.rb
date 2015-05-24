@@ -7,7 +7,7 @@ class PonenciasController < ApplicationController
     @ponencias = Ponencia.all
     respond_to do |format|
       format.html
-      format.json { render :json => @ponencias }
+      format.json { render :json => @ponencias.to_json(:include => [:ponente]) }
     end
   end
 
@@ -17,7 +17,7 @@ class PonenciasController < ApplicationController
     @ponencia = Ponencia.find(params[:id])
     respond_to do |format|
       format.html
-      format.json { render :json => @ponencia }
+      format.json { render :json => @ponencia.to_json (:include => [:ponente]) }
     end
   end
 
