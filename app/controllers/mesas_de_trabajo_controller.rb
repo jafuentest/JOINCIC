@@ -58,7 +58,7 @@ class MesasDeTrabajoController < ApplicationController
     @mesas_de_trabajo = MesaDeTrabajo.all
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render :json => @mesas_de_trabajo }
+      format.json { render :json => @mesas_de_trabajo.to_json(:include => [:ponente]) }
     end
   end
 
@@ -70,7 +70,7 @@ class MesasDeTrabajoController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render :json => @mesa_de_trabajo }
+      format.json { render :json => @mesa_de_trabajo.to_json(:include => [:ponente]) }
     end
   end
 
