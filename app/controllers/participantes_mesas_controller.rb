@@ -3,57 +3,59 @@ class ParticipantesMesasController < ApplicationController
   # GET /participantes_mesas/new.json
   def new
     numero_regex = /^[0-9]+$/
+    error = ''
+    cedula = params[:cedula]
     
-    if params.has_key?(:entrada) && params[:entrada] != ''
-      if params[:entrada] =~ numero_regex
-        @participante = Participante.find_by_entrada(params[:entrada])
-        if @participante.nil?
-          flash[:notice] = 'No se encontró ningún participante cuya entrada sea: <br/>'.html_safe + params[:entrada]
-          redirect_to buscar_participantes_mesas_path
-        elsif @participante.eliminado
-          flash[:notice] = 'Error: El participante fue eliminado del sistema'
-          redirect_to buscar_participantes_mesas_path
-        else
-          @mesas_de_trabajo = mesasDisponibles
-          @participante_mesa = ParticipanteMesa.new
-          respond_to do |format|
-            format.html { render 'new.html.erb' }
-          end
-        end
-      else
-        flash[:notice] = 'Error: Número de entrada inválido'
-        redirect_to buscar_participantes_mesas_path
-      end
+    unless cedula =~ numero_regex
+      error = 'Error: Número de cédula inválido'
+      cedula = ''
+    end
+
+    unless params.has_key?(:cedula) && cedula != ''
+      error = 'Ingresa el número de cédula del participante'
+    end
+
+    @participante = Participante.find_by_cedula(cedula)
+    if @participante.nil?
+      error = 'No se encontró ningún participante cuyo número de cédula sea: ' + cedula
+    elsif @participante.eliminado
+      error = 'Error: El participante fue eliminado del sistema'
     else
-      flash[:notice] = 'Ingresa el número de entrada del participante'
-      redirect_to buscar_participantes_mesas_path
+      @mesas_de_trabajo = mesasDisponibles
+      @participante_mesa = ParticipanteMesa.new
+    end
+    respond_to do |format|
+      if error == ''
+        format.html { render 'new.html.erb' }
+      else
+        flash[:notice] = error
+        format.html { redirect_to buscar_participantes_mesas_path }
+      end
     end
   end
   
   # POST /participantes_mesas
   # POST /participantes_mesas.json
   def create
-    pid = params[:participante_mesa][:participante_id]
-    mid = params[:participante_mesa][:mesa_de_trabajo_id]
-    existe = ParticipanteMesa.find_by_participante_id_and_mesa_de_trabajo_id(pid, mid)
+    p_id = params[:participante_mesa][:participante_id]
+    m_id = params[:participante_mesa][:mesa_de_trabajo_id]
+    existe = ParticipanteMesa.find_by_participante_id_and_mesa_de_trabajo_id(p_id, m_id)
     if existe
       flash[:notice] = 'El participante ya se encuentra registrado para esta mesa'
       redirect_to existe
     else
       @participante_mesa = ParticipanteMesa.new(params[:participante_mesa])
-      p = Participante.find(pid)
-      m = MesaDeTrabajo.find(mid)
-      @participante_mesa.participante = p
-      @participante_mesa.mesa_de_trabajo = m
+      @participante_mesa.participante = Participante.find(p_id)
+      @participante_mesa.mesa_de_trabajo = MesaDeTrabajo.find(m_id)
 
       respond_to do |format|
         if @participante_mesa.save
           flash[:notice] = 'Participante registrado con éxito.'
           format.html { redirect_to @participante_mesa }
-          format.json { render json => @participante_mesa, status => :created, location => @participante_mesa }
+          format.json { head :success }
         else
           format.html { render 'new.html.erb' }
-          format.json { render json => @participante_mesa.errors, status => :unprocessable_entity }
+          format.json { head :error }
         end
       end
     end

@@ -3,7 +3,7 @@
 
 <div align=center>
   <%= form_tag new_participante_mesa_path, :method => 'get' do %>
-    <%= text_field_tag :entrada, nil, { :placeholder => '# de Entrada' } %>
+    <%= text_field_tag :cedula, nil, { :placeholder => '# de Cédula' } %>
     <br />
     <%= submit_tag 'Buscar'%>
   <% end %>
