@@ -1,6 +1,9 @@
 ﻿<h1><%= @organizador.nombreCompleto %></h1>
 <h2 id="notice"><%= notice %></h2>
 
+<table width=80%>
+  <tr>
+    <td width=50%>
 <p>
   <b>Nombre(s):</b>
   <%= @organizador.nombres %>
@@ -22,5 +25,35 @@
   <%= @organizador.coordinacion %> <%= "(coordinador)" if @organizador.coordinador%>
 </p>
 
+    </td>
+    <td>
+
+      <table class="listaS">
+        <tr>
+          <th colspan="2">Carnet</th>
+        </tr>
+            <tr>
+              <td colspan="2">      
+                <a href="http://messages.joincic.com.ve/carnet-organizador/<%= @organizador.correo %>?download=1">        
+                  <img width="300px" height="210px" src="http://messages.joincic.com.ve/carnet-organizador/<%= @organizador.correo %>" />
+                </a>
+              </td>
+            </tr>
+      </table>
+      <table class="listaS">
+        <tr>
+          <th colspan="2">Cerificado</th>
+        </tr>
+            <tr>
+              <td colspan="2">      
+                <a href="http://messages.joincic.com.ve/certificado-organizador/<%= @organizador.correo %>?download=1">        
+                  <img width="300px" height="210px" src="http://messages.joincic.com.ve/certificado-organizador/<%= @organizador.correo %>" />
+                </a>
+              </td>
+            </tr>
+      </table>
+    </td>
+  </tr>
+</table>
 <%= link_to "Modificar", edit_organizador_path(@organizador) %> |
 <%= link_to "Volver a la lista", organizadores_path %>
