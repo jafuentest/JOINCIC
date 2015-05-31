@@ -72,7 +72,7 @@ function initRoulette(people){
                 //var casilla_ganadora = Math.floor(Math.random()*people.length);
                 //var ganador          = people[casilla_ganadora];
                 //$("#concursante").text("");
-                winner = people[index];
+                winner = people[index].participante;
                 var winnerstr = winner.nombre+' '+winner.apellido+ ' - ' + winner.cedula;
                 $("#winner").val(winnerstr);
                 smoke.confirm("El ganador es "+ winnerstr + '\n Marcar a este usuario como ganador?', function(e){
@@ -93,7 +93,7 @@ function initRoulette(people){
                                 if (testdata.error) {
                                     smoke.alert('Ha ocurrido un error3:\n'+testdata.error);
                                 } else {
-                                    smoke.alert('Ganador registrado con éxito!:\nNombre: '+data[0].winner.nombre+' '+data[0].winner.apellido+'\nCédula: ' + data[0].winner.cedula);
+                                    smoke.alert('Ganador registrado con éxito!:\nNombre: '+data[0].winner.participante.nombre+' '+data[0].winner.participante.apellido+'\nCédula: ' + data[0].winner.participante.cedula);
                                     if (testdata.raffleDone) {
                                         $('option[value="'+testdata.raffle.id+'"]').remove();
                                     }
@@ -126,7 +126,7 @@ function initRoulette(people){
                 return false;
             }
         }
-        $("#winner").val(people[index].nombre+' '+people[index].apellido+ ' - ' + people[index].cedula);
+        $("#winner").val(people[index].participante.nombre+' '+people[index].participante.apellido+ ' - ' + people[index].participante.cedula);
         //Elegir un siguiente posible ganador al random 
         index = Math.floor(Math.random()*people.length);
         initRoulette(people);
