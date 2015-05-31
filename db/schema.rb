@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150324001809) do
+ActiveRecord::Schema.define(:version => 20150520042904) do
 
   create_table "grupos", :force => true do |t|
     t.string "login", :limit => 20, :null => false
@@ -52,16 +52,10 @@ ActiveRecord::Schema.define(:version => 20150324001809) do
   create_table "organizadores", :force => true do |t|
     t.string  "usuario",      :limit => 15,                    :null => false
     t.string  "clave",        :limit => 15,                    :null => false
-    t.integer "cedula",                                        :null => false
     t.string  "nombre",       :limit => 15,                    :null => false
     t.string  "apellido",     :limit => 15,                    :null => false
-    t.date    "fecha_nac",                                     :null => false
-    t.string  "telefono",     :limit => 11,                    :null => false
     t.string  "correo",       :limit => 50,                    :null => false
-    t.string  "direccion",    :limit => 50,                    :null => false
     t.string  "institucion",  :limit => 7,                     :null => false
-    t.integer "nivel",                                         :null => false
-    t.string  "tipo_nivel",   :limit => 9,                     :null => false
     t.string  "coordinacion", :limit => 15,                    :null => false
     t.boolean "coordinador",                :default => false, :null => false
     t.string  "seg_nombre",   :limit => 15

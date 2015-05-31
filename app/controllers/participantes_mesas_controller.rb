@@ -1,6 +1,5 @@
 class ParticipantesMesasController < ApplicationController
-
-  skip_before_filter :organizadorLogin, :only => [:create, :new, :show]
+  skip_before_filter :organizadorLogin, :only => [:create, :new]
 
   # GET /participantes_mesas/new
   # GET /participantes_mesas/new.json
