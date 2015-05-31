@@ -1,11 +1,14 @@
 class ParticipantesMesasController < ApplicationController
+
+  skip_before_filter :organizadorLogin, :only => [:create, :new, :show]
+
   # GET /participantes_mesas/new
   # GET /participantes_mesas/new.json
   def new
     numero_regex = /^[0-9]+$/
     error = ''
     cedula = params[:cedula]
-    
+
     unless cedula =~ numero_regex
       error = 'Error: Número de cédula inválido'
       cedula = ''
@@ -33,34 +36,42 @@ class ParticipantesMesasController < ApplicationController
       end
     end
   end
-  
+
   # POST /participantes_mesas
   # POST /participantes_mesas.json
   def create
+
     p_id = params[:participante_mesa][:participante_id]
     m_id = params[:participante_mesa][:mesa_de_trabajo_id]
     existe = ParticipanteMesa.find_by_participante_id_and_mesa_de_trabajo_id(p_id, m_id)
-    if existe
-      flash[:notice] = 'El participante ya se encuentra registrado para esta mesa'
-      redirect_to existe
-    else
-      @participante_mesa = ParticipanteMesa.new(params[:participante_mesa])
-      @participante_mesa.participante = Participante.find(p_id)
-      @participante_mesa.mesa_de_trabajo = MesaDeTrabajo.find(m_id)
 
-      respond_to do |format|
-        if @participante_mesa.save
-          flash[:notice] = 'Participante registrado con éxito.'
+    respond_to do |format|
+      if existe
+        flash[:notice] = 'El participante ya se encuentra registrado para esta mesa'
+        format.html { render 'new.html.erb' }
+        format.json { head :conflict }
+      else
+        @participante_mesa = ParticipanteMesa.new(params[:participante_mesa])
+
+        p = Participante.find_by_id(p_id)
+        m = MesaDeTrabajo.find_by_id(m_id)
+
+        fail = p.nil? || m.nil?
+
+        if !fail && @participante_mesa.save
+          flash[:notice] = 'Participante registrado con éxito'
           format.html { redirect_to @participante_mesa }
-          format.json { head :success }
+          format.json { head :ok }
         else
+          error = 'fallaste'
+          flash[:notice] = error
           format.html { render 'new.html.erb' }
           format.json { head :error }
         end
       end
     end
   end
-  
+
   # GET /participantes_mesas/1
   # GET /participantes_mesas/1.json
   def show
@@ -71,7 +82,7 @@ class ParticipantesMesasController < ApplicationController
       format.json { render json => @participante_mesa }
     end
   end
-  
+
   # DELETE /participantes_mesas/1
   # DELETE /participantes_mesas/1.json
   def destroy
@@ -84,8 +95,8 @@ class ParticipantesMesasController < ApplicationController
       format.json { head :ok }
     end
   end
-  
+
   def mesasDisponibles
-    MesaDeTrabajo.find(:all, :conditions => {:sorteada => false})
+    MesaDeTrabajo.find(:all, :conditions => { :sorteada => false })
   end
 end
