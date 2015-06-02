@@ -1,5 +1,5 @@
 body {
-  background: #FFCD0A;
+  background: #C00;
   color: white;
   font-family:Verdana,Helvetica,sans-serif;
   font-size:medium;
@@ -28,7 +28,7 @@ td {
   border-radius: 20px; /* Opera 10.50, IE and CSS3 */
 }
 header {
-    background: #333;
+    background: #000;
     color:white;
     height: 66px;
     padding-top: 10px;
@@ -36,7 +36,7 @@ header {
     text-align:center;
 }
 footer {
-    background: #333;
+    background: #000;
     clear: both;
     font-size:small;
     min-height: 60px;
@@ -44,14 +44,14 @@ footer {
 }
 footer p { font-family: Arial,Helvetica,sans-serif; margin:0; padding-top:1.5em;}
 #joincic-title {
-    color: #FFFFFF;
+    color: #FFF;
     font-family: Arial,Helvetica,sans-serif;
     font-size: 40px;
     padding-right: 15px;
     position: relative;
 }
 #joincic-name {
-    color: #FFFFFF;
+    color: #FFF;
     font-family: Verdana;
     font-size: 20px;
     padding-left: 15px;
