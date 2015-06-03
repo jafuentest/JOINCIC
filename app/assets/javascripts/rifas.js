@@ -14,6 +14,9 @@ function setRaffleTypeListener() {
         if (rifa.val() != '' && rifa.val() != null) {
             $.ajax({
                 url: '/rifas/getParticipantes.json',
+                beforeSend: function ( xhr ) {
+                    xhr.setRequestHeader("X-CSRF-Token", $('meta[name=csrf-token]').attr('content'));
+                },
                 type: 'POST',
                 dataType: 'json',
                 data: {
