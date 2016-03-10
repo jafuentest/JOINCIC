@@ -1,4 +1,4 @@
-Sistema::Application.routes.draw do
+Rails.application.routes.draw do
 
   root :to => 'home#inicio'
   get 'sessions/new'
@@ -84,23 +84,19 @@ Sistema::Application.routes.draw do
     end
   end
 
-  match '/ologin',      :to => 'sessions#new'
-  match '/ologout',     :to => 'sessions#destroy'
-  match '/glogin',      :to => 'group_sessions#new'
-  match '/glogout',     :to => 'group_sessions#destroy'
-  match '/perfil',      :to => 'grupos#perfil'
-  match '/maraton',     :to => 'grupos#perfil'
-  match '/reportes',    :to => 'home#reportes'
-  match '/academico',   :to => 'home#academico'
-  match '/patrocinio',  :to => 'home#patrocinio'
+  match '/ologin',     to: 'sessions#new',           via: [:get, :post]
+  match '/ologout',    to: 'sessions#destroy',       via: [:get, :post]
+  match '/glogin',     to: 'group_sessions#new',     via: [:get, :post]
+  match '/glogout',    to: 'group_sessions#destroy', via: [:get, :post]
+  match '/perfil',     to: 'grupos#perfil',          via: [:get, :post]
+  match '/maraton',    to: 'grupos#perfil',          via: [:get, :post]
+  match '/reportes',   to: 'home#reportes',          via: [:get, :post]
+  match '/academico',  to: 'home#academico',         via: [:get, :post]
+  match '/patrocinio', to: 'home#patrocinio',        via: [:get, :post]
   #Sub-Sistema de Preguntas
-  match '/preguntar',          :to => 'preguntas#new'
-  match '/enviarPregunta',     :to => 'preguntas#new'
-  match '/enviarpregunta',     :to => 'preguntas#new'
-  match '/preguntarAlPonente', :to => 'preguntas#new'
-  match '/preguntaralponente', :to => 'preguntas#new'
-  match '/preguntas/ver/:id',  :to => 'preguntas#show', :as => :ver_pregunta
-  match '/preguntas/ponencia/:ponencia_id(.:format)', :to => 'preguntas#index'
-  match '/panel-preguntas(/:ponencia_id)', :to => 'preguntas#panel', :as => :panel_preguntas
-  match '*a', :to => 'errors#routing'
+  match '/preguntar',          to: 'preguntas#new', via: [:get, :post]
+  match '/preguntas/ver/:id',  to: 'preguntas#show', :as => :ver_pregunta, via: [:get, :post]
+  match '/preguntas/ponencia/:ponencia_id(.:format)', to: 'preguntas#index', via: [:get, :post]
+  match '/panel-preguntas(/:ponencia_id)', to: 'preguntas#panel', :as => :panel_preguntas, via: [:get, :post]
+  match '*a', to: 'errors#routing', via: [:get, :post]
 end

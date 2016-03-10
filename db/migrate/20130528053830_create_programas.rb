@@ -1,8 +1,8 @@
 class CreateProgramas < ActiveRecord::Migration
   def change
     create_table :programas do |t|
-      t.integer  :problema_id, :null => false, :limit => 10
-      t.integer  :grupo_id,    :null => false, :limit => 10
+      t.integer  :problema_id, :null => false
+      t.integer  :grupo_id,    :null => false
       t.string   :estado,      :default => 'procesando'
       t.binary   :data
       t.string   :filename

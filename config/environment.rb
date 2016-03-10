@@ -1,4 +1,4 @@
-# Load the rails application
+# Load the Rails application.
 require File.expand_path('../application', __FILE__)
 
 require "will_paginate"
@@ -16,6 +16,5 @@ EMAIL_REGEX   = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 TEXTO_REGEX   = /\A[a-z\d ÁÉÍÓÚÑáéíóúñ,.]+\z/i
 LOGIN_REGEX   = /\A[a-z\d\-_]+\z/i
 
-# Initialize the rails application
-Sistema::Application.initialize!
-
+# Initialize the Rails application.
+Rails.application.initialize!
