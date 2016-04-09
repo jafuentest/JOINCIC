@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  root :to => 'home#inicio'
+  root to: 'home#inicio'
   get 'sessions/new'
   get 'home/inicio'
   get 'home/academico'
@@ -8,13 +8,13 @@ Rails.application.routes.draw do
   get 'home/reportes'
 
   resources :materiales_pop, :organizadores, :patrocinantes, :planes, :ponencias, :ponentes, :premios, :zonas
-  resources :sessions,       :only => [:new, :create, :destroy]
-  resources :group_sessions, :only => [:new, :create, :destroy]
-  resources :sugerencias,    :except => [:edit, :update]
+  resources :sessions,       only: [:new, :create, :destroy]
+  resources :group_sessions, only: [:new, :create, :destroy]
+  resources :sugerencias,    except: [:edit, :update]
 
-  resources :grupos, :except => [:edit, :update] do
-    get 'perfil',         :on => :collection
-    get 'reiniciarClave', :on => :member
+  resources :grupos, except: [:edit, :update] do
+    get 'perfil',         on: :collection
+    get 'reiniciarClave', on: :member
   end
 
   resources :mesas_de_trabajo do
@@ -43,20 +43,20 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :participantes_mates, :only => [:new, :create] do
+  resources :participantes_mates, only: [:new, :create] do
     collection do
       get  'buscar'
       post 'entregar'
     end
   end
 
-  resources :participantes_mesas, :only => [:new, :create, :show, :destroy] do
-    get 'buscar', :on => :collection
+  resources :participantes_mesas, only: [:new, :create, :show, :destroy] do
+    get 'buscar', on: :collection
   end
 
-  resources :preguntas, :except => [:edit, :update] do
-    get 'aprobar',        :on => :member
-    get 'dame_preguntas', :on => :collection
+  resources :preguntas, except: [:edit, :update] do
+    get 'aprobar',        on: :member
+    get 'dame_preguntas', on: :collection
   end
 
   resources :problemas do
@@ -66,9 +66,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :programas, :except => [:edit, :update] do
-    get 'serve', :on => :member
-    get 'serve_privado', :on => :member
+  resources :programas, except: [:edit, :update] do
+    get 'serve', on: :member
+    get 'serve_privado', on: :member
     collection do
       get 'listar'
       get 'validar'
@@ -85,18 +85,18 @@ Rails.application.routes.draw do
   end
 
   match '/ologin',     to: 'sessions#new',           via: [:get, :post]
-  match '/ologout',    to: 'sessions#destroy',       via: [:get, :post]
+  match '/ologout',    to: 'sessions#destroy',       via: [:get, :post, :delete]
   match '/glogin',     to: 'group_sessions#new',     via: [:get, :post]
-  match '/glogout',    to: 'group_sessions#destroy', via: [:get, :post]
+  match '/glogout',    to: 'group_sessions#destroy', via: [:get, :post, :delete]
   match '/perfil',     to: 'grupos#perfil',          via: [:get, :post]
   match '/maraton',    to: 'grupos#perfil',          via: [:get, :post]
   match '/reportes',   to: 'home#reportes',          via: [:get, :post]
   match '/academico',  to: 'home#academico',         via: [:get, :post]
   match '/patrocinio', to: 'home#patrocinio',        via: [:get, :post]
   #Sub-Sistema de Preguntas
-  match '/preguntar',          to: 'preguntas#new', via: [:get, :post]
-  match '/preguntas/ver/:id',  to: 'preguntas#show', :as => :ver_pregunta, via: [:get, :post]
+  match '/preguntar',         to: 'preguntas#new', via: [:get, :post]
+  match '/preguntas/ver/:id', to: 'preguntas#show', as: :ver_pregunta, via: [:get, :post]
   match '/preguntas/ponencia/:ponencia_id(.:format)', to: 'preguntas#index', via: [:get, :post]
-  match '/panel-preguntas(/:ponencia_id)', to: 'preguntas#panel', :as => :panel_preguntas, via: [:get, :post]
+  match '/panel-preguntas(/:ponencia_id)', to: 'preguntas#panel', as: :panel_preguntas, via: [:get, :post]
   match '*a', to: 'errors#routing', via: [:get, :post]
 end
