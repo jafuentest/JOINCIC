@@ -41,7 +41,7 @@ class ZonasController < ApplicationController
   # POST /zonas
   # POST /zonas.json
   def create
-    @zona = Zona.new(params[:zona])
+    @zona = Zona.new(zona_params)
 
     respond_to do |format|
       if @zona.save
@@ -60,7 +60,7 @@ class ZonasController < ApplicationController
     @zona = Zona.find(params[:id])
 
     respond_to do |format|
-      if @zona.update_attributes(params[:zona])
+      if @zona.update_attributes(zona_params)
         format.html { redirect_to @zona, notice => 'Zona was successfully updated.' }
         format.json { head :ok }
       else
@@ -80,5 +80,11 @@ class ZonasController < ApplicationController
       format.html { redirect_to zonas_url }
       format.json { head :ok }
     end
+  end
+
+  private
+
+  def zona_params
+    params.require(:zona).permit( :nombre, :capacidad )
   end
 end
