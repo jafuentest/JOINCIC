@@ -5,7 +5,7 @@
 #  id                 :integer          not null, primary key
 #  participante_id    :integer          not null
 #  mesa_de_trabajo_id :integer          not null
-#  seleccionado       :boolean
+#  seleccionado       :boolean          default("0"), not null
 #  created_at         :datetime         not null
 #  puesto             :integer
 #

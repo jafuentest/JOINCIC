@@ -4,7 +4,7 @@
 #
 #  id    :integer          not null, primary key
 #  login :string(20)       not null
-#  pass  :string(20)       not null
+#  clave :string(20)       not null
 #
 
 require 'test_helper'

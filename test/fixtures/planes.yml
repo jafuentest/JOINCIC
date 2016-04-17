@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: planes
+#
+#  id         :integer          not null, primary key
+#  nombre     :string(10)       not null
+#  precio     :integer          not null
+#  beneficios :text(65535)      not null
+#
+
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:

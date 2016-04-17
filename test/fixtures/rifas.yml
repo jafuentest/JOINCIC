@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: rifas
+#
+#  id      :integer          not null, primary key
+#  nombre  :string(20)       not null
+#  ammount :integer          not null
+#  limit   :integer
+#
+
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:

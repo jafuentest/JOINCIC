@@ -2,10 +2,10 @@
 #
 # Table name: rifas
 #
-#  id     :integer          not null, primary key
-#  nombre :string(20)       not null
-#  amount :integer          not null
-#  limit  :integer
+#  id      :integer          not null, primary key
+#  nombre  :string(20)       not null
+#  ammount :integer          not null
+#  limit   :integer
 #
 
 class Rifa < ActiveRecord::Base

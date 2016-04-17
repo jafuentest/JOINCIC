@@ -2,7 +2,11 @@ source 'https://rubygems.org'
 
 ruby '2.2.1'
 
+# Anotación de modelos
+gem 'annotate'
+# Paginación de listas
 gem 'will_paginate', '~> 3.0.pre2', require: nil
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.1'
 # Use MySQL as the database for Active Record
@@ -18,9 +22,9 @@ gem 'coffee-rails', '~> 4.1.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
+# Turbolinks makes following links in your web application faster
 gem 'turbolinks'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+# Build JSON APIs with ease
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
@@ -41,6 +45,6 @@ group :development, :test do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  # Spring speeds up development by keeping your application running in the background
   gem 'spring'
 end

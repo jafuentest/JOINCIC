@@ -5,7 +5,7 @@
 #  id         :integer          not null, primary key
 #  nombre     :string(10)       not null
 #  precio     :integer          not null
-#  beneficios :text             default(""), not null
+#  beneficios :text(65535)      not null
 #
 
 class Plan < ActiveRecord::Base

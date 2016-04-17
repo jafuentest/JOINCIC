@@ -7,8 +7,8 @@
 #  nombre     :string(30)       not null
 #  aporte     :integer          not null
 #  plan_id    :integer          not null
-#  comentario :text
-#  logo       :binary
+#  comentario :text(65535)
+#  logo       :binary(65535)
 #
 
 class Patrocinante < ActiveRecord::Base
