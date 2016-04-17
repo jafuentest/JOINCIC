@@ -4,7 +4,7 @@ class ParticipantesController < ApplicationController
   skip_before_filter :organizadorLogin, :only => [:edit, :update, :show, :enviarCorreo, :validarCedula]
   layout "application", :except => [:excel, :excelPatrocinantes]
   helper_method :sort_column, :sort_direction
-  
+
   # GET /participantes/validarCedula.json?cedula=1
   def validarCedula
     @participante = Participante.find_by_cedula(params[:cedula])
@@ -12,7 +12,7 @@ class ParticipantesController < ApplicationController
       if @participante.nil?
         format.json { head :not_found }
       else
-        format.json { render :json => @participante }
+        format.json { render json: @participante }
       end
     end
   end
@@ -23,22 +23,22 @@ class ParticipantesController < ApplicationController
     headers['Cache-Control'] = ''
     @participantes = getParticipantesFull
   end
-  
+
   def excelPatrocinantes
     headers['Content-Type'] = 'application/vnd.ms-excel'
     headers['Content-Disposition'] = 'attachment; filename="participantes.xls"'
     headers['Cache-Control'] = ''
     @participantes = getParticipantesFull
   end
-  
+
   def xml
     @participantes = getParticipantesFull
-    
+
     respond_to do |format|
       format.xml # participantesRifas.xml.builder
     end
   end
-  
+
   # GET /participantes/enviarHashAll
   # GET /participantes/enviarHashAll.json
   def enviarCorreoATodos
@@ -51,11 +51,11 @@ class ParticipantesController < ApplicationController
     end
     render :text => str
   end
-  
+
   def enviarCorreo
     if params.has_key?(:cedula)
       numero_regex = /^[0-9]+$/
-      if params[:cedula] =~ numero_regex    
+      if params[:cedula] =~ numero_regex
         @participante = Participante.find_by_cedula(params[:cedula])
         if @participante.nil?
           flash[:notice] = 'No se encontró ningún participante cuya cédula sea:<br/>'.html_safe + params[:cedula]
@@ -73,12 +73,12 @@ class ParticipantesController < ApplicationController
     else
       flash[:notice] = 'Ingresa el número de cédula del participante'
     end
-    
+
     respond_to do |format|
       format.html # entregarComida.html.erb
     end
   end
-  
+
   # GET /participantes/universidades
   # GET /participantes/universidades.json
   def universidades
@@ -90,7 +90,7 @@ class ParticipantesController < ApplicationController
     end
     @universidades = unis.sort_by { |h| h[:participantes] }.reverse!
   end
-  
+
   # GET /participantes/controlDeVentas
   # GET /participantes/controlDeVentas.json
   def controlDeVentas
@@ -125,7 +125,7 @@ class ParticipantesController < ApplicationController
       @totalVentaReg = u[:totalIngreso]  = entradasPorUni * 300
     end
   end
-  
+
   # GET /participantes/reiniciarComidas
   # GET /participantes/reiniciarComidas.json
   def reiniciarComidas
@@ -137,24 +137,24 @@ class ParticipantesController < ApplicationController
       format.json { head :ok }
     end
   end
-  
+
   # POST /participantes/1/entregarComida
   # POST /participantes/1/entregarComida.json
   def entregarComida
     if params.has_key?(:entrada)
-    
+
       numero_regex = /^[0-9]+$/
-      
+
       if params[:entrada] =~ numero_regex
         @participante = Participante.find_by_entrada(params[:entrada])
-        
+
         if @participante.nil?
           flash[:notice] = 'No se encontró ningún participante con la entrada:<br/>'.html_safe + params[:entrada]
         else
           if @participante.eliminado
             flash[:notice] = 'Error: El participante fue eliminado del sistema'
           else
-            
+
             if @participante.comida
               flash[:notice] = 'Ya comió'
             else
@@ -169,12 +169,12 @@ class ParticipantesController < ApplicationController
     else
       flash[:notice] = 'Ingresa el número de entrada del participante'
     end
-    
+
     respond_to do |format|
       format.html # entregarComida.html.erb
     end
   end
-  
+
   # GET /participantes/comidas
   def infoComidas
     @participantes = Participante.all.count
@@ -184,7 +184,7 @@ class ParticipantesController < ApplicationController
       format.html # comidas.html.erb
     end
   end
-  
+
   # GET /participantes/buscar/1
   # GET /participantes/buscar/1.json
   def buscar
@@ -198,33 +198,33 @@ class ParticipantesController < ApplicationController
         else
           redirect_to @participante
         end
-      
+
       else
         nombre = "%"+ params[:query] +"%"
         @titulo = 'Búsqueda =>  ' + params[:query]
         @participantes = buscarParticipantes(nombre)
         flash[:notice] = ""
-        
+
         if @participantes.size == 0
           flash[:notice] = 'No se encontró ningún particpante cuyo nombre o apellido contenga ' + params[:query]
           @participantes = getParticipantes
           @titulo = 'Lista de participantes'
         end
       end
-      
+
     else
       flash[:notice] = 'Tienes que escribir algo si quieres hacer una busqueda...'
       @participantes = getParticipantes
       @titulo = 'Lista de participantes'
     end
-    
+
     if @participante.nil?
       respond_to do |format|
         format.html { render 'index.html.erb' }
       end
     end
   end
-  
+
   # GET /participantes
   # GET /participantes.json
   def index
@@ -235,10 +235,10 @@ class ParticipantesController < ApplicationController
       @titulo = 'Lista de participantes'
       @participantes = getParticipantes
     end
-    
+
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render :json => @participantes }
+      format.json { render json: @participantes }
     end
   end
 
@@ -252,14 +252,14 @@ class ParticipantesController < ApplicationController
       redirect_to new_session_path
     else
       @participante = Participante.find(params[:id])
-      
+
       respond_to do |format|
         format.html # show.html.erb
-        format.json { render :json => @participante }
+        format.json { render json: @participante }
       end
     end
   end
-  
+
   # GET /participantes/new
   # GET /participantes/new.json
   def new
@@ -284,11 +284,11 @@ class ParticipantesController < ApplicationController
       end
     end
   end
-  
+
   # POST /participantes
   # POST /participantes.json
   def create
-    @participante = Participante.new(params[:participante])
+    @participante = Participante.new(participante_params)
     @participante[:organizador_id] = session[:usuario_id]
     @zonas = getZonasDisponibles
     respond_to do |format|
@@ -302,13 +302,13 @@ class ParticipantesController < ApplicationController
       end
     end
   end
-  
+
   # PUT /participantes/1
   # PUT /participantes/1.json
   def update
     @hash = params[:participante][:hash]
     hashCorrecto = Digest::SHA1.hexdigest(params[:id].to_s + SALT)
-    
+
     if session[:organizador].nil?  && (@hash.nil? || @hash != hashCorrecto)
       flash[:notice] = 'Debe iniciar sesión para poder acceder al sistema'
       redirect_to new_session_path
@@ -325,10 +325,10 @@ class ParticipantesController < ApplicationController
       end
       registro += parametrosActualizados + "\n"
       #END
-      
+
       @participante = Participante.find(params[:id])
       @zonas = getZonasDisponiblesEdit @participante.zona
-      
+
       #BEGIN Respaldo de los datos anteriores del participante
       registro += "-------------------------------\n"
       registro += "Datos previos:\n"
@@ -338,13 +338,13 @@ class ParticipantesController < ApplicationController
       end
       registro += parametrosOriginales + "\n"
       #END
-      
+
       unless params[:participante][:hash].nil?
         params[:participante].tap { |h| h.delete(:hash) }
       end
-      
+
       respond_to do |format|
-        if @participante.update_attributes(params[:participante])
+        if @participante.update_attributes(participante_params)
           logger.warn registro
           flash[:notice] = 'Sus datos fueron modificados con éxito'
           format.html { redirect_to :controller => 'participantes', :action => 'show', :id => params[:id], :hash => @hash }
@@ -361,7 +361,7 @@ class ParticipantesController < ApplicationController
       end
     end
   end
-  
+
   # DELETE /participantes/1
   # DELETE /participantes/1.json
   def destroy
@@ -372,56 +372,61 @@ class ParticipantesController < ApplicationController
       format.json { head :ok }
     end
   end
-  
+
   private
-  
+
   def getParticipantes
-    Participante.order(sort_column + ' ' + sort_direction).paginate :per_page => 20, :page => params[:page], :conditions => { :eliminado => 0 }
+    Participante.where(eliminado: 0).order(sort_column + ' ' + sort_direction).paginate(per_page: 20, page: params[:page])
   end
-  
+
   def getParticipantesFiltrar(tipo, param)
-    Participante.order(sort_column + ' ' + sort_direction).paginate :per_page => 20, :page => params[:page], :conditions => { tipo.to_sym => param }
+    Participante.where(tipo.to_sym => param).order(sort_column + ' ' + sort_direction).paginate(per_page: 20, page: params[:page])
   end
-  
+
   def getParticipantesFull
-    Participante.find :all, :order => 'created_at DESC', :conditions => { :eliminado => nil }
+    Participante.where(eliminado: nil).order('created_at DESC')
   end
-  
+
   def buscarParticipantes(nombre)
-    Participante.order(sort_column + ' ' + sort_direction).paginate :per_page => 20, :page => params[:page], :conditions => ['nombre like ? OR seg_nombre like ? OR apellido like ? OR seg_apellido like ?', nombre, nombre, nombre, nombre]
+    Participante.where(['nombre like ? OR seg_nombre like ? OR apellido like ? OR seg_apellido like ?', nombre, nombre, nombre, nombre]).order(sort_column + ' ' + sort_direction).paginate(per_page: 20, page: params[:page])
   end
-  
+
   def sort_column
     Participante.column_names.include?(params[:sort]) ? params[:sort] : 'created_at'
   end
-  
+
   def sort_direction
     %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
   end
-  
+
   def getZonasDisponibles
     zonas = Zona.all
     zonasDisponibles = []
-    
+
     zonas.each do |z|
-      if z.capacidad > z.participantes.count
-        zonasDisponibles << z
-      end
+      zonasDisponibles << z if z.capacidad > z.participantes.count
     end
-    
+
     zonasDisponibles
   end
-  
+
   def getZonasDisponiblesEdit(zona)
     zonas = Zona.all
     zonasDisponibles = []
-    
+
     zonas.each do |z|
-      if (z.capacidad > z.participantes.count) || (z == zona)
-        zonasDisponibles << z
-      end
+      zonasDisponibles << z if (z.capacidad > z.participantes.count) || (z == zona)
     end
-    
+
     zonasDisponibles
+  end
+
+  private
+
+  def participante_params
+    params.require(:participante).permit(:cedula, :nombre, :seg_nombre, :apellido, :seg_apellido,
+      :fecha_nac, :direccion, :correo, :telefono, :institucion, :carrera, :nivel, :tipo_nivel,
+      :zona_id, :entrada, :deposito, :esEstudiante
+    )
   end
 end

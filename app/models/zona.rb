@@ -9,17 +9,18 @@
 
 class Zona < ActiveRecord::Base
   has_many :participantes
-  
+
   palabra_regex	= /\A[a-z]+\z/i
-  
-  validates :nombre,    format: { with: TEXTO_REGEX }, uniqueness: true
-                        
-  validates :capacidad, presence: true
-  
+
+  validates :nombre,    format:     { with: TEXTO_REGEX },
+                        uniqueness: true
+
+  validates :capacidad, presence:   true
+
   def disponibilidad
     capacidad - participantes.count
   end
-  
+
   def estaVacia
     participantes.count == 0
   end
