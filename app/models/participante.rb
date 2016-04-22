@@ -34,18 +34,17 @@
 class Participante < ActiveRecord::Base
   include Persona
 
-  self.include_root_in_json = true
-
   belongs_to :zona
   belongs_to :grupo
   belongs_to :organizador
-
   has_many :preguntas
   has_many :participantes_mesas
   has_many :participantes_mates
   has_many :mesas_de_trabajo, through: :participantes_mesas
   has_many :materiales_pop,   through: :participantes_mates
   has_and_belongs_to_many :rifas
+
+  self.include_root_in_json = true
 
   validates :cedula,       numericality: true, uniqueness: true
 

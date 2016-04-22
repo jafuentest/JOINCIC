@@ -16,6 +16,7 @@ class Programa < ActiveRecord::Base
   belongs_to :problema
   belongs_to :grupo
   
-  validates :problema_id, :presence => true
-  validates :data, :presence => true
+  validates :problema, presence: true
+
+  validates :data,     presence: true
 end

@@ -21,5 +21,5 @@ class Ponencia < ActiveRecord::Base
   
   self.include_root_in_json = true
   
-  validates :titulo,    :presence => true
+  validates :titulo, presence: true
 end

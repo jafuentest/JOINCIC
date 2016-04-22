@@ -9,21 +9,22 @@
 
 class MaterialPop < ActiveRecord::Base
   has_many :participantes_mates
-  has_many :participantes, :through => :participante_mate
+  has_many :participantes, through: :participante_mate
   
-  validates :nombre,   :format => { :with => TEXTO_REGEX }
-  validates :cantidad, :presence => true
+  validates :nombre,   format: { with: TEXTO_REGEX }
+
+  validates :cantidad, presence: true
   
   def noHaSidoEntregado
-    participantes_mates.count(:conditions => { :entregado => true }) == 0
+    participantes_mates.count(conditions: { entregado: true }) == 0
   end
   
   def existencia
-    cantidad - participantes_mates.count(:conditions => { :entregado => true })
+    cantidad - participantes_mates.count(conditions: { entregado: true })
   end
   
   def porEntregar
-    Participante.all.size - participantes_mates.count(:conditions => { :entregado => true })
+    Participante.all.size - participantes_mates.count(conditions: { entregado: true })
   end
   
   def disponibilidad

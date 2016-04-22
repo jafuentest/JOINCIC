@@ -21,34 +21,26 @@ class Organizador < ActiveRecord::Base
 
   has_many :participantes
  
-  validates :usuario,       :format => { :with => LOGIN_REGEX },
-                            :uniqueness => { :case_sensitive => false }
+  validates :usuario,      format: { with: LOGIN_REGEX }, uniqueness: { case_sensitive: false }
 
-  validates :clave,         :presence => true,
-                            :length => { :maximum => 15 }
+  validates :clave,        presence: true, length: { maximum: 15 }
 
-  validates :nombre,        :format => { :with => TEXTO_REGEX }
+  validates :nombre,       format: { with: TEXTO_REGEX }
 
-  validates :seg_nombre,    :allow_blank => true,
-                            :format => { :with => TEXTO_REGEX }
+  validates :apellido,     format: { with: TEXTO_REGEX }
 
-  validates :apellido,      :format => { :with => TEXTO_REGEX }
+  validates :seg_nombre,   format: { with: TEXTO_REGEX }, allow_blank: true
 
-  validates :seg_apellido,  :allow_blank => true,
-                            :format => { :with => TEXTO_REGEX }
+  validates :seg_apellido, format: { with: TEXTO_REGEX }, allow_blank: true
 
-  validates :correo,        :format => { :with => EMAIL_REGEX },
-                            :uniqueness => { :case_sensitive => false }
+  validates :correo,       format: { with: EMAIL_REGEX }, uniqueness: { case_sensitive: false }
 
-  def comprobarPass(pass)
+  def comprobarClave(pass)
     clave == pass
   end
 
-  def self.comprobarOrganizador(nombre, pass)
+  def self.comprobarOrganizador(nombre, clave)
     organizador = find_by_usuario(nombre)
-      if (organizador != nil)
-        return organizador if organizador.comprobarPass(pass)
-      end
-    nil
+    organizador if organizador.comprobarClave(clave) unless organizador.nil?
   end
 end

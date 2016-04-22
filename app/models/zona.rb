@@ -12,10 +12,9 @@ class Zona < ActiveRecord::Base
 
   palabra_regex	= /\A[a-z]+\z/i
 
-  validates :nombre,    format:     { with: TEXTO_REGEX },
-                        uniqueness: true
+  validates :nombre,    format: { with: TEXTO_REGEX }, uniqueness: true
 
-  validates :capacidad, presence:   true
+  validates :capacidad, presence: true
 
   def disponibilidad
     capacidad - participantes.count

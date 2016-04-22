@@ -14,30 +14,23 @@
 
 class Ponente < ActiveRecord::Base
   include Persona
-  
+
   has_many :mesas_de_trabajo
   has_many :ponencias
-  
+
   self.include_root_in_json = true
-  
-  validates :nombre,        :format => { :with => TEXTO_REGEX }
-  
-  validates :seg_nombre,    :allow_blank => true,
-                            :format => { :with => TEXTO_REGEX }
-  
-  validates :apellido,      :format => { :with => TEXTO_REGEX }
-  
-  validates :seg_apellido,  :allow_blank => true,
-                            :format => { :with => TEXTO_REGEX }
-  
-  validates :telefono,      :allow_blank => true,
-                            :numericality => true,
-                            :length => { :is => 11}
-  
-  validates :correo,        :allow_blank => true,
-                            :format => { :with => EMAIL_REGEX },
-                            :uniqueness => { :case_sensitive => false }
-  
-  validates :institucion,   :format => { :with => TEXTO_REGEX }
-  
+
+  validates :nombre,       format: { with: TEXTO_REGEX }
+
+  validates :seg_nombre,   format: { with: TEXTO_REGEX }, allow_blank: true
+
+  validates :apellido,     format: { with: TEXTO_REGEX }
+
+  validates :seg_apellido, format: { with: TEXTO_REGEX }, allow_blank: true
+
+  validates :telefono,     allow_blank: true, numericality: true, length: { is: 11}
+
+  validates :correo,       format: { with: EMAIL_REGEX }, allow_blank: true, uniqueness: { case_sensitive: false }
+
+  validates :institucion,  format: { with: TEXTO_REGEX }
 end

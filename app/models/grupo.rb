@@ -10,11 +10,13 @@
 class Grupo < ActiveRecord::Base
   has_many :participantes
   has_many :problemas
-  has_many :programas, :through => :problemas
+  has_many :programas, through: :problemas
   
-  validates :clave,              :confirmation => true
-  validates :clave_confirmation, :presence => true
-  validates :login,              :uniqueness => { :case_sensitive => false }
+  validates :clave,              confirmation: true
+
+  validates :clave_confirmation, presence: true
+
+  validates :login,              uniqueness: { case_sensitive: false }
  
   def comprobar_clave(pass)
     clave == pass
@@ -22,7 +24,6 @@ class Grupo < ActiveRecord::Base
  
   def self.comprobarGrupo(login, clave)
     grupo = find_by_login(login)
-      return grupo if grupo && grupo.comprobar_clave(clave)
-    return nil
+    grupo if grupo.comprobar_clave(clave) unless grupo.nil?
   end
 end
