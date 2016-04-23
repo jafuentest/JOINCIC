@@ -1,6 +1,15 @@
-.bundle
-log/*.log
-tmp/
-.sass-cache/
-config/database.yml
-config/environments/production.rb
+/log
+/tmp
+
+## Environment normalization:
+/.bundle
+
+# Ignore Byebug command history file.
+/.byebug_history
+
+# Archivos de sublime
+/*.sublime-*
+
+# Configuración de la BDD y ambiente de producción
+/config/database.yml
+/config/environments/production.rb
