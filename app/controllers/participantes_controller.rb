@@ -1,8 +1,10 @@
 class ParticipantesController < ApplicationController
   require 'json'
 
-  skip_before_filter :organizadorLogin, :only => [:edit, :update, :show, :enviarCorreo, :validarCedula]
-  layout "application", :except => [:excel, :excelPatrocinantes]
+  skip_before_filter :organizadorLogin, only: [:edit, :update, :show, :enviarCorreo, :validarCedula]
+
+  layout 'application', except: [:excel, :excelPatrocinantes]
+
   helper_method :sort_column, :sort_direction
 
   # GET /participantes/validarCedula.json?cedula=1
@@ -49,7 +51,7 @@ class ParticipantesController < ApplicationController
       str+='<br/>'
       UserMailer.enviarHash(p).deliver
     end
-    render :text => str
+    render text: str
   end
 
   def enviarCorreo
@@ -83,10 +85,10 @@ class ParticipantesController < ApplicationController
   # GET /participantes/universidades.json
   def universidades
     unis = []
-    instituciones = Participante.find(:all, :group => :institucion)
+    instituciones = Participante.find(:all, group: :institucion)
     instituciones.each do |ins|
-      participantes = Participante.count(:all, :conditions => { :institucion => ins.institucion } )
-      unis << { :nombre => ins.institucion, :participantes => participantes }
+      participantes = Participante.count(:all, conditions: { institucion: ins.institucion } )
+      unis << { nombre: ins.institucion, participantes: participantes }
     end
     @universidades = unis.sort_by { |h| h[:participantes] }.reverse!
   end
@@ -99,25 +101,25 @@ class ParticipantesController < ApplicationController
     dias = Participante.group('date(convert_tz(created_at,\'+0:00\',\'-4:30\'))')
     dias.each do |d|
       fecha = d.created_at.to_date
-      dia = { :fecha => fecha.strftime('%b - %d') }
-      ventasDelDia = Participante.find(:all, :conditions => ['date(convert_tz(created_at,\'+0:00\',\'-4:30\')) >= ? AND date(convert_tz(created_at,\'+0:00\',\'-4:30\')) <= ?', fecha, fecha])
+      dia = { fecha: fecha.strftime('%b - %d') }
+      ventasDelDia = Participante.find(:all, conditions: ['date(convert_tz(created_at,\'+0:00\',\'-4:30\')) >= ? AND date(convert_tz(created_at,\'+0:00\',\'-4:30\')) <= ?', fecha, fecha])
         dia[:UCAB]   = ventasDelDia.count{ |p| p.organizador.institucion == 'UCAB'  unless p.organizador.nil? }
         dia[:UCV]    = ventasDelDia.count{ |p| p.organizador.institucion == 'UCV'   unless p.organizador.nil? }
         dia[:UNEFA]  = ventasDelDia.count{ |p| p.organizador.institucion == 'UNEFA' unless p.organizador.nil? }
         dia[:USB]    = ventasDelDia.count{ |p| p.organizador.institucion == 'USB'   unless p.organizador.nil? }
       @fechas << dia
     end
-    entradasVendidas  = Participante.find(:all, :conditions => ['date(convert_tz(created_at,\'+0:00\',\'-4:30\')) <= ?', '2013-05-17'])
+    entradasVendidas  = Participante.find(:all, conditions: ['date(convert_tz(created_at,\'+0:00\',\'-4:30\')) <= ?', '2013-05-17'])
     @totalPreventa = 0
-    @unisPreventa = [ { :nombre => 'UCAB' }, { :nombre => 'UCV' }, { :nombre => 'UNEFA' }, { :nombre => 'USB' } ]
+    @unisPreventa = [ { nombre: 'UCAB' }, { nombre: 'UCV' }, { nombre: 'UNEFA' }, { nombre: 'USB' } ]
     @unisPreventa.each do |u|
       entradasPorUni = entradasVendidas.count{ |p| p.organizador.institucion == u[:nombre] }
       u[:totalEntradas] = entradasPorUni
       u[:totalIngreso]  = entradasPorUni * 250
       @totalPreventa = @totalPreventa + u[:totalIngreso]
     end
-    entradasVendidas  = Participante.find(:all, :conditions => ['date(convert_tz(created_at,\'+0:00\',\'-4:30\')) > ?', '2013-05-17'])
-    @unisVenta = [ { :nombre => 'UCAB' }, { :nombre => 'UCV' }, { :nombre => 'UNEFA' }, { :nombre => 'USB' } ]
+    entradasVendidas  = Participante.find(:all, conditions: ['date(convert_tz(created_at,\'+0:00\',\'-4:30\')) > ?', '2013-05-17'])
+    @unisVenta = [ { nombre: 'UCAB' }, { nombre: 'UCV' }, { nombre: 'UNEFA' }, { nombre: 'USB' } ]
     @unisVenta.each do |u|
       entradasPorUni = entradasVendidas.count{ |p| p.organizador.institucion == u[:nombre] unless p.organizador.nil?}
       u[:totalEntradas] = entradasPorUni
@@ -129,11 +131,11 @@ class ParticipantesController < ApplicationController
   # GET /participantes/reiniciarComidas
   # GET /participantes/reiniciarComidas.json
   def reiniciarComidas
-    Participante.find(:all, :conditions => { :comida => true }).each do |p|
+    Participante.find(:all, conditions: { comida: true }).each do |p|
       p.update_attribute(:comida, false)
     end
     respond_to do |format|
-      format.html { redirect_to entregarComida_participantes_path, notice =>  'El control de comidas ha sido reiniciado con éxito.' }
+      format.html { redirect_to entregarComida_participantes_path, notice:  'El control de comidas ha sido reiniciado con éxito.' }
       format.json { head :ok }
     end
   end
@@ -149,7 +151,7 @@ class ParticipantesController < ApplicationController
         @participante = Participante.find_by_entrada(params[:entrada])
 
         if @participante.nil?
-          flash[:notice] = 'No se encontró ningún participante con la entrada:<br/>'.html_safe + params[:entrada]
+          flash[:notice] = "No se encontró ningún participante con la entrada:<br/> #{params[:entrada]}".html_safe
         else
           if @participante.eliminado
             flash[:notice] = 'Error: El participante fue eliminado del sistema'
@@ -178,7 +180,7 @@ class ParticipantesController < ApplicationController
   # GET /participantes/comidas
   def infoComidas
     @participantes = Participante.all.count
-    @entregadas = Participante.find(:all, :conditions => { :comida => true }).count
+    @entregadas = Participante.find(:all, conditions: { comida: true }).count
     @por_entregar = @participantes - @entregadas
     respond_to do |format|
       format.html # comidas.html.erb
@@ -192,7 +194,7 @@ class ParticipantesController < ApplicationController
       if params[:query] =~ /^[0-9]+$/
         @participante = Participante.find_by_cedula(params[:query])
         if @participante.nil?
-          flash[:notice] = 'No se encontró ningún participante cuya cédula sea: ' + params[:query]
+          flash[:notice] = "No se encontró ningún participante cuya cédula sea: #{params[:query]}"
           @titulo = 'Lista de participantes'
           @participantes = getParticipantes
         else
@@ -200,10 +202,10 @@ class ParticipantesController < ApplicationController
         end
 
       else
-        nombre = "%"+ params[:query] +"%"
-        @titulo = 'Búsqueda =>  ' + params[:query]
+        nombre = "%#{params[:query]}%"
+        @titulo = 'Búsqueda => ' + params[:query]
         @participantes = buscarParticipantes(nombre)
-        flash[:notice] = ""
+        flash[:notice] = ''
 
         if @participantes.size == 0
           flash[:notice] = 'No se encontró ningún particpante cuyo nombre o apellido contenga ' + params[:query]
@@ -230,7 +232,7 @@ class ParticipantesController < ApplicationController
   def index
     if params.has_key?(:uni) && params[:uni] != ''
       @titulo = 'Lista de participantes ' + params[:uni]
-      @participantes = getParticipantesFiltrar 'institucion', params[:uni]
+      @participantes = getParticipantesFiltrarUni params[:uni]
     else
       @titulo = 'Lista de participantes'
       @participantes = getParticipantes
@@ -294,11 +296,11 @@ class ParticipantesController < ApplicationController
     respond_to do |format|
       if @participante.save
         # UserMailer.enviarHash(@participante).deliver
-        format.html { redirect_to @participante, notice => 'El participante fue registrado con éxito' }
-        format.json { render json =>  @participante, status => :created, location => @participante }
+        format.html { redirect_to @participante, notice: 'El participante fue registrado con éxito' }
+        format.json { render json: @participante, status: :created, location: @participante }
       else
         format.html { render 'new.html.erb' }
-        format.json { render json => @participante.errors, status => :unprocessable_entity }
+        format.json { render json: @participante.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -315,7 +317,7 @@ class ParticipantesController < ApplicationController
     else
       #BEGIN Registro de los datos de la petición y el responsable
       logger.warn "Modificacion sobre el participante: #{params[:id]}"
-      registro = ""
+      registro = ''
       registro += "Organizador responsable:#{session[:organizador]}\n" unless session[:organizador].nil?
       registro += "-------------------------------\n"
       registro += "Datos de la peticion:\n"
@@ -332,7 +334,7 @@ class ParticipantesController < ApplicationController
       #BEGIN Respaldo de los datos anteriores del participante
       registro += "-------------------------------\n"
       registro += "Datos previos:\n"
-      parametrosOriginales = ""
+      parametrosOriginales = ''
       @participante.attributes.keys.each do |k|
         parametrosOriginales += "#{k}: #{@participante[k]} - "
       end
@@ -347,7 +349,7 @@ class ParticipantesController < ApplicationController
         if @participante.update_attributes(participante_params)
           logger.warn registro
           flash[:notice] = 'Sus datos fueron modificados con éxito'
-          format.html { redirect_to :controller => 'participantes', :action => 'show', :id => params[:id], :hash => @hash }
+          format.html { redirect_to controller: 'participantes', action: 'show', id: params[:id], hash: @hash }
           format.json { head :ok }
         else
           if session[:organizador].nil?
@@ -356,7 +358,7 @@ class ParticipantesController < ApplicationController
             logger.warn "Fail (Organizador: #{session[:organizador]})"
           end
           format.html { render 'edit.html.erb' }
-          format.json { render json =>  @participante.errors, status => :unprocessable_entity }
+          format.json { render json: @participante.errors, status: :unprocessable_entity }
         end
       end
     end
@@ -376,15 +378,15 @@ class ParticipantesController < ApplicationController
   private
 
   def getParticipantes
-    Participante.where(eliminado: 0).order(sort_column + ' ' + sort_direction).paginate(per_page: 20, page: params[:page])
+    Participante.where(eliminado: 0).order("#{sort_column} #{sort_direction}").paginate(per_page: 20, page: params[:page])
   end
 
-  def getParticipantesFiltrar(tipo, param)
-    Participante.where(tipo.to_sym => param).order(sort_column + ' ' + sort_direction).paginate(per_page: 20, page: params[:page])
+  def getParticipantesFiltrarUni(uni)
+    Participante.where(institucion: uni).order("#{sort_column} #{sort_direction}").paginate(per_page: 20, page: params[:page])
   end
 
   def getParticipantesFull
-    Participante.where(eliminado: nil).order('created_at DESC')
+    Participante.where(eliminado: 0).order('created_at DESC')
   end
 
   def buscarParticipantes(nombre)
