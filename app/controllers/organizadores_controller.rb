@@ -4,7 +4,7 @@ class OrganizadoresController < ApplicationController
   # GET /organizadores
   # GET /organizadores.json
   def index
-    @organizadores = Organizador.where(eliminado: nil).paginate(per_page: 20, page: params[:page])
+    @organizadores = Organizador.where(eliminado: 0).paginate(per_page: 20, page: params[:page])
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @organizadores }
