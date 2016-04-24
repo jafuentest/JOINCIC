@@ -62,7 +62,7 @@
 }
 
 .dialog-buttons {
-	margin: 5px 0 5px 0;
+  margin: 5px 0 5px 0;
 }
 
 .smoke {
@@ -85,13 +85,13 @@
   -webkit-background-clip: padding-box;
   line-height: 13px;
   font-weight: bold;
-    border-radius: 3px;
-    text-transform: uppercase;
-    background-color: #ebebeb;
-    color: #333;
-    font-size:11px;
-    padding:6px 9px;
-    border:1px solid #333;
+  border-radius: 3px;
+  text-transform: uppercase;
+  background-color: #ebebeb;
+  color: #333;
+  font-size:11px;
+  padding:6px 9px;
+  border:1px solid #333;
 }
 
 .dialog-prompt input {
@@ -102,9 +102,9 @@
   border: 1px solid #333;
   font-size: 15px;
   padding: 5px;
-	width:300px;
-	text-align:center;
-	background-color:#ccc;
+  width:300px;
+  text-align:center;
+  background-color:#ccc;
 }
 
 .smoke-base {
@@ -125,12 +125,12 @@
 .smoke {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff,endColorstr=#ffffff);
   text-transform: none;
-		color:#eee;
-		font-weight: normal;
-    background-color: rgba(0,0,0,.75);
-    border-radius: 5px;
-    border:1px solid #333;
-    font-size:24px;
+  color:#eee;
+  font-weight: normal;
+  background-color: rgba(0,0,0,.75);
+  border-radius: 5px;
+  border:1px solid #333;
+  font-size:24px;
 }
 
 .dialog-buttons button {
@@ -143,10 +143,10 @@
 
 button.cancel {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#444444,endColorstr=#444444);
-	background-color: #999; 
-	color:#222
+  background-color: #999; 
+  color:#222
 }
 
 .queue{
-	display:none;
+  display:none;
 }

@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
   </head>
   <body>
     <h1>Bienvenido a las JOINCIC, <%= @nombre %></h1>
-	<div style="text-align:justify" >
-    <p>
-      Para confirmar tus datos de registro ingresa al siguiente link: <a href="http://sistema.joincic.com.ve/participantes/<%= @id %>?hash=<%= @hash %>" > http://sistema.joincic.com.ve/participantes/<%= @id %>?hash=<%= @hash %> </a>
-    </p>
-	<p style="color:red" >
-    	Recuerde que los datos del link serán los datos finales de su certificado por favor, lea con cuidado su información.    </p>
-	<div>
+    <div style="text-align:justify">
+      <p>
+        Para confirmar tus datos de registro ingresa al siguiente link: <a href="http://sistema.joincic.com.ve/participantes/<%= @id %>?hash=<%= @hash %>"> http://sistema.joincic.com.ve/participantes/<%= @id %>?hash=<%= @hash %></a>
+      </p>
+      <p style="color:red">Recuerde que los datos del link serán los datos finales de su certificado por favor, lea con cuidado su información.</p>
+    </div>
   </body>
 </html>

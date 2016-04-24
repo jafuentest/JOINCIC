@@ -10,7 +10,7 @@
 class Zona < ActiveRecord::Base
   has_many :participantes
 
-  palabra_regex	= /\A[a-z]+\z/i
+  palabra_regex = /\A[a-z]+\z/i
 
   validates :nombre,    format: { with: TEXTO_REGEX }, uniqueness: true
 
