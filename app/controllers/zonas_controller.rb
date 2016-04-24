@@ -56,7 +56,7 @@ class ZonasController < ApplicationController
     respond_to do |format|
       if @zona.update_attributes(zona_params)
         format.html { redirect_to @zona, notice: 'Zona was successfully updated.' }
-        format.json { head: :ok }
+        format.json { head :ok }
       else
         format.html { render 'edit.html.erb' }
         format.json { render json: @zona.errors, status: :unprocessable_entity }
@@ -70,7 +70,7 @@ class ZonasController < ApplicationController
     @zona.destroy
     respond_to do |format|
       format.html { redirect_to zonas_url }
-      format.json { head: :ok }
+      format.json { head :ok }
     end
   end
 

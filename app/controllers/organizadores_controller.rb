@@ -82,8 +82,9 @@ class OrganizadoresController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def organizador_params
-    params.require(:organizador).permit(:usuario, :clave, :nombre, :apellido, :correo,
-      :institucion, :coordinacion, :coordinador, :seg_nombre, :seg_apellido, :eliminado)
+    params.require(:organizador).permit(
+      :usuario, :clave, :nombre, :apellido, :correo, :institucion,
+      :coordinacion, :coordinador, :seg_nombre,:seg_apellido, :eliminado)
   end
 
   # Use callbacks to share common setup or constraints between actions.

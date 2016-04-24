@@ -426,9 +426,8 @@ class ParticipantesController < ApplicationController
   private
 
   def participante_params
-    params.require(:participante).permit(:cedula, :nombre, :seg_nombre, :apellido, :seg_apellido,
-      :fecha_nac, :direccion, :correo, :telefono, :institucion, :carrera, :nivel, :tipo_nivel,
-      :zona_id, :entrada, :deposito, :esEstudiante
-    )
+    params.require(:participante).permit(
+      :cedula, :nombre, :seg_nombre, :apellido, :seg_apellido, :fecha_nac, :direccion, :correo, :telefono,
+      :institucion, :carrera, :nivel, :tipo_nivel, :zona_id, :entrada, :deposito, :esEstudiante)
   end
 end
