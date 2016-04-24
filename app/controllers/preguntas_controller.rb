@@ -1,5 +1,7 @@
 class PreguntasController < ApplicationController
-  skip_before_filter :organizadorLogin, :only => [:new, :create, :index]
+  skip_before_filter :organizadorLogin, only: [:new, :create, :index]
+  before_action :set_pregunta, only: [:show, :destroy, :aprobar]
+
   layout :verificar_layout #Ver al final
 
   # GET /preguntas
@@ -9,19 +11,16 @@ class PreguntasController < ApplicationController
     @hay_ponencia = false
     if params[:ponencia_id].present?
       if Ponencia.find(params[:ponencia_id]).present?
-        @preguntas = Pregunta.where(:ponencia_id => params[:ponencia_id].to_i).includes(:ponencia, :participante).aceptada
+        @preguntas = Pregunta.where(ponencia_id: params[:ponencia_id]).includes(:ponencia, :participante).aceptada
         @hay_ponencia = true
-        @num_ponencia = params[:ponencia_id].to_i
+        @num_ponencia = params[:ponencia_id]
       end
     end
 
-    unless @hay_ponencia
-      @preguntas = Pregunta.aceptada.includes(:ponencia, :participante).limit(50)
-    end
-
+    @preguntas = Pregunta.aceptada.includes(:ponencia, :participante).limit(50) unless @hay_ponencia
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render :json => @preguntas }
+      format.json { render json: @preguntas }
     end
   end
 
@@ -30,32 +29,26 @@ class PreguntasController < ApplicationController
     @hay_ponencia = false
     if params[:ponencia].present?
       if Ponencia.find(params[:ponencia]).present?
-        @preguntas = Pregunta.includes(:ponencia, :participante).find_by_ponencia_id(params[:ponencia_id]).order("id DESC")
+        @preguntas = Pregunta.includes(:ponencia, :participante).find_by_ponencia_id(params[:ponencia_id]).order('id DESC')
         @hay_ponencia = true
         @num_ponencia = params[:ponencia].to_i
       end
     end
 
-    unless @hay_ponencia
-      @preguntas = Pregunta.includes(:ponencia, :participante).limit(50).order("id DESC")
-    end
-
-    @ultimaid = @preguntas.maximum("id")
-
+    @preguntas = Pregunta.includes(:ponencia, :participante).limit(50).order('id DESC') unless @hay_ponencia
+    @ultimaid = @preguntas.maximum('id')
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render :json => @preguntas }
+      format.json { render json: @preguntas }
     end
   end
 
   # GET /preguntas/1
   # GET /preguntas/1.json
   def show
-    @pregunta = Pregunta.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render :json => @pregunta }
+      format.json { render json: @pregunta }
     end
   end
 
@@ -63,7 +56,7 @@ class PreguntasController < ApplicationController
   # GET /preguntas/new.json
   def new
     ahora = Time.now - (60 * 60 * 4.5)
-    @ponencias = Ponencia.find(:all, :order => :titulo, :conditions => ["hora_ini <= ? AND hora_fin >= ?", ahora, ahora])
+    @ponencias = Ponencia.where('hora_ini <= ? AND hora_fin >= ?', ahora, ahora)
     @pregunta = Pregunta.new
   end
 
@@ -71,34 +64,30 @@ class PreguntasController < ApplicationController
   # POST /preguntas.json
   def create
     @ponencias = Ponencia.all
-    p = Participante.find_by_cedula(params[:participante_cedula])
-    if p.present?
-      params[:pregunta][:participante_id] = p.id
-
-      @pregunta = Pregunta.new(params[:pregunta])
-
+    participante = Participante.find_by_cedula(params[:participante_cedula])
+    if participante.present?
+      params[:pregunta][:participante_id] = participante.id
+      @pregunta = Pregunta.new(pregunta_params)
       respond_to do |format|
         if @pregunta.save
-          format.html { redirect_to "/preguntas/new" , notice => 'Pregunta creada satisfactoriamente.' }
-          format.json { render :json => @pregunta, status => :created, location => @pregunta }
+          format.html { redirect_to new_pregunta_path , notice: 'Pregunta creada satisfactoriamente.' }
+          format.json { render json: @pregunta, status: :created, location: @pregunta }
         else
-          format.html { render "new.html.erb" }
-          format.json { render :json => @pregunta.errors, status => :unprocessable_entity }
+          format.html { render 'new.html.erb' }
+          format.json { render json: @pregunta.errors, status: :unprocessable_entity }
         end
       end
     else
-      @pregunta = Pregunta.new(params[:pregunta])
+      @pregunta = Pregunta.new(pregunta_params)
       flash[:notice] = 'Participante no registrado.'
-      render "new.html.erb"
+      render 'new.html.erb'
     end
   end
 
   # DELETE /preguntas/1
   # DELETE /preguntas/1.json
   def destroy
-    @pregunta = Pregunta.find(params[:id])
     @pregunta.destroy
-
     respond_to do |format|
       format.html { redirect_to panel_preguntas_url }
       format.json { head :ok }
@@ -106,53 +95,63 @@ class PreguntasController < ApplicationController
   end
 
   def aprobar
-    p = Pregunta.find(params[:id])
-    p.aceptada = true
+    @pregunta.aceptada = true
     respond_to do |format|
-      if p.save
+      if @pregunta.save
         flash[:notice] = 'Pregunta aceptada.'
         format.html { redirect_to panel_preguntas_url }
         format.json { head :ok }
       else
         flash[:notice] = 'Pregunta sin cambios.'
         format.html { redirect_to panel_preguntas_url }
-        format.json { render :json => p.errors, status => :unprocessable_entity }
+        format.json { render json: @pregunta.errors, status: :unprocessable_entity }
       end
     end
   end
 
   def dame_preguntas
-    ponencia = ""
-    ultimoid = " id > 0 "
-    aceptada = ""
-    orden = "id DESC"
+    ponencia = ''
+    ultimoid = ' id > 0 '
+    aceptada = ''
+    orden = 'id DESC'
 
     if params[:ponencia_id].present?
       if Ponencia.find(params[:ponencia_id]).present?
-        ponencia = " AND ponencia_id = "+(params[:ponencia_id].to_i).to_s
+        ponencia = " AND ponencia_id = #{params[:ponencia_id]}"
       end
     end
     if params[:ultimoid].present? and params[:ultimoid].to_i > 0
-      ultimoid = " id > "+(params[:ultimoid].to_i).to_s
+      ultimoid = " id > #{params[:ultimoid]}"
     end
     if params[:aceptada].present?
-      aceptada = " AND aceptada = 1 "
-      orden = "id ASC"
+      aceptada = ' AND aceptada = 1 '
+      orden = 'id ASC'
     end
 
     @preguntas = Pregunta.where(ultimoid+ponencia+aceptada).order(orden)
 
-    render :json => @preguntas.to_json(:include => {:ponencia => { :only => :titulo }, :participante => { :only => [:nombre, :apellido] } }, :except => [:participante_id, :ponencia_id])
+    render json: @preguntas.to_json(
+      include: { ponencia: { only: :titulo }, participante: { only: [:nombre, :apellido] } },
+      except:  [:participante_id, :ponencia_id])
   end
 
   private
 
   def verificar_layout
-    case action_name
-    when "new", "create", "show", "index"
-      "movil"
+    if %w('new create show index').include?(action_name)
+      'movil'
     else
-      "application"
+      'application'
     end
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def pregunta_params
+    params.require(:pregunta).permit(:mensaje, :participante_id, :ponencia_id, :aceptada)
+  end
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_pregunta
+    @pregunta = Pregunta.find(params[:id])
   end
 end

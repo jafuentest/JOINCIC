@@ -93,10 +93,12 @@ Rails.application.routes.draw do
   match '/reportes',   to: 'home#reportes',          via: [:get, :post]
   match '/academico',  to: 'home#academico',         via: [:get, :post]
   match '/patrocinio', to: 'home#patrocinio',        via: [:get, :post]
+
   #Sub-Sistema de Preguntas
   match '/preguntar',         to: 'preguntas#new', via: [:get, :post]
   match '/preguntas/ver/:id', to: 'preguntas#show', as: :ver_pregunta, via: [:get, :post]
   match '/preguntas/ponencia/:ponencia_id(.:format)', to: 'preguntas#index', via: [:get, :post]
   match '/panel-preguntas(/:ponencia_id)', to: 'preguntas#panel', as: :panel_preguntas, via: [:get, :post]
+
   match '*a', to: 'errors#routing', via: [:get, :post]
 end
