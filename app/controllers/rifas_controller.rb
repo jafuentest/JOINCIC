@@ -2,7 +2,7 @@ class RifasController < ApplicationController
   skip_before_filter :organizadorLogin, only: [:getParticipantes, :setWinner]
   before_action :set_rifa, only: [:show, :edit, :update, :destroy]
 
-  layout :verificar_layout, except: [:getParticipantes] # Ver al final
+  layout 'movil', only: [:rifar]
 
   # GET /rifas
   # GET /rifas.json
@@ -161,6 +161,6 @@ class RifasController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_rifa
-    @zona = Zona.find(params[:id])
+    @rifa = Rifa.find(params[:id])
   end
 end
