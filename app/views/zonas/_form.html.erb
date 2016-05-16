@@ -1,16 +1,15 @@
 ﻿<%= form_for(@zona) do |f| %>
   <% if @zona.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@zona.errors.count, "error prohibió", "errores prohibieron") %> guardar la zona:</h2>
-      
+      <h2><%= pluralize(@zona.errors.count, 'error prohibió', 'errores prohibieron') %> guardar la zona:</h2>
       <ul>
-      <% @zona.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
+        <% @zona.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
-  
+
   <table class="formularioS">
     <tr>
       <th></th>
@@ -18,23 +17,23 @@
     <tr>
       <td>
         <div class="field">
-          <%= f.label      :nombre %><br />
-          <%= f.text_field :nombre, :size => 15, :maxlength => 1 %>
+          <%= f.label      :nombre %><br>
+          <%= f.text_field :nombre, size: 15, maxlength: 10 %>
         </div>
       </td>
     </tr>
     <tr>
       <td>
         <div class="field">
-          <%= f.label        :capacidad %><br />
-          <%= f.number_field :capacidad, :in => 1..999 %>
+          <%= f.label        :capacidad %><br>
+          <%= f.number_field :capacidad %>
         </div>
       </td>
     </tr>
   </table>
-  
-  <br />
-  
+
+  <br>
+
   <div class="actions">
     <%= f.submit %>
   </div>
