@@ -63,8 +63,8 @@
           <%= f.select :tipo_nivel, ['Trimestre', 'Semestre', 'Año'] %>
         </div>
         <div class="field">
-          <%= f.label      :nacionalidad %>
-          <%= f.text_field :nacionalidad, size: 20 %>
+          <%= f.label  :nacionalidad %><br>
+          <%= f.select :nacionalidad, ['Venezolano', 'Extranjero'] %><br>
         </div>
         <%= f.hidden_field :hash, value: @hash %>
       </td>
