@@ -29,6 +29,7 @@
 #  intereses          :string(255)
 #  experiencia        :string(255)
 #  organizador_id     :integer
+#  nacionalidad       :string(255)
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html

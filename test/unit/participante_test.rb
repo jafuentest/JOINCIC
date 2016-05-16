@@ -29,6 +29,7 @@
 #  intereses          :string(255)
 #  experiencia        :string(255)
 #  organizador_id     :integer
+#  nacionalidad       :string(255)
 #
 
 require 'test_helper'

@@ -29,6 +29,7 @@
 #  intereses          :string(255)
 #  experiencia        :string(255)
 #  organizador_id     :integer
+#  nacionalidad       :string(255)
 #
 
 class Participante < ActiveRecord::Base
@@ -66,7 +67,9 @@ class Participante < ActiveRecord::Base
 
   validates :entrada,      presence: true, uniqueness: { scope: :zona_id }
 
-  validates :deposito,     allow_blank: true, format: { with: /\A[\d]+\z/i }
+  validates :deposito,     presence: true, numericality: true
+
+  validates :nacionalidad, presence: true
 
   def edad
     hoy = Date.today
