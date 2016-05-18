@@ -144,36 +144,26 @@ class ParticipantesController < ApplicationController
   # POST /participantes/1/entregarComida.json
   def entregarComida
     if params.has_key?(:entrada)
-
       numero_regex = /^[0-9]+$/
 
       if params[:entrada] =~ numero_regex
         @participante = Participante.find_by_entrada(params[:entrada])
 
         if @participante.nil?
-          flash[:notice] = "No se encontró ningún participante con la entrada:<br/> #{params[:entrada]}".html_safe
+          flash[:notice] = "No se encontró ningún participante con la entrada:<br>#{params[:entrada]}".html_safe
+        elsif @participante.eliminado
+          flash[:notice] = 'Error: El participante fue eliminado del sistema'
+        elsif @participante.comida
+          flash[:notice] = 'Ya comió'
         else
-          if @participante.eliminado
-            flash[:notice] = 'Error: El participante fue eliminado del sistema'
-          else
-
-            if @participante.comida
-              flash[:notice] = 'Ya comió'
-            else
-              @participante.update_attribute(:comida, true)
-              flash[:notice] = 'Marcado'
-            end
-          end
+          @participante.update_attribute(:comida, true)
+          flash[:notice] = 'Marcado'
         end
       else
         flash[:notice] = 'Error: Número de entrada inválido'
       end
     else
       flash[:notice] = 'Ingresa el número de entrada del participante'
-    end
-
-    respond_to do |format|
-      format.html # entregarComida.html.erb
     end
   end
 
