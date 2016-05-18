@@ -1,182 +1,180 @@
-                          Prefix Verb            URI Pattern                                 Controller#Action
-                            root GET             /                                           home#inicio
-                    sessions_new GET             /sessions/new(.:format)                     sessions#new
-                     home_inicio GET             /home/inicio(.:format)                      home#inicio
-                  home_academico GET             /home/academico(.:format)                   home#academico
-                 home_patrocinio GET             /home/patrocinio(.:format)                  home#patrocinio
-                   home_reportes GET             /home/reportes(.:format)                    home#reportes
-                  materiales_pop GET             /materiales_pop(.:format)                   materiales_pop#index
-                                 POST            /materiales_pop(.:format)                   materiales_pop#create
-                new_material_pop GET             /materiales_pop/new(.:format)               materiales_pop#new
-               edit_material_pop GET             /materiales_pop/:id/edit(.:format)          materiales_pop#edit
-                    material_pop GET             /materiales_pop/:id(.:format)               materiales_pop#show
-                                 PATCH           /materiales_pop/:id(.:format)               materiales_pop#update
-                                 PUT             /materiales_pop/:id(.:format)               materiales_pop#update
-                                 DELETE          /materiales_pop/:id(.:format)               materiales_pop#destroy
-                   organizadores GET             /organizadores(.:format)                    organizadores#index
-                                 POST            /organizadores(.:format)                    organizadores#create
-                 new_organizador GET             /organizadores/new(.:format)                organizadores#new
-                edit_organizador GET             /organizadores/:id/edit(.:format)           organizadores#edit
-                     organizador GET             /organizadores/:id(.:format)                organizadores#show
-                                 PATCH           /organizadores/:id(.:format)                organizadores#update
-                                 PUT             /organizadores/:id(.:format)                organizadores#update
-                                 DELETE          /organizadores/:id(.:format)                organizadores#destroy
-                   patrocinantes GET             /patrocinantes(.:format)                    patrocinantes#index
-                                 POST            /patrocinantes(.:format)                    patrocinantes#create
-                new_patrocinante GET             /patrocinantes/new(.:format)                patrocinantes#new
-               edit_patrocinante GET             /patrocinantes/:id/edit(.:format)           patrocinantes#edit
-                    patrocinante GET             /patrocinantes/:id(.:format)                patrocinantes#show
-                                 PATCH           /patrocinantes/:id(.:format)                patrocinantes#update
-                                 PUT             /patrocinantes/:id(.:format)                patrocinantes#update
-                                 DELETE          /patrocinantes/:id(.:format)                patrocinantes#destroy
-                          planes GET             /planes(.:format)                           planes#index
-                                 POST            /planes(.:format)                           planes#create
-                        new_plan GET             /planes/new(.:format)                       planes#new
-                       edit_plan GET             /planes/:id/edit(.:format)                  planes#edit
-                            plan GET             /planes/:id(.:format)                       planes#show
-                                 PATCH           /planes/:id(.:format)                       planes#update
-                                 PUT             /planes/:id(.:format)                       planes#update
-                                 DELETE          /planes/:id(.:format)                       planes#destroy
-                       ponencias GET             /ponencias(.:format)                        ponencias#index
-                                 POST            /ponencias(.:format)                        ponencias#create
-                    new_ponencia GET             /ponencias/new(.:format)                    ponencias#new
-                   edit_ponencia GET             /ponencias/:id/edit(.:format)               ponencias#edit
-                        ponencia GET             /ponencias/:id(.:format)                    ponencias#show
-                                 PATCH           /ponencias/:id(.:format)                    ponencias#update
-                                 PUT             /ponencias/:id(.:format)                    ponencias#update
-                                 DELETE          /ponencias/:id(.:format)                    ponencias#destroy
-                        ponentes GET             /ponentes(.:format)                         ponentes#index
-                                 POST            /ponentes(.:format)                         ponentes#create
-                     new_ponente GET             /ponentes/new(.:format)                     ponentes#new
-                    edit_ponente GET             /ponentes/:id/edit(.:format)                ponentes#edit
-                         ponente GET             /ponentes/:id(.:format)                     ponentes#show
-                                 PATCH           /ponentes/:id(.:format)                     ponentes#update
-                                 PUT             /ponentes/:id(.:format)                     ponentes#update
-                                 DELETE          /ponentes/:id(.:format)                     ponentes#destroy
-                         premios GET             /premios(.:format)                          premios#index
-                                 POST            /premios(.:format)                          premios#create
-                      new_premio GET             /premios/new(.:format)                      premios#new
-                     edit_premio GET             /premios/:id/edit(.:format)                 premios#edit
-                          premio GET             /premios/:id(.:format)                      premios#show
-                                 PATCH           /premios/:id(.:format)                      premios#update
-                                 PUT             /premios/:id(.:format)                      premios#update
-                                 DELETE          /premios/:id(.:format)                      premios#destroy
-                           zonas GET             /zonas(.:format)                            zonas#index
-                                 POST            /zonas(.:format)                            zonas#create
-                        new_zona GET             /zonas/new(.:format)                        zonas#new
-                       edit_zona GET             /zonas/:id/edit(.:format)                   zonas#edit
-                            zona GET             /zonas/:id(.:format)                        zonas#show
-                                 PATCH           /zonas/:id(.:format)                        zonas#update
-                                 PUT             /zonas/:id(.:format)                        zonas#update
-                                 DELETE          /zonas/:id(.:format)                        zonas#destroy
-                        sessions POST            /sessions(.:format)                         sessions#create
-                     new_session GET             /sessions/new(.:format)                     sessions#new
-                         session DELETE          /sessions/:id(.:format)                     sessions#destroy
-                  group_sessions POST            /group_sessions(.:format)                   group_sessions#create
-               new_group_session GET             /group_sessions/new(.:format)               group_sessions#new
-                   group_session DELETE          /group_sessions/:id(.:format)               group_sessions#destroy
-                     sugerencias GET             /sugerencias(.:format)                      sugerencias#index
-                                 POST            /sugerencias(.:format)                      sugerencias#create
-                  new_sugerencia GET             /sugerencias/new(.:format)                  sugerencias#new
-                      sugerencia GET             /sugerencias/:id(.:format)                  sugerencias#show
-                                 DELETE          /sugerencias/:id(.:format)                  sugerencias#destroy
-                   perfil_grupos GET             /grupos/perfil(.:format)                    grupos#perfil
-            reiniciarClave_grupo GET             /grupos/:id/reiniciarClave(.:format)        grupos#reiniciarClave
-                          grupos GET             /grupos(.:format)                           grupos#index
-                                 POST            /grupos(.:format)                           grupos#create
-                       new_grupo GET             /grupos/new(.:format)                       grupos#new
-                           grupo GET             /grupos/:id(.:format)                       grupos#show
-                                 DELETE          /grupos/:id(.:format)                       grupos#destroy
-         sortear_mesa_de_trabajo POST            /mesas_de_trabajo/:id/sortear(.:format)     mesas_de_trabajo#sortear
-       reiniciar_mesa_de_trabajo POST            /mesas_de_trabajo/:id/reiniciar(.:format)   mesas_de_trabajo#reiniciar
-           excel_mesa_de_trabajo POST            /mesas_de_trabajo/:id/excel(.:format)       mesas_de_trabajo#excel
-                mesas_de_trabajo GET             /mesas_de_trabajo(.:format)                 mesas_de_trabajo#index
-                                 POST            /mesas_de_trabajo(.:format)                 mesas_de_trabajo#create
-             new_mesa_de_trabajo GET             /mesas_de_trabajo/new(.:format)             mesas_de_trabajo#new
-            edit_mesa_de_trabajo GET             /mesas_de_trabajo/:id/edit(.:format)        mesas_de_trabajo#edit
-                 mesa_de_trabajo GET             /mesas_de_trabajo/:id(.:format)             mesas_de_trabajo#show
-                                 PATCH           /mesas_de_trabajo/:id(.:format)             mesas_de_trabajo#update
-                                 PUT             /mesas_de_trabajo/:id(.:format)             mesas_de_trabajo#update
-                                 DELETE          /mesas_de_trabajo/:id(.:format)             mesas_de_trabajo#destroy
-               xml_participantes GET             /participantes/xml(.:format)                participantes#xml
-             excel_participantes GET             /participantes/excel(.:format)              participantes#excel
-excelPatrocinantes_participantes GET             /participantes/excelPatrocinantes(.:format) participantes#excelPatrocinantes
-   controlDeVentas_participantes GET             /participantes/controlDeVentas(.:format)    participantes#controlDeVentas
-            buscar_participantes GET             /participantes/buscar(.:format)             participantes#buscar
-     universidades_participantes GET             /participantes/universidades(.:format)      participantes#universidades
-  reiniciarComidas_participantes GET             /participantes/reiniciarComidas(.:format)   participantes#reiniciarComidas
-       infoComidas_participantes GET             /participantes/infoComidas(.:format)        participantes#infoComidas
-enviarCorreoATodos_participantes GET             /participantes/enviarCorreoATodos(.:format) participantes#enviarCorreoATodos
-    entregarComida_participantes GET             /participantes/entregarComida(.:format)     participantes#entregarComida
-                                 POST            /participantes/entregarComida(.:format)     participantes#entregarComida
-      enviarCorreo_participantes GET             /participantes/enviarCorreo(.:format)       participantes#enviarCorreo
-     validarCedula_participantes GET             /participantes/validarCedula(.:format)      participantes#validarCedula
-                   participantes GET             /participantes(.:format)                    participantes#index
-                                 POST            /participantes(.:format)                    participantes#create
-                new_participante GET             /participantes/new(.:format)                participantes#new
-               edit_participante GET             /participantes/:id/edit(.:format)           participantes#edit
-                    participante GET             /participantes/:id(.:format)                participantes#show
-                                 PATCH           /participantes/:id(.:format)                participantes#update
-                                 PUT             /participantes/:id(.:format)                participantes#update
-                                 DELETE          /participantes/:id(.:format)                participantes#destroy
-      buscar_participantes_mates GET             /participantes_mates/buscar(.:format)       participantes_mates#buscar
-    entregar_participantes_mates POST            /participantes_mates/entregar(.:format)     participantes_mates#entregar
-             participantes_mates POST            /participantes_mates(.:format)              participantes_mates#create
-           new_participante_mate GET             /participantes_mates/new(.:format)          participantes_mates#new
-      buscar_participantes_mesas GET             /participantes_mesas/buscar(.:format)       participantes_mesas#buscar
-             participantes_mesas POST            /participantes_mesas(.:format)              participantes_mesas#create
-           new_participante_mesa GET             /participantes_mesas/new(.:format)          participantes_mesas#new
-               participante_mesa GET             /participantes_mesas/:id(.:format)          participantes_mesas#show
-                                 DELETE          /participantes_mesas/:id(.:format)          participantes_mesas#destroy
-                aprobar_pregunta GET             /preguntas/:id/aprobar(.:format)            preguntas#aprobar
-        dame_preguntas_preguntas GET             /preguntas/dame_preguntas(.:format)         preguntas#dame_preguntas
-                       preguntas GET             /preguntas(.:format)                        preguntas#index
-                                 POST            /preguntas(.:format)                        preguntas#create
-                    new_pregunta GET             /preguntas/new(.:format)                    preguntas#new
-                        pregunta GET             /preguntas/:id(.:format)                    preguntas#show
-                                 DELETE          /preguntas/:id(.:format)                    preguntas#destroy
-       descargarEntrada_problema GET             /problemas/:id/descargarEntrada(.:format)   problemas#descargarEntrada
-        descargarSalida_problema GET             /problemas/:id/descargarSalida(.:format)    problemas#descargarSalida
-                       problemas GET             /problemas(.:format)                        problemas#index
-                                 POST            /problemas(.:format)                        problemas#create
-                    new_problema GET             /problemas/new(.:format)                    problemas#new
-                   edit_problema GET             /problemas/:id/edit(.:format)               problemas#edit
-                        problema GET             /problemas/:id(.:format)                    problemas#show
-                                 PATCH           /problemas/:id(.:format)                    problemas#update
-                                 PUT             /problemas/:id(.:format)                    problemas#update
-                                 DELETE          /problemas/:id(.:format)                    problemas#destroy
-                  serve_programa GET             /programas/:id/serve(.:format)              programas#serve
-          serve_privado_programa GET             /programas/:id/serve_privado(.:format)      programas#serve_privado
-                listar_programas GET             /programas/listar(.:format)                 programas#listar
-               validar_programas GET             /programas/validar(.:format)                programas#validar
-                       programas GET             /programas(.:format)                        programas#index
-                                 POST            /programas(.:format)                        programas#create
-                    new_programa GET             /programas/new(.:format)                    programas#new
-                        programa GET             /programas/:id(.:format)                    programas#show
-                                 DELETE          /programas/:id(.:format)                    programas#destroy
-                     rifar_rifas GET             /rifas/rifar(.:format)                      rifas#rifar
-          getParticipantes_rifas GET             /rifas/getParticipantes(.:format)           rifas#getParticipantes
-                                 POST            /rifas/getParticipantes(.:format)           rifas#getParticipantes
-                 setWinner_rifas POST            /rifas/setWinner(.:format)                  rifas#setWinner
-                           rifas GET             /rifas(.:format)                            rifas#index
-                                 POST            /rifas(.:format)                            rifas#create
-                        new_rifa GET             /rifas/new(.:format)                        rifas#new
-                       edit_rifa GET             /rifas/:id/edit(.:format)                   rifas#edit
-                            rifa GET             /rifas/:id(.:format)                        rifas#show
-                                 PATCH           /rifas/:id(.:format)                        rifas#update
-                                 PUT             /rifas/:id(.:format)                        rifas#update
-                                 DELETE          /rifas/:id(.:format)                        rifas#destroy
-                          ologin GET|POST        /ologin(.:format)                           sessions#new
-                         ologout GET|POST|DELETE /ologout(.:format)                          sessions#destroy
-                          glogin GET|POST        /glogin(.:format)                           group_sessions#new
-                         glogout GET|POST|DELETE /glogout(.:format)                          group_sessions#destroy
-                          perfil GET|POST        /perfil(.:format)                           grupos#perfil
-                         maraton GET|POST        /maraton(.:format)                          grupos#perfil
-                        reportes GET|POST        /reportes(.:format)                         home#reportes
-                       academico GET|POST        /academico(.:format)                        home#academico
-                      patrocinio GET|POST        /patrocinio(.:format)                       home#patrocinio
-                       preguntar GET|POST        /preguntar(.:format)                        preguntas#new
-                    ver_pregunta GET|POST        /preguntas/ver/:id(.:format)                preguntas#show
-                                 GET|POST        /preguntas/ponencia/:ponencia_id(.:format)  preguntas#index
-                 panel_preguntas GET|POST        /panel-preguntas(/:ponencia_id)(.:format)   preguntas#panel
-                                 GET|POST        /*a(.:format)                               errors#routing
+                          Prefix Verb   URI Pattern                                 Controller#Action
+                            root GET    /                                           home#inicio
+                    sessions_new GET    /sessions/new(.:format)                     sessions#new
+                     home_inicio GET    /home/inicio(.:format)                      home#inicio
+                  home_academico GET    /home/academico(.:format)                   home#academico
+                 home_patrocinio GET    /home/patrocinio(.:format)                  home#patrocinio
+                   home_reportes GET    /home/reportes(.:format)                    home#reportes
+                  materiales_pop GET    /materiales_pop(.:format)                   materiales_pop#index
+                                 POST   /materiales_pop(.:format)                   materiales_pop#create
+                new_material_pop GET    /materiales_pop/new(.:format)               materiales_pop#new
+               edit_material_pop GET    /materiales_pop/:id/edit(.:format)          materiales_pop#edit
+                    material_pop GET    /materiales_pop/:id(.:format)               materiales_pop#show
+                                 PATCH  /materiales_pop/:id(.:format)               materiales_pop#update
+                                 PUT    /materiales_pop/:id(.:format)               materiales_pop#update
+                                 DELETE /materiales_pop/:id(.:format)               materiales_pop#destroy
+                   organizadores GET    /organizadores(.:format)                    organizadores#index
+                                 POST   /organizadores(.:format)                    organizadores#create
+                 new_organizador GET    /organizadores/new(.:format)                organizadores#new
+                edit_organizador GET    /organizadores/:id/edit(.:format)           organizadores#edit
+                     organizador GET    /organizadores/:id(.:format)                organizadores#show
+                                 PATCH  /organizadores/:id(.:format)                organizadores#update
+                                 PUT    /organizadores/:id(.:format)                organizadores#update
+                                 DELETE /organizadores/:id(.:format)                organizadores#destroy
+                   patrocinantes GET    /patrocinantes(.:format)                    patrocinantes#index
+                                 POST   /patrocinantes(.:format)                    patrocinantes#create
+                new_patrocinante GET    /patrocinantes/new(.:format)                patrocinantes#new
+               edit_patrocinante GET    /patrocinantes/:id/edit(.:format)           patrocinantes#edit
+                    patrocinante GET    /patrocinantes/:id(.:format)                patrocinantes#show
+                                 PATCH  /patrocinantes/:id(.:format)                patrocinantes#update
+                                 PUT    /patrocinantes/:id(.:format)                patrocinantes#update
+                                 DELETE /patrocinantes/:id(.:format)                patrocinantes#destroy
+                          planes GET    /planes(.:format)                           planes#index
+                                 POST   /planes(.:format)                           planes#create
+                        new_plan GET    /planes/new(.:format)                       planes#new
+                       edit_plan GET    /planes/:id/edit(.:format)                  planes#edit
+                            plan GET    /planes/:id(.:format)                       planes#show
+                                 PATCH  /planes/:id(.:format)                       planes#update
+                                 PUT    /planes/:id(.:format)                       planes#update
+                                 DELETE /planes/:id(.:format)                       planes#destroy
+                       ponencias GET    /ponencias(.:format)                        ponencias#index
+                                 POST   /ponencias(.:format)                        ponencias#create
+                    new_ponencia GET    /ponencias/new(.:format)                    ponencias#new
+                   edit_ponencia GET    /ponencias/:id/edit(.:format)               ponencias#edit
+                        ponencia GET    /ponencias/:id(.:format)                    ponencias#show
+                                 PATCH  /ponencias/:id(.:format)                    ponencias#update
+                                 PUT    /ponencias/:id(.:format)                    ponencias#update
+                                 DELETE /ponencias/:id(.:format)                    ponencias#destroy
+                        ponentes GET    /ponentes(.:format)                         ponentes#index
+                                 POST   /ponentes(.:format)                         ponentes#create
+                     new_ponente GET    /ponentes/new(.:format)                     ponentes#new
+                    edit_ponente GET    /ponentes/:id/edit(.:format)                ponentes#edit
+                         ponente GET    /ponentes/:id(.:format)                     ponentes#show
+                                 PATCH  /ponentes/:id(.:format)                     ponentes#update
+                                 PUT    /ponentes/:id(.:format)                     ponentes#update
+                                 DELETE /ponentes/:id(.:format)                     ponentes#destroy
+                         premios GET    /premios(.:format)                          premios#index
+                                 POST   /premios(.:format)                          premios#create
+                      new_premio GET    /premios/new(.:format)                      premios#new
+                     edit_premio GET    /premios/:id/edit(.:format)                 premios#edit
+                          premio GET    /premios/:id(.:format)                      premios#show
+                                 PATCH  /premios/:id(.:format)                      premios#update
+                                 PUT    /premios/:id(.:format)                      premios#update
+                                 DELETE /premios/:id(.:format)                      premios#destroy
+                           zonas GET    /zonas(.:format)                            zonas#index
+                                 POST   /zonas(.:format)                            zonas#create
+                        new_zona GET    /zonas/new(.:format)                        zonas#new
+                       edit_zona GET    /zonas/:id/edit(.:format)                   zonas#edit
+                            zona GET    /zonas/:id(.:format)                        zonas#show
+                                 PATCH  /zonas/:id(.:format)                        zonas#update
+                                 PUT    /zonas/:id(.:format)                        zonas#update
+                                 DELETE /zonas/:id(.:format)                        zonas#destroy
+                        sessions POST   /sessions(.:format)                         sessions#create
+                     new_session GET    /sessions/new(.:format)                     sessions#new
+                         session DELETE /sessions/:id(.:format)                     sessions#destroy
+                  group_sessions POST   /group_sessions(.:format)                   group_sessions#create
+               new_group_session GET    /group_sessions/new(.:format)               group_sessions#new
+                   group_session DELETE /group_sessions/:id(.:format)               group_sessions#destroy
+                     sugerencias GET    /sugerencias(.:format)                      sugerencias#index
+                                 POST   /sugerencias(.:format)                      sugerencias#create
+                  new_sugerencia GET    /sugerencias/new(.:format)                  sugerencias#new
+                      sugerencia GET    /sugerencias/:id(.:format)                  sugerencias#show
+                                 DELETE /sugerencias/:id(.:format)                  sugerencias#destroy
+                   perfil_grupos GET    /grupos/perfil(.:format)                    grupos#perfil
+            reiniciarClave_grupo GET    /grupos/:id/reiniciarClave(.:format)        grupos#reiniciarClave
+                          grupos GET    /grupos(.:format)                           grupos#index
+                                 POST   /grupos(.:format)                           grupos#create
+                       new_grupo GET    /grupos/new(.:format)                       grupos#new
+                           grupo GET    /grupos/:id(.:format)                       grupos#show
+                                 DELETE /grupos/:id(.:format)                       grupos#destroy
+         sortear_mesa_de_trabajo POST   /mesas_de_trabajo/:id/sortear(.:format)     mesas_de_trabajo#sortear
+       reiniciar_mesa_de_trabajo POST   /mesas_de_trabajo/:id/reiniciar(.:format)   mesas_de_trabajo#reiniciar
+           excel_mesa_de_trabajo POST   /mesas_de_trabajo/:id/excel(.:format)       mesas_de_trabajo#excel
+                mesas_de_trabajo GET    /mesas_de_trabajo(.:format)                 mesas_de_trabajo#index
+                                 POST   /mesas_de_trabajo(.:format)                 mesas_de_trabajo#create
+             new_mesa_de_trabajo GET    /mesas_de_trabajo/new(.:format)             mesas_de_trabajo#new
+            edit_mesa_de_trabajo GET    /mesas_de_trabajo/:id/edit(.:format)        mesas_de_trabajo#edit
+                 mesa_de_trabajo GET    /mesas_de_trabajo/:id(.:format)             mesas_de_trabajo#show
+                                 PATCH  /mesas_de_trabajo/:id(.:format)             mesas_de_trabajo#update
+                                 PUT    /mesas_de_trabajo/:id(.:format)             mesas_de_trabajo#update
+                                 DELETE /mesas_de_trabajo/:id(.:format)             mesas_de_trabajo#destroy
+               xml_participantes GET    /participantes/xml(.:format)                participantes#xml
+             excel_participantes GET    /participantes/excel(.:format)              participantes#excel
+excelPatrocinantes_participantes GET    /participantes/excelPatrocinantes(.:format) participantes#excelPatrocinantes
+   controlDeVentas_participantes GET    /participantes/controlDeVentas(.:format)    participantes#controlDeVentas
+            buscar_participantes GET    /participantes/buscar(.:format)             participantes#buscar
+     universidades_participantes GET    /participantes/universidades(.:format)      participantes#universidades
+  reiniciarComidas_participantes GET    /participantes/reiniciarComidas(.:format)   participantes#reiniciarComidas
+       infoComidas_participantes GET    /participantes/infoComidas(.:format)        participantes#infoComidas
+enviarCorreoATodos_participantes GET    /participantes/enviarCorreoATodos(.:format) participantes#enviarCorreoATodos
+    entregarComida_participantes GET    /participantes/entregarComida(.:format)     participantes#entregarComida
+                                 POST   /participantes/entregarComida(.:format)     participantes#entregarComida
+      enviarCorreo_participantes GET    /participantes/enviarCorreo(.:format)       participantes#enviarCorreo
+     validarCedula_participantes GET    /participantes/validarCedula(.:format)      participantes#validarCedula
+                   participantes GET    /participantes(.:format)                    participantes#index
+                                 POST   /participantes(.:format)                    participantes#create
+                new_participante GET    /participantes/new(.:format)                participantes#new
+               edit_participante GET    /participantes/:id/edit(.:format)           participantes#edit
+                    participante GET    /participantes/:id(.:format)                participantes#show
+                                 PATCH  /participantes/:id(.:format)                participantes#update
+                                 PUT    /participantes/:id(.:format)                participantes#update
+                                 DELETE /participantes/:id(.:format)                participantes#destroy
+      buscar_participantes_mates GET    /participantes_mates/buscar(.:format)       participantes_mates#buscar
+    entregar_participantes_mates POST   /participantes_mates/entregar(.:format)     participantes_mates#entregar
+             participantes_mates POST   /participantes_mates(.:format)              participantes_mates#create
+           new_participante_mate GET    /participantes_mates/new(.:format)          participantes_mates#new
+      buscar_participantes_mesas GET    /participantes_mesas/buscar(.:format)       participantes_mesas#buscar
+             participantes_mesas POST   /participantes_mesas(.:format)              participantes_mesas#create
+           new_participante_mesa GET    /participantes_mesas/new(.:format)          participantes_mesas#new
+               participante_mesa GET    /participantes_mesas/:id(.:format)          participantes_mesas#show
+                                 DELETE /participantes_mesas/:id(.:format)          participantes_mesas#destroy
+                aprobar_pregunta GET    /preguntas/:id/aprobar(.:format)            preguntas#aprobar
+        dame_preguntas_preguntas GET    /preguntas/dame_preguntas(.:format)         preguntas#dame_preguntas
+                       preguntas GET    /preguntas(.:format)                        preguntas#index
+                                 POST   /preguntas(.:format)                        preguntas#create
+                    new_pregunta GET    /preguntas/new(.:format)                    preguntas#new
+                        pregunta GET    /preguntas/:id(.:format)                    preguntas#show
+                                 DELETE /preguntas/:id(.:format)                    preguntas#destroy
+       descargarEntrada_problema GET    /problemas/:id/descargarEntrada(.:format)   problemas#descargarEntrada
+        descargarSalida_problema GET    /problemas/:id/descargarSalida(.:format)    problemas#descargarSalida
+                       problemas GET    /problemas(.:format)                        problemas#index
+                                 POST   /problemas(.:format)                        problemas#create
+                    new_problema GET    /problemas/new(.:format)                    problemas#new
+                   edit_problema GET    /problemas/:id/edit(.:format)               problemas#edit
+                        problema GET    /problemas/:id(.:format)                    problemas#show
+                                 PATCH  /problemas/:id(.:format)                    problemas#update
+                                 PUT    /problemas/:id(.:format)                    problemas#update
+                                 DELETE /problemas/:id(.:format)                    problemas#destroy
+                  serve_programa GET    /programas/:id/serve(.:format)              programas#serve
+          serve_privado_programa GET    /programas/:id/serve_privado(.:format)      programas#serve_privado
+                listar_programas GET    /programas/listar(.:format)                 programas#listar
+               validar_programas GET    /programas/validar(.:format)                programas#validar
+                       programas GET    /programas(.:format)                        programas#index
+                                 POST   /programas(.:format)                        programas#create
+                    new_programa GET    /programas/new(.:format)                    programas#new
+                        programa GET    /programas/:id(.:format)                    programas#show
+                                 DELETE /programas/:id(.:format)                    programas#destroy
+                     rifar_rifas GET    /rifas/rifar(.:format)                      rifas#rifar
+          getParticipantes_rifas GET    /rifas/getParticipantes(.:format)           rifas#getParticipantes
+                                 POST   /rifas/getParticipantes(.:format)           rifas#getParticipantes
+                 setWinner_rifas POST   /rifas/setWinner(.:format)                  rifas#setWinner
+                           rifas GET    /rifas(.:format)                            rifas#index
+                                 POST   /rifas(.:format)                            rifas#create
+                        new_rifa GET    /rifas/new(.:format)                        rifas#new
+                       edit_rifa GET    /rifas/:id/edit(.:format)                   rifas#edit
+                            rifa GET    /rifas/:id(.:format)                        rifas#show
+                                 PATCH  /rifas/:id(.:format)                        rifas#update
+                                 PUT    /rifas/:id(.:format)                        rifas#update
+                                 DELETE /rifas/:id(.:format)                        rifas#destroy
+                       academico GET    /academico(.:format)                        home#academico
+                      patrocinio GET    /patrocinio(.:format)                       home#patrocinio
+                        reportes GET    /reportes(.:format)                         home#reportes
+                         maraton GET    /maraton(.:format)                          grupos#perfil
+                          glogin GET    /glogin(.:format)                           group_sessions#new
+                         glogout DELETE /glogout(.:format)                          group_sessions#destroy
+                          ologin GET    /ologin(.:format)                           sessions#new
+                         ologout DELETE /ologout(.:format)                          sessions#destroy
+                       preguntar GET    /preguntar(.:format)                        preguntas#new
+                                 GET    /preguntas/ponencia/:ponencia_id(.:format)  preguntas#index
+                 panel_preguntas GET    /panel-preguntas(/:ponencia_id)(.:format)   preguntas#panel
+                                 GET    /*a(.:format)                               errors#routing

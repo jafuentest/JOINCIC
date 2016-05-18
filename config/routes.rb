@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-
   root to: 'home#inicio'
+
   get 'sessions/new'
   get 'home/inicio'
   get 'home/academico'
@@ -84,21 +84,19 @@ Rails.application.routes.draw do
     end
   end
 
-  match '/ologin',     to: 'sessions#new',           via: [:get, :post]
-  match '/ologout',    to: 'sessions#destroy',       via: [:get, :post, :delete]
-  match '/glogin',     to: 'group_sessions#new',     via: [:get, :post]
-  match '/glogout',    to: 'group_sessions#destroy', via: [:get, :post, :delete]
-  match '/perfil',     to: 'grupos#perfil',          via: [:get, :post]
-  match '/maraton',    to: 'grupos#perfil',          via: [:get, :post]
-  match '/reportes',   to: 'home#reportes',          via: [:get, :post]
-  match '/academico',  to: 'home#academico',         via: [:get, :post]
-  match '/patrocinio', to: 'home#patrocinio',        via: [:get, :post]
+  get    '/academico'  => 'home#academico'
+  get    '/patrocinio' => 'home#patrocinio'
+  get    '/reportes'   => 'home#reportes'
+  get    '/maraton'    => 'grupos#perfil'
+  get    '/glogin'     => 'group_sessions#new'
+  delete '/glogout'    => 'group_sessions#destroy'
+  get    '/ologin'     => 'sessions#new'
+  delete '/ologout'    => 'sessions#destroy'
 
   #Sub-Sistema de Preguntas
-  match '/preguntar',         to: 'preguntas#new', via: [:get, :post]
-  match '/preguntas/ver/:id', to: 'preguntas#show', as: :ver_pregunta, via: [:get, :post]
-  match '/preguntas/ponencia/:ponencia_id(.:format)', to: 'preguntas#index', via: [:get, :post]
-  match '/panel-preguntas(/:ponencia_id)', to: 'preguntas#panel', as: :panel_preguntas, via: [:get, :post]
+  get '/preguntar' => 'preguntas#new'
+  get '/preguntas/ponencia/:ponencia_id(.:format)' => 'preguntas#index'
+  get '/panel-preguntas(/:ponencia_id)' => 'preguntas#panel', as: :panel_preguntas
 
-  match '*a', to: 'errors#routing', via: [:get, :post]
+  get '*a' => 'errors#routing'
 end
