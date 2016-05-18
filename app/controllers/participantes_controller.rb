@@ -131,11 +131,9 @@ class ParticipantesController < ApplicationController
   # GET /participantes/reiniciarComidas
   # GET /participantes/reiniciarComidas.json
   def reiniciarComidas
-    Participante.find(:all, conditions: { comida: true }).each do |p|
-      p.update_attribute(:comida, false)
-    end
+    Participante.update_all(comida: false)
     respond_to do |format|
-      format.html { redirect_to entregarComida_participantes_path, notice:  'El control de comidas ha sido reiniciado con éxito.' }
+      format.html { redirect_to entregarComida_participantes_path, notice: 'El control de comidas ha sido reiniciado con éxito.' }
       format.json { head :ok }
     end
   end
@@ -163,7 +161,7 @@ class ParticipantesController < ApplicationController
         flash[:notice] = 'Error: Número de entrada inválido'
       end
     else
-      flash[:notice] = 'Ingresa el número de entrada del participante'
+      flash[:notice] = 'Ingresa el número de entrada del participante' unless flash[:notice]
     end
   end
 
@@ -256,7 +254,7 @@ class ParticipantesController < ApplicationController
   # GET /participantes/new.json
   def new
     @participante = Participante.new
-    @zonas = getZonasDisponibles
+    @zonas = zonasDisponibles
     respond_to do |format|
       format.html # new.html.erb
     end
@@ -272,7 +270,7 @@ class ParticipantesController < ApplicationController
     else
       @participante = Participante.find(params[:id])
       unless session[:organizador].nil?
-        @zonas = getZonasDisponiblesEdit(@participante.zona)
+        @zonas = zonasDisponiblesEdit(@participante.zona)
       end
     end
   end
@@ -282,7 +280,7 @@ class ParticipantesController < ApplicationController
   def create
     @participante = Participante.new(participante_params)
     @participante[:organizador_id] = session[:usuario_id]
-    @zonas = getZonasDisponibles
+    @zonas = zonasDisponibles
     respond_to do |format|
       if @participante.save
         # UserMailer.enviarHash(@participante).deliver
@@ -319,7 +317,7 @@ class ParticipantesController < ApplicationController
       #END
 
       @participante = Participante.find(params[:id])
-      @zonas = getZonasDisponiblesEdit @participante.zona
+      @zonas = zonasDisponiblesEdit @participante.zona
 
       #BEGIN Respaldo de los datos anteriores del participante
       registro += "-------------------------------\n"
@@ -391,7 +389,7 @@ class ParticipantesController < ApplicationController
     %w[asc desc].include?(params[:direction]) ? params[:direction] : 'asc'
   end
 
-  def getZonasDisponibles
+  def zonasDisponibles
     zonas = Zona.all
     zonasDisponibles = []
 
@@ -402,7 +400,7 @@ class ParticipantesController < ApplicationController
     zonasDisponibles
   end
 
-  def getZonasDisponiblesEdit(zona)
+  def zonasDisponiblesEdit(zona)
     zonas = Zona.all
     zonasDisponibles = []
 
@@ -412,8 +410,6 @@ class ParticipantesController < ApplicationController
 
     zonasDisponibles
   end
-
-  private
 
   def participante_params
     params.require(:participante).permit(
