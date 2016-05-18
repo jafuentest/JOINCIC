@@ -44,11 +44,10 @@ class ParticipantesController < ApplicationController
   # GET /participantes/enviarHashAll
   # GET /participantes/enviarHashAll.json
   def enviarCorreoATodos
-    str='<hr/>'
+    str = '<hr>'
     participantes = getParticipantesFull
     participantes.each do |p|
-      str+=p.nombreCompleto
-      str+='<br/>'
+      str += "#{p.nombreCompleto}<br>"
       UserMailer.enviarHash(p).deliver
     end
     render text: str
@@ -60,24 +59,18 @@ class ParticipantesController < ApplicationController
       if params[:cedula] =~ numero_regex
         @participante = Participante.find_by_cedula(params[:cedula])
         if @participante.nil?
-          flash[:notice] = 'No se encontró ningún participante cuya cédula sea:<br/>'.html_safe + params[:cedula]
+          flash[:notice] = 'No se encontró ningún participante cuya cédula sea:<br>'.html_safe + params[:cedula]
+        elsif @participante.eliminado
+          flash[:notice] = 'Error: El participante fue eliminado del sistema'
         else
-          if @participante.eliminado
-            flash[:notice] = 'Error: El participante fue eliminado del sistema'
-          else
-            flash[:notice] = 'Correo enviado'
-            UserMailer.enviarHash(@participante).deliver
-          end
+          flash[:notice] = 'Correo enviado'
+          UserMailer.enviarHash(@participante).deliver
         end
       else
         flash[:notice] = 'Error: Número de cédula inválido'
       end
     else
       flash[:notice] = 'Ingresa el número de cédula del participante'
-    end
-
-    respond_to do |format|
-      format.html # entregarComida.html.erb
     end
   end
 
