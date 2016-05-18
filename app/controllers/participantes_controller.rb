@@ -91,28 +91,28 @@ class ParticipantesController < ApplicationController
   def controlDeVentas
     @participantes = Participante.count
     @fechas = []
-    dias = Participante.group('date(convert_tz(created_at,\'+0:00\',\'-4:30\'))')
+    dias = Participante.pluck('date(convert_tz(created_at,"+0:00","-4:00"))')
     dias.each do |d|
-      fecha = d.created_at.to_date
+      fecha = d.to_date
       dia = { fecha: fecha.strftime('%b - %d') }
-      ventasDelDia = Participante.find(:all, conditions: ['date(convert_tz(created_at,\'+0:00\',\'-4:30\')) >= ? AND date(convert_tz(created_at,\'+0:00\',\'-4:30\')) <= ?', fecha, fecha])
+      ventasDelDia = Participante.where('date(convert_tz(created_at,"+0:00","-4:00")) >= ? AND date(convert_tz(created_at,"+0:00","-4:00")) <= ?', fecha, fecha)
         dia[:UCAB]   = ventasDelDia.count{ |p| p.organizador.institucion == 'UCAB'  unless p.organizador.nil? }
         dia[:UCV]    = ventasDelDia.count{ |p| p.organizador.institucion == 'UCV'   unless p.organizador.nil? }
         dia[:UNEFA]  = ventasDelDia.count{ |p| p.organizador.institucion == 'UNEFA' unless p.organizador.nil? }
         dia[:USB]    = ventasDelDia.count{ |p| p.organizador.institucion == 'USB'   unless p.organizador.nil? }
       @fechas << dia
     end
-    entradasVendidas  = Participante.find(:all, conditions: ['date(convert_tz(created_at,\'+0:00\',\'-4:30\')) <= ?', '2013-05-17'])
+    entradasVendidas  = Participante.where("date(convert_tz(created_at,'+0:00','-4:00')) <= ?", '2013-05-17')
     @totalPreventa = 0
-    @unisPreventa = [ { nombre: 'UCAB' }, { nombre: 'UCV' }, { nombre: 'UNEFA' }, { nombre: 'USB' } ]
+    @unisPreventa = [{ nombre: 'UCAB' }, { nombre: 'UCV' }, { nombre: 'UNEFA' }, { nombre: 'USB' }]
     @unisPreventa.each do |u|
       entradasPorUni = entradasVendidas.count{ |p| p.organizador.institucion == u[:nombre] }
       u[:totalEntradas] = entradasPorUni
       u[:totalIngreso]  = entradasPorUni * 250
       @totalPreventa = @totalPreventa + u[:totalIngreso]
     end
-    entradasVendidas  = Participante.find(:all, conditions: ['date(convert_tz(created_at,\'+0:00\',\'-4:30\')) > ?', '2013-05-17'])
-    @unisVenta = [ { nombre: 'UCAB' }, { nombre: 'UCV' }, { nombre: 'UNEFA' }, { nombre: 'USB' } ]
+    entradasVendidas  = Participante.where("date(convert_tz(created_at,'+0:00','-4:00')) > ?", '2013-05-17')
+    @unisVenta = [{ nombre: 'UCAB' }, { nombre: 'UCV' }, { nombre: 'UNEFA' }, { nombre: 'USB' }]
     @unisVenta.each do |u|
       entradasPorUni = entradasVendidas.count{ |p| p.organizador.institucion == u[:nombre] unless p.organizador.nil?}
       u[:totalEntradas] = entradasPorUni
