@@ -3,7 +3,7 @@ class ParticipantesController < ApplicationController
 
   skip_before_filter :organizadorLogin, only: [:edit, :update, :show, :enviarCorreo, :validarCedula]
 
-  layout 'application', except: [:excel, :excelPatrocinantes]
+  layout false, only: [:excel, :excelPatrocinantes]
 
   helper_method :sort_column, :sort_direction
 
