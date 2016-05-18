@@ -84,13 +84,13 @@ class ParticipantesController < ApplicationController
   # GET /participantes/universidades
   # GET /participantes/universidades.json
   def universidades
-    unis = []
-    instituciones = Participante.find(:all, group: :institucion)
+    @universidades = []
+    instituciones = Participante.select(:institucion).distinct
     instituciones.each do |ins|
-      participantes = Participante.count(:all, conditions: { institucion: ins.institucion } )
-      unis << { nombre: ins.institucion, participantes: participantes }
+      participantes = Participante.where(institucion: ins.institucion).count
+      @universidades << { nombre: ins.institucion, participantes: participantes }
     end
-    @universidades = unis.sort_by { |h| h[:participantes] }.reverse!
+    @universidades.sort_by { |u| u[:participantes] }.reverse!
   end
 
   # GET /participantes/controlDeVentas
