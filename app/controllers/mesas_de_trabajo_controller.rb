@@ -1,15 +1,12 @@
 class MesasDeTrabajoController < ApplicationController
   skip_before_filter :organizadorLogin, only: [:index, :show]
-  before_action :set_resource, only: [:show, :edit, :update, :destroy]
+  before_action :set_mesa_de_trabajo, only: [:show, :edit, :update, :destroy, :reiniciar, :sortear]
 
   layout 'application', except: [:excel]
 
-  # POST /mesas_de_trabajo
-  # POST /mesas_de_trabajo.json
+  # POST /mesas_de_trabajo/sortear
+  # POST /mesas_de_trabajo/sortear.json
   def sortear
-    @mesa_de_trabajo = MesaDeTrabajo.find(params[:id])
-    inscripciones = @mesa_de_trabajo.participantes_mesas
-
     # Obtener la maxima cantidad de veces que un participante ha quedado
     # seleccionado en mesas de trabajo
     participantes = Participante.all
@@ -24,7 +21,7 @@ class MesasDeTrabajoController < ApplicationController
     participantes = []
     for i in 0..max
       temp = []
-      inscripciones.each do |ins|
+      @mesa_de_trabajo.participantes_mesas.each do |ins|
         temp << ins if ins.participante.numeroDeMesasGanadas == i
       end
       participantes += temp.shuffle
@@ -42,9 +39,10 @@ class MesasDeTrabajoController < ApplicationController
     redirect_to @mesa_de_trabajo
   end
 
+  # POST /mesas_de_trabajo/reiniciar
+  # POST /mesas_de_trabajo/reiniciar.json
   def reiniciar
-    inscripciones = ParticipanteMesa.all(conditions: { mesa_de_trabajo_id: params[:id] })
-    inscripciones.each do |inscripcion|
+    @mesa_de_trabajo.participantes_mesas.each do |inscripcion|
       inscripcion.update_attributes(puesto: nil, seleccionado: nil)
     end
     @mesa_de_trabajo = MesaDeTrabajo.find(params[:id])
@@ -66,7 +64,7 @@ class MesasDeTrabajoController < ApplicationController
   # GET /mesas_de_trabajo/1
   # GET /mesas_de_trabajo/1.json
   def show
-    @participantes = ParticipanteMesa.find(:all, order: 'puesto', conditions: { mesa_de_trabajo_id: params[:id] })
+    @participantes = @mesa_de_trabajo.participantes_mesas.order(:puesto)
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @mesa_de_trabajo.to_json(include: [:ponente]) }
@@ -77,8 +75,8 @@ class MesasDeTrabajoController < ApplicationController
   # GET /mesas_de_trabajo/new.json
   def new
     @mesa_de_trabajo = MesaDeTrabajo.new
-    @patrocinantes = Patrocinante.all(order: :nombre)
-    @ponentes = Ponente.all(order: :nombre)
+    @patrocinantes = Patrocinante.order(:nombre)
+    @ponentes = Ponente.order(:nombre)
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @mesa_de_trabajo }
@@ -87,8 +85,8 @@ class MesasDeTrabajoController < ApplicationController
 
   # GET /mesas_de_trabajo/1/edit
   def edit
-    @patrocinantes = Patrocinante.all(order: :nombre)
-    @ponentes = Ponente.all(order: :nombre)
+    @patrocinantes = Patrocinante.order(:nombre)
+    @ponentes = Ponente.order(:nombre)
   end
 
   # POST /mesas_de_trabajo
@@ -100,8 +98,8 @@ class MesasDeTrabajoController < ApplicationController
         format.html { redirect_to @mesa_de_trabajo, notice: 'Mesa de trabajo was successfully created.' }
         format.json { render json: @mesa_de_trabajo, status: :created, location: @mesa_de_trabajo }
       else
-        @patrocinantes = Patrocinante.all(order: :nombre)
-        @ponentes = Ponente.all(order: :nombre)
+        @patrocinantes = Patrocinante.order(:nombre)
+        @ponentes = Ponente.order(:nombre)
         format.html { render 'new.html.erb' }
         format.json { render json: @mesa_de_trabajo.errors, status: :unprocessable_entity }
       end
@@ -111,8 +109,8 @@ class MesasDeTrabajoController < ApplicationController
   # PUT /mesas_de_trabajo/1
   # PUT /mesas_de_trabajo/1.json
   def update
-    @patrocinantes = Patrocinante.all(order: :nombre)
-    @ponentes = Ponente.all(order: :nombre)
+    @patrocinantes = Patrocinante.order(:nombre)
+    @ponentes = Ponente.order(:nombre)
     respond_to do |format|
       if @mesa_de_trabajo.update_attributes(mesa_de_trabajo_params)
         format.html { redirect_to @mesa_de_trabajo,notice: 'Mesa de Trabajo actualizada con éxito.' }
@@ -138,18 +136,19 @@ class MesasDeTrabajoController < ApplicationController
     headers['Content-Type'] = 'application/vnd.ms-excel'
     headers['Content-Disposition'] = 'attachment; filename="participantes.xls"'
     headers['Cache-Control'] = ''
-    @participantes = ParticipanteMesa.find :all, conditions: { mesa_de_trabajo_id: params[:id] }, order: 'puesto'
+    @participantes = @mesa_de_trabajo.participantes_mesas.order(:puesto)
   end
 
   private
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def mesa_de_trabajo_params
-    params.require(:mesa_de_trabajo).permit(:nombre, :capacidad)
+    params.require(:mesa_de_trabajo).permit(:titulo, :tema, :descripcion, :dia, :hora_ini,
+      :hora_fin, :lugar, :capacidad, :requerimientos, :sorteada, :ponente_id, :patrocinante_id)
   end
 
   # Use callbacks to share common setup or constraints between actions.
-  def set_zona
+  def set_mesa_de_trabajo
     @mesa_de_trabajo = MesaDeTrabajo.find(params[:id])
   end
 end
