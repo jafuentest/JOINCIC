@@ -1,8 +1,8 @@
 class MesasDeTrabajoController < ApplicationController
   skip_before_filter :organizadorLogin, only: [:index, :show]
-  before_action :set_mesa_de_trabajo, only: [:show, :edit, :update, :destroy, :reiniciar, :sortear]
+  before_action :set_mesa_de_trabajo, only: [:show, :edit, :update, :destroy, :reiniciar, :sortear, :excel]
 
-  layout 'application', except: [:excel]
+  layout false, only: [:excel]
 
   # POST /mesas_de_trabajo/sortear
   # POST /mesas_de_trabajo/sortear.json
