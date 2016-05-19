@@ -184,9 +184,9 @@ ActiveRecord::Schema.define(version: 20160516031042) do
   end
 
   create_table "rifas", force: :cascade do |t|
-    t.string  "nombre",  limit: 20, null: false
-    t.integer "ammount", limit: 4,  null: false
-    t.integer "limit",   limit: 4
+    t.string  "nombre", limit: 20, null: false
+    t.integer "amount", limit: 4,  null: false
+    t.integer "limit",  limit: 4
   end
 
   create_table "sugerencias", force: :cascade do |t|
