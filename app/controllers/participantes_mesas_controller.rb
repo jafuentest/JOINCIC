@@ -9,27 +9,28 @@ class ParticipantesMesasController < ApplicationController
     error = ''
     cedula = params[:cedula]
 
-    unless cedula =~ numero_regex
-      error = 'Error: Número de cédula inválido'
-      cedula = ''
-    end
-
-    unless params.has_key?(:cedula) && cedula != ''
+    if params.has_key?(:cedula) && cedula != ''
+      if cedula =~ numero_regex
+        @participante = Participante.find_by_cedula(cedula)
+        if @participante.nil?
+          error = 'No se encontró ningún participante cuyo número de cédula sea: ' + cedula
+        elsif @participante.eliminado
+          error = 'Error: El participante fue eliminado del sistema'
+        else
+          @mesas_de_trabajo = mesasDisponibles
+          @participante_mesa = ParticipanteMesa.new
+        end
+      else
+        error = 'Error: Número de cédula inválido'
+        cedula = ''
+      end
+    else
       error = 'Ingresa el número de cédula del participante'
     end
 
-    @participante = Participante.find_by_cedula(cedula)
-    if @participante.nil?
-      error = 'No se encontró ningún participante cuyo número de cédula sea: ' + cedula
-    elsif @participante.eliminado
-      error = 'Error: El participante fue eliminado del sistema'
-    else
-      @mesas_de_trabajo = mesasDisponibles
-      @participante_mesa = ParticipanteMesa.new
-    end
     respond_to do |format|
       if error == ''
-        format.html { render 'new.html.erb' }
+        format.html { render 'new' }
       else
         flash[:notice] = error
         format.html { redirect_to buscar_participantes_mesas_path }
@@ -45,8 +46,11 @@ class ParticipantesMesasController < ApplicationController
     existe = ParticipanteMesa.find_by_participante_id_and_mesa_de_trabajo_id(p_id, m_id)
     respond_to do |format|
       if existe
+        @participante_mesa = ParticipanteMesa.new(participante_mesa_params)
+        @mesas_de_trabajo = mesasDisponibles
+        @participante = Participante.find(p_id)
         flash[:notice] = 'El participante ya se encuentra registrado para esta mesa'
-        format.html { render 'new.html.erb' }
+        format.html { render 'new' }
         format.json { head :conflict }
       else
         @participante_mesa = ParticipanteMesa.new(participante_mesa_params)
@@ -59,7 +63,7 @@ class ParticipantesMesasController < ApplicationController
         else
           error = 'Ha ocurrido un error'
           flash[:notice] = error
-          format.html { render 'new.html.erb' }
+          format.html { render 'new' }
           format.json { head :error }
         end
       end
@@ -78,22 +82,30 @@ class ParticipantesMesasController < ApplicationController
   # DELETE /participantes_mesas/1
   # DELETE /participantes_mesas/1.json
   def destroy
-    cedula = @participante_mesa.participante.cedula
+    @mesas_de_trabajo = mesasDisponibles
+    @participante = @participante_mesa.participante
     @participante_mesa.destroy
+    flash[:notice] = 'Inscripción eliminada con éxito'
+    
     respond_to do |format|
-      format.html { redirect_to controller: 'participantes_mesas', action: 'new', entrada: entrada }
+      format.html { render 'new' }
       format.json { head :ok }
     end
   end
 
-  def mesasDisponibles
-    MesaDeTrabajo.find(:all, conditions: { sorteada: false })
-  end
-
   private
+
+  def mesasDisponibles
+    MesaDeTrabajo.where(sorteada: false)
+  end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def participante_mesa_params
     params.require(:participante_mesa).permit(:participante_id, :mesa_de_trabajo_id)
+  end
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_participante_mesa
+    @participante_mesa = ParticipanteMesa.find(params[:id])
   end
 end
