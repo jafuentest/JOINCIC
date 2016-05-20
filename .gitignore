@@ -10,6 +10,9 @@
 # Archivos de sublime
 /*.sublime-*
 
+# Archivos temporales
+*~
+
 # Configuración de la BDD y ambiente de producción
 /config/database.yml
 /config/environments/production.rb
