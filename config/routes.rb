@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get 'home/patrocinio'
   get 'home/reportes'
 
-  resources :materiales_pop, :organizadores, :patrocinantes, :planes, :ponencias, :ponentes, :premios, :zonas
+  resources :materiales_pop, :organizadores, :patrocinantes, :ponencias, :ponentes, :premios, :zonas
   resources :sessions,       only: [:new, :create, :destroy]
   resources :group_sessions, only: [:new, :create, :destroy]
   resources :sugerencias,    except: [:edit, :update]
