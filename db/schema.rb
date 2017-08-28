@@ -13,6 +13,12 @@
 
 ActiveRecord::Schema.define(version: 20160516031042) do
 
+  create_table "comidas", id: false, force: :cascade do |t|
+    t.integer "cedula",   limit: 4,  null: false
+    t.string  "nombre",   limit: 15, null: false
+    t.string  "apellido", limit: 15, null: false
+  end
+
   create_table "grupos", force: :cascade do |t|
     t.string "login", limit: 20, null: false
     t.string "clave", limit: 20, null: false
@@ -28,6 +34,13 @@ ActiveRecord::Schema.define(version: 20160516031042) do
 
   create_table "jo_topic", primary_key: "jo_topic_id", force: :cascade do |t|
     t.integer "jo_topic_value", limit: 4, null: false
+  end
+
+  create_table "lista_comidas", id: false, force: :cascade do |t|
+    t.integer "cedula",   limit: 4,  null: false
+    t.string  "nombre",   limit: 15, null: false
+    t.string  "apellido", limit: 15, null: false
+    t.integer "zona_id",  limit: 4,  null: false
   end
 
   create_table "materiales_pop", force: :cascade do |t|
@@ -56,7 +69,7 @@ ActiveRecord::Schema.define(version: 20160516031042) do
     t.string  "nombre",       limit: 15,                 null: false
     t.string  "apellido",     limit: 15,                 null: false
     t.string  "correo",       limit: 50,                 null: false
-    t.string  "institucion",  limit: 5,                  null: false
+    t.string  "institucion",  limit: 7,                  null: false
     t.string  "coordinacion", limit: 15,                 null: false
     t.boolean "coordinador",             default: false, null: false
     t.string  "seg_nombre",   limit: 15
@@ -78,11 +91,11 @@ ActiveRecord::Schema.define(version: 20160516031042) do
     t.integer  "zona_id",            limit: 4,                   null: false
     t.integer  "entrada",            limit: 4,                   null: false
     t.boolean  "comida",                         default: false, null: false
-    t.boolean  "eliminado",                      default: false, null: false
     t.datetime "created_at",                                     null: false
     t.string   "seg_nombre",         limit: 15
     t.string   "seg_apellido",       limit: 15
     t.integer  "deposito",           limit: 4
+    t.boolean  "eliminado",                      default: false
     t.integer  "grupo_id",           limit: 4
     t.string   "carrera",            limit: 255
     t.boolean  "esEstudiante"
@@ -94,6 +107,9 @@ ActiveRecord::Schema.define(version: 20160516031042) do
     t.string   "nacionalidad",       limit: 255
   end
 
+  add_index "participantes", ["cedula"], name: "cedula", unique: true, using: :btree
+  add_index "participantes", ["correo"], name: "correo", unique: true, using: :btree
+
   create_table "participantes_mates", force: :cascade do |t|
     t.integer "participante_id", limit: 4,                 null: false
     t.integer "material_pop_id", limit: 4,                 null: false
@@ -101,10 +117,10 @@ ActiveRecord::Schema.define(version: 20160516031042) do
   end
 
   create_table "participantes_mesas", force: :cascade do |t|
-    t.integer  "participante_id",    limit: 4,                 null: false
-    t.integer  "mesa_de_trabajo_id", limit: 4,                 null: false
-    t.boolean  "seleccionado",                 default: false, null: false
-    t.datetime "created_at",                                   null: false
+    t.integer  "participante_id",    limit: 4, null: false
+    t.integer  "mesa_de_trabajo_id", limit: 4, null: false
+    t.boolean  "seleccionado"
+    t.datetime "created_at",                   null: false
     t.integer  "puesto",             limit: 4
   end
 
@@ -143,8 +159,8 @@ ActiveRecord::Schema.define(version: 20160516031042) do
   create_table "ponentes", force: :cascade do |t|
     t.string "nombre",       limit: 15, null: false
     t.string "apellido",     limit: 15, null: false
-    t.string "telefono",     limit: 11, null: false
-    t.string "correo",       limit: 50, null: false
+    t.string "telefono",     limit: 11
+    t.string "correo",       limit: 50
     t.string "institucion",  limit: 20, null: false
     t.string "seg_nombre",   limit: 15
     t.string "seg_apellido", limit: 15
@@ -197,8 +213,8 @@ ActiveRecord::Schema.define(version: 20160516031042) do
   end
 
   create_table "zonas", force: :cascade do |t|
-    t.string  "nombre",    limit: 10, null: false
-    t.integer "capacidad", limit: 4,  null: false
+    t.string  "nombre",    limit: 100, null: false
+    t.integer "capacidad", limit: 4,   null: false
   end
 
 end
