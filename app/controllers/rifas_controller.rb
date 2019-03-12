@@ -1,5 +1,6 @@
 class RifasController < ApplicationController
   skip_before_filter :organizadorLogin, only: [:getParticipantes, :setWinner]
+  skip_before_filter :verify_authenticity_token, only: [:setWinner]
   before_action :set_rifa, only: [:show, :edit, :update, :destroy]
 
   layout 'movil', only: [:rifar]
@@ -90,7 +91,7 @@ class RifasController < ApplicationController
   # POST /rifas/getParticipantes.json
   # POST /rifas/getParticipantes.html
   def getParticipantes
-    @rifa = Rifa.find(rifa_params)
+    @rifa = Rifa.find(params[:rifa])
     if @rifa.limit.nil?
       if ParticipanteRifa.all.empty?
         @participantes = Participante.all

@@ -1,4 +1,5 @@
 class ParticipantesMesasController < ApplicationController
+  skip_before_filter :verify_authenticity_token, only: [:create]
   skip_before_filter :organizadorLogin, only: [:create, :new]
   before_action :set_participante_mesa, only: [:show, :destroy]
 
@@ -41,8 +42,8 @@ class ParticipantesMesasController < ApplicationController
   # POST /participantes_mesas
   # POST /participantes_mesas.json
   def create
-    p_id = params[:participante_mesa][:participante_id]
-    m_id = params[:participante_mesa][:mesa_de_trabajo_id]
+    p_id = participante_mesa_params[:participante_id]
+    m_id = participante_mesa_params[:mesa_de_trabajo_id]
     existe = ParticipanteMesa.find_by_participante_id_and_mesa_de_trabajo_id(p_id, m_id)
     respond_to do |format|
       if existe
