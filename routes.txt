@@ -29,14 +29,6 @@
                                  PATCH  /patrocinantes/:id(.:format)                patrocinantes#update
                                  PUT    /patrocinantes/:id(.:format)                patrocinantes#update
                                  DELETE /patrocinantes/:id(.:format)                patrocinantes#destroy
-                          planes GET    /planes(.:format)                           planes#index
-                                 POST   /planes(.:format)                           planes#create
-                        new_plan GET    /planes/new(.:format)                       planes#new
-                       edit_plan GET    /planes/:id/edit(.:format)                  planes#edit
-                            plan GET    /planes/:id(.:format)                       planes#show
-                                 PATCH  /planes/:id(.:format)                       planes#update
-                                 PUT    /planes/:id(.:format)                       planes#update
-                                 DELETE /planes/:id(.:format)                       planes#destroy
                        ponencias GET    /ponencias(.:format)                        ponencias#index
                                  POST   /ponencias(.:format)                        ponencias#create
                     new_ponencia GET    /ponencias/new(.:format)                    ponencias#new
